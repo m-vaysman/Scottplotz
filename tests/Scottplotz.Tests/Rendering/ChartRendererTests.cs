@@ -60,15 +60,20 @@ public sealed class ChartRendererTests
     [Fact]
     public void Matches_the_golden_hashes()
     {
-        var actual = new Dictionary<string, string>
+        if (!OperatingSystem.IsWindows())
+            throw Xunit.Sdk.SkipException.ForSkip(
+                "Golden hashes are captured on Windows. ScottPlot text layout differs on Linux.");
+
+        var images = new Dictionary<string, byte[]>
         {
-            ["line"] = Hash(Render(LineTable(), title: "Numbers")),
-            ["bar"] = Hash(Render(BarTable(), title: "Fruit")),
-            ["scatter"] = Hash(Render(ScatterTable(), title: "Points")),
-            ["histogram"] = Hash(Render(HistogramTable(), title: "Readings")),
-            ["timeseries"] = Hash(Render(TimeTable(), title: "Price")),
-            ["pie"] = Hash(Render(BarTable(), ChartKind.Pie, "Fruit"))
+            ["line"] = Render(LineTable(), title: "Numbers"),
+            ["bar"] = Render(BarTable(), title: "Fruit"),
+            ["scatter"] = Render(ScatterTable(), title: "Points"),
+            ["histogram"] = Render(HistogramTable(), title: "Readings"),
+            ["timeseries"] = Render(TimeTable(), title: "Price"),
+            ["pie"] = Render(BarTable(), ChartKind.Pie, "Fruit")
         };
+        var actual = images.ToDictionary(pair => pair.Key, pair => Hash(pair.Value), StringComparer.Ordinal);
 
         var expected = new Dictionary<string, string>
         {
@@ -80,7 +85,26 @@ public sealed class ChartRendererTests
             ["pie"] = "f2562473715f5f2815e12923b4a057fd0e65e1876a2a0bcbbde3a122bc4da844"
         };
 
-        Assert.Equal(expected, actual);
+        try
+        {
+            Assert.Equal(expected, actual);
+        }
+        catch (Xunit.Sdk.XunitException)
+        {
+            SaveMismatches(images, actual);
+            throw;
+        }
+    }
+
+    private static void SaveMismatches(IReadOnlyDictionary<string, byte[]> images, IReadOnlyDictionary<string, string> hashes)
+    {
+        var folder = Path.Combine(Directory.GetCurrentDirectory(), "TestResults", "golden");
+        Directory.CreateDirectory(folder);
+        foreach (var (name, png) in images)
+            File.WriteAllBytes(Path.Combine(folder, $"{name}.png"), png);
+        File.WriteAllLines(
+            Path.Combine(folder, "hashes.txt"),
+            hashes.Select(pair => $"{pair.Key} {pair.Value}"));
     }
 
     private static byte[] Render(ChartTable table, ChartKind? type = null, string? title = null, ChartTheme theme = ChartTheme.Light)
