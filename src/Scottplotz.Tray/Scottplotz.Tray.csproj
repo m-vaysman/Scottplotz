@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyName>Scottplotz.Tray</AssemblyName>
+    <RootNamespace>Scottplotz.Tray</RootNamespace>
+    <ApplicationIcon>Scottplotz.ico</ApplicationIcon>
+    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <ProjectReference Include="..\Scottplotz\Scottplotz.csproj" />
+  </ItemGroup>
+
+  <Target Name="RenamePublishedExe" AfterTargets="Publish">
+    <Move SourceFiles="$(PublishDir)Scottplotz.Tray.exe" DestinationFiles="$(PublishDir)Scottplotz.exe" Condition="Exists('$(PublishDir)Scottplotz.Tray.exe')" />
+  </Target>
+
+</Project>
