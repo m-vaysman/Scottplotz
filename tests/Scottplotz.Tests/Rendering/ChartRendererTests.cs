@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Security.Cryptography;
 using Scottplotz.Charting;
 using Scottplotz.Rendering;
@@ -34,6 +35,26 @@ public sealed class ChartRendererTests
         var dark = Render(LineTable(), title: "Numbers", theme: ChartTheme.Dark);
 
         Assert.NotEqual(Hash(light), Hash(dark));
+    }
+
+    [Fact]
+    public void A_comma_culture_renders_the_same_bytes()
+    {
+        var invariant = Render(LineTable(), title: "Numbers");
+        var previous = CultureInfo.CurrentCulture;
+        var previousUi = CultureInfo.CurrentUICulture;
+        var german = CultureInfo.GetCultureInfo("de-DE");
+        CultureInfo.CurrentCulture = german;
+        CultureInfo.CurrentUICulture = german;
+        try
+        {
+            Assert.Equal(invariant, Render(LineTable(), title: "Numbers"));
+        }
+        finally
+        {
+            CultureInfo.CurrentCulture = previous;
+            CultureInfo.CurrentUICulture = previousUi;
+        }
     }
 
     [Fact]

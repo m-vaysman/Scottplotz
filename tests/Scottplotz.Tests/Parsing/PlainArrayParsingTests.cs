@@ -1,4 +1,3 @@
-using System.Globalization;
 using Scottplotz.Charting;
 
 namespace Scottplotz.Tests.Parsing;
@@ -15,23 +14,6 @@ public sealed class PlainArrayParsingTests
         var column = Assert.IsType<Column.Numeric>(Assert.Single(table.Columns));
         Assert.Null(column.Name);
         Assert.Equal([1d, 3d, 2.5d], column.Values);
-    }
-
-    [Fact]
-    public void Uses_invariant_culture_when_the_thread_culture_uses_commas()
-    {
-        var previous = CultureInfo.CurrentCulture;
-        CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("de-DE");
-        try
-        {
-            var table = ParseAssert.Ok("""{ "data": [1.5] }""");
-            var column = Assert.IsType<Column.Numeric>(Assert.Single(table.Columns));
-            Assert.Equal(1.5d, Assert.Single(column.Values));
-        }
-        finally
-        {
-            CultureInfo.CurrentCulture = previous;
-        }
     }
 
     [Fact]
