@@ -82,4 +82,16 @@ public sealed record ChartProblem(string Code, string Title, string Detail, int 
 
     public static ChartProblem IncompatibleHint(string kind, string requirement) =>
         new("incompatible-hint", "Hint does not fit the data", $"Hint 'type' is '{kind}', which {requirement}.");
+
+    public static ChartProblem BodyTooLarge(int max) =>
+        new("body-too-large", "Request too large", $"The request body is above the limit of {max} bytes.");
+
+    public static ChartProblem BodyTooLarge(int size, int max) =>
+        new("body-too-large", "Request too large", $"The request body is {size} bytes, which is above the limit of {max}.");
+
+    public static ChartProblem Unauthorized() =>
+        new("unauthorized", "Missing or invalid API key", "Send the API key in the X-Api-Key header.", 401);
+
+    public static ChartProblem Unexpected() =>
+        new("server-error", "Unexpected error", "The chart could not be rendered.", 500);
 }
