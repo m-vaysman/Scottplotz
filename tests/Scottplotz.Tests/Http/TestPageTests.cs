@@ -20,5 +20,8 @@ public sealed class TestPageTests : IClassFixture<TestAppFactory>
         Assert.Contains("Render", html);
         Assert.Contains("Explain", html);
         Assert.Contains("sample-csv", html);
+        Assert.Contains("https://scottplot.net", html);
+        Assert.Contains("Scott Harden / Harden Technologies, LLC", html);
+        Assert.Contains("thin REST API", html);
     }
 }

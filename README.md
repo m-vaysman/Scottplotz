@@ -6,6 +6,10 @@
 
 Scottplotz turns posted data into a PNG chart. You send numbers, columns, rows, or CSV. It picks a chart and sends the picture back. Nothing is stored.
 
+## Built on ScottPlot
+
+Scottplotz is based on [ScottPlot](https://scottplot.net). It is a thin REST API service that uses the ScottPlot DLL underneath. The charts it returns are only a small sample of what ScottPlot can produce. Authorship belongs to ScottPlot: [MIT license](https://github.com/ScottPlot/ScottPlot/blob/main/LICENSE), copyright 2018 Scott Harden / Harden Technologies, LLC. Scottplotz does not replace ScottPlot and does not share or extend that authorship.
+
 New here? Read [HOWTO.md](HOWTO.md). The same requests are in [Scottplotz.http](Scottplotz.http).
 
 ## Run it on your machine
