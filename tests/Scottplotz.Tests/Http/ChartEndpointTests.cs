@@ -69,6 +69,8 @@ public sealed class ChartEndpointTests : IClassFixture<TestAppFactory>
 
     [Theory]
     [InlineData("""{ "data": [1], "hints": { "colour": "red" } }""", "unknown-hint")]
+    [InlineData("{}", "missing-data")]
+    [InlineData("""{ "hints": {} }""", "missing-data")]
     [InlineData("{", "malformed-json")]
     [InlineData("""{ "data": [] }""", "empty-data")]
     [InlineData("""{ "data": { "a": [1, 2], "b": [3] } }""", "mismatched-columns")]

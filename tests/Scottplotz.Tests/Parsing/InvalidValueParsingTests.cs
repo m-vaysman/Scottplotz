@@ -13,11 +13,22 @@ public sealed class InvalidValueParsingTests
     }
 
     [Fact]
-    public void Rejects_a_body_without_data()
+    public void Rejects_an_unknown_top_level_property()
     {
         var problem = ParseAssert.Fail("""{ "values": [1] }""");
 
         Assert.Equal("unknown-property", problem.Code);
+        Assert.Contains("values", problem.Detail, StringComparison.Ordinal);
+    }
+
+    [Theory]
+    [InlineData("{}")]
+    [InlineData("""{ "hints": {} }""")]
+    public void Rejects_an_object_without_data(string body)
+    {
+        var problem = ParseAssert.Fail(body);
+
+        Assert.Equal("missing-data", problem.Code);
     }
 
     [Fact]
