@@ -1,0 +1,79 @@
+@host = http://localhost:5240
+
+### Health
+GET {{host}}/health
+
+### Plain number array
+POST {{host}}/chart
+Content-Type: application/json
+
+{
+  "data": [1, 3, 2, 5, 4]
+}
+
+### Named columns
+POST {{host}}/chart
+Content-Type: application/json
+
+{
+  "data": {
+    "date": ["2026-11-01", "2026-11-02", "2026-11-03"],
+    "price": [100.5, 101.25, 99.75],
+    "volume": [1200, 1500, 1100]
+  }
+}
+
+### Rows of objects
+POST {{host}}/chart
+Content-Type: application/json
+
+{
+  "data": [
+    { "category": "apples", "count": 4 },
+    { "category": "pears", "count": 7 },
+    { "category": "oranges", "count": 2 }
+  ]
+}
+
+### CSV
+POST {{host}}/chart
+Content-Type: text/csv
+
+date,price
+2026-11-03,101.2
+2026-11-04,102
+
+### Hints
+POST {{host}}/chart
+Content-Type: application/json
+
+{
+  "data": [1, 3, 2, 5, 4],
+  "hints": { "type": "bar", "title": "Numbers", "theme": "dark" }
+}
+
+### CSV hint in the query string
+POST {{host}}/chart?type=line&title=Prices
+Content-Type: text/csv
+
+price
+1
+3
+2
+
+### Explain
+POST {{host}}/chart/explain
+Content-Type: application/json
+
+{
+  "data": [1, 3, 2, 5, 4]
+}
+
+### Unknown hint
+POST {{host}}/chart
+Content-Type: application/json
+
+{
+  "data": [1, 2, 3],
+  "hints": { "colour": "red" }
+}

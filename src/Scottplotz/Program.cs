@@ -1,13 +1,25 @@
+using Microsoft.AspNetCore.Diagnostics;
 using Scottplotz;
 using Scottplotz.Charting;
+using Scottplotz.Http;
 using Scottplotz.Meaning;
 using Scottplotz.Rendering;
 
 EmbeddedFont.Register();
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddSingleton(ChartingLimits.Bind(builder.Configuration));
+builder.Services.AddSingleton(services => ChartingLimits.Bind(services.GetRequiredService<IConfiguration>()));
 builder.Services.AddSingleton<IColumnMeaningAdvisor, DisabledColumnMeaningAdvisor>();
+builder.Services.AddSingleton<IApiKeySource, EnvironmentApiKeySource>();
+
+builder.WebHost.ConfigureKestrel((context, options) =>
+{
+    options.Limits.MaxRequestBodySize = ChartingLimits.Bind(context.Configuration).MaxRequestBodyBytes;
+});
+
+var configuredUrls = builder.Configuration["urls"] ?? Environment.GetEnvironmentVariable("ASPNETCORE_URLS");
+if (string.IsNullOrWhiteSpace(configuredUrls))
+    builder.WebHost.UseUrls($"http://0.0.0.0:{ChartingLimits.Bind(builder.Configuration).Port}");
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -22,6 +34,20 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
+app.UseExceptionHandler(handler => handler.Run(async context =>
+{
+    var error = context.Features.Get<IExceptionHandlerFeature>()?.Error;
+    var logger = context.RequestServices.GetRequiredService<ILoggerFactory>().CreateLogger("Scottplotz");
+    logger.LogError(error, "Request failed");
+
+    var activeLimits = context.RequestServices.GetRequiredService<ChartingLimits>();
+    var problem = error is BadHttpRequestException { StatusCode: StatusCodes.Status413PayloadTooLarge }
+        ? ChartProblem.BodyTooLarge(activeLimits.MaxRequestBodyBytes)
+        : ChartProblem.Unexpected();
+    await ProblemResults.From(problem).ExecuteAsync(context);
+}));
+
+app.UseMiddleware<ApiKeyMiddleware>();
 app.UseSwagger();
 app.UseSwaggerUI(options =>
 {
@@ -33,6 +59,8 @@ app.MapGet("/health", () => Results.Ok(HealthReport.Create(ThisAssemblyVersion()
     .WithName("Health")
     .WithTags("Meta")
     .Produces<HealthReport>(StatusCodes.Status200OK);
+
+ChartEndpoints.Map(app);
 
 app.Run();
 
