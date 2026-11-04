@@ -1,5 +1,7 @@
 using System.Globalization;
 using Scottplotz.Charting;
+using Scottplotz.Http;
+using Scottplotz.Meaning;
 using Scottplotz.Rules;
 
 namespace Scottplotz.Rendering;
@@ -8,7 +10,21 @@ public static class ChartRenderer
 {
     private static readonly ScottPlot.IPalette Palette = new ScottPlot.Palettes.Category10();
 
-    public static byte[] Render(ChartPlan plan, ResolvedChartHints hints)
+    public static async Task<Result<ChartImage>> Render(
+        ChartRequest request,
+        ChartingLimits limits,
+        IColumnMeaningAdvisor advisor,
+        CancellationToken cancellationToken)
+    {
+        var outcome = await ChartPipeline.RunAsync(request, limits, advisor, cancellationToken);
+        if (outcome is not Result<ChartOutcome>.Ok rendered)
+            return Result<ChartImage>.Error(((Result<ChartOutcome>.Fail)outcome).Problem);
+
+        var chart = rendered.Value;
+        return Result<ChartImage>.Success(new ChartImage(Draw(chart.Plan, chart.Hints), chart.Explanation));
+    }
+
+    private static byte[] Draw(ChartPlan plan, ResolvedChartHints hints)
     {
         EmbeddedFont.Register();
         var culture = CultureInfo.CurrentCulture;

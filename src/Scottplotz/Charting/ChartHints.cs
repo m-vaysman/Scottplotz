@@ -11,6 +11,13 @@ public enum ChartKind
     MultiLine
 }
 
+public static class TypeSources
+{
+    public const string Rules = "rules";
+    public const string Model = "model";
+    public const string User = "user";
+}
+
 public static class ChartKinds
 {
     public static string Token(ChartKind kind) =>

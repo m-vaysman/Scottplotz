@@ -22,9 +22,13 @@ public sealed class ChartEndpointTests : IClassFixture<TestAppFactory>
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         Assert.Equal("image/png", response.Content.Headers.ContentType?.MediaType);
         Assert.Equal("plain-numbers-line", response.Headers.GetValues("X-Chart-Rule").Single());
+        Assert.Equal("rules", response.Headers.GetValues("X-Chart-Type-Source").Single());
         var bytes = await response.Content.ReadAsByteArrayAsync();
         Assert.Equal([0x89, 0x50, 0x4E, 0x47], bytes.Take(4));
         Assert.Equal((800, 450), PngSize.Read(bytes));
+
+        var again = await PostJson("/chart", """{ "data": [1, 3, 2, 5, 4] }""");
+        Assert.Equal(bytes, await again.Content.ReadAsByteArrayAsync());
     }
 
     [Fact]

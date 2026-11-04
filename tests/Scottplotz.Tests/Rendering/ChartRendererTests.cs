@@ -1,8 +1,8 @@
 using System.Globalization;
 using System.Security.Cryptography;
 using Scottplotz.Charting;
+using Scottplotz.Meaning;
 using Scottplotz.Rendering;
-using Scottplotz.Rules;
 
 namespace Scottplotz.Tests.Rendering;
 
@@ -109,9 +109,13 @@ public sealed class ChartRendererTests
 
     private static byte[] Render(ChartTable table, ChartKind? type = null, string? title = null, ChartTheme theme = ChartTheme.Light)
     {
-        var hints = new ResolvedChartHints(type, title, "X", "Y", 480, 270, theme);
-        var selected = Assert.IsType<Result<ChartSelection>.Ok>(ChartSelectionBuilder.Select(table, hints)).Value;
-        return ChartRenderer.Render(selected.Plan, hints);
+        var request = new ChartRequest(table, new ChartHints(type, title, "X", "Y", 480, 270, theme));
+        var rendered = ChartRenderer.Render(
+            request,
+            ChartingLimits.Default,
+            new DisabledColumnMeaningAdvisor(),
+            CancellationToken.None).GetAwaiter().GetResult();
+        return Assert.IsType<Result<ChartImage>.Ok>(rendered).Value.Png;
     }
 
     private static string Hash(byte[] bytes) =>

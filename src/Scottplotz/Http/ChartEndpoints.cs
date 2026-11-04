@@ -58,19 +58,26 @@ public static class ChartEndpoints
         if (parsed is not Result<ChartRequest>.Ok requestResult)
             return ProblemResults.From(((Result<ChartRequest>.Fail)parsed).Problem);
 
-        var outcome = await ChartPipeline.RunAsync(requestResult.Value, limits, advisor, cancellationToken);
-        if (outcome is not Result<ChartOutcome>.Ok rendered)
-            return ProblemResults.From(((Result<ChartOutcome>.Fail)outcome).Problem);
+        if (!render)
+        {
+            var explained = await ChartPipeline.RunAsync(requestResult.Value, limits, advisor, cancellationToken);
+            return explained is Result<ChartOutcome>.Ok explanation
+                ? Results.Ok(explanation.Value.Explanation)
+                : ProblemResults.From(((Result<ChartOutcome>.Fail)explained).Problem);
+        }
+
+        var outcome = await renderer.Render(requestResult.Value, limits, advisor, cancellationToken);
+        if (outcome is not Result<ChartImage>.Ok rendered)
+            return ProblemResults.From(((Result<ChartImage>.Fail)outcome).Problem);
 
         var chart = rendered.Value;
         logger.LogInformation(
-            "Chart {Rule} from {Points} points",
+            "Chart {Rule} from {Points} points via {TypeSource}",
             chart.Explanation.EffectiveRule,
-            chart.Explanation.Shape.PointCount);
+            chart.Explanation.Shape.PointCount,
+            chart.Explanation.TypeSource);
 
-        return render
-            ? new PngChartResult(renderer.Render(chart.Plan, chart.Hints), chart.Explanation.EffectiveRule)
-            : Results.Ok(chart.Explanation);
+        return new PngChartResult(chart.Png, chart.Explanation.EffectiveRule, chart.Explanation.TypeSource);
     }
 
     private static IReadOnlyList<KeyValuePair<string, string?>> QueryPairs(HttpRequest request) =>
