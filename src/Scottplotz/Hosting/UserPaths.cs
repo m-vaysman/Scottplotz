@@ -2,13 +2,16 @@ namespace Scottplotz.Hosting;
 
 public static class UserPaths
 {
-    public static string Root { get; } = Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "Scottplotz");
+    public const string HomeVariable = "SCOTTPLOTZ_HOME";
 
-    public static string SettingsFile { get; } = Path.Combine(Root, "appsettings.user.json");
+    public static string Root =>
+        Environment.GetEnvironmentVariable(HomeVariable) is { Length: > 0 } home
+            ? home
+            : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Scottplotz");
 
-    public static string LogsFolder { get; } = Path.Combine(Root, "logs");
+    public static string SettingsFile => Path.Combine(Root, "appsettings.user.json");
 
-    public static string LogFile { get; } = Path.Combine(LogsFolder, "scottplotz.log");
+    public static string LogsFolder => Path.Combine(Root, "logs");
+
+    public static string LogFile => Path.Combine(LogsFolder, "scottplotz.log");
 }

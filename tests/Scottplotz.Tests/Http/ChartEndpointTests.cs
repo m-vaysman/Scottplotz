@@ -2,18 +2,15 @@ using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Scottplotz.Http;
 
 namespace Scottplotz.Tests.Http;
 
-public sealed class ChartEndpointTests : IClassFixture<WebApplicationFactory<Program>>
+public sealed class ChartEndpointTests : IClassFixture<TestAppFactory>
 {
     private readonly HttpClient _client;
 
-    public ChartEndpointTests(WebApplicationFactory<Program> factory) =>
+    public ChartEndpointTests(TestAppFactory factory) =>
         _client = factory.CreateClient();
 
     [Fact]
@@ -126,10 +123,11 @@ public sealed class ChartLimitTests : IClassFixture<LimitedFactory>
     }
 }
 
-public sealed class LimitedFactory : WebApplicationFactory<Program>
+public sealed class LimitedFactory : TestAppFactory
 {
     protected override void ConfigureWebHost(Microsoft.AspNetCore.Hosting.IWebHostBuilder builder)
     {
+        base.ConfigureWebHost(builder);
         builder.ConfigureAppConfiguration((_, configuration) =>
         {
             configuration.AddInMemoryCollection(new Dictionary<string, string?>
@@ -173,21 +171,5 @@ public sealed class ApiKeyEndpointTests : IClassFixture<ApiKeyFactory>
         var response = await _client.GetAsync("/health");
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-    }
-}
-
-public sealed class ApiKeyFactory : WebApplicationFactory<Program>
-{
-    protected override void ConfigureWebHost(Microsoft.AspNetCore.Hosting.IWebHostBuilder builder)
-    {
-        builder.ConfigureServices(services =>
-        {
-            services.AddSingleton<IApiKeySource>(new FixedApiKey("test-key"));
-        });
-    }
-
-    private sealed class FixedApiKey(string key) : IApiKeySource
-    {
-        public string? Current => key;
     }
 }

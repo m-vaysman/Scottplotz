@@ -25,10 +25,7 @@ public static class EmbeddedFont
 
     private static string Extract(string resourceName, string fileName)
     {
-        var directory = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "Scottplotz",
-            "fonts");
+        var directory = Path.Combine(Hosting.UserPaths.Root, "fonts");
         Directory.CreateDirectory(directory);
 
         var path = Path.Combine(directory, fileName);
