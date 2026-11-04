@@ -24,6 +24,9 @@ public static class ScottplotzHost
         builder.Services.AddSingleton<IColumnMeaningAdvisor, DisabledColumnMeaningAdvisor>();
         builder.Services.AddSingleton<IApiKeySource, EnvironmentApiKeySource>();
         builder.Services.AddSingleton<IChartImageRenderer, ScottPlotChartRenderer>();
+        builder.Services.AddMcpServer()
+            .WithHttpTransport()
+            .WithToolsFromAssembly();
 
         builder.WebHost.ConfigureKestrel((context, options) =>
         {
@@ -41,7 +44,7 @@ public static class ScottplotzHost
             {
                 Title = "Scottplotz",
                 Version = "v1",
-                Description = "Send data, get a PNG chart."
+                Description = "A thin REST API based on ScottPlot (https://scottplot.net). It uses the ScottPlot DLL and returns only a small sample of the charts ScottPlot can produce. Authorship belongs to ScottPlot, MIT license, copyright 2018 Scott Harden / Harden Technologies, LLC."
             });
         });
 
@@ -76,6 +79,7 @@ public static class ScottplotzHost
             .Produces<HealthReport>(StatusCodes.Status200OK);
 
         ChartEndpoints.Map(app);
+        app.MapMcp("/mcp");
         return app;
     }
 

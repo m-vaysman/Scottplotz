@@ -1,6 +1,6 @@
 using Scottplotz.Charting;
+using Scottplotz.Meaning;
 using Scottplotz.Rendering;
-using Scottplotz.Rules;
 
 namespace Scottplotz.Tests.Rendering;
 
@@ -41,12 +41,20 @@ public sealed class LayoutTests
     [InlineData(800, 450)]
     public void The_png_header_records_the_requested_size(int width, int height)
     {
-        var table = new ChartTable(DataOrigin.PlainArray, [new Column.Numeric(null, [1, 3, 2, 5, 4])]);
-        var hints = new ResolvedChartHints(null, "Numbers", "X", "Y", width, height, ChartTheme.Light);
-        var selected = Assert.IsType<Result<ChartSelection>.Ok>(ChartSelectionBuilder.Select(table, hints)).Value;
-
-        var png = ChartRenderer.Render(selected.Plan, hints);
+        var png = Render(width, height);
 
         Assert.Equal((width, height), PngSize.Read(png));
+    }
+
+    private static byte[] Render(int width, int height)
+    {
+        var table = new ChartTable(DataOrigin.PlainArray, [new Column.Numeric(null, [1, 3, 2, 5, 4])]);
+        var request = new ChartRequest(table, new ChartHints(null, "Numbers", "X", "Y", width, height, ChartTheme.Light));
+        var rendered = ChartRenderer.Render(
+            request,
+            ChartingLimits.Default,
+            new DisabledColumnMeaningAdvisor(),
+            CancellationToken.None).GetAwaiter().GetResult();
+        return Assert.IsType<Result<ChartImage>.Ok>(rendered).Value.Png;
     }
 }

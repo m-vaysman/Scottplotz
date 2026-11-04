@@ -11,4 +11,5 @@ public sealed record ChartSelection(
     string? MatchedRule,
     ChartKind Kind,
     ChartPlan Plan,
-    bool NeedsAdvisor);
+    bool NeedsAdvisor,
+    string TypeSource);

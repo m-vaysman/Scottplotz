@@ -6,6 +6,27 @@
 
 Scottplotz turns posted data into a PNG chart. You send numbers, columns, rows, or CSV. It picks a chart and sends the picture back. Nothing is stored.
 
+A person (the test page or curl), a chatbot (MCP), and other apps (REST) all ask the service on port 5240. One render call returns a PNG to each of them.
+
+```mermaid
+flowchart LR
+    person["Person: test page or curl"] --> service["Scottplotz on port 5240"]
+    chatbot["Chatbot: MCP"] --> service
+    apps["Other apps: REST"] --> service
+    service --> render["One render call"]
+    render --> personPng["PNG to the person"]
+    render --> chatbotPng["PNG to the chatbot"]
+    render --> appsPng["PNG to the other apps"]
+```
+
+![Person, chatbot, and apps query Scottplotz, and one render call returns a PNG](docs/architecture.png)
+
+![Line chart rendered by the service from 1, 3, 2, 5, 4](docs/sample-chart.png)
+
+## Built on ScottPlot
+
+Scottplotz is based on [ScottPlot](https://scottplot.net). It is a thin REST API service that uses the ScottPlot DLL underneath. The charts it returns are only a small sample of what ScottPlot can produce. Authorship belongs to ScottPlot: [MIT license](https://github.com/ScottPlot/ScottPlot/blob/main/LICENSE), copyright 2018 Scott Harden / Harden Technologies, LLC. Scottplotz does not replace ScottPlot and does not share or extend that authorship.
+
 New here? Read [HOWTO.md](HOWTO.md). The same requests are in [Scottplotz.http](Scottplotz.http).
 
 ## Run it on your machine
@@ -54,7 +75,7 @@ date,price
 2026-11-04,102
 ```
 
-Optional hints override the rules: `type` (`line`, `bar`, `scatter`, `histogram`, `timeseries`, `pie`), `title`, `xLabel`, `yLabel`, `width`, `height`, and `theme` (`light` or `dark`). The default size is 800 by 450, and the default theme is light. Pie is drawn only when you ask for it.
+Optional hints override the rules: `type` (`line`, `bar`, `scatter`, `histogram`, `timeseries`, `multi-line`, `pie`), `title`, `xLabel`, `yLabel`, `width`, `height`, and `theme` (`light` or `dark`). The default size is 800 by 450, and the default theme is light. Pie is drawn only when you ask for it.
 
 Copy-paste commands for curl and PowerShell are in [HOWTO.md](HOWTO.md).
 

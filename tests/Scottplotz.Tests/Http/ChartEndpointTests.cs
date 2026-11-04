@@ -3,6 +3,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
+using Scottplotz.ChartTypes;
 using Scottplotz.Tests.Rendering;
 
 namespace Scottplotz.Tests.Http;
@@ -22,9 +23,40 @@ public sealed class ChartEndpointTests : IClassFixture<TestAppFactory>
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         Assert.Equal("image/png", response.Content.Headers.ContentType?.MediaType);
         Assert.Equal("plain-numbers-line", response.Headers.GetValues("X-Chart-Rule").Single());
+        Assert.Equal("rules", response.Headers.GetValues("X-Chart-Type-Source").Single());
         var bytes = await response.Content.ReadAsByteArrayAsync();
         Assert.Equal([0x89, 0x50, 0x4E, 0x47], bytes.Take(4));
         Assert.Equal((800, 450), PngSize.Read(bytes));
+
+        var again = await PostJson("/chart", """{ "data": [1, 3, 2, 5, 4] }""");
+        Assert.Equal(bytes, await again.Content.ReadAsByteArrayAsync());
+    }
+
+    [Fact]
+    public async Task An_unknown_type_lists_the_registry_ids()
+    {
+        var response = await PostJson("/chart", """{ "data": [1, 2, 3], "hints": { "type": "area" } }""");
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        var json = await JsonDocument.ParseAsync(await response.Content.ReadAsStreamAsync());
+        Assert.Equal("invalid-hint", json.RootElement.GetProperty("code").GetString());
+        var detail = json.RootElement.GetProperty("detail").GetString();
+        Assert.NotNull(detail);
+        foreach (var id in ChartTypeRegistry.Describe().Select(type => type.Id))
+            Assert.Contains(id, detail, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task An_explicit_type_matches_the_automatic_png()
+    {
+        var automatic = await PostJson("/chart", """{ "data": [1, 3, 2, 5, 4] }""");
+        var chosen = await PostJson("/chart", """{ "data": [1, 3, 2, 5, 4], "hints": { "type": "line" } }""");
+
+        Assert.Equal(HttpStatusCode.OK, chosen.StatusCode);
+        Assert.Equal("user", chosen.Headers.GetValues("X-Chart-Type-Source").Single());
+        Assert.Equal(
+            await automatic.Content.ReadAsByteArrayAsync(),
+            await chosen.Content.ReadAsByteArrayAsync());
     }
 
     [Fact]
@@ -203,10 +235,27 @@ public sealed class ApiKeyEndpointTests : IClassFixture<ApiKeyFactory>
         Assert.Equal("plain-numbers-line", json.RootElement.GetProperty("effectiveRule").GetString());
     }
 
+    [Fact]
+    public async Task Chart_types_stay_open_when_a_key_is_set()
+    {
+        var response = await _client.GetAsync("/chart-types");
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task Mcp_requires_the_configured_key()
+    {
+        var missing = await _client.PostAsync("/mcp", new StringContent("{}", Encoding.UTF8, "application/json"));
+
+        Assert.Equal(HttpStatusCode.Unauthorized, missing.StatusCode);
+    }
+
     [Theory]
     [InlineData("/health")]
     [InlineData("/swagger/v1/swagger.json")]
     [InlineData("/")]
+    [InlineData("/chart-types")]
     public async Task Routes_outside_chart_stay_open(string path)
     {
         var response = await _client.GetAsync(path);
