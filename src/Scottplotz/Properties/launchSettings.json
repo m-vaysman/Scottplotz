@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Scottplotz": {
+      "commandName": "Project",
+      "applicationUrl": "http://localhost:5240",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
