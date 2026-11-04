@@ -7,7 +7,26 @@ public enum ChartKind
     Scatter,
     Histogram,
     TimeSeries,
-    Pie
+    Pie,
+    MultiLine
+}
+
+public static class ChartKinds
+{
+    public static string Token(ChartKind kind) =>
+        kind switch
+        {
+            ChartKind.Line => "line",
+            ChartKind.Bar => "bar",
+            ChartKind.Scatter => "scatter",
+            ChartKind.Histogram => "histogram",
+            ChartKind.TimeSeries => "timeseries",
+            ChartKind.Pie => "pie",
+            ChartKind.MultiLine => "multi-line",
+            _ => kind.ToString().ToLowerInvariant()
+        };
+
+    public static string HintRule(ChartKind kind) => $"hint-{Token(kind)}";
 }
 
 public enum ChartTheme
