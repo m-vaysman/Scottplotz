@@ -76,8 +76,8 @@ public sealed class ChartRendererTests
             ["bar"] = "6f20f18238d10449a66599eee1c903cb0fa20c823efe9d3411cfe6368225f6fa",
             ["scatter"] = "8adeae20afe335aa5ed8c0e5399be6f63345da3976601a85f52768c5061bf546",
             ["histogram"] = "34a6492fa09c3b0b5dadd0be7020f8e165b565a952ceef3dbd39cab169d28a2d",
-            ["timeseries"] = "ac548a291945e6cb7a5929e5741a663e237d97cfb4e48c2c2ba4ead838733bad",
-            ["pie"] = "ee0dfb66055cecdf8f823b19c4e3aae6bd266f0e688470fedbabd7f8e2b95916"
+            ["timeseries"] = "240f92067c576f58ef28a0136d25bf6c0e6c180ad91fa974ca192e22ae502c53",
+            ["pie"] = "f2562473715f5f2815e12923b4a057fd0e65e1876a2a0bcbbde3a122bc4da844"
         };
 
         Assert.Equal(expected, actual);

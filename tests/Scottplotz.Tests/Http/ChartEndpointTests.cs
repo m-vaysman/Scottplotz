@@ -3,6 +3,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
+using Scottplotz.Tests.Rendering;
 
 namespace Scottplotz.Tests.Http;
 
@@ -23,6 +24,18 @@ public sealed class ChartEndpointTests : IClassFixture<TestAppFactory>
         Assert.Equal("plain-numbers-line", response.Headers.GetValues("X-Chart-Rule").Single());
         var bytes = await response.Content.ReadAsByteArrayAsync();
         Assert.Equal([0x89, 0x50, 0x4E, 0x47], bytes.Take(4));
+        Assert.Equal((800, 450), PngSize.Read(bytes));
+    }
+
+    [Fact]
+    public async Task Chart_uses_the_requested_image_size()
+    {
+        var response = await PostJson(
+            "/chart",
+            """{ "data": [1, 3, 2, 5, 4], "hints": { "width": 321, "height": 222 } }""");
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.Equal((321, 222), PngSize.Read(await response.Content.ReadAsByteArrayAsync()));
     }
 
     [Fact]
