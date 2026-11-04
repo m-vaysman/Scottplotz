@@ -1,6 +1,8 @@
 using Scottplotz;
+using Scottplotz.Charting;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddSingleton(ChartingLimits.Bind(builder.Configuration));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>

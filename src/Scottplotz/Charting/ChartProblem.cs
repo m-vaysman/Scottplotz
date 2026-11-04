@@ -55,4 +55,22 @@ public sealed record ChartProblem(string Code, string Title, string Detail, int 
 
     public static ChartProblem PlainArrayShape() =>
         new("plain-array", "Invalid plain array", "A plain array must contain only numbers. Use rows of objects for records, or an object of arrays for columns.");
+
+    public static ChartProblem UnknownHint(string name) =>
+        new("unknown-hint", "Unknown hint", $"Unknown hint '{name}'. Allowed hints: {HintNames.List}.");
+
+    public static ChartProblem DuplicateHint(string name) =>
+        new("duplicate-hint", "Duplicate hint", $"Hint '{name}' was specified more than once.");
+
+    public static ChartProblem InvalidHint(string name, string value, string allowed) =>
+        new("invalid-hint", "Invalid hint", $"Hint '{name}' is '{value}'. {allowed}");
+
+    public static ChartProblem HintType(string name, string expected) =>
+        new("invalid-hint", "Invalid hint", $"Hint '{name}' must be {expected}.");
+
+    public static ChartProblem HintInQuery(string name) =>
+        new("hint-in-query", "Hint in query string", $"Remove hint '{name}' from the query string. JSON requests put hints in the body.");
+
+    public static ChartProblem HintsShape() =>
+        new("invalid-hint", "Invalid hint", "The hints property must be an object. Example: { \"type\": \"line\", \"title\": \"Prices\" }.");
 }
