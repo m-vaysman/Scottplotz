@@ -1,0 +1,106 @@
+using System.Security.Cryptography;
+using Scottplotz.Charting;
+using Scottplotz.Rendering;
+using Scottplotz.Rules;
+
+namespace Scottplotz.Tests.Rendering;
+
+public sealed class ChartRendererTests
+{
+    private static readonly byte[] PngSignature = [0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A];
+
+    [Fact]
+    public void Renders_the_same_bytes_twice()
+    {
+        var first = Render(LineTable(), title: "Numbers");
+        var second = Render(LineTable(), title: "Numbers");
+
+        Assert.Equal(PngSignature, first.Take(PngSignature.Length));
+        Assert.Equal(first, second);
+    }
+
+    [Fact]
+    public void Uses_the_bundled_font()
+    {
+        Render(LineTable(), title: "Numbers");
+
+        Assert.Equal(EmbeddedFont.FamilyName, ScottPlot.Fonts.Default);
+    }
+
+    [Fact]
+    public void Dark_theme_changes_the_image()
+    {
+        var light = Render(LineTable(), title: "Numbers", theme: ChartTheme.Light);
+        var dark = Render(LineTable(), title: "Numbers", theme: ChartTheme.Dark);
+
+        Assert.NotEqual(Hash(light), Hash(dark));
+    }
+
+    [Fact]
+    public void Matches_the_golden_hashes()
+    {
+        var actual = new Dictionary<string, string>
+        {
+            ["line"] = Hash(Render(LineTable(), title: "Numbers")),
+            ["bar"] = Hash(Render(BarTable(), title: "Fruit")),
+            ["scatter"] = Hash(Render(ScatterTable(), title: "Points")),
+            ["histogram"] = Hash(Render(HistogramTable(), title: "Readings")),
+            ["timeseries"] = Hash(Render(TimeTable(), title: "Price")),
+            ["pie"] = Hash(Render(BarTable(), ChartKind.Pie, "Fruit"))
+        };
+
+        var expected = new Dictionary<string, string>
+        {
+            ["line"] = "96d59d03623bc1ea739514cfd192f31218f7bd612441c5359e48b866a9438bba",
+            ["bar"] = "6f20f18238d10449a66599eee1c903cb0fa20c823efe9d3411cfe6368225f6fa",
+            ["scatter"] = "8adeae20afe335aa5ed8c0e5399be6f63345da3976601a85f52768c5061bf546",
+            ["histogram"] = "34a6492fa09c3b0b5dadd0be7020f8e165b565a952ceef3dbd39cab169d28a2d",
+            ["timeseries"] = "ac548a291945e6cb7a5929e5741a663e237d97cfb4e48c2c2ba4ead838733bad",
+            ["pie"] = "ee0dfb66055cecdf8f823b19c4e3aae6bd266f0e688470fedbabd7f8e2b95916"
+        };
+
+        Assert.Equal(expected, actual);
+    }
+
+    private static byte[] Render(ChartTable table, ChartKind? type = null, string? title = null, ChartTheme theme = ChartTheme.Light)
+    {
+        var hints = new ResolvedChartHints(type, title, "X", "Y", 480, 270, theme);
+        var selected = Assert.IsType<Result<ChartSelection>.Ok>(ChartSelectionBuilder.Select(table, hints)).Value;
+        return ChartRenderer.Render(selected.Plan, hints);
+    }
+
+    private static string Hash(byte[] bytes) =>
+        Convert.ToHexString(SHA256.HashData(bytes)).ToLowerInvariant();
+
+    private static ChartTable LineTable() =>
+        new(DataOrigin.PlainArray, [new Column.Numeric(null, [1, 3, 2, 5, 4])]);
+
+    private static ChartTable BarTable() =>
+        new(DataOrigin.Rows,
+        [
+            new Column.Categorical("fruit", ["apples", "pears", "oranges"]),
+            new Column.Numeric("count", [4, 7, 2])
+        ]);
+
+    private static ChartTable ScatterTable() =>
+        new(DataOrigin.Columns,
+        [
+            new Column.Numeric("x", [1, 2, 3, 4]),
+            new Column.Numeric("y", [2, 3, 5, 4])
+        ]);
+
+    private static ChartTable HistogramTable() =>
+        new(DataOrigin.Columns, [new Column.Numeric("reading", Enumerable.Range(0, 40).Select(index => index % 2 == 0 ? 0d : 100d).ToArray())]);
+
+    private static ChartTable TimeTable() =>
+        new(DataOrigin.Columns,
+        [
+            new Column.Temporal("date",
+            [
+                new DateTime(2026, 11, 1, 0, 0, 0, DateTimeKind.Utc),
+                new DateTime(2026, 11, 2, 0, 0, 0, DateTimeKind.Utc),
+                new DateTime(2026, 11, 3, 0, 0, 0, DateTimeKind.Utc)
+            ]),
+            new Column.Numeric("price", [100.5, 101.25, 99.75])
+        ]);
+}
