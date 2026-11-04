@@ -1,4 +1,5 @@
 using Scottplotz.Charting;
+using Scottplotz.ChartTypes;
 using Scottplotz.Meaning;
 using Scottplotz.Parsing;
 using Scottplotz.Rendering;
@@ -9,6 +10,11 @@ public static class ChartEndpoints
 {
     public static void Map(WebApplication app)
     {
+        app.MapGet("/chart-types", () => Results.Ok(ChartTypeRegistry.Describe()))
+            .WithName("ChartTypes")
+            .WithTags("Charts")
+            .Produces<IReadOnlyList<ChartTypeInfo>>(StatusCodes.Status200OK);
+
         app.MapPost("/chart", PostChart)
             .WithName("Chart")
             .WithTags("Charts")

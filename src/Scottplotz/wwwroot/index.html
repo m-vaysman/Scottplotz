@@ -190,12 +190,6 @@
           <label>Chart type
             <select id="type">
               <option value="">Auto</option>
-              <option value="line">Line</option>
-              <option value="bar">Bar</option>
-              <option value="scatter">Scatter</option>
-              <option value="histogram">Histogram</option>
-              <option value="timeseries">Time series</option>
-              <option value="pie">Pie</option>
             </select>
           </label>
           <label>Theme
@@ -243,6 +237,18 @@
 
     const dataBox = document.getElementById("data");
     dataBox.value = samples.numbers;
+
+    fetch("/chart-types")
+      .then(response => response.json())
+      .then(types => {
+        const select = document.getElementById("type");
+        types.forEach(type => {
+          const option = document.createElement("option");
+          option.value = type.id;
+          option.textContent = type.displayName;
+          select.appendChild(option);
+        });
+      });
 
     document.getElementById("sample-numbers").addEventListener("click", () => { dataBox.value = samples.numbers; });
     document.getElementById("sample-columns").addEventListener("click", () => { dataBox.value = samples.columns; });

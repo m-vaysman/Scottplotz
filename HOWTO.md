@@ -17,7 +17,9 @@ It looks at the columns, in this order, and stops at the first confident match:
 | One long numeric column that is not in order | Histogram |
 | A plain list of numbers | Line |
 
-A plain list of numbers is always a line, even when the values jump around. A pie chart is drawn only when you set the hint `type` to `pie`. Any hint overrides these rules.
+A plain list of numbers is always a line, even when the values jump around. A pie chart is drawn only when you set the hint `type` to `pie`. Any hint overrides these rules. When the rules are not sure, a small built-in model picks the type. `X-Chart-Type-Source` says which one decided: `rules`, `model`, or `user`.
+
+Leave `type` out and Scottplotz chooses. Set `type` to an id from `GET /chart-types` when you want that chart. `Auto` on the test page means no type.
 
 ## Where it runs
 
@@ -32,7 +34,8 @@ If the environment variable `SCOTTPLOTZ_API_KEY` is set, `POST /chart` and `POST
 | Request | Result |
 | --- | --- |
 | `GET /health` | `200` and a small JSON object with `status` and `version` |
-| `POST /chart` | `200` and a PNG. The header `X-Chart-Rule` names the rule that fired |
+| `GET /chart-types` | `200` and JSON for every chart type: id, name, description, data shape, parameters, and an example body |
+| `POST /chart` | `200` and a PNG. The header `X-Chart-Rule` names the rule that fired. `X-Chart-Type-Source` is `rules`, `model`, or `user` |
 | `POST /chart/explain` | `200` and JSON: the detected shape, the rule, and the final settings. No image |
 | `GET /` | The test page |
 | `GET /swagger` | The API document |
