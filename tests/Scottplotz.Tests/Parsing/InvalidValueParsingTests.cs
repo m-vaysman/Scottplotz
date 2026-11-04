@@ -99,8 +99,7 @@ public sealed class InvalidValueParsingTests
         var problem = ParseAssert.Fail("""{ "data": [1, 2, 3, 4] }""", maxPoints: 3);
 
         Assert.Equal("too-many-points", problem.Code);
-        Assert.Contains("4", problem.Detail, StringComparison.Ordinal);
-        Assert.Contains("3", problem.Detail, StringComparison.Ordinal);
+        Assert.Equal("This request has 4 points, which is above the limit of 3.", problem.Detail);
     }
 
     [Fact]
@@ -111,7 +110,7 @@ public sealed class InvalidValueParsingTests
             maxPoints: 5);
 
         Assert.Equal("too-many-points", problem.Code);
-        Assert.Contains("6", problem.Detail, StringComparison.Ordinal);
+        Assert.Equal("This request has 6 points, which is above the limit of 5.", problem.Detail);
     }
 
     [Theory]

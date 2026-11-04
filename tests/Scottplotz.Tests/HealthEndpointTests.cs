@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Http.Json;
+using System.Text.Json;
 
 namespace Scottplotz.Tests;
 
@@ -19,7 +20,9 @@ public sealed class HealthEndpointTests : IClassFixture<Http.TestAppFactory>
         var body = await response.Content.ReadFromJsonAsync<HealthReport>();
         Assert.NotNull(body);
         Assert.Equal("ok", body.Status);
-        Assert.Equal(HealthReport.Create(typeof(HealthReport).Assembly.GetName().Version).Version, body.Version);
+        var version = typeof(HealthReport).Assembly.GetName().Version;
+        Assert.NotNull(version);
+        Assert.Equal($"{version.Major}.{version.Minor}.{Math.Max(version.Build, 0)}", body.Version);
     }
 
     [Fact]
@@ -28,7 +31,10 @@ public sealed class HealthEndpointTests : IClassFixture<Http.TestAppFactory>
         var response = await _client.GetAsync("/swagger/v1/swagger.json");
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-        var json = await response.Content.ReadAsStringAsync();
-        Assert.Contains("/health", json, StringComparison.Ordinal);
+        var json = await JsonDocument.ParseAsync(await response.Content.ReadAsStreamAsync());
+        var paths = json.RootElement.GetProperty("paths");
+        Assert.True(paths.TryGetProperty("/health", out _));
+        Assert.True(paths.TryGetProperty("/chart", out _));
+        Assert.True(paths.TryGetProperty("/chart/explain", out _));
     }
 }

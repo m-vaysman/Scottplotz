@@ -84,7 +84,8 @@ public sealed class ChartRuleEngineTests
             new Column.Categorical("fruit", ["apples", "pears"]),
             new Column.Numeric("count", [4, 7])));
 
-        Assert.NotEqual(ChartKind.Pie, decision.Match?.Kind);
+        Assert.Equal("category-bar", decision.Match?.Name);
+        Assert.Equal(ChartKind.Bar, decision.Match?.Kind);
     }
 
     [Fact]
