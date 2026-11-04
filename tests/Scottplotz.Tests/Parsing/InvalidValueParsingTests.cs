@@ -114,6 +114,39 @@ public sealed class InvalidValueParsingTests
         Assert.Contains("6", problem.Detail, StringComparison.Ordinal);
     }
 
+    [Theory]
+    [InlineData("""{ "data": { "a": [1, null, 3], "b": [4, 5, 6] } }""", "application/json")]
+    [InlineData("""{ "data": [{ "a": 1, "b": 4 }, { "a": null, "b": 5 }, { "a": 3, "b": 6 }] }""", "application/json")]
+    [InlineData("a,b\n1,4\nNaN,5\n3,6\n", "text/csv")]
+    public void Drop_removes_the_whole_row_and_keeps_columns_aligned(string body, string contentType)
+    {
+        var table = ParseAssert.Ok(body, contentType, InvalidNumberPolicy.Drop);
+
+        var a = Assert.IsType<Column.Numeric>(table.Columns.Single(column => column.Name == "a"));
+        var b = Assert.IsType<Column.Numeric>(table.Columns.Single(column => column.Name == "b"));
+        Assert.Equal([1d, 3d], a.Values);
+        Assert.Equal([4d, 6d], b.Values);
+    }
+
+    [Fact]
+    public void Dropping_every_row_is_empty_data()
+    {
+        var problem = ParseAssert.Fail("""{ "data": [null, null] }""", policy: InvalidNumberPolicy.Drop);
+
+        Assert.Equal("empty-data", problem.Code);
+    }
+
+    [Fact]
+    public void Drop_still_rejects_text_in_a_numeric_column()
+    {
+        var problem = ParseAssert.Fail(
+            """{ "data": { "price": [1, "n/a", 3] } }""",
+            policy: InvalidNumberPolicy.Drop);
+
+        Assert.Equal("non-numeric", problem.Code);
+        Assert.Contains("n/a", problem.Detail, StringComparison.Ordinal);
+    }
+
     [Fact]
     public void Leaves_the_word_nan_as_text_beside_other_labels()
     {
