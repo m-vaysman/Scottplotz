@@ -235,10 +235,27 @@ public sealed class ApiKeyEndpointTests : IClassFixture<ApiKeyFactory>
         Assert.Equal("plain-numbers-line", json.RootElement.GetProperty("effectiveRule").GetString());
     }
 
+    [Fact]
+    public async Task Chart_types_stay_open_when_a_key_is_set()
+    {
+        var response = await _client.GetAsync("/chart-types");
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task Mcp_requires_the_configured_key()
+    {
+        var missing = await _client.PostAsync("/mcp", new StringContent("{}", Encoding.UTF8, "application/json"));
+
+        Assert.Equal(HttpStatusCode.Unauthorized, missing.StatusCode);
+    }
+
     [Theory]
     [InlineData("/health")]
     [InlineData("/swagger/v1/swagger.json")]
     [InlineData("/")]
+    [InlineData("/chart-types")]
     public async Task Routes_outside_chart_stay_open(string path)
     {
         var response = await _client.GetAsync(path);

@@ -27,7 +27,7 @@ Base URL: `http://localhost:5240`
 
 The port is 5240 unless `Charting:Port` is changed. The firewall rule allows that port from the local subnet only.
 
-If the environment variable `SCOTTPLOTZ_API_KEY` is set, `POST /chart` and `POST /chart/explain` require the same value in the `X-Api-Key` header. Leave the variable unset and those calls need no key. The key is not stored in the program and is not written to the log.
+If the environment variable `SCOTTPLOTZ_API_KEY` is set, `POST /chart`, `POST /chart/explain`, and `/mcp` require the same value in the `X-Api-Key` header. `GET /chart-types` stays open so the test page can list types. Leave the variable unset and those calls need no key. The key is not stored in the program and is not written to the log.
 
 ## Endpoints
 
@@ -39,8 +39,39 @@ If the environment variable `SCOTTPLOTZ_API_KEY` is set, `POST /chart` and `POST
 | `POST /chart/explain` | `200` and JSON: the detected shape, the rule, and the final settings. No image |
 | `GET /` | The test page |
 | `GET /swagger` | The API document |
+| `POST /mcp` | The MCP endpoint. Tools: `list_chart_types`, `suggest_chart_type`, `render_chart` |
 
 A bad request is `400` with a problem document. A missing or wrong API key is `401`.
+
+## Chat tools (MCP)
+
+The same process serves MCP at `http://localhost:5240/mcp`. `list_chart_types` matches `GET /chart-types`. `suggest_chart_type` ranks types and does not draw. `render_chart` returns the PNG from the same render call as `POST /chart`.
+
+Claude Desktop, in `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "scottplotz": {
+      "url": "http://localhost:5240/mcp"
+    }
+  }
+}
+```
+
+Cursor, in `.cursor/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "scottplotz": {
+      "url": "http://localhost:5240/mcp"
+    }
+  }
+}
+```
+
+Use the machine's address instead of `localhost` when the client is on another computer on the LAN. If `SCOTTPLOTZ_API_KEY` is set, send it as the `X-Api-Key` header.
 
 ## Input formats
 

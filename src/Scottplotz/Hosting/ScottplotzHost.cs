@@ -24,6 +24,9 @@ public static class ScottplotzHost
         builder.Services.AddSingleton<IColumnMeaningAdvisor, DisabledColumnMeaningAdvisor>();
         builder.Services.AddSingleton<IApiKeySource, EnvironmentApiKeySource>();
         builder.Services.AddSingleton<IChartImageRenderer, ScottPlotChartRenderer>();
+        builder.Services.AddMcpServer()
+            .WithHttpTransport()
+            .WithToolsFromAssembly();
 
         builder.WebHost.ConfigureKestrel((context, options) =>
         {
@@ -76,6 +79,7 @@ public static class ScottplotzHost
             .Produces<HealthReport>(StatusCodes.Status200OK);
 
         ChartEndpoints.Map(app);
+        app.MapMcp("/mcp");
         return app;
     }
 
