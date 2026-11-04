@@ -1,8 +1,10 @@
 using Scottplotz;
 using Scottplotz.Charting;
+using Scottplotz.Meaning;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton(ChartingLimits.Bind(builder.Configuration));
+builder.Services.AddSingleton<IColumnMeaningAdvisor, DisabledColumnMeaningAdvisor>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>

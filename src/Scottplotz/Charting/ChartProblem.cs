@@ -73,4 +73,13 @@ public sealed record ChartProblem(string Code, string Title, string Detail, int 
 
     public static ChartProblem HintsShape() =>
         new("invalid-hint", "Invalid hint", "The hints property must be an object. Example: { \"type\": \"line\", \"title\": \"Prices\" }.");
+
+    public static ChartProblem NoRule() =>
+        new(
+            "no-rule",
+            "No chart rule matched",
+            "No chart rule matched this data. Send numbers, a date column plus numbers, categories plus numbers, or two numeric columns. Or set hint 'type'.");
+
+    public static ChartProblem IncompatibleHint(string kind, string requirement) =>
+        new("incompatible-hint", "Hint does not fit the data", $"Hint 'type' is '{kind}', which {requirement}.");
 }
