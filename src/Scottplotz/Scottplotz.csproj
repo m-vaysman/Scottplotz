@@ -4,6 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>Scottplotz</RootNamespace>
     <AssemblyName>Scottplotz</AssemblyName>
+    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
     <InvariantGlobalization>false</InvariantGlobalization>
   </PropertyGroup>
 

@@ -1,0 +1,121 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:fire="http://wixtoolset.org/schemas/v4/wxs/firewall">
+  <Package Name="Scottplotz"
+           Manufacturer="Scottplotz"
+           Version="$(var.ProductVersion)"
+           UpgradeCode="7E2A9C4D-1B6F-4E83-A5D0-8C3F2B1E6A47"
+           Scope="perMachine"
+           Compressed="yes">
+    <MajorUpgrade DowngradeErrorMessage="A newer version of Scottplotz is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+    <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
+
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+    <Property Id="STARTWITHWINDOWS" Value="1" />
+
+    <StandardDirectory Id="ProgramFiles64Folder">
+      <Directory Id="INSTALLFOLDER" Name="Scottplotz">
+        <Files Include="!(bindpath.publish)\**" />
+        <Component Id="StartupEntry" Guid="B7D2F1A4-8E5C-4B30-A6D9-1F3C7E8B5A20">
+          <RegistryKey Root="HKCU" Key="Software\Microsoft\Windows\CurrentVersion\Run">
+            <RegistryValue Name="Scottplotz" Type="string" Value="&quot;[INSTALLFOLDER]Scottplotz.exe&quot;" KeyPath="yes" />
+          </RegistryKey>
+        </Component>
+        <Component Id="LanFirewall" Guid="C3E8A1D6-4F2B-4D7A-8E91-6B0C5A2F9D14">
+          <RegistryKey Root="HKLM" Key="Software\Scottplotz">
+            <RegistryValue Name="Firewall" Type="integer" Value="1" KeyPath="yes" />
+          </RegistryKey>
+          <fire:FirewallException Id="ScottplotzLan"
+                                  Name="Scottplotz"
+                                  Port="5240"
+                                  Protocol="tcp"
+                                  Scope="localSubnet"
+                                  Profile="all"
+                                  Description="Allow Scottplotz chart requests from the local subnet" />
+        </Component>
+      </Directory>
+    </StandardDirectory>
+
+    <StandardDirectory Id="ProgramMenuFolder">
+      <Component Id="StartMenuShortcut" Guid="A1C4E8B2-6D3F-4A91-9C70-2E5B8F1D4A63">
+        <Shortcut Id="ScottplotzStartMenu"
+                  Name="Scottplotz"
+                  Target="[INSTALLFOLDER]Scottplotz.exe"
+                  WorkingDirectory="INSTALLFOLDER" />
+        <RegistryKey Root="HKCU" Key="Software\Scottplotz">
+          <RegistryValue Name="StartMenu" Type="integer" Value="1" KeyPath="yes" />
+        </RegistryKey>
+      </Component>
+    </StandardDirectory>
+
+    <CustomAction Id="ClearStartup"
+                  Directory="SystemFolder"
+                  ExeCommand="&quot;[SystemFolder]reg.exe&quot; delete &quot;HKCU\Software\Microsoft\Windows\CurrentVersion\Run&quot; /v Scottplotz /f"
+                  Execute="deferred"
+                  Impersonate="yes"
+                  Return="ignore" />
+    <InstallExecuteSequence>
+      <Custom Action="ClearStartup" After="WriteRegistryValues" Condition="NOT REMOVE AND STARTWITHWINDOWS &lt;&gt; 1" />
+    </InstallExecuteSequence>
+
+    <UI Id="ScottplotzUI">
+      <TextStyle Id="WixUI_Font_Normal" FaceName="Tahoma" Size="8" />
+      <TextStyle Id="WixUI_Font_Bigger" FaceName="Tahoma" Size="12" />
+      <TextStyle Id="WixUI_Font_Title" FaceName="Tahoma" Size="9" Bold="yes" />
+      <Property Id="DefaultUIFont" Value="WixUI_Font_Normal" />
+
+      <DialogRef Id="BrowseDlg" />
+      <DialogRef Id="DiskCostDlg" />
+      <DialogRef Id="ErrorDlg" />
+      <DialogRef Id="FatalError" />
+      <DialogRef Id="FilesInUse" />
+      <DialogRef Id="MsiRMFilesInUse" />
+      <DialogRef Id="PrepareDlg" />
+      <DialogRef Id="ProgressDlg" />
+      <DialogRef Id="ResumeDlg" />
+      <DialogRef Id="UserExit" />
+      <DialogRef Id="WelcomeDlg" />
+      <DialogRef Id="LicenseAgreementDlg" />
+      <DialogRef Id="InstallDirDlg" />
+      <DialogRef Id="VerifyReadyDlg" />
+      <DialogRef Id="MaintenanceWelcomeDlg" />
+      <DialogRef Id="MaintenanceTypeDlg" />
+      <DialogRef Id="ExitDialog" />
+
+      <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="LicenseAgreementDlg" Condition="NOT Installed" />
+      <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" Condition="Installed AND PATCH" />
+      <Publish Dialog="LicenseAgreementDlg" Control="Print" Event="DoAction" Value="WixUIPrintEula_X64" />
+      <Publish Dialog="LicenseAgreementDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" />
+      <Publish Dialog="LicenseAgreementDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg" Condition="LicenseAccepted = &quot;1&quot;" />
+      <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="LicenseAgreementDlg" />
+      <Publish Dialog="InstallDirDlg" Control="Next" Event="SetTargetPath" Value="[WIXUI_INSTALLDIR]" Order="1" />
+      <Publish Dialog="InstallDirDlg" Control="Next" Event="NewDialog" Value="StartupDlg" Order="4" />
+      <Publish Dialog="InstallDirDlg" Control="ChangeFolder" Property="_BrowseProperty" Value="[WIXUI_INSTALLDIR]" Order="1" />
+      <Publish Dialog="InstallDirDlg" Control="ChangeFolder" Event="SpawnDialog" Value="BrowseDlg" Order="2" />
+      <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="StartupDlg" Order="1" Condition="NOT Installed" />
+      <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="MaintenanceTypeDlg" Order="2" Condition="Installed AND NOT PATCH" />
+      <Publish Dialog="MaintenanceWelcomeDlg" Control="Next" Event="NewDialog" Value="MaintenanceTypeDlg" />
+      <Publish Dialog="MaintenanceTypeDlg" Control="RepairButton" Event="NewDialog" Value="VerifyReadyDlg" />
+      <Publish Dialog="MaintenanceTypeDlg" Control="RemoveButton" Event="NewDialog" Value="VerifyReadyDlg" />
+      <Publish Dialog="MaintenanceTypeDlg" Control="Back" Event="NewDialog" Value="MaintenanceWelcomeDlg" />
+      <Publish Dialog="ExitDialog" Control="Finish" Event="EndDialog" Value="Return" Order="999" />
+
+      <Dialog Id="StartupDlg" Width="370" Height="270" Title="Scottplotz setup">
+        <Control Id="Title" Type="Text" X="15" Y="15" Width="340" Height="20" Transparent="yes" NoPrefix="yes" Text="{\WixUI_Font_Title}Start with Windows" />
+        <Control Id="Body" Type="Text" X="15" Y="45" Width="340" Height="40" Transparent="yes" NoPrefix="yes" Text="Scottplotz can start when you sign in, so the chart service is ready." />
+        <Control Id="StartCheck" Type="CheckBox" X="15" Y="95" Width="340" Height="18" Property="STARTWITHWINDOWS" CheckBoxValue="1" Text="Start Scottplotz when I sign in" />
+        <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="!(loc.WixUIBack)">
+          <Publish Event="NewDialog" Value="InstallDirDlg" />
+        </Control>
+        <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.WixUINext)">
+          <Publish Event="NewDialog" Value="VerifyReadyDlg" />
+        </Control>
+        <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">
+          <Publish Event="SpawnDialog" Value="CancelDlg" />
+        </Control>
+      </Dialog>
+
+    </UI>
+    <UIRef Id="WixUI_Common" />
+  </Package>
+</Wix>
