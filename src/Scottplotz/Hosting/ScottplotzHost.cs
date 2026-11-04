@@ -23,6 +23,7 @@ public static class ScottplotzHost
         builder.Services.AddSingleton(services => ChartingLimits.Bind(services.GetRequiredService<IConfiguration>()));
         builder.Services.AddSingleton<IColumnMeaningAdvisor, DisabledColumnMeaningAdvisor>();
         builder.Services.AddSingleton<IApiKeySource, EnvironmentApiKeySource>();
+        builder.Services.AddSingleton<IChartImageRenderer, ScottPlotChartRenderer>();
 
         builder.WebHost.ConfigureKestrel((context, options) =>
         {

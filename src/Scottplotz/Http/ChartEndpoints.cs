@@ -27,22 +27,25 @@ public static class ChartEndpoints
         ChartingLimits limits,
         IColumnMeaningAdvisor advisor,
         ILoggerFactory loggerFactory,
+        IChartImageRenderer renderer,
         CancellationToken cancellationToken) =>
-        Execute(request, limits, advisor, loggerFactory, cancellationToken, render: true);
+        Execute(request, limits, advisor, loggerFactory, renderer, cancellationToken, render: true);
 
     private static Task<IResult> PostExplain(
         HttpRequest request,
         ChartingLimits limits,
         IColumnMeaningAdvisor advisor,
         ILoggerFactory loggerFactory,
+        IChartImageRenderer renderer,
         CancellationToken cancellationToken) =>
-        Execute(request, limits, advisor, loggerFactory, cancellationToken, render: false);
+        Execute(request, limits, advisor, loggerFactory, renderer, cancellationToken, render: false);
 
     private static async Task<IResult> Execute(
         HttpRequest request,
         ChartingLimits limits,
         IColumnMeaningAdvisor advisor,
         ILoggerFactory loggerFactory,
+        IChartImageRenderer renderer,
         CancellationToken cancellationToken,
         bool render)
     {
@@ -66,7 +69,7 @@ public static class ChartEndpoints
             chart.Explanation.Shape.PointCount);
 
         return render
-            ? new PngChartResult(ChartRenderer.Render(chart.Plan, chart.Hints), chart.Explanation.EffectiveRule)
+            ? new PngChartResult(renderer.Render(chart.Plan, chart.Hints), chart.Explanation.EffectiveRule)
             : Results.Ok(chart.Explanation);
     }
 
