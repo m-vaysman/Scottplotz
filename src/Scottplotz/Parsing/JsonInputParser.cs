@@ -14,7 +14,11 @@ public static class JsonInputParser
         ReadCommentHandling = JsonCommentHandling.Disallow
     };
 
-    public static Result<ChartTable> Parse(string json, ParseLimits limits)
+    public static Result<ChartTable> Parse(string json, ParseLimits limits) =>
+        ParseRequest(json, ChartingLimits.ForParser(limits))
+            .Bind(request => Result<ChartTable>.Success(request.Table));
+
+    public static Result<ChartRequest> ParseRequest(string json, ChartingLimits limits)
     {
         JsonElement root;
         try
@@ -23,22 +27,26 @@ public static class JsonInputParser
         }
         catch (JsonException exception)
         {
-            return Result<ChartTable>.Error(ChartProblem.MalformedJson(exception.Message));
+            return Result<ChartRequest>.Error(ChartProblem.MalformedJson(exception.Message));
         }
 
         if (root.ValueKind != JsonValueKind.Object)
-            return Result<ChartTable>.Error(ChartProblem.MalformedJson("The body must be a JSON object with a data property."));
+            return Result<ChartRequest>.Error(ChartProblem.MalformedJson("The body must be a JSON object with a data property."));
 
         var unknown = root.EnumerateObject()
             .Select(property => property.Name)
             .FirstOrDefault(name => name is not "data" and not "hints");
         if (unknown is not null)
-            return Result<ChartTable>.Error(ChartProblem.UnknownProperty(unknown));
+            return Result<ChartRequest>.Error(ChartProblem.UnknownProperty(unknown));
 
         if (!root.TryGetProperty("data", out var data))
-            return Result<ChartTable>.Error(ChartProblem.MissingData());
+            return Result<ChartRequest>.Error(ChartProblem.MissingData());
 
-        return ReadData(data).Bind(raw => TableMaterializer.FromRaw(raw, limits));
+        var hintElement = root.TryGetProperty("hints", out var hints) ? hints : (JsonElement?)null;
+        return HintParser.FromElement(hintElement, limits)
+            .Bind(parsed => ReadData(data)
+                .Bind(raw => TableMaterializer.FromRaw(raw, limits.ToParseLimits()))
+                .Bind(table => Result<ChartRequest>.Success(new ChartRequest(table, parsed))));
     }
 
     private static Result<RawTable> ReadData(JsonElement data) =>
