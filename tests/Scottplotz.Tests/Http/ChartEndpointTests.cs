@@ -3,6 +3,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
+using Scottplotz.ChartTypes;
 using Scottplotz.Tests.Rendering;
 
 namespace Scottplotz.Tests.Http;
@@ -29,6 +30,33 @@ public sealed class ChartEndpointTests : IClassFixture<TestAppFactory>
 
         var again = await PostJson("/chart", """{ "data": [1, 3, 2, 5, 4] }""");
         Assert.Equal(bytes, await again.Content.ReadAsByteArrayAsync());
+    }
+
+    [Fact]
+    public async Task An_unknown_type_lists_the_registry_ids()
+    {
+        var response = await PostJson("/chart", """{ "data": [1, 2, 3], "hints": { "type": "area" } }""");
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        var json = await JsonDocument.ParseAsync(await response.Content.ReadAsStreamAsync());
+        Assert.Equal("invalid-hint", json.RootElement.GetProperty("code").GetString());
+        var detail = json.RootElement.GetProperty("detail").GetString();
+        Assert.NotNull(detail);
+        foreach (var id in ChartTypeRegistry.Describe().Select(type => type.Id))
+            Assert.Contains(id, detail, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task An_explicit_type_matches_the_automatic_png()
+    {
+        var automatic = await PostJson("/chart", """{ "data": [1, 3, 2, 5, 4] }""");
+        var chosen = await PostJson("/chart", """{ "data": [1, 3, 2, 5, 4], "hints": { "type": "line" } }""");
+
+        Assert.Equal(HttpStatusCode.OK, chosen.StatusCode);
+        Assert.Equal("user", chosen.Headers.GetValues("X-Chart-Type-Source").Single());
+        Assert.Equal(
+            await automatic.Content.ReadAsByteArrayAsync(),
+            await chosen.Content.ReadAsByteArrayAsync());
     }
 
     [Fact]
