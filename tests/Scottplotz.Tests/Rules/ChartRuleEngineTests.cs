@@ -6,7 +6,7 @@ namespace Scottplotz.Tests.Rules;
 public sealed class ChartRuleEngineTests
 {
     [Fact]
-    public void Prefers_a_time_series_over_later_rules()
+    public void A_date_column_with_numbers_is_a_time_series()
     {
         var table = RuleTables.Columns(
             RuleTables.Days(1, 2, 3),
@@ -20,7 +20,7 @@ public sealed class ChartRuleEngineTests
     }
 
     [Fact]
-    public void Picks_the_shape_rules_in_order()
+    public void Each_shape_matches_its_own_rule()
     {
         Assert.Equal("plain-numbers-line", ChartRuleEngine.Decide(RuleTables.Plain(1, 3, 2)).Match?.Name);
         Assert.Equal("histogram", ChartRuleEngine.Decide(RuleTables.Column("reading", RuleTables.Alternating(40))).Match?.Name);
@@ -35,6 +35,47 @@ public sealed class ChartRuleEngineTests
             new Column.Categorical("fruit", ["apples", "pears"]),
             new Column.Numeric("count", [4, 7]))).Match?.Name);
     }
+
+    [Fact]
+    public void A_later_confident_rule_beats_an_earlier_unsure_one()
+    {
+        var decision = ChartRuleEngine.Decide(RuleTables.Plain(1), [Unsure("first"), Confident("second")]);
+
+        Assert.Equal("second", decision.Match?.Name);
+        Assert.False(decision.Unsure);
+    }
+
+    [Fact]
+    public void The_first_confident_rule_wins()
+    {
+        var decision = ChartRuleEngine.Decide(RuleTables.Plain(1), [Confident("first"), Confident("second")]);
+
+        Assert.Equal("first", decision.Match?.Name);
+        Assert.False(decision.Unsure);
+    }
+
+    [Fact]
+    public void The_first_unsure_rule_is_the_fallback()
+    {
+        var decision = ChartRuleEngine.Decide(RuleTables.Plain(1), [Unsure("first"), Unsure("second")]);
+
+        Assert.Equal("first", decision.Match?.Name);
+        Assert.True(decision.Unsure);
+    }
+
+    [Fact]
+    public void Production_order_matches_the_howto_table()
+    {
+        Assert.Equal(
+            ["timeseries", "category-bar", "scatter", "multi-line", "histogram", "plain-numbers-line"],
+            ChartRuleEngine.Ordered.Select(rule => rule.Name));
+    }
+
+    private static Func<ChartTable, RuleMatch?> Confident(string name) =>
+        _ => new RuleMatch(name, Confident: true, ChartKind.Line);
+
+    private static Func<ChartTable, RuleMatch?> Unsure(string name) =>
+        _ => new RuleMatch(name, Confident: false, ChartKind.Line);
 
     [Fact]
     public void Does_not_choose_a_pie()
