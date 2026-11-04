@@ -20,7 +20,7 @@ public sealed class HealthEndpointTests : IClassFixture<WebApplicationFactory<Pr
         var body = await response.Content.ReadFromJsonAsync<HealthReport>();
         Assert.NotNull(body);
         Assert.Equal("ok", body.Status);
-        Assert.Equal("1.0.0", body.Version);
+        Assert.Equal(HealthReport.Create(typeof(HealthReport).Assembly.GetName().Version).Version, body.Version);
     }
 
     [Fact]

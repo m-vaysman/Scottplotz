@@ -1,0 +1,33 @@
+name: Build
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore, build, and test
+        shell: pwsh
+        run: |
+          dotnet build Scottplotz.sln --configuration Release --nologo -p:Version=1.0.${{ github.run_number }}
+          dotnet test Scottplotz.sln --configuration Release --nologo --no-build -p:Version=1.0.${{ github.run_number }}
+          if (-not (Test-Path installer/bin/Release/Scottplotz.msi)) { throw "Scottplotz.msi was not built" }
+
+      - name: Publish the installer
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "v1.0.${{ github.run_number }}" installer/bin/Release/Scottplotz.msi --title "v1.0.${{ github.run_number }}" --latest --repo "${{ github.repository }}"
