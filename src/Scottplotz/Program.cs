@@ -48,6 +48,8 @@ app.UseExceptionHandler(handler => handler.Run(async context =>
 }));
 
 app.UseMiddleware<ApiKeyMiddleware>();
+app.UseDefaultFiles();
+app.UseStaticFiles();
 app.UseSwagger();
 app.UseSwaggerUI(options =>
 {
