@@ -2,11 +2,11 @@ using System.Net;
 
 namespace Scottplotz.Tests.Http;
 
-public sealed class TestPageTests : IClassFixture<Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory<Program>>
+public sealed class TestPageTests : IClassFixture<TestAppFactory>
 {
     private readonly HttpClient _client;
 
-    public TestPageTests(Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory<Program> factory) =>
+    public TestPageTests(TestAppFactory factory) =>
         _client = factory.CreateClient();
 
     [Fact]

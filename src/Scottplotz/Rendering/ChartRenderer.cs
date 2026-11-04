@@ -19,7 +19,7 @@ public static class ChartRenderer
         {
             var plot = new ScottPlot.Plot();
             ApplyTheme(plot, hints.Theme);
-            Draw(plot, plan);
+            Draw(plot, plan, hints);
             ApplyText(plot, hints);
             return plot.GetImageBytes(hints.Width, hints.Height, ScottPlot.ImageFormat.Png);
         }
@@ -30,7 +30,7 @@ public static class ChartRenderer
         }
     }
 
-    private static void Draw(ScottPlot.Plot plot, ChartPlan plan)
+    private static void Draw(ScottPlot.Plot plot, ChartPlan plan, ResolvedChartHints hints)
     {
         switch (plan)
         {
@@ -41,7 +41,7 @@ public static class ChartRenderer
                 DrawPoints(plot, points);
                 break;
             case ChartPlan.Bars bars:
-                DrawBars(plot, bars);
+                DrawBars(plot, bars, hints.Width);
                 break;
             case ChartPlan.Distribution distribution:
                 DrawHistogram(plot, distribution);
@@ -70,7 +70,11 @@ public static class ChartRenderer
             scatter.MarkerSize = count <= 40 ? 5 : 0;
         }
 
-        if (lines.Dates is not null)
+        if (lines.Dates is not null && DateTicks.WholeDays(lines.Dates))
+            plot.Axes.Bottom.TickGenerator = new ScottPlot.TickGenerators.DateTimeFixedInterval(
+                new ScottPlot.TickGenerators.TimeUnits.Day(),
+                1);
+        else if (lines.Dates is not null)
             plot.Axes.DateTimeTicksBottom();
 
         if (lines.Series.Count > 1)
@@ -86,22 +90,22 @@ public static class ChartRenderer
         scatter.MarkerSize = 7;
     }
 
-    private static void DrawBars(ScottPlot.Plot plot, ChartPlan.Bars bars)
+    private static void DrawBars(ScottPlot.Plot plot, ChartPlan.Bars bars, int plotWidth)
     {
         var seriesCount = bars.Series.Count;
-        var width = 0.8 / seriesCount;
+        var barWidth = 0.8 / seriesCount;
         var drawn = bars.Series.SelectMany((series, seriesIndex) =>
             series.Values.Select((value, index) => new ScottPlot.Bar
             {
-                Position = index + ((seriesIndex - (seriesCount - 1) / 2.0) * width),
+                Position = index + ((seriesIndex - (seriesCount - 1) / 2.0) * barWidth),
                 Value = value,
-                Size = width * 0.9,
+                Size = barWidth * 0.9,
                 FillColor = Palette.GetColor(seriesIndex)
             })).ToList();
 
         plot.Add.Bars(drawn);
-        var ticks = Enumerable.Range(0, bars.Labels.Count).Select(index => (double)index).ToArray();
-        plot.Axes.Bottom.SetTicks(ticks, bars.Labels.ToArray());
+        var ticks = CategoryTicks.Select(bars.Labels, plotWidth);
+        plot.Axes.Bottom.SetTicks(ticks.Positions, ticks.Labels);
         if (seriesCount > 1)
             ShowLegend(plot);
     }
@@ -127,13 +131,12 @@ public static class ChartRenderer
 
         plot.Add.Pie(pieces);
         plot.HideAxesAndGrid();
-        plot.ShowLegend(ScottPlot.Alignment.UpperRight);
         ShowLegend(plot);
     }
 
     private static void ShowLegend(ScottPlot.Plot plot)
     {
-        plot.ShowLegend(ScottPlot.Alignment.UpperRight);
+        plot.ShowLegend(LegendPlacement.OutsideData);
         plot.Legend.FontName = EmbeddedFont.FamilyName;
         plot.Legend.SetBestFontOnEachRender = false;
     }

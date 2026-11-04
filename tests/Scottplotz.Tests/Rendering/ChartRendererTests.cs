@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Security.Cryptography;
 using Scottplotz.Charting;
 using Scottplotz.Rendering;
@@ -37,17 +38,42 @@ public sealed class ChartRendererTests
     }
 
     [Fact]
+    public void A_comma_culture_renders_the_same_bytes()
+    {
+        var invariant = Render(LineTable(), title: "Numbers");
+        var previous = CultureInfo.CurrentCulture;
+        var previousUi = CultureInfo.CurrentUICulture;
+        var german = CultureInfo.GetCultureInfo("de-DE");
+        CultureInfo.CurrentCulture = german;
+        CultureInfo.CurrentUICulture = german;
+        try
+        {
+            Assert.Equal(invariant, Render(LineTable(), title: "Numbers"));
+        }
+        finally
+        {
+            CultureInfo.CurrentCulture = previous;
+            CultureInfo.CurrentUICulture = previousUi;
+        }
+    }
+
+    [Fact]
     public void Matches_the_golden_hashes()
     {
-        var actual = new Dictionary<string, string>
+        if (!OperatingSystem.IsWindows())
+            throw Xunit.Sdk.SkipException.ForSkip(
+                "Golden hashes are captured on Windows. ScottPlot text layout differs on Linux.");
+
+        var images = new Dictionary<string, byte[]>
         {
-            ["line"] = Hash(Render(LineTable(), title: "Numbers")),
-            ["bar"] = Hash(Render(BarTable(), title: "Fruit")),
-            ["scatter"] = Hash(Render(ScatterTable(), title: "Points")),
-            ["histogram"] = Hash(Render(HistogramTable(), title: "Readings")),
-            ["timeseries"] = Hash(Render(TimeTable(), title: "Price")),
-            ["pie"] = Hash(Render(BarTable(), ChartKind.Pie, "Fruit"))
+            ["line"] = Render(LineTable(), title: "Numbers"),
+            ["bar"] = Render(BarTable(), title: "Fruit"),
+            ["scatter"] = Render(ScatterTable(), title: "Points"),
+            ["histogram"] = Render(HistogramTable(), title: "Readings"),
+            ["timeseries"] = Render(TimeTable(), title: "Price"),
+            ["pie"] = Render(BarTable(), ChartKind.Pie, "Fruit")
         };
+        var actual = images.ToDictionary(pair => pair.Key, pair => Hash(pair.Value), StringComparer.Ordinal);
 
         var expected = new Dictionary<string, string>
         {
@@ -55,11 +81,30 @@ public sealed class ChartRendererTests
             ["bar"] = "6f20f18238d10449a66599eee1c903cb0fa20c823efe9d3411cfe6368225f6fa",
             ["scatter"] = "8adeae20afe335aa5ed8c0e5399be6f63345da3976601a85f52768c5061bf546",
             ["histogram"] = "34a6492fa09c3b0b5dadd0be7020f8e165b565a952ceef3dbd39cab169d28a2d",
-            ["timeseries"] = "ac548a291945e6cb7a5929e5741a663e237d97cfb4e48c2c2ba4ead838733bad",
-            ["pie"] = "ee0dfb66055cecdf8f823b19c4e3aae6bd266f0e688470fedbabd7f8e2b95916"
+            ["timeseries"] = "240f92067c576f58ef28a0136d25bf6c0e6c180ad91fa974ca192e22ae502c53",
+            ["pie"] = "f2562473715f5f2815e12923b4a057fd0e65e1876a2a0bcbbde3a122bc4da844"
         };
 
-        Assert.Equal(expected, actual);
+        try
+        {
+            Assert.Equal(expected, actual);
+        }
+        catch (Xunit.Sdk.XunitException)
+        {
+            SaveMismatches(images, actual);
+            throw;
+        }
+    }
+
+    private static void SaveMismatches(IReadOnlyDictionary<string, byte[]> images, IReadOnlyDictionary<string, string> hashes)
+    {
+        var folder = Path.Combine(Directory.GetCurrentDirectory(), "TestResults", "golden");
+        Directory.CreateDirectory(folder);
+        foreach (var (name, png) in images)
+            File.WriteAllBytes(Path.Combine(folder, $"{name}.png"), png);
+        File.WriteAllLines(
+            Path.Combine(folder, "hashes.txt"),
+            hashes.Select(pair => $"{pair.Key} {pair.Value}"));
     }
 
     private static byte[] Render(ChartTable table, ChartKind? type = null, string? title = null, ChartTheme theme = ChartTheme.Light)

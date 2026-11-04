@@ -79,7 +79,7 @@ Uninstall from **Settings > Apps**. That removes the program, the shortcut, the 
 Each rule is one pure function. The engine in `src/Scottplotz/Rules/ChartRuleEngine.cs` runs them in order and keeps the first confident match.
 
 1. Add `src/Scottplotz/Rules/YourRule.cs` with `public static RuleMatch? Match(ChartTable table)`. Return `null` when the rule does not apply. Return `new RuleMatch("your-rule", confident: true, ChartKind.Line)` when it does.
-2. Put `YourRule.Match` in the `Rules` list where it should be considered.
+2. Put `new OrderedRule(YourRule.Name, YourRule.Match)` in `ChartRuleEngine.Ordered` where it should be considered.
 3. Add a test class under `tests/Scottplotz.Tests/Rules` with one case that matches and one that does not.
 
 A caller hint still wins over every rule.
@@ -89,3 +89,9 @@ A caller hint still wins over every rule.
 `appsettings.json` next to the program sets the limits and the port. `%LOCALAPPDATA%\Scottplotz\appsettings.user.json` overrides that file. Environment variables override both. Logs are written to `%LOCALAPPDATA%\Scottplotz\logs`.
 
 The service binds on port 5240. The firewall rule is what keeps it on the local subnet. A Cloudflare tunnel is not set up. If you put the port on the internet, set the `SCOTTPLOTZ_API_KEY` environment variable first. Clients then send that value in the `X-Api-Key` header. The key is never written into the program or the log. Health, Swagger, and the test page stay open.
+
+## Regenerate the chart hashes
+
+`ChartRendererTests.Matches_the_golden_hashes` compares SHA-256 of six small PNGs. Those hashes are captured on Windows. The test skips elsewhere, because ScottPlot lays out text differently on Linux.
+
+When the test fails, it writes the actual PNGs and `hashes.txt` to `TestResults/golden`. CI uploads that folder as the `golden-mismatches` artifact. Open the PNGs and review them before you change the hashes. If the pictures are the ones you meant to ship, copy the lines from `hashes.txt` into the test. A hash change without looking at the images hides a rendering bug.

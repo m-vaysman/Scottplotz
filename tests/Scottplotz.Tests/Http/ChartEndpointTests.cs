@@ -2,18 +2,16 @@ using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Scottplotz.Http;
+using Scottplotz.Tests.Rendering;
 
 namespace Scottplotz.Tests.Http;
 
-public sealed class ChartEndpointTests : IClassFixture<WebApplicationFactory<Program>>
+public sealed class ChartEndpointTests : IClassFixture<TestAppFactory>
 {
     private readonly HttpClient _client;
 
-    public ChartEndpointTests(WebApplicationFactory<Program> factory) =>
+    public ChartEndpointTests(TestAppFactory factory) =>
         _client = factory.CreateClient();
 
     [Fact]
@@ -26,6 +24,18 @@ public sealed class ChartEndpointTests : IClassFixture<WebApplicationFactory<Pro
         Assert.Equal("plain-numbers-line", response.Headers.GetValues("X-Chart-Rule").Single());
         var bytes = await response.Content.ReadAsByteArrayAsync();
         Assert.Equal([0x89, 0x50, 0x4E, 0x47], bytes.Take(4));
+        Assert.Equal((800, 450), PngSize.Read(bytes));
+    }
+
+    [Fact]
+    public async Task Chart_uses_the_requested_image_size()
+    {
+        var response = await PostJson(
+            "/chart",
+            """{ "data": [1, 3, 2, 5, 4], "hints": { "width": 321, "height": 222 } }""");
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.Equal((321, 222), PngSize.Read(await response.Content.ReadAsByteArrayAsync()));
     }
 
     [Fact]
@@ -72,6 +82,8 @@ public sealed class ChartEndpointTests : IClassFixture<WebApplicationFactory<Pro
 
     [Theory]
     [InlineData("""{ "data": [1], "hints": { "colour": "red" } }""", "unknown-hint")]
+    [InlineData("{}", "missing-data")]
+    [InlineData("""{ "hints": {} }""", "missing-data")]
     [InlineData("{", "malformed-json")]
     [InlineData("""{ "data": [] }""", "empty-data")]
     [InlineData("""{ "data": { "a": [1, 2], "b": [3] } }""", "mismatched-columns")]
@@ -126,10 +138,11 @@ public sealed class ChartLimitTests : IClassFixture<LimitedFactory>
     }
 }
 
-public sealed class LimitedFactory : WebApplicationFactory<Program>
+public sealed class LimitedFactory : TestAppFactory
 {
     protected override void ConfigureWebHost(Microsoft.AspNetCore.Hosting.IWebHostBuilder builder)
     {
+        base.ConfigureWebHost(builder);
         builder.ConfigureAppConfiguration((_, configuration) =>
         {
             configuration.AddInMemoryCollection(new Dictionary<string, string?>
@@ -143,6 +156,7 @@ public sealed class LimitedFactory : WebApplicationFactory<Program>
 
 public sealed class ApiKeyEndpointTests : IClassFixture<ApiKeyFactory>
 {
+    private const string Key = "test-key";
     private readonly HttpClient _client;
 
     public ApiKeyEndpointTests(ApiKeyFactory factory) =>
@@ -151,43 +165,74 @@ public sealed class ApiKeyEndpointTests : IClassFixture<ApiKeyFactory>
     [Fact]
     public async Task Chart_requires_the_configured_key()
     {
-        var missing = await _client.PostAsync(
-            "/chart",
-            new StringContent("""{ "data": [1, 2, 3] }""", Encoding.UTF8, "application/json"));
+        var missing = await Post("/chart", null);
         Assert.Equal(HttpStatusCode.Unauthorized, missing.StatusCode);
 
-        var request = new HttpRequestMessage(HttpMethod.Post, "/chart")
-        {
-            Content = new StringContent("""{ "data": [1, 2, 3] }""", Encoding.UTF8, "application/json")
-        };
-        request.Headers.Add("X-Api-Key", "test-key");
-        var accepted = await _client.SendAsync(request);
+        var accepted = await Post("/chart", Key);
 
         Assert.Equal(HttpStatusCode.OK, accepted.StatusCode);
         Assert.Equal("plain-numbers-line", accepted.Headers.GetValues("X-Chart-Rule").Single());
     }
 
-    [Fact]
-    public async Task Health_stays_open_when_a_key_is_configured()
+    [Theory]
+    [InlineData("test-kez")]
+    [InlineData("no")]
+    [InlineData("")]
+    [InlineData("TEST-KEY")]
+    public async Task A_wrong_key_is_unauthorized(string key)
     {
-        var response = await _client.GetAsync("/health");
+        var response = await Post("/chart", key);
+
+        Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
+        Assert.Equal("application/problem+json", response.Content.Headers.ContentType?.MediaType);
+        var json = await JsonDocument.ParseAsync(await response.Content.ReadAsStreamAsync());
+        Assert.Equal("unauthorized", json.RootElement.GetProperty("code").GetString());
+    }
+
+    [Fact]
+    public async Task Explain_requires_the_same_key()
+    {
+        var missing = await Post("/chart/explain", null);
+        Assert.Equal(HttpStatusCode.Unauthorized, missing.StatusCode);
+        Assert.Equal("application/problem+json", missing.Content.Headers.ContentType?.MediaType);
+
+        var accepted = await Post("/chart/explain", Key);
+
+        Assert.Equal(HttpStatusCode.OK, accepted.StatusCode);
+        var json = await JsonDocument.ParseAsync(await accepted.Content.ReadAsStreamAsync());
+        Assert.Equal("plain-numbers-line", json.RootElement.GetProperty("effectiveRule").GetString());
+    }
+
+    [Theory]
+    [InlineData("/health")]
+    [InlineData("/swagger/v1/swagger.json")]
+    [InlineData("/")]
+    public async Task Routes_outside_chart_stay_open(string path)
+    {
+        var response = await _client.GetAsync(path);
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
-}
 
-public sealed class ApiKeyFactory : WebApplicationFactory<Program>
-{
-    protected override void ConfigureWebHost(Microsoft.AspNetCore.Hosting.IWebHostBuilder builder)
+    [Fact]
+    public async Task The_key_is_not_written_to_the_log()
     {
-        builder.ConfigureServices(services =>
-        {
-            services.AddSingleton<IApiKeySource>(new FixedApiKey("test-key"));
-        });
+        await Post("/chart", "test-kez");
+        await Post("/chart", Key);
+
+        var log = await File.ReadAllTextAsync(global::Scottplotz.Hosting.UserPaths.LogFile);
+        Assert.DoesNotContain(Key, log, StringComparison.Ordinal);
+        Assert.DoesNotContain("test-kez", log, StringComparison.Ordinal);
     }
 
-    private sealed class FixedApiKey(string key) : IApiKeySource
+    private Task<HttpResponseMessage> Post(string path, string? key)
     {
-        public string? Current => key;
+        var request = new HttpRequestMessage(HttpMethod.Post, path)
+        {
+            Content = new StringContent("""{ "data": [1, 2, 3] }""", Encoding.UTF8, "application/json")
+        };
+        if (key is not null)
+            request.Headers.TryAddWithoutValidation("X-Api-Key", key);
+        return _client.SendAsync(request);
     }
 }

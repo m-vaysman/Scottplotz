@@ -26,4 +26,10 @@ public sealed class TimeSeriesRuleTests
     {
         Assert.Null(TimeSeriesRule.Match(RuleTables.Plain(1, 2, 3)));
     }
+
+    [Fact]
+    public void Does_not_match_dates_without_numbers()
+    {
+        Assert.Null(TimeSeriesRule.Match(RuleTables.Columns(RuleTables.Days(1, 2, 3))));
+    }
 }
