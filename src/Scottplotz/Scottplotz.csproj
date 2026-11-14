@@ -23,6 +23,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Recon\Kit\**\*" LogicalName="recon/kit/%(RecursiveDir)%(Filename)%(Extension)" />
     <EmbeddedResource Include="Recon\Views\**\*" LogicalName="recon/views/%(RecursiveDir)%(Filename)%(Extension)" />
+    <EmbeddedResource Include="Reports\Sample\sample.json" LogicalName="reports/sample.json" />
+    <Content Remove="Reports\Sample\*.json" />
     <Content Remove="Recon\**\*.json" />
     <None Remove="Recon\**\*" />
   </ItemGroup>
