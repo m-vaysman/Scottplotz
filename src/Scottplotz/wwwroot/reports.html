@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scottplotz reconciliation reports</title>
+<style>
+  :root { color-scheme: light; --plane: #f9f9f7; --surface: #fcfcfb; --ink: #0b0b0b; --ink2: #52514e; --muted: #898781; --line: #e1e0d9; --ring: rgba(11,11,11,.12); --accent: #2a78d6; --bad: #b3261e; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme=light]) { color-scheme: dark; --plane: #0d0d0d; --surface: #1a1a19; --ink: #f0efec; --ink2: #c3c2b7; --muted: #898781; --line: #2c2c2a; --ring: rgba(255,255,255,.14); --accent: #3987e5; --bad: #ff8a80; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--plane); color: var(--ink); font: 14px/1.45 Bahnschrift, "DIN Alternate", "Segoe UI", system-ui, sans-serif; }
+  a { color: inherit; }
+  header { padding: 22px 28px 14px; max-width: 1560px; margin: 0 auto; }
+  header h1 { font-size: 30px; line-height: 1.15; font-weight: 600; margin: 0 0 6px; }
+  header p { margin: 0; color: var(--ink2); max-width: 90ch; }
+  .links { margin-top: 8px; display: flex; gap: 18px; flex-wrap: wrap; font-size: 13px; }
+  .bar { position: sticky; top: 0; z-index: 5; background: var(--plane); border-bottom: 1px solid var(--line); }
+  .bar > div { max-width: 1560px; margin: 0 auto; padding: 10px 28px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .bar .count { color: var(--muted); margin-left: auto; font-size: 13px; }
+  select, input, textarea, button { font: inherit; color: inherit; }
+  select, input[type=search], input[type=password], textarea { padding: 6px 9px; border: 1px solid var(--ring); border-radius: 5px; background: var(--surface); }
+  input[type=search] { width: 260px; }
+  button { padding: 6px 13px; border: 1px solid var(--ring); border-radius: 5px; background: var(--surface); cursor: pointer; }
+  button:hover { border-color: var(--ink2); }
+  button.main { font-weight: 600; border-color: var(--ink); }
+  button:disabled { opacity: .5; cursor: default; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  main { max-width: 1560px; margin: 0 auto; padding: 20px 28px 60px; }
+  h2.group { font-size: 16px; font-weight: 600; margin: 22px 0 10px; color: var(--ink2); }
+  h2.group:first-child { margin-top: 0; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 18px; }
+  .card { background: var(--surface); border: 1px solid var(--ring); border-radius: 7px; overflow: hidden; display: flex; flex-direction: column; }
+  .thumb { position: relative; overflow: hidden; background: var(--plane); border-bottom: 1px solid var(--line); cursor: pointer; }
+  .thumb iframe { position: absolute; left: 0; top: 0; width: 1280px; height: 860px; border: 0; transform-origin: 0 0; pointer-events: none; }
+  .thumb .wait { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 13px; padding: 12px; text-align: center; }
+  .card .body { padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+  .card h3 { font-size: 16px; font-weight: 600; margin: 0; }
+  .card code { font: 12px Consolas, monospace; color: var(--muted); }
+  .card .q { margin: 0; font-weight: 600; font-size: 13px; }
+  .card p { margin: 0; color: var(--ink2); font-size: 13px; }
+  .card .who { color: var(--muted); font-size: 12px; }
+  .card .row { margin-top: auto; padding-top: 8px; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  #none { color: var(--muted); padding: 30px 0; }
+  h2.section { font-size: 20px; font-weight: 600; margin: 44px 0 4px; }
+  .sub { color: var(--ink2); margin: 0 0 14px; }
+  #bench { display: grid; grid-template-columns: 430px 1fr; gap: 18px; align-items: start; }
+  @media (max-width: 1050px) { #bench { grid-template-columns: 1fr; } }
+  .panel { background: var(--surface); border: 1px solid var(--ring); border-radius: 7px; padding: 16px 18px; }
+  label { display: block; font-weight: 600; margin: 12px 0 4px; }
+  label:first-child { margin-top: 0; }
+  .panel select, textarea { width: 100%; }
+  textarea { height: 360px; font: 12px/1.4 Consolas, monospace; white-space: pre; }
+  .note { color: var(--ink2); margin: 5px 0 0; font-size: 13px; }
+  #error { color: var(--bad); white-space: pre-wrap; margin: 10px 0 0; }
+  #status { color: var(--ink2); margin: 0 0 8px; }
+  #page { width: 100%; height: 86vh; border: 1px solid var(--ring); border-radius: 7px; background: var(--plane); }
+  pre { margin: 0; padding: 12px; border: 1px solid var(--ring); border-radius: 7px; background: var(--surface); overflow: auto; max-height: 86vh; font: 12px/1.4 Consolas, monospace; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Reconciliation reports</h1>
+  <p>Thirteen back-office and middle-office reports, written as HTML from one reconciliation result. Each card below is drawn live by this service from the built-in sample result. Every figure is worked out by the service; the pages hold finished values and no script.</p>
+  <div class="links"><a href="/">Charts test page</a><a href="/recon.html">Reconciliation views</a><a href="/swagger">API document</a><a href="/reports">Report list as JSON</a><a href="/reports/sample">Sample input</a></div>
+</header>
+<div class="bar"><div>
+  <input id="filter" type="search" placeholder="Filter reports" aria-label="Filter reports">
+  <select id="look" aria-label="Preview theme">
+    <option value="auto">Previews: match my system</option>
+    <option value="light">Previews: light</option>
+    <option value="dark">Previews: dark</option>
+  </select>
+  <input id="key" type="password" autocomplete="off" placeholder="API key, if required" aria-label="API key">
+  <span class="count" id="count"></span>
+</div></div>
+<main>
+  <div id="groups"></div>
+  <p id="none" hidden>No report matches that filter.</p>
+
+  <h2 class="section" id="editor">Editor</h2>
+  <p class="sub">Post your own result. The input format is in docs/reports-input.md; a bad input shows what to fix.</p>
+  <div id="bench">
+    <section class="panel">
+      <label for="report">Report</label>
+      <select id="report"></select>
+      <p class="note" id="about"></p>
+      <p class="note" id="needs"></p>
+      <label for="body">Input</label>
+      <textarea id="body" spellcheck="false"></textarea>
+      <div class="row" style="margin-top:10px">
+        <button id="render" type="button" class="main">Render</button>
+        <button id="data" type="button">Values as JSON</button>
+        <button id="sample" type="button">Load sample</button>
+        <button id="open" type="button" disabled>Open in a new tab</button>
+      </div>
+      <p id="error" role="alert"></p>
+    </section>
+    <section>
+      <p id="status">Pick a report above, or choose one here and select Render.</p>
+      <iframe id="page" title="Rendered report" sandbox hidden></iframe>
+      <pre id="json" hidden></pre>
+    </section>
+  </div>
+</main>
+<script>
+  const el = id => document.getElementById(id);
+  const make = (tag, props = {}, kids = []) => { const node = Object.assign(document.createElement(tag), props); node.append(...kids); return node; };
+  const FRAME_W = 1280, FRAME_H = 860;
+  let reports = [], lastHtml = '', sampleText = null;
+  const cards = new Map(), pages = new Map();
+
+  const headers = () => Object.assign({ 'Content-Type': 'application/json' }, el('key').value ? { 'X-Api-Key': el('key').value } : {});
+
+  const problem = async response => {
+    const text = await response.text();
+    try {
+      const detail = JSON.parse(text);
+      return response.status + ' ' + (detail.title || '') + '\n' + (detail.detail || '') + (detail.code ? '\ncode: ' + detail.code : '');
+    } catch { return response.status + ' ' + text; }
+  };
+
+  const sample = async () => sampleText ?? (sampleText = await (await fetch('/reports/sample')).text());
+
+  // The page for a report drawn from the sample in the chosen preview theme. Cached, so a card and "Open" share one request.
+  const pageOf = (id, look) => {
+    const cacheKey = id + '|' + look + '|' + el('key').value;
+    if (!pages.has(cacheKey)) {
+      pages.set(cacheKey, (async () => {
+        const input = JSON.parse(await sample());
+        input.options = Object.assign({}, input.options, { theme: look });
+        const response = await fetch('/reports/' + encodeURIComponent(id), { method: 'POST', headers: headers(), body: JSON.stringify(input) });
+        if (!response.ok) throw new Error(await problem(response));
+        return response.text();
+      })());
+      pages.get(cacheKey).catch(() => pages.delete(cacheKey));
+    }
+    return pages.get(cacheKey);
+  };
+
+  const openTab = html => window.open(URL.createObjectURL(new Blob([html], { type: 'text/html' })), '_blank', 'noopener');
+
+  const waiting = []; let running = 0;
+  const pump = () => { while (running < 3 && waiting.length) { running++; waiting.shift()().finally(() => { running--; pump(); }); } };
+
+  const fit = card => {
+    const scale = card.thumb.clientWidth / FRAME_W;
+    card.thumb.style.height = Math.round(FRAME_H * scale) + 'px';
+    const frame = card.thumb.querySelector('iframe');
+    if (frame) frame.style.transform = 'scale(' + scale + ')';
+  };
+
+  const draw = card => { waiting.push(async () => {
+    const look = el('look').value;
+    card.wait.textContent = 'Drawing…'; card.wait.hidden = false;
+    try {
+      const html = await pageOf(card.report.id, look);
+      if (look !== el('look').value) return;
+      const frame = make('iframe', { title: card.report.title + ' preview' });
+      frame.setAttribute('sandbox', '');
+      frame.setAttribute('tabindex', '-1');
+      frame.srcdoc = html;
+      card.thumb.querySelector('iframe')?.remove();
+      card.thumb.prepend(frame);
+      fit(card);
+      card.wait.hidden = true;
+    } catch (error) {
+      card.thumb.querySelector('iframe')?.remove();
+      card.wait.textContent = 'Could not draw this report. ' + error.message;
+    }
+  }); pump(); };
+
+  const seen = new IntersectionObserver(entries => entries.forEach(entry => {
+    const card = cards.get(entry.target.dataset.report);
+    if (entry.isIntersecting && card && !card.asked) { card.asked = true; draw(card); }
+  }), { rootMargin: '300px' });
+  const sized = new ResizeObserver(entries => entries.forEach(entry => { const card = cards.get(entry.target.dataset.report); if (card) fit(card); }));
+
+  const edit = async id => {
+    el('report').value = id;
+    describe();
+    if (!el('body').value) el('body').value = await sample();
+    el('editor').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    await render();
+  };
+
+  const addCard = (report, grid) => {
+    const wait = make('div', { className: 'wait', textContent: 'Scroll here to draw' });
+    const thumb = make('div', { className: 'thumb', title: 'Open ' + report.title + ' full size' }, [wait]);
+    const full = make('button', { type: 'button', textContent: 'Open full size' });
+    const change = make('button', { type: 'button', textContent: 'Use my data' });
+    const node = make('article', { className: 'card' }, [thumb, make('div', { className: 'body' }, [
+      make('h3', { textContent: report.id + ' · ' + report.title }), make('code', { textContent: 'POST /reports/' + report.id }),
+      make('p', { className: 'q', textContent: report.question }), make('p', { textContent: report.about }),
+      make('p', { className: 'who', textContent: report.users + ' · ' + report.cadence }), make('div', { className: 'row' }, [full, change])])]);
+    node.dataset.report = thumb.dataset.report = report.id;
+    const card = { report, node, thumb, wait, asked: false };
+    const openFull = async () => { try { openTab(await pageOf(report.id, el('look').value)); } catch (error) { wait.hidden = false; wait.textContent = error.message; } };
+    thumb.addEventListener('click', openFull);
+    full.addEventListener('click', openFull);
+    change.addEventListener('click', () => edit(report.id));
+    cards.set(report.id, card);
+    grid.append(node);
+    seen.observe(thumb);
+    sized.observe(thumb);
+    fit(card);
+  };
+
+  const applyFilter = () => {
+    const words = el('filter').value.toLowerCase().split(/\s+/).filter(Boolean);
+    let shown = 0;
+    cards.forEach(card => {
+      const r = card.report;
+      const text = [r.id, r.slug, r.title, r.office, r.users, r.question, r.about].join(' ').toLowerCase();
+      const match = words.every(word => text.includes(word));
+      card.node.hidden = !match;
+      if (match) shown++;
+    });
+    document.querySelectorAll('#groups > section').forEach(section => { section.hidden = !section.querySelector('.card:not([hidden])'); });
+    el('none').hidden = shown > 0;
+    el('count').textContent = shown === cards.size ? cards.size + ' reports' : shown + ' of ' + cards.size + ' reports';
+  };
+
+  const redrawAll = () => cards.forEach(card => {
+    card.thumb.querySelector('iframe')?.remove();
+    card.wait.hidden = false; card.wait.textContent = 'Scroll here to draw';
+    card.asked = false;
+    seen.unobserve(card.thumb); seen.observe(card.thumb);
+  });
+
+  const describe = () => {
+    const report = reports.find(r => r.id === el('report').value);
+    el('about').textContent = report ? report.question + ' ' + report.about : '';
+    el('needs').textContent = report && report.requiredRoles.length ? 'Needs these roles mapped: ' + report.requiredRoles.join(', ') + '.' : '';
+  };
+
+  const post = async suffix => {
+    el('error').textContent = '';
+    try { JSON.parse(el('body').value); } catch (error) { el('error').textContent = 'The input is not valid JSON. ' + error.message; return null; }
+    const response = await fetch('/reports/' + encodeURIComponent(el('report').value) + suffix, { method: 'POST', headers: headers(), body: el('body').value });
+    if (!response.ok) { el('error').textContent = await problem(response); return null; }
+    return response.text();
+  };
+
+  const render = async () => {
+    const html = await post('');
+    if (html === null) return;
+    lastHtml = html;
+    el('page').srcdoc = html;
+    el('page').hidden = false;
+    el('json').hidden = true;
+    el('open').disabled = false;
+    el('status').textContent = el('report').value + ', ' + html.length.toLocaleString('en-US') + ' characters of HTML.';
+  };
+
+  el('render').addEventListener('click', render);
+  el('data').addEventListener('click', async () => {
+    const json = await post('/data');
+    if (json === null) return;
+    el('json').textContent = JSON.stringify(JSON.parse(json), null, 1);
+    el('json').hidden = false;
+    el('page').hidden = true;
+    el('status').textContent = 'The computed values of ' + el('report').value + '.';
+  });
+  el('open').addEventListener('click', () => openTab(lastHtml));
+  el('sample').addEventListener('click', async () => { el('error').textContent = ''; el('body').value = await sample(); });
+  el('report').addEventListener('change', describe);
+  el('filter').addEventListener('input', applyFilter);
+  el('look').addEventListener('change', redrawAll);
+  el('key').addEventListener('change', redrawAll);
+
+  fetch('/reports').then(response => response.json()).then(list => {
+    reports = list;
+    [...new Set(list.map(report => report.office))].forEach(office => {
+      const grid = make('div', { className: 'grid' });
+      el('groups').append(make('section', {}, [make('h2', { className: 'group', textContent: office }), grid]));
+      list.filter(report => report.office === office).forEach(report => {
+        el('report').append(make('option', { value: report.id, textContent: report.id + ' · ' + report.title }));
+        addCard(report, grid);
+      });
+    });
+    applyFilter();
+    describe();
+  }).catch(error => { el('error').textContent = 'Could not load the report list. ' + error.message; el('count').textContent = 'Could not load the report list.'; });
+</script>
+</body>
+</html>

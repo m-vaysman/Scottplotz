@@ -26,6 +26,7 @@ public static class ScottplotzHost
         builder.Services.AddSingleton<IApiKeySource, EnvironmentApiKeySource>();
         builder.Services.AddSingleton<IChartImageRenderer, ScottPlotChartRenderer>();
         builder.Services.AddSingleton(services => ReconLimits.Bind(services.GetRequiredService<IConfiguration>()));
+        builder.Services.AddSingleton(services => Scottplotz.Reports.Input.ReportLimits.Bind(services.GetRequiredService<IConfiguration>()));
         builder.Services.AddMcpServer()
             .WithHttpTransport()
             .WithToolsFromAssembly();
@@ -67,6 +68,7 @@ public static class ScottplotzHost
 
         app.UseMiddleware<ApiKeyMiddleware>();
         app.UseMiddleware<ReconApiKeyMiddleware>();
+        app.UseMiddleware<ReportsApiKeyMiddleware>();
         app.UseDefaultFiles();
         app.UseStaticFiles();
         app.UseSwagger();
@@ -83,6 +85,7 @@ public static class ScottplotzHost
 
         ChartEndpoints.Map(app);
         ReconEndpoints.Map(app);
+        ReportEndpoints.Map(app);
         app.MapMcp("/mcp");
         return app;
     }

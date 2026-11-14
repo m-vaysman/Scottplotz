@@ -135,3 +135,37 @@ Content-Type: application/json
   "records": [ { "key": "A-1", "left": 100 } ],
   "options": { "sortBy": "size" }
 }
+
+### Reports: list them
+GET {{host}}/reports
+
+### Reports: the sample input
+GET {{host}}/reports/sample
+
+### Reports: one that cannot be written (no roles mapped)
+POST {{host}}/reports/MO5
+Content-Type: application/json
+
+{ "run": { "asOf": "2026-03-31", "profileId": "demo", "roles": {} }, "entries": [], "rows": [] }
+
+### Reports: a small ageing report
+POST {{host}}/reports/MO5
+Content-Type: application/json
+
+{
+  "run": { "asOf": "2026-03-31", "profileId": "demo", "roles": { "Counterparty": "Counterparty", "TradeDate": "TradeDate", "SettleDate": "SettleDate", "Currency": "Currency", "NetCash": "NetCash" } },
+  "entries": [
+    { "id": "a1", "alignment": "LeftOnly", "outcome": "NotCompared", "left": ["L-1"], "ours": { "Counterparty": "BAML", "TradeDate": "2026-03-25", "SettleDate": "2026-03-27", "Currency": "USD", "NetCash": 125000 }, "committedBy": "P1" },
+    { "id": "a2", "alignment": "RightOnly", "outcome": "NotCompared", "right": ["R-1"], "theirs": { "Counterparty": "GS", "TradeDate": "2026-03-30", "SettleDate": "2026-04-01", "Currency": "EUR", "NetCash": 88000 }, "committedBy": "P1" }
+  ],
+  "rows": [
+    { "source": "left", "rowKey": "L-1", "disposition": "LeftOnly", "entryId": "a1" },
+    { "source": "right", "rowKey": "R-1", "disposition": "RightOnly", "entryId": "a2" }
+  ]
+}
+
+### Reports: the same input, as computed values
+POST {{host}}/reports/MO5/data
+Content-Type: application/json
+
+{ "run": { "asOf": "2026-03-31", "profileId": "demo", "roles": { "TradeDate": "TradeDate", "SettleDate": "SettleDate" } }, "entries": [ { "id": "a1", "alignment": "LeftOnly", "outcome": "NotCompared", "left": ["L-1"], "ours": { "TradeDate": "2026-03-25", "SettleDate": "2026-03-27" }, "committedBy": "P1" } ], "rows": [ { "source": "left", "rowKey": "L-1", "disposition": "LeftOnly", "entryId": "a1" } ] }
