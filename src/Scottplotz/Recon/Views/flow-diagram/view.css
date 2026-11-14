@@ -1,0 +1,9 @@
+.flow{fill-opacity:.32;cursor:pointer}
+.flow.dim{fill-opacity:.18}
+.flow.hot{fill-opacity:.6}
+.node{cursor:pointer}
+.node.on{stroke:var(--ink);stroke-width:2}
+.dupnode{fill:var(--surface);stroke:var(--brk);stroke-width:2}
+.node.dupnode.on{stroke:var(--ink)}
+.lbl{cursor:pointer}
+.tbl.flows{max-width:720px}

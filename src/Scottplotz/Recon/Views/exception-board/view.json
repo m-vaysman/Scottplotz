@@ -1,0 +1,38 @@
+{
+  "name": "exception-board",
+  "title": "Exception board",
+  "description": "A Kanban board sorting records into columns by reconciliation status, with detail on click.",
+  "needs": "Records with reconciliation status. A numeric measure is optional but recommended.",
+  "text": {
+    "title": "{left} against {right}",
+    "lede": "Each {unitOne} is a card, sorted into a column by how the match came out. The column heading gives the count and the measure at stake.",
+    "boardTitle": "{unit} by match result",
+    "boardSub": "Select a card to compare both sides.",
+    "colExact": "Agrees",
+    "colExactNote": "Nothing to do",
+    "colTolerance": "Probable match",
+    "colToleranceNote": "Confirm and close",
+    "colBreak": "Difference",
+    "colBreakNote": "Investigate gap",
+    "colLeftOnly": "{leftShort} only",
+    "colLeftOnlyNote": "Missing from {rightShort}",
+    "colRightOnly": "{rightShort} only",
+    "colRightOnlyNote": "Missing from {leftShort}",
+    "colDuplicate": "Duplicate",
+    "colDuplicateNote": "Review duplicates",
+    "exactSummary": "All fields agree",
+    "nextStep": "Next step.",
+    "field": "Field",
+    "ageUnit": "days old"
+  },
+  "options": [
+    {
+      "name": "maxCards",
+      "type": "integer",
+      "default": 30,
+      "min": 1,
+      "max": 200,
+      "description": "Maximum number of cards to display per column."
+    }
+  ]
+}

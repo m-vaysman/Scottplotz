@@ -21,6 +21,10 @@
     <EmbeddedResource Include="Fonts\NotoSans-Bold.ttf">
       <LogicalName>Scottplotz.Fonts.NotoSans-Bold.ttf</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="Recon\Kit\**\*" LogicalName="recon/kit/%(RecursiveDir)%(Filename)%(Extension)" />
+    <EmbeddedResource Include="Recon\Views\**\*" LogicalName="recon/views/%(RecursiveDir)%(Filename)%(Extension)" />
+    <Content Remove="Recon\**\*.json" />
+    <None Remove="Recon\**\*" />
   </ItemGroup>
 
 </Project>

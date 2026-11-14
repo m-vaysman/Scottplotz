@@ -1,0 +1,28 @@
+{
+  "name": "coverage-timelines",
+  "title": "Coverage timelines",
+  "description": "Paired interval bars on a shared date calendar for each record, showing periods of agreement and uncovered or disputed stretches.",
+  "needs": "Two date fields marking the start and end of each record's coverage period.",
+  "text": {
+    "title": "{left} against {right}",
+    "lede": "Each {unitOne} has two bars on one calendar: {leftShort} on top, {rightShort} underneath. Where both agree there is a single grey bar. An end sticking out in colour is a stretch of time only one side covers.",
+    "chartTitle": "Coverage periods by {unitOne}",
+    "chartSub": "Select a {unitOne} to inspect details.",
+    "bothAgree": "Both agree",
+    "leftOnlyLegend": "{leftShort} only",
+    "rightOnlyLegend": "{rightShort} only",
+    "breakLegend": "Dates agree, other field differs",
+    "daysDiffer": "{days} days differ",
+    "otherBreak": "Field differs",
+    "field": "Field",
+    "noReason": "Dates and fields agree.",
+    "noDates": "No start and end dates were found in these records.",
+    "truncated": "Showing the first {shown} of {total} {unit}."
+  },
+  "options": [
+    { "name": "startField", "type": "text", "default": "start", "description": "Date field key for interval start date." },
+    { "name": "endField", "type": "text", "default": "end", "description": "Date field key for interval end date." },
+    { "name": "sortBy", "type": "choice", "allowed": ["input", "status", "name"], "default": "input", "description": "Row order: as sent, by status, or alphabetical by name." },
+    { "name": "maxRows", "type": "integer", "default": 200, "min": 1, "max": 1000, "description": "Draw at most this many records." }
+  ]
+}

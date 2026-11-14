@@ -1,0 +1,34 @@
+{
+  "name": "match-pass-funnel",
+  "title": "Match-pass funnel",
+  "description": "Funnel plot showing records remaining before and after each matching pass, with paired and unmatched records.",
+  "needs": "Records grouped or tagged by matching pass, or matching pass groups.",
+  "text": {
+    "title": "{left} against {right}",
+    "lede": "Matching runs in passes, strictest first. Each row is one pass: the bars are the records still unmatched on each side when the pass began, and the grey part is what that pass paired off. What is left at the bottom is the unmatched work.",
+    "chartTitle": "What each pass matched, and what it left",
+    "chartSub": "Select a pass to see its rule and examples.",
+    "legLeft": "{leftShort} still unmatched",
+    "legRight": "{rightShort} still unmatched",
+    "legPaired": "Paired off by this pass",
+    "headerLeft": "{leftShort}, unmatched going in",
+    "headerRight": "{rightShort}, unmatched going in",
+    "colLeft": "{leftShort} {unitOne}",
+    "colRight": "{rightShort} {unitOne}",
+    "whyPaired": "Why they were paired",
+    "whyUnmatched": "Why it is unmatched",
+    "passDetail": "{name} paired {leftCount} {leftShort} {unit} with {rightCount} {rightShort} {unit}",
+    "unmatchedDetail": "{leftCount} {leftShort} {unit} and {rightCount} {rightShort} {unit} have no partner",
+    "unmatchedName": "Unmatched after every pass",
+    "unmatchedRule": "No pass could pair these. Each one needs manual review: a record missing on one side or an incorrect identifier.",
+    "defaultPassName": "Matched"
+  },
+  "options": [
+    {
+      "name": "showUnmatchedRow",
+      "type": "bool",
+      "default": true,
+      "description": "Include a final row for records remaining unmatched after all passes."
+    }
+  ]
+}

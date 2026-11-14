@@ -1,0 +1,1977 @@
+{
+  "left": {
+    "name": "Receivables, as each seller records them",
+    "short": "Seller"
+  },
+  "right": {
+    "name": "Payables, as each buyer records them",
+    "short": "Buyer"
+  },
+  "unit": {
+    "one": "document",
+    "many": "documents"
+  },
+  "asOf": "2026-03-31",
+  "tolerance": 50,
+  "fields": [
+    {
+      "key": "amt",
+      "label": "Amount",
+      "decimals": 0
+    }
+  ],
+  "measure": "amt",
+  "groups": [
+    {
+      "key": "US Inc"
+    },
+    {
+      "key": "UK Ltd"
+    },
+    {
+      "key": "DE GmbH"
+    },
+    {
+      "key": "FR SAS"
+    },
+    {
+      "key": "SG Pte"
+    },
+    {
+      "key": "JP KK"
+    },
+    {
+      "key": "BR Ltda"
+    }
+  ],
+  "options": {
+    "divisor": 1000
+  },
+  "text": {
+    "title": "What each entity says it is owed against what the other says it owes",
+    "lede": "Rows are the entity that billed. Columns are the entity that was billed. Each cell holds one relationship seen from both ends: the seller's receivable and the buyer's payable. Until a cell is grey the pair cannot be eliminated on consolidation.",
+    "chartTitle": "Buyer's payable minus seller's receivable",
+    "chartSub": "Balances at 31 March 2026, in thousands of USD. Tolerance is 50 per document.",
+    "scaleLeft": "Seller records more",
+    "scaleRight": "Buyer records more",
+    "axisLabel": "Billed entity (buyer)",
+    "rowHeader": "Seller",
+    "pairTitle": "{row} billed {col}",
+    "pairSub": "Receivable {leftAmount}, payable {rightAmount}. {status}",
+    "pairAgrees": "The pair agrees and can be eliminated.",
+    "pairDiff": "Out by {diff}."
+  },
+  "records": [
+    {
+      "key": "IC-12-041",
+      "group": [
+        "US Inc",
+        "UK Ltd"
+      ],
+      "left": {
+        "amt": 22901.36
+      },
+      "right": {
+        "amt": 22901.36
+      }
+    },
+    {
+      "key": "IC-12-044",
+      "group": [
+        "US Inc",
+        "UK Ltd"
+      ],
+      "left": {
+        "amt": 20963.25
+      },
+      "right": {
+        "amt": 20963.25
+      }
+    },
+    {
+      "key": "IC-12-046",
+      "group": [
+        "US Inc",
+        "UK Ltd"
+      ],
+      "left": {
+        "amt": 131500.79
+      },
+      "right": {
+        "amt": 131500.79
+      }
+    },
+    {
+      "key": "IC-13-040",
+      "group": [
+        "US Inc",
+        "DE GmbH"
+      ],
+      "left": {
+        "amt": 54195.83
+      },
+      "right": {
+        "amt": 54195.83
+      }
+    },
+    {
+      "key": "IC-13-045",
+      "group": [
+        "US Inc",
+        "DE GmbH"
+      ],
+      "left": {
+        "amt": 63246.2
+      },
+      "right": {
+        "amt": 63246.2
+      }
+    },
+    {
+      "key": "IC-13-047",
+      "group": [
+        "US Inc",
+        "DE GmbH"
+      ],
+      "left": {
+        "amt": 124817.48
+      },
+      "right": {
+        "amt": 124817.48
+      }
+    },
+    {
+      "key": "IC-13-050",
+      "group": [
+        "US Inc",
+        "DE GmbH"
+      ],
+      "left": {
+        "amt": 7432.44
+      },
+      "right": {
+        "amt": 7432.44
+      }
+    },
+    {
+      "key": "IC-13-052",
+      "group": [
+        "US Inc",
+        "DE GmbH"
+      ],
+      "left": {
+        "amt": 5588
+      },
+      "right": {
+        "amt": 5588
+      }
+    },
+    {
+      "key": "IC-13-057",
+      "group": [
+        "US Inc",
+        "DE GmbH"
+      ],
+      "left": {
+        "amt": 29820.72
+      },
+      "right": {
+        "amt": 29820.72
+      }
+    },
+    {
+      "key": "IC-14-041",
+      "group": [
+        "US Inc",
+        "FR SAS"
+      ],
+      "left": {
+        "amt": 152348.63
+      },
+      "right": {
+        "amt": 152348.63
+      }
+    },
+    {
+      "key": "IC-14-044",
+      "group": [
+        "US Inc",
+        "FR SAS"
+      ],
+      "left": {
+        "amt": 15062.55
+      },
+      "right": {
+        "amt": 15062.55
+      }
+    },
+    {
+      "key": "IC-14-048",
+      "group": [
+        "US Inc",
+        "FR SAS"
+      ],
+      "left": {
+        "amt": 87735.08
+      },
+      "right": {
+        "amt": 87735.08
+      }
+    },
+    {
+      "key": "IC-14-049",
+      "group": [
+        "US Inc",
+        "FR SAS"
+      ],
+      "left": {
+        "amt": 15564.67
+      },
+      "right": {
+        "amt": 15564.67
+      }
+    },
+    {
+      "key": "IC-15-040",
+      "group": [
+        "US Inc",
+        "SG Pte"
+      ],
+      "left": {
+        "amt": 67614.24
+      },
+      "right": {
+        "amt": 135228.48
+      },
+      "duplicate": "right",
+      "reason": "The buyer booked this invoice twice, once from the portal and once from email."
+    },
+    {
+      "key": "IC-15-044",
+      "group": [
+        "US Inc",
+        "SG Pte"
+      ],
+      "left": {
+        "amt": 87474.55
+      },
+      "right": {
+        "amt": 78727.1
+      },
+      "reason": "The buyer short-booked the invoice pending a pricing dispute."
+    },
+    {
+      "key": "IC-15-048",
+      "group": [
+        "US Inc",
+        "SG Pte"
+      ],
+      "left": {
+        "amt": 47250.89
+      },
+      "right": {
+        "amt": 42525.8
+      },
+      "reason": "The buyer short-booked the invoice pending a pricing dispute."
+    },
+    {
+      "key": "IC-15-049",
+      "group": [
+        "US Inc",
+        "SG Pte"
+      ],
+      "left": {
+        "amt": 18145.13
+      },
+      "right": {
+        "amt": 18145.13
+      }
+    },
+    {
+      "key": "IC-16-040",
+      "group": [
+        "US Inc",
+        "JP KK"
+      ],
+      "left": {
+        "amt": 92208
+      },
+      "right": {
+        "amt": 92208
+      }
+    },
+    {
+      "key": "IC-16-043",
+      "group": [
+        "US Inc",
+        "JP KK"
+      ],
+      "left": {
+        "amt": 15410.26
+      },
+      "right": {
+        "amt": 15410.26
+      }
+    },
+    {
+      "key": "IC-16-046",
+      "group": [
+        "US Inc",
+        "JP KK"
+      ],
+      "left": {
+        "amt": 10850.92
+      },
+      "right": {
+        "amt": 10850.92
+      }
+    },
+    {
+      "key": "IC-16-049",
+      "group": [
+        "US Inc",
+        "JP KK"
+      ],
+      "left": {
+        "amt": 111087.96
+      },
+      "right": {
+        "amt": 111087.96
+      }
+    },
+    {
+      "key": "IC-16-052",
+      "group": [
+        "US Inc",
+        "JP KK"
+      ],
+      "left": {
+        "amt": 7468.23
+      },
+      "right": {
+        "amt": 7468.23
+      }
+    },
+    {
+      "key": "IC-16-056",
+      "group": [
+        "US Inc",
+        "JP KK"
+      ],
+      "left": {
+        "amt": 76861.4
+      },
+      "right": {
+        "amt": 76861.4
+      }
+    },
+    {
+      "key": "IC-21-040",
+      "group": [
+        "UK Ltd",
+        "US Inc"
+      ],
+      "left": {
+        "amt": 9553.58
+      },
+      "right": {
+        "amt": 9553.58
+      }
+    },
+    {
+      "key": "IC-21-043",
+      "group": [
+        "UK Ltd",
+        "US Inc"
+      ],
+      "left": {
+        "amt": 29105.02
+      },
+      "right": {
+        "amt": 29105.02
+      }
+    },
+    {
+      "key": "IC-21-047",
+      "group": [
+        "UK Ltd",
+        "US Inc"
+      ],
+      "left": {
+        "amt": 167171.95
+      },
+      "right": {
+        "amt": 167171.95
+      }
+    },
+    {
+      "key": "IC-24-040",
+      "group": [
+        "UK Ltd",
+        "FR SAS"
+      ],
+      "left": {
+        "amt": 45587.13
+      },
+      "right": {
+        "amt": 45587.13
+      }
+    },
+    {
+      "key": "IC-24-043",
+      "group": [
+        "UK Ltd",
+        "FR SAS"
+      ],
+      "left": {
+        "amt": 63035.85
+      },
+      "right": {
+        "amt": 126071.7
+      },
+      "duplicate": "right",
+      "reason": "The buyer booked this invoice twice, once from the portal and once from email."
+    },
+    {
+      "key": "IC-24-047",
+      "group": [
+        "UK Ltd",
+        "FR SAS"
+      ],
+      "left": {
+        "amt": 70457.22
+      },
+      "right": {
+        "amt": 70457.22
+      }
+    },
+    {
+      "key": "IC-24-051",
+      "group": [
+        "UK Ltd",
+        "FR SAS"
+      ],
+      "left": {
+        "amt": 43120.11
+      },
+      "reason": "Invoiced on 30 March. The buyer has not booked it: the goods were still in transit at month end."
+    },
+    {
+      "key": "IC-26-042",
+      "group": [
+        "UK Ltd",
+        "JP KK"
+      ],
+      "left": {
+        "amt": 7491.25
+      },
+      "right": {
+        "amt": 7491.25
+      }
+    },
+    {
+      "key": "IC-26-044",
+      "group": [
+        "UK Ltd",
+        "JP KK"
+      ],
+      "left": {
+        "amt": 18986.73
+      },
+      "right": {
+        "amt": 18986.73
+      }
+    },
+    {
+      "key": "IC-26-048",
+      "group": [
+        "UK Ltd",
+        "JP KK"
+      ],
+      "left": {
+        "amt": 10465.91
+      },
+      "right": {
+        "amt": 10465.91
+      }
+    },
+    {
+      "key": "IC-26-049",
+      "group": [
+        "UK Ltd",
+        "JP KK"
+      ],
+      "left": {
+        "amt": 172034.04
+      },
+      "right": {
+        "amt": 172034.04
+      }
+    },
+    {
+      "key": "IC-26-053",
+      "group": [
+        "UK Ltd",
+        "JP KK"
+      ],
+      "left": {
+        "amt": 39661.84
+      },
+      "right": {
+        "amt": 35695.66
+      },
+      "reason": "The buyer short-booked the invoice pending a pricing dispute."
+    },
+    {
+      "key": "IC-26-057",
+      "group": [
+        "UK Ltd",
+        "JP KK"
+      ],
+      "left": {
+        "amt": 12238.38
+      },
+      "right": {
+        "amt": 12238.38
+      }
+    },
+    {
+      "key": "IC-27-041",
+      "group": [
+        "UK Ltd",
+        "BR Ltda"
+      ],
+      "left": {
+        "amt": 26739.35
+      },
+      "right": {
+        "amt": 26739.35
+      }
+    },
+    {
+      "key": "IC-27-045",
+      "group": [
+        "UK Ltd",
+        "BR Ltda"
+      ],
+      "left": {
+        "amt": 92537.36
+      },
+      "right": {
+        "amt": 83283.62
+      },
+      "reason": "The buyer short-booked the invoice pending a pricing dispute."
+    },
+    {
+      "key": "IC-27-046",
+      "group": [
+        "UK Ltd",
+        "BR Ltda"
+      ],
+      "left": {
+        "amt": 8451.23
+      },
+      "right": {
+        "amt": 8451.23
+      }
+    },
+    {
+      "key": "IC-34-042",
+      "group": [
+        "DE GmbH",
+        "FR SAS"
+      ],
+      "left": {
+        "amt": 13496.8
+      },
+      "right": {
+        "amt": 13496.8
+      }
+    },
+    {
+      "key": "IC-34-045",
+      "group": [
+        "DE GmbH",
+        "FR SAS"
+      ],
+      "left": {
+        "amt": 45346.44
+      },
+      "right": {
+        "amt": 45346.44
+      }
+    },
+    {
+      "key": "IC-34-048",
+      "group": [
+        "DE GmbH",
+        "FR SAS"
+      ],
+      "left": {
+        "amt": 54663.44
+      },
+      "right": {
+        "amt": 54663.44
+      }
+    },
+    {
+      "key": "IC-35-041",
+      "group": [
+        "DE GmbH",
+        "SG Pte"
+      ],
+      "left": {
+        "amt": 72845.21
+      },
+      "right": {
+        "amt": 72845.21
+      }
+    },
+    {
+      "key": "IC-35-045",
+      "group": [
+        "DE GmbH",
+        "SG Pte"
+      ],
+      "left": {
+        "amt": 77201.61
+      },
+      "right": {
+        "amt": 77201.61
+      }
+    },
+    {
+      "key": "IC-35-048",
+      "group": [
+        "DE GmbH",
+        "SG Pte"
+      ],
+      "left": {
+        "amt": 34760.43
+      },
+      "right": {
+        "amt": 34760.43
+      }
+    },
+    {
+      "key": "IC-37-040",
+      "group": [
+        "DE GmbH",
+        "BR Ltda"
+      ],
+      "left": {
+        "amt": 150745.45
+      },
+      "right": {
+        "amt": 150745.45
+      }
+    },
+    {
+      "key": "IC-37-045",
+      "group": [
+        "DE GmbH",
+        "BR Ltda"
+      ],
+      "left": {
+        "amt": 106904.27
+      },
+      "right": {
+        "amt": 106904.27
+      }
+    },
+    {
+      "key": "IC-37-046",
+      "group": [
+        "DE GmbH",
+        "BR Ltda"
+      ],
+      "left": {
+        "amt": 122586.79
+      },
+      "right": {
+        "amt": 122586.79
+      }
+    },
+    {
+      "key": "IC-37-050",
+      "group": [
+        "DE GmbH",
+        "BR Ltda"
+      ],
+      "left": {
+        "amt": 8061.98
+      },
+      "right": {
+        "amt": 8061.98
+      }
+    },
+    {
+      "key": "IC-37-053",
+      "group": [
+        "DE GmbH",
+        "BR Ltda"
+      ],
+      "left": {
+        "amt": 21957.72
+      },
+      "right": {
+        "amt": 21957.72
+      }
+    },
+    {
+      "key": "IC-37-057",
+      "group": [
+        "DE GmbH",
+        "BR Ltda"
+      ],
+      "left": {
+        "amt": 9743.52
+      },
+      "right": {
+        "amt": 9743.52
+      }
+    },
+    {
+      "key": "IC-42-041",
+      "group": [
+        "FR SAS",
+        "UK Ltd"
+      ],
+      "left": {
+        "amt": 77633.89
+      },
+      "reason": "Invoiced on 30 March. The buyer has not booked it: the goods were still in transit at month end."
+    },
+    {
+      "key": "IC-42-045",
+      "group": [
+        "FR SAS",
+        "UK Ltd"
+      ],
+      "left": {
+        "amt": 136775.91
+      },
+      "reason": "Invoiced on 30 March. The buyer has not booked it: the goods were still in transit at month end."
+    },
+    {
+      "key": "IC-42-046",
+      "group": [
+        "FR SAS",
+        "UK Ltd"
+      ],
+      "left": {
+        "amt": 61179.89
+      },
+      "right": {
+        "amt": 55061.9
+      },
+      "reason": "The buyer short-booked the invoice pending a pricing dispute."
+    },
+    {
+      "key": "IC-42-050",
+      "group": [
+        "FR SAS",
+        "UK Ltd"
+      ],
+      "left": {
+        "amt": 122465.4
+      },
+      "right": {
+        "amt": 110218.86
+      },
+      "reason": "The buyer short-booked the invoice pending a pricing dispute."
+    },
+    {
+      "key": "IC-42-054",
+      "group": [
+        "FR SAS",
+        "UK Ltd"
+      ],
+      "left": {
+        "amt": 182245.29
+      },
+      "right": {
+        "amt": 364490.58
+      },
+      "duplicate": "right",
+      "reason": "The buyer booked this invoice twice, once from the portal and once from email."
+    },
+    {
+      "key": "IC-43-042",
+      "group": [
+        "FR SAS",
+        "DE GmbH"
+      ],
+      "left": {
+        "amt": 13129.63
+      },
+      "right": {
+        "amt": 13129.63
+      }
+    },
+    {
+      "key": "IC-43-044",
+      "group": [
+        "FR SAS",
+        "DE GmbH"
+      ],
+      "left": {
+        "amt": 175692.62
+      },
+      "right": {
+        "amt": 175692.62
+      }
+    },
+    {
+      "key": "IC-43-046",
+      "group": [
+        "FR SAS",
+        "DE GmbH"
+      ],
+      "left": {
+        "amt": 5509.42
+      },
+      "right": {
+        "amt": 5509.42
+      }
+    },
+    {
+      "key": "IC-46-042",
+      "group": [
+        "FR SAS",
+        "JP KK"
+      ],
+      "left": {
+        "amt": 174167.25
+      },
+      "reason": "Invoiced on 30 March. The buyer has not booked it: the goods were still in transit at month end."
+    },
+    {
+      "key": "IC-46-045",
+      "group": [
+        "FR SAS",
+        "JP KK"
+      ],
+      "left": {
+        "amt": 110655.28
+      },
+      "right": {
+        "amt": 111393.69
+      },
+      "reason": "Each side translated the invoice at a different rate: month-end against invoice date."
+    },
+    {
+      "key": "IC-46-047",
+      "group": [
+        "FR SAS",
+        "JP KK"
+      ],
+      "left": {
+        "amt": 25539.59
+      },
+      "right": {
+        "amt": 25539.59
+      }
+    },
+    {
+      "key": "ACC-64-007",
+      "group": [
+        "FR SAS",
+        "JP KK"
+      ],
+      "right": {
+        "amt": 35500
+      },
+      "reason": "The buyer accrued a management charge the seller has not invoiced."
+    },
+    {
+      "key": "IC-47-041",
+      "group": [
+        "FR SAS",
+        "BR Ltda"
+      ],
+      "left": {
+        "amt": 43917.34
+      },
+      "right": {
+        "amt": 43917.34
+      }
+    },
+    {
+      "key": "IC-47-043",
+      "group": [
+        "FR SAS",
+        "BR Ltda"
+      ],
+      "left": {
+        "amt": 145454.52
+      },
+      "right": {
+        "amt": 145454.52
+      }
+    },
+    {
+      "key": "IC-47-048",
+      "group": [
+        "FR SAS",
+        "BR Ltda"
+      ],
+      "left": {
+        "amt": 86858.29
+      },
+      "right": {
+        "amt": 86858.29
+      }
+    },
+    {
+      "key": "IC-47-049",
+      "group": [
+        "FR SAS",
+        "BR Ltda"
+      ],
+      "left": {
+        "amt": 92446.56
+      },
+      "right": {
+        "amt": 92446.56
+      }
+    },
+    {
+      "key": "IC-47-052",
+      "group": [
+        "FR SAS",
+        "BR Ltda"
+      ],
+      "left": {
+        "amt": 96957.8
+      },
+      "right": {
+        "amt": 96957.8
+      }
+    },
+    {
+      "key": "IC-47-057",
+      "group": [
+        "FR SAS",
+        "BR Ltda"
+      ],
+      "left": {
+        "amt": 10961
+      },
+      "right": {
+        "amt": 10961
+      }
+    },
+    {
+      "key": "IC-51-040",
+      "group": [
+        "SG Pte",
+        "US Inc"
+      ],
+      "left": {
+        "amt": 108288.65
+      },
+      "right": {
+        "amt": 108288.65
+      }
+    },
+    {
+      "key": "IC-51-045",
+      "group": [
+        "SG Pte",
+        "US Inc"
+      ],
+      "left": {
+        "amt": 27207.74
+      },
+      "right": {
+        "amt": 27207.74
+      }
+    },
+    {
+      "key": "IC-51-048",
+      "group": [
+        "SG Pte",
+        "US Inc"
+      ],
+      "left": {
+        "amt": 7693.02
+      },
+      "right": {
+        "amt": 7693.02
+      }
+    },
+    {
+      "key": "IC-51-049",
+      "group": [
+        "SG Pte",
+        "US Inc"
+      ],
+      "left": {
+        "amt": 11509.3
+      },
+      "right": {
+        "amt": 11509.3
+      }
+    },
+    {
+      "key": "IC-51-052",
+      "group": [
+        "SG Pte",
+        "US Inc"
+      ],
+      "left": {
+        "amt": 10019.39
+      },
+      "right": {
+        "amt": 10019.39
+      }
+    },
+    {
+      "key": "IC-53-040",
+      "group": [
+        "SG Pte",
+        "DE GmbH"
+      ],
+      "left": {
+        "amt": 65003.82
+      },
+      "right": {
+        "amt": 65003.82
+      }
+    },
+    {
+      "key": "IC-53-044",
+      "group": [
+        "SG Pte",
+        "DE GmbH"
+      ],
+      "left": {
+        "amt": 12076.95
+      },
+      "right": {
+        "amt": 12076.95
+      }
+    },
+    {
+      "key": "IC-53-047",
+      "group": [
+        "SG Pte",
+        "DE GmbH"
+      ],
+      "left": {
+        "amt": 12999.25
+      },
+      "right": {
+        "amt": 12999.25
+      }
+    },
+    {
+      "key": "IC-53-051",
+      "group": [
+        "SG Pte",
+        "DE GmbH"
+      ],
+      "left": {
+        "amt": 146155.17
+      },
+      "right": {
+        "amt": 146155.17
+      }
+    },
+    {
+      "key": "IC-53-052",
+      "group": [
+        "SG Pte",
+        "DE GmbH"
+      ],
+      "left": {
+        "amt": 24690.59
+      },
+      "right": {
+        "amt": 24690.59
+      }
+    },
+    {
+      "key": "IC-54-042",
+      "group": [
+        "SG Pte",
+        "FR SAS"
+      ],
+      "left": {
+        "amt": 11628.1
+      },
+      "reason": "Invoiced on 30 March. The buyer has not booked it: the goods were still in transit at month end."
+    },
+    {
+      "key": "IC-54-043",
+      "group": [
+        "SG Pte",
+        "FR SAS"
+      ],
+      "left": {
+        "amt": 4984.14
+      },
+      "right": {
+        "amt": 4984.14
+      }
+    },
+    {
+      "key": "IC-54-048",
+      "group": [
+        "SG Pte",
+        "FR SAS"
+      ],
+      "left": {
+        "amt": 155839.19
+      },
+      "reason": "Invoiced on 30 March. The buyer has not booked it: the goods were still in transit at month end."
+    },
+    {
+      "key": "IC-54-051",
+      "group": [
+        "SG Pte",
+        "FR SAS"
+      ],
+      "left": {
+        "amt": 134658.47
+      },
+      "right": {
+        "amt": 134658.47
+      }
+    },
+    {
+      "key": "IC-54-053",
+      "group": [
+        "SG Pte",
+        "FR SAS"
+      ],
+      "left": {
+        "amt": 31520.85
+      },
+      "right": {
+        "amt": 31341.34
+      },
+      "reason": "Each side translated the invoice at a different rate: month-end against invoice date."
+    },
+    {
+      "key": "IC-54-057",
+      "group": [
+        "SG Pte",
+        "FR SAS"
+      ],
+      "left": {
+        "amt": 21650.25
+      },
+      "right": {
+        "amt": 21650.25
+      }
+    },
+    {
+      "key": "IC-56-040",
+      "group": [
+        "SG Pte",
+        "JP KK"
+      ],
+      "left": {
+        "amt": 114346.85
+      },
+      "right": {
+        "amt": 114346.85
+      }
+    },
+    {
+      "key": "IC-56-045",
+      "group": [
+        "SG Pte",
+        "JP KK"
+      ],
+      "left": {
+        "amt": 4329.75
+      },
+      "right": {
+        "amt": 4329.75
+      }
+    },
+    {
+      "key": "IC-56-047",
+      "group": [
+        "SG Pte",
+        "JP KK"
+      ],
+      "left": {
+        "amt": 31052.56
+      },
+      "right": {
+        "amt": 31052.56
+      }
+    },
+    {
+      "key": "IC-56-051",
+      "group": [
+        "SG Pte",
+        "JP KK"
+      ],
+      "left": {
+        "amt": 26455.03
+      },
+      "right": {
+        "amt": 26455.03
+      }
+    },
+    {
+      "key": "IC-56-053",
+      "group": [
+        "SG Pte",
+        "JP KK"
+      ],
+      "left": {
+        "amt": 29151.04
+      },
+      "right": {
+        "amt": 29151.04
+      }
+    },
+    {
+      "key": "IC-57-042",
+      "group": [
+        "SG Pte",
+        "BR Ltda"
+      ],
+      "left": {
+        "amt": 30597.69
+      },
+      "reason": "Invoiced on 30 March. The buyer has not booked it: the goods were still in transit at month end."
+    },
+    {
+      "key": "IC-57-044",
+      "group": [
+        "SG Pte",
+        "BR Ltda"
+      ],
+      "left": {
+        "amt": 37181.8
+      },
+      "right": {
+        "amt": 37181.8
+      }
+    },
+    {
+      "key": "IC-57-046",
+      "group": [
+        "SG Pte",
+        "BR Ltda"
+      ],
+      "left": {
+        "amt": 48626.65
+      },
+      "right": {
+        "amt": 48626.65
+      }
+    },
+    {
+      "key": "IC-57-050",
+      "group": [
+        "SG Pte",
+        "BR Ltda"
+      ],
+      "left": {
+        "amt": 49192.21
+      },
+      "reason": "Invoiced on 30 March. The buyer has not booked it: the goods were still in transit at month end."
+    },
+    {
+      "key": "ACC-75-007",
+      "group": [
+        "SG Pte",
+        "BR Ltda"
+      ],
+      "right": {
+        "amt": 39080.76
+      },
+      "reason": "The buyer accrued a management charge the seller has not invoiced."
+    },
+    {
+      "key": "IC-61-040",
+      "group": [
+        "JP KK",
+        "US Inc"
+      ],
+      "left": {
+        "amt": 19430.7
+      },
+      "right": {
+        "amt": 19430.7
+      }
+    },
+    {
+      "key": "IC-61-045",
+      "group": [
+        "JP KK",
+        "US Inc"
+      ],
+      "left": {
+        "amt": 104371.22
+      },
+      "right": {
+        "amt": 104371.22
+      }
+    },
+    {
+      "key": "IC-61-047",
+      "group": [
+        "JP KK",
+        "US Inc"
+      ],
+      "left": {
+        "amt": 10589.65
+      },
+      "right": {
+        "amt": 9530.69
+      },
+      "reason": "The buyer short-booked the invoice pending a pricing dispute."
+    },
+    {
+      "key": "IC-61-051",
+      "group": [
+        "JP KK",
+        "US Inc"
+      ],
+      "left": {
+        "amt": 36661.22
+      },
+      "right": {
+        "amt": 36661.22
+      }
+    },
+    {
+      "key": "IC-61-053",
+      "group": [
+        "JP KK",
+        "US Inc"
+      ],
+      "left": {
+        "amt": 74828.08
+      },
+      "right": {
+        "amt": 74828.08
+      }
+    },
+    {
+      "key": "ACC-16-007",
+      "group": [
+        "JP KK",
+        "US Inc"
+      ],
+      "right": {
+        "amt": 19530.22
+      },
+      "reason": "The buyer accrued a management charge the seller has not invoiced."
+    },
+    {
+      "key": "IC-62-040",
+      "group": [
+        "JP KK",
+        "UK Ltd"
+      ],
+      "left": {
+        "amt": 109296.48
+      },
+      "right": {
+        "amt": 218592.96
+      },
+      "duplicate": "right",
+      "reason": "The buyer booked this invoice twice, once from the portal and once from email."
+    },
+    {
+      "key": "IC-62-045",
+      "group": [
+        "JP KK",
+        "UK Ltd"
+      ],
+      "left": {
+        "amt": 9701.02
+      },
+      "right": {
+        "amt": 9701.02
+      }
+    },
+    {
+      "key": "IC-62-048",
+      "group": [
+        "JP KK",
+        "UK Ltd"
+      ],
+      "left": {
+        "amt": 15012.99
+      },
+      "right": {
+        "amt": 15012.99
+      }
+    },
+    {
+      "key": "IC-62-050",
+      "group": [
+        "JP KK",
+        "UK Ltd"
+      ],
+      "left": {
+        "amt": 61998.28
+      },
+      "right": {
+        "amt": 62410.29
+      },
+      "reason": "Each side translated the invoice at a different rate: month-end against invoice date."
+    },
+    {
+      "key": "IC-64-040",
+      "group": [
+        "JP KK",
+        "FR SAS"
+      ],
+      "left": {
+        "amt": 10635.45
+      },
+      "right": {
+        "amt": 10701.1
+      },
+      "reason": "Each side translated the invoice at a different rate: month-end against invoice date."
+    },
+    {
+      "key": "IC-64-045",
+      "group": [
+        "JP KK",
+        "FR SAS"
+      ],
+      "left": {
+        "amt": 73270.45
+      },
+      "right": {
+        "amt": 73270.45
+      }
+    },
+    {
+      "key": "IC-64-047",
+      "group": [
+        "JP KK",
+        "FR SAS"
+      ],
+      "left": {
+        "amt": 99476.38
+      },
+      "right": {
+        "amt": 99476.38
+      }
+    },
+    {
+      "key": "IC-64-051",
+      "group": [
+        "JP KK",
+        "FR SAS"
+      ],
+      "left": {
+        "amt": 12059.06
+      },
+      "right": {
+        "amt": 12108.61
+      },
+      "reason": "Each side translated the invoice at a different rate: month-end against invoice date."
+    },
+    {
+      "key": "IC-64-052",
+      "group": [
+        "JP KK",
+        "FR SAS"
+      ],
+      "left": {
+        "amt": 33694.14
+      },
+      "right": {
+        "amt": 30324.73
+      },
+      "reason": "The buyer short-booked the invoice pending a pricing dispute."
+    },
+    {
+      "key": "IC-65-042",
+      "group": [
+        "JP KK",
+        "SG Pte"
+      ],
+      "left": {
+        "amt": 8838.09
+      },
+      "right": {
+        "amt": 8838.09
+      }
+    },
+    {
+      "key": "IC-65-043",
+      "group": [
+        "JP KK",
+        "SG Pte"
+      ],
+      "left": {
+        "amt": 55792.9
+      },
+      "right": {
+        "amt": 55792.9
+      }
+    },
+    {
+      "key": "IC-65-046",
+      "group": [
+        "JP KK",
+        "SG Pte"
+      ],
+      "left": {
+        "amt": 97178.54
+      },
+      "right": {
+        "amt": 97178.54
+      }
+    },
+    {
+      "key": "IC-65-050",
+      "group": [
+        "JP KK",
+        "SG Pte"
+      ],
+      "left": {
+        "amt": 126294.46
+      },
+      "right": {
+        "amt": 126294.46
+      }
+    },
+    {
+      "key": "IC-65-052",
+      "group": [
+        "JP KK",
+        "SG Pte"
+      ],
+      "left": {
+        "amt": 27612.93
+      },
+      "right": {
+        "amt": 27612.93
+      }
+    },
+    {
+      "key": "IC-65-056",
+      "group": [
+        "JP KK",
+        "SG Pte"
+      ],
+      "left": {
+        "amt": 10254.15
+      },
+      "right": {
+        "amt": 10254.15
+      }
+    },
+    {
+      "key": "IC-67-040",
+      "group": [
+        "JP KK",
+        "BR Ltda"
+      ],
+      "left": {
+        "amt": 51768.34
+      },
+      "right": {
+        "amt": 51768.34
+      }
+    },
+    {
+      "key": "IC-67-043",
+      "group": [
+        "JP KK",
+        "BR Ltda"
+      ],
+      "left": {
+        "amt": 36867.78
+      },
+      "right": {
+        "amt": 36867.78
+      }
+    },
+    {
+      "key": "IC-67-047",
+      "group": [
+        "JP KK",
+        "BR Ltda"
+      ],
+      "left": {
+        "amt": 27686.16
+      },
+      "right": {
+        "amt": 27686.16
+      }
+    },
+    {
+      "key": "IC-67-050",
+      "group": [
+        "JP KK",
+        "BR Ltda"
+      ],
+      "left": {
+        "amt": 62879.72
+      },
+      "right": {
+        "amt": 62879.72
+      }
+    },
+    {
+      "key": "IC-67-053",
+      "group": [
+        "JP KK",
+        "BR Ltda"
+      ],
+      "left": {
+        "amt": 9674.48
+      },
+      "right": {
+        "amt": 9674.48
+      }
+    },
+    {
+      "key": "IC-71-041",
+      "group": [
+        "BR Ltda",
+        "US Inc"
+      ],
+      "left": {
+        "amt": 24782.92
+      },
+      "right": {
+        "amt": 24875.25
+      },
+      "reason": "Each side translated the invoice at a different rate: month-end against invoice date."
+    },
+    {
+      "key": "IC-71-043",
+      "group": [
+        "BR Ltda",
+        "US Inc"
+      ],
+      "left": {
+        "amt": 6335.59
+      },
+      "right": {
+        "amt": 6335.59
+      }
+    },
+    {
+      "key": "IC-71-046",
+      "group": [
+        "BR Ltda",
+        "US Inc"
+      ],
+      "left": {
+        "amt": 16737.74
+      },
+      "right": {
+        "amt": 16737.74
+      }
+    },
+    {
+      "key": "IC-71-050",
+      "group": [
+        "BR Ltda",
+        "US Inc"
+      ],
+      "left": {
+        "amt": 27788.4
+      },
+      "right": {
+        "amt": 55576.8
+      },
+      "duplicate": "right",
+      "reason": "The buyer booked this invoice twice, once from the portal and once from email."
+    },
+    {
+      "key": "IC-71-052",
+      "group": [
+        "BR Ltda",
+        "US Inc"
+      ],
+      "left": {
+        "amt": 88952.23
+      },
+      "reason": "Invoiced on 30 March. The buyer has not booked it: the goods were still in transit at month end."
+    },
+    {
+      "key": "IC-72-040",
+      "group": [
+        "BR Ltda",
+        "UK Ltd"
+      ],
+      "left": {
+        "amt": 4841.88
+      },
+      "right": {
+        "amt": 4841.88
+      }
+    },
+    {
+      "key": "IC-72-045",
+      "group": [
+        "BR Ltda",
+        "UK Ltd"
+      ],
+      "left": {
+        "amt": 78469.28
+      },
+      "reason": "Invoiced on 30 March. The buyer has not booked it: the goods were still in transit at month end."
+    },
+    {
+      "key": "IC-72-048",
+      "group": [
+        "BR Ltda",
+        "UK Ltd"
+      ],
+      "left": {
+        "amt": 51228.91
+      },
+      "right": {
+        "amt": 51228.91
+      }
+    },
+    {
+      "key": "IC-72-050",
+      "group": [
+        "BR Ltda",
+        "UK Ltd"
+      ],
+      "left": {
+        "amt": 21548.08
+      },
+      "right": {
+        "amt": 43096.16
+      },
+      "duplicate": "right",
+      "reason": "The buyer booked this invoice twice, once from the portal and once from email."
+    },
+    {
+      "key": "IC-72-052",
+      "group": [
+        "BR Ltda",
+        "UK Ltd"
+      ],
+      "left": {
+        "amt": 55446.6
+      },
+      "reason": "Invoiced on 30 March. The buyer has not booked it: the goods were still in transit at month end."
+    },
+    {
+      "key": "IC-72-056",
+      "group": [
+        "BR Ltda",
+        "UK Ltd"
+      ],
+      "left": {
+        "amt": 41925.4
+      },
+      "right": {
+        "amt": 41925.4
+      }
+    },
+    {
+      "key": "ACC-27-007",
+      "group": [
+        "BR Ltda",
+        "UK Ltd"
+      ],
+      "right": {
+        "amt": 17821.2
+      },
+      "reason": "The buyer accrued a management charge the seller has not invoiced."
+    },
+    {
+      "key": "IC-73-041",
+      "group": [
+        "BR Ltda",
+        "DE GmbH"
+      ],
+      "left": {
+        "amt": 32550.07
+      },
+      "reason": "Invoiced on 30 March. The buyer has not booked it: the goods were still in transit at month end."
+    },
+    {
+      "key": "IC-73-044",
+      "group": [
+        "BR Ltda",
+        "DE GmbH"
+      ],
+      "left": {
+        "amt": 91824.84
+      },
+      "right": {
+        "amt": 91824.84
+      }
+    },
+    {
+      "key": "IC-73-048",
+      "group": [
+        "BR Ltda",
+        "DE GmbH"
+      ],
+      "left": {
+        "amt": 61756.91
+      },
+      "right": {
+        "amt": 61756.91
+      }
+    },
+    {
+      "key": "IC-73-049",
+      "group": [
+        "BR Ltda",
+        "DE GmbH"
+      ],
+      "left": {
+        "amt": 9702.75
+      },
+      "right": {
+        "amt": 9702.75
+      }
+    },
+    {
+      "key": "IC-73-052",
+      "group": [
+        "BR Ltda",
+        "DE GmbH"
+      ],
+      "left": {
+        "amt": 50652.36
+      },
+      "right": {
+        "amt": 50652.36
+      }
+    },
+    {
+      "key": "IC-73-056",
+      "group": [
+        "BR Ltda",
+        "DE GmbH"
+      ],
+      "left": {
+        "amt": 8702.59
+      },
+      "right": {
+        "amt": 8702.59
+      }
+    },
+    {
+      "key": "IC-74-041",
+      "group": [
+        "BR Ltda",
+        "FR SAS"
+      ],
+      "left": {
+        "amt": 28320.92
+      },
+      "right": {
+        "amt": 28320.92
+      }
+    },
+    {
+      "key": "IC-74-043",
+      "group": [
+        "BR Ltda",
+        "FR SAS"
+      ],
+      "left": {
+        "amt": 56752.22
+      },
+      "right": {
+        "amt": 56752.22
+      }
+    },
+    {
+      "key": "IC-74-046",
+      "group": [
+        "BR Ltda",
+        "FR SAS"
+      ],
+      "left": {
+        "amt": 69781.47
+      },
+      "right": {
+        "amt": 69781.47
+      }
+    },
+    {
+      "key": "IC-74-050",
+      "group": [
+        "BR Ltda",
+        "FR SAS"
+      ],
+      "left": {
+        "amt": 50966.19
+      },
+      "right": {
+        "amt": 45869.57
+      },
+      "reason": "The buyer short-booked the invoice pending a pricing dispute."
+    },
+    {
+      "key": "IC-74-052",
+      "group": [
+        "BR Ltda",
+        "FR SAS"
+      ],
+      "left": {
+        "amt": 8355.33
+      },
+      "right": {
+        "amt": 7519.8
+      },
+      "reason": "The buyer short-booked the invoice pending a pricing dispute."
+    },
+    {
+      "key": "IC-75-040",
+      "group": [
+        "BR Ltda",
+        "SG Pte"
+      ],
+      "left": {
+        "amt": 105169.02
+      },
+      "right": {
+        "amt": 104495.75
+      },
+      "reason": "Each side translated the invoice at a different rate: month-end against invoice date."
+    },
+    {
+      "key": "IC-75-044",
+      "group": [
+        "BR Ltda",
+        "SG Pte"
+      ],
+      "left": {
+        "amt": 132230.61
+      },
+      "right": {
+        "amt": 132230.61
+      }
+    },
+    {
+      "key": "IC-75-047",
+      "group": [
+        "BR Ltda",
+        "SG Pte"
+      ],
+      "left": {
+        "amt": 131107.61
+      },
+      "right": {
+        "amt": 131107.61
+      }
+    }
+  ],
+  "labels": {
+    "net": "Payables minus receivables"
+  }
+}

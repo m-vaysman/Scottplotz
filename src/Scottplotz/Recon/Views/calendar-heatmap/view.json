@@ -1,0 +1,29 @@
+{
+  "name": "calendar-heatmap",
+  "title": "Calendar heatmap",
+  "description": "Daily matrix of reconciliation differences across groups and dates, with detailed field breakdown on click.",
+  "needs": "A numeric measure, dates on records, and row grouping via group[0].",
+  "text": {
+    "title": "{left} against {right}, by {unitOne} and day",
+    "lede": "A row per group, a column per day. Grey days agree within tolerance. Tinted days differ, in the colour of the side that is higher.",
+    "chartTitle": "{rightShort} minus {leftShort}",
+    "chartSub": "Tolerance is {tolerance} per {unitOne}. Select a day for its breakdown.",
+    "leftHigher": "{leftShort} higher",
+    "rightHigher": "{rightShort} higher",
+    "duplicateLegend": "Duplicate",
+    "total": "Total",
+    "noDates": "Records need a date to be placed on the calendar. None were sent.",
+    "field": "Field",
+    "difference": "Difference",
+    "agreed": "The two sides agree."
+  },
+  "options": [
+    {
+      "name": "sortBy",
+      "type": "choice",
+      "allowed": ["input", "net", "name"],
+      "default": "input",
+      "description": "Row order: as sent, largest absolute net difference first, or alphabetical."
+    }
+  ]
+}

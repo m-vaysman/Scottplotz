@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scottplotz reconciliation views</title>
+<style>
+  :root { color-scheme: light dark; --line: #c9c9c4; --soft: #6b6b66; --bad: #b3261e; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 14px/1.45 "Segoe UI", system-ui, sans-serif; }
+  header { padding: 14px 20px; border-bottom: 1px solid var(--line); display: flex; gap: 16px; align-items: baseline; flex-wrap: wrap; }
+  header h1 { font-size: 18px; margin: 0; }
+  header a { color: inherit; }
+  main { display: grid; grid-template-columns: 420px 1fr; gap: 16px; padding: 16px 20px; align-items: start; }
+  @media (max-width: 1000px) { main { grid-template-columns: 1fr; } }
+  label { display: block; font-weight: 600; margin: 10px 0 4px; }
+  select, input, textarea, button { font: inherit; }
+  select, input[type=text], input[type=password], textarea { width: 100%; padding: 6px 8px; border: 1px solid var(--line); border-radius: 4px; background: transparent; color: inherit; }
+  textarea { height: 340px; font: 12px/1.4 Consolas, monospace; white-space: pre; }
+  .row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  button { padding: 6px 14px; border: 1px solid var(--line); border-radius: 4px; background: transparent; color: inherit; cursor: pointer; }
+  button.main { font-weight: 600; border-color: currentColor; }
+  .note { color: var(--soft); margin: 4px 0 0; }
+  table { border-collapse: collapse; width: 100%; margin-top: 6px; font-size: 13px; }
+  th, td { text-align: left; padding: 3px 8px 3px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  #error { color: var(--bad); white-space: pre-wrap; margin: 8px 0 0; }
+  #status { color: var(--soft); margin: 0 0 8px; }
+  iframe { width: 100%; height: 82vh; border: 1px solid var(--line); border-radius: 4px; background: #fff; }
+  pre { margin: 0; padding: 10px; border: 1px solid var(--line); border-radius: 4px; overflow: auto; max-height: 82vh; font: 12px/1.4 Consolas, monospace; }
+  [hidden] { display: none; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Reconciliation views</h1>
+  <span class="note">Post two-sided records, get a self-contained HTML page back.</span>
+  <a href="/">Charts test page</a>
+  <a href="/swagger">API document</a>
+</header>
+<main>
+  <section>
+    <label for="view">View</label>
+    <select id="view"></select>
+    <p class="note" id="about"></p>
+    <p class="note" id="needs"></p>
+    <table id="options" hidden><thead><tr><th>Option</th><th>Default</th><th>What it does</th></tr></thead><tbody></tbody></table>
+
+    <label for="body">Request body</label>
+    <textarea id="body" spellcheck="false"></textarea>
+    <div class="row">
+      <button id="sample" type="button">Load sample</button>
+      <select id="theme" style="width:auto" aria-label="Theme">
+        <option value="">Theme: as sent</option>
+        <option value="auto">Theme: auto</option>
+        <option value="light">Theme: light</option>
+        <option value="dark">Theme: dark</option>
+      </select>
+    </div>
+    <label for="key">API key (only when the service asks for one)</label>
+    <input id="key" type="password" autocomplete="off">
+    <div class="row">
+      <button id="render" type="button" class="main">Render</button>
+      <button id="explain" type="button">Explain</button>
+      <button id="open" type="button" disabled>Open in a new tab</button>
+    </div>
+    <p id="error" role="alert"></p>
+  </section>
+  <section>
+    <p id="status">Pick a view, load its sample, and choose Render.</p>
+    <iframe id="page" title="Rendered view" sandbox="allow-scripts" hidden></iframe>
+    <pre id="json" hidden></pre>
+  </section>
+</main>
+<script>
+  const el = id => document.getElementById(id);
+  let views = [], lastHtml = '';
+
+  const describe = () => {
+    const view = views.find(v => v.name === el('view').value);
+    el('about').textContent = view ? view.description : '';
+    el('needs').textContent = view && view.needs ? 'Needs: ' + view.needs : '';
+    const rows = el('options').tBodies[0];
+    rows.replaceChildren();
+    (view ? view.options : []).forEach(option => {
+      const row = rows.insertRow();
+      const extra = option.allowed.length ? ' (' + option.allowed.join(', ') + ')' : '';
+      [option.name, JSON.stringify(option.default), option.description + extra].forEach(text => { row.insertCell().textContent = text; });
+    });
+    el('options').hidden = !view || view.options.length === 0;
+  };
+
+  const loadSample = async () => {
+    el('error').textContent = '';
+    const response = await fetch('/recon/' + encodeURIComponent(el('view').value) + '/sample');
+    el('body').value = await response.text();
+  };
+
+  const requestBody = () => {
+    const theme = el('theme').value;
+    if (!theme) return el('body').value;
+    const parsed = JSON.parse(el('body').value);
+    parsed.theme = theme;
+    return JSON.stringify(parsed);
+  };
+
+  const problem = async response => {
+    const text = await response.text();
+    try {
+      const detail = JSON.parse(text);
+      return response.status + ' ' + (detail.title || '') + '\n' + (detail.detail || '') + (detail.code ? '\ncode: ' + detail.code : '');
+    } catch { return response.status + ' ' + text; }
+  };
+
+  const post = async suffix => {
+    el('error').textContent = '';
+    let body;
+    try { body = requestBody(); } catch (error) { el('error').textContent = 'The request body is not valid JSON. ' + error.message; return null; }
+    const headers = { 'Content-Type': 'application/json' };
+    if (el('key').value) headers['X-Api-Key'] = el('key').value;
+    const response = await fetch('/recon/' + encodeURIComponent(el('view').value) + suffix, { method: 'POST', headers, body });
+    if (!response.ok) { el('error').textContent = await problem(response); return null; }
+    return response.text();
+  };
+
+  el('render').addEventListener('click', async () => {
+    const html = await post('');
+    if (html === null) return;
+    lastHtml = html;
+    el('page').srcdoc = html;
+    el('page').hidden = false;
+    el('json').hidden = true;
+    el('open').disabled = false;
+    el('status').textContent = el('view').value + ', ' + html.length.toLocaleString('en-US') + ' characters of HTML.';
+  });
+
+  el('explain').addEventListener('click', async () => {
+    const json = await post('/explain');
+    if (json === null) return;
+    el('json').textContent = JSON.stringify(JSON.parse(json), null, 2);
+    el('json').hidden = false;
+    el('page').hidden = true;
+    el('status').textContent = 'The resolved model for ' + el('view').value + '.';
+  });
+
+  el('open').addEventListener('click', () => {
+    window.open(URL.createObjectURL(new Blob([lastHtml], { type: 'text/html' })), '_blank', 'noopener');
+  });
+
+  el('sample').addEventListener('click', loadSample);
+  el('view').addEventListener('change', () => { describe(); loadSample(); });
+
+  fetch('/recon/views').then(response => response.json()).then(list => {
+    views = list;
+    list.forEach(view => { const option = document.createElement('option'); option.value = view.name; option.textContent = view.title + ' (' + view.name + ')'; el('view').append(option); });
+    describe();
+    return loadSample();
+  }).catch(error => { el('error').textContent = 'Could not load the view list. ' + error.message; });
+</script>
+</body>
+</html>

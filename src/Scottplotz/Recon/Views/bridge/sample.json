@@ -1,0 +1,208 @@
+{
+  "left": {
+    "name": "Bank statement, First Meridian",
+    "short": "Bank statement"
+  },
+  "right": {
+    "name": "Ledger cash account 1010",
+    "short": "Ledger"
+  },
+  "unit": {
+    "one": "line",
+    "many": "lines"
+  },
+  "asOf": "2026-03-31",
+  "tolerance": 0.01,
+  "fields": [
+    {
+      "key": "amount",
+      "label": "Amount",
+      "decimals": 2
+    }
+  ],
+  "measure": "amount",
+  "totals": {
+    "left": 482317.44,
+    "right": 484391.22
+  },
+  "text": {
+    "title": "Bank statement to ledger, March 2026",
+    "lede": "Each step is a group of reconciling items that walks the bank's ending balance to the ledger's book balance. A step takes the colour of the side that holds the items. Select a step to see what is in it.",
+    "chartTitle": "From the bank's balance to the book balance",
+    "chartSub": "Operating account ending 4471. Amounts in USD.",
+    "leftEnding": "Bank ending balance",
+    "rightEnding": "Ledger book balance"
+  },
+  "groups": [
+    {
+      "key": "Deposits in transit",
+      "note": "In the ledger, not yet on the statement (right only)."
+    },
+    {
+      "key": "Outstanding checks",
+      "note": "Issued and booked, not yet cleared at the bank (right only)."
+    },
+    {
+      "key": "Bank fees not booked",
+      "note": "On the statement, missing from the ledger (left only)."
+    },
+    {
+      "key": "Interest not booked",
+      "note": "On the statement, missing from the ledger (left only)."
+    },
+    {
+      "key": "Amount errors",
+      "note": "Paired, but the amounts differ (break)."
+    },
+    {
+      "key": "Duplicate ledger posting",
+      "note": "One bank debit, posted twice in the ledger. The second posting is the item (duplicate on the right)."
+    }
+  ],
+  "records": [
+    {
+      "key": "DEP-0331",
+      "date": "2026-03-30",
+      "name": "Lockbox deposit",
+      "group": "Deposits in transit",
+      "right": {
+        "amount": 12480
+      }
+    },
+    {
+      "key": "DEP-0334",
+      "date": "2026-03-31",
+      "name": "Card settlement batch",
+      "group": "Deposits in transit",
+      "right": {
+        "amount": 8915.5
+      }
+    },
+    {
+      "key": "DEP-0335",
+      "date": "2026-03-31",
+      "name": "Customer wire, Halden Foods",
+      "group": "Deposits in transit",
+      "right": {
+        "amount": 4120
+      }
+    },
+    {
+      "key": "CHK-4402",
+      "date": "2026-03-12",
+      "name": "Tidewell Supply",
+      "group": "Outstanding checks",
+      "right": {
+        "amount": -1250
+      }
+    },
+    {
+      "key": "CHK-4409",
+      "date": "2026-03-19",
+      "name": "Corvin Ltd",
+      "group": "Outstanding checks",
+      "right": {
+        "amount": -3400.75
+      }
+    },
+    {
+      "key": "CHK-4413",
+      "date": "2026-03-24",
+      "name": "Marlow Print",
+      "group": "Outstanding checks",
+      "right": {
+        "amount": -890.2
+      }
+    },
+    {
+      "key": "CHK-4418",
+      "date": "2026-03-27",
+      "name": "Quarterly rent, Farrow Estates",
+      "group": "Outstanding checks",
+      "right": {
+        "amount": -15000
+      }
+    },
+    {
+      "key": "CHK-4421",
+      "date": "2026-03-30",
+      "name": "Yarrow Courier",
+      "group": "Outstanding checks",
+      "right": {
+        "amount": -642.1
+      }
+    },
+    {
+      "key": "FEE-0312",
+      "date": "2026-03-31",
+      "name": "Monthly account fee",
+      "group": "Bank fees not booked",
+      "left": {
+        "amount": -45
+      }
+    },
+    {
+      "key": "FEE-0313",
+      "date": "2026-03-31",
+      "name": "Wire fees, 6 outgoing",
+      "group": "Bank fees not booked",
+      "left": {
+        "amount": -120
+      }
+    },
+    {
+      "key": "INT-0301",
+      "date": "2026-03-31",
+      "name": "Credit interest",
+      "group": "Interest not booked",
+      "left": {
+        "amount": 38.17
+      }
+    },
+    {
+      "key": "CHK-4407",
+      "date": "2026-03-17",
+      "name": "Check keyed as 1,650.00, cleared for 1,560.00",
+      "group": "Amount errors",
+      "left": {
+        "amount": -1560
+      },
+      "right": {
+        "amount": -1650
+      }
+    },
+    {
+      "key": "WIR-2208",
+      "date": "2026-03-21",
+      "name": "Incoming wire keyed as 7,241.30",
+      "group": "Amount errors",
+      "left": {
+        "amount": 7214.3
+      },
+      "right": {
+        "amount": 7241.3
+      }
+    },
+    {
+      "key": "ACH-7719",
+      "date": "2026-03-26",
+      "name": "Vendor payment, Osei & Park, posted a second time",
+      "group": "Duplicate ledger posting",
+      "right": {
+        "amount": -2310
+      },
+      "duplicate": "right",
+      "status": "rightOnly"
+    },
+    {
+      "key": "EXACT-BULK",
+      "status": "exact",
+      "count": 1182
+    },
+    {
+      "key": "TOL-BULK",
+      "status": "tolerance",
+      "count": 6
+    }
+  ]
+}

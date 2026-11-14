@@ -1,0 +1,31 @@
+{
+  "name": "slopegraph",
+  "title": "Slopegraph",
+  "description": "One line per record between left and right values on a shared vertical scale to highlight discrepancies.",
+  "needs": "A numeric measure.",
+  "text": {
+    "title": "{left} against {right}",
+    "lede": "Each {unitOne} is a line from {leftShort} on the left to {rightShort} on the right. A level line agrees. A line that tilts differs, in the colour of the side that is higher.",
+    "chartTitle": "{measure} per {unitOne}, {leftShort} and {rightShort}",
+    "chartSub": "Tolerance is {tolerance} per {unitOne}.",
+    "field": "Field",
+    "noReason": "",
+    "duplicateSuffix": "duplicate"
+  },
+  "options": [
+    {
+      "name": "scale",
+      "type": "choice",
+      "allowed": ["sqrt", "linear"],
+      "default": "sqrt",
+      "description": "Scale transformation for the vertical axis: square root to compress high values, or linear."
+    },
+    {
+      "name": "labelOnly",
+      "type": "choice",
+      "allowed": ["exceptions", "all"],
+      "default": "exceptions",
+      "description": "Which lines to label on the chart: exceptions only, or all records."
+    }
+  ]
+}

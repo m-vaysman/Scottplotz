@@ -1,0 +1,7 @@
+.cols{grid-template-columns:1fr 250px}
+.colhit{fill:transparent;cursor:pointer}.colhit:hover{fill:var(--wash)}.colhit.on{fill:var(--wash)}
+.fig{border-top:1px solid var(--grid);padding:12px 0}
+.fig:first-of-type{border-top:0;padding-top:0}
+.fig b{display:block;font-size:26px;font-weight:600;line-height:1.2}
+.fig span{color:var(--ink2);font-size:13px}
+@media (max-width:900px){.cols{grid-template-columns:1fr}}

@@ -1,0 +1,4 @@
+.dot{stroke:var(--surface);stroke-width:1.5}
+.ln{stroke-width:1.5;fill:none}
+.day{fill:transparent;cursor:pointer}.day:hover{fill:var(--wash)}.day.on{fill:var(--wash)}
+.leg{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--ink2);margin-bottom:8px}

@@ -1,0 +1,15 @@
+.board{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+.col h3{font-size:14px;font-weight:600;margin:0}
+.col .meta{font-size:12px;color:var(--ink2);margin:2px 0 10px;min-height:34px}
+.col .meta b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.card{display:block;width:100%;text-align:left;background:var(--plane);border:1px solid var(--ring);border-radius:5px;padding:8px 10px 8px 14px;margin-bottom:8px;cursor:pointer;position:relative;font-size:13px}
+.card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;border-radius:5px 0 0 5px;background:var(--exact)}
+.card.tol::before{background:var(--tol)}.card.brk::before{background:var(--brk)}.card.lo::before,.card.l::before{background:var(--left)}.card.ro::before,.card.r::before{background:var(--right)}
+.card.dup{box-shadow:4px 4px 0 -1px var(--plane),4px 4px 0 0 var(--ink);margin-bottom:12px}.card.dup::before{background:var(--brk)}
+.card.on{border-color:var(--ink);outline:1px solid var(--ink)}
+.card b{font-weight:600;display:block}
+.card .row{display:flex;justify-content:space-between;color:var(--ink2);font-size:12px;margin-top:3px;font-variant-numeric:tabular-nums}
+.card.quiet{cursor:default;color:var(--ink2)}
+.act{margin-top:12px}
+@media (max-width:1100px){.board{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:640px){.board{grid-template-columns:1fr}}

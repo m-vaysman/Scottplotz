@@ -1,0 +1,239 @@
+{
+  "left": {
+    "name": "HR and timekeeping, expected pay",
+    "short": "Expected"
+  },
+  "right": {
+    "name": "Payroll provider register",
+    "short": "Payroll"
+  },
+  "unit": {
+    "one": "employee",
+    "many": "employees"
+  },
+  "asOf": "2026-03-31",
+  "tolerance": 0.01,
+  "fields": [
+    { "key": "reg", "label": "Regular pay", "decimals": 2 },
+    { "key": "ot", "label": "Overtime", "decimals": 2 },
+    { "key": "gross", "label": "Gross", "decimals": 2 },
+    { "key": "fed", "label": "Federal tax", "decimals": 2 },
+    { "key": "state", "label": "State tax", "decimals": 2 },
+    { "key": "k401", "label": "401(k)", "decimals": 2 },
+    { "key": "health", "label": "Health", "decimals": 2 },
+    { "key": "net", "label": "Net pay", "decimals": 2 }
+  ],
+  "measure": "net",
+  "text": {
+    "title": "What HR expected to pay against what payroll paid",
+    "lede": "One row per employee, one column per pay component. An empty cell agrees. A tinted cell shows the difference, in the colour of the side that is higher and stronger as the gap widens. Select a cell for both figures.",
+    "chartTitle": "Payroll minus expected, by component",
+    "chartSub": "Pay period 16 to 31 March 2026. Tolerance is 0.01.",
+    "leftHigher": "Expected higher",
+    "rightHigher": "Payroll higher",
+    "record": "Employee",
+    "leftOnlyBand": "Expected by HR, not in the payroll register",
+    "rightOnlyBand": "Paid by payroll, not expected by HR",
+    "leftOnlyDetail": "Not paid",
+    "rightOnlyDetail": "Paid in error",
+    "followsFrom": "This cell follows from {cause}.",
+    "allAgree": "Every component agrees to the cent."
+  },
+  "labels": {
+    "leftHigher": "Expected higher",
+    "rightHigher": "Payroll higher",
+    "duplicate": "Duplicate payment"
+  },
+  "options": {
+    "colourScale": 25
+  },
+  "groups": [
+    { "key": "Warehouse", "name": "Warehouse" },
+    { "key": "Customer support", "name": "Customer support" },
+    { "key": "Finance", "name": "Finance" }
+  ],
+  "records": [
+    {
+      "key": "EMP-01",
+      "name": "Ana Rocha",
+      "group": "Warehouse",
+      "left": { "reg": 1920.00, "ot": 0.00, "gross": 1920.00, "fed": 230.40, "state": 86.40, "k401": 96.00, "health": 185.00, "net": 1322.20 },
+      "right": { "reg": 1920.00, "ot": 0.00, "gross": 1920.00, "fed": 230.40, "state": 86.40, "k401": 96.00, "health": 185.00, "net": 1322.20 }
+    },
+    {
+      "key": "EMP-02",
+      "name": "Ben Adeyemi",
+      "group": "Warehouse",
+      "left": { "reg": 2280.00, "ot": 171.00, "gross": 2451.00, "fed": 294.12, "state": 110.30, "k401": 122.55, "health": 185.00, "net": 1739.03 },
+      "right": { "reg": 2280.00, "ot": 171.00, "gross": 2451.00, "fed": 294.12, "state": 110.30, "k401": 122.55, "health": 185.00, "net": 1739.03 }
+    },
+    {
+      "key": "EMP-03",
+      "name": "Carla Voss",
+      "group": "Warehouse",
+      "left": { "reg": 2080.00, "ot": 234.00, "gross": 2314.00, "fed": 277.68, "state": 104.13, "k401": 115.70, "health": 185.00, "net": 1631.49 },
+      "right": { "reg": 2080.00, "ot": 156.00, "gross": 2236.00, "fed": 268.32, "state": 100.62, "k401": 111.80, "health": 185.00, "net": 1570.26 },
+      "reason": "Overtime was paid at straight time. The 1.5 multiplier was not applied to 6 hours.",
+      "attrs": { "rootCause": "ot" }
+    },
+    {
+      "key": "EMP-04",
+      "name": "Deshawn Price",
+      "group": "Warehouse",
+      "left": { "reg": 1800.00, "ot": 0.00, "gross": 1800.00, "fed": 216.00, "state": 81.00, "k401": 90.00, "health": 185.00, "net": 1228.00 },
+      "right": { "reg": 1800.00, "ot": 0.00, "gross": 1800.00, "fed": 216.00, "state": 81.00, "k401": 90.00, "health": 185.00, "net": 1228.00 }
+    },
+    {
+      "key": "EMP-05",
+      "name": "Elif Kaya",
+      "group": "Warehouse",
+      "left": { "reg": 2480.00, "ot": 93.00, "gross": 2573.00, "fed": 308.76, "state": 115.79, "k401": 128.65, "health": 185.00, "net": 1834.80 },
+      "right": { "reg": 2480.00, "ot": 93.00, "gross": 2573.00, "fed": 308.76, "state": 115.79, "k401": 128.65, "health": 185.00, "net": 1834.80 }
+    },
+    {
+      "key": "EMP-06",
+      "name": "Farid Haddad",
+      "group": "Warehouse",
+      "left": { "reg": 2040.00, "ot": 0.00, "gross": 2040.00, "fed": 244.80, "state": 91.80, "k401": 102.00, "health": 185.00, "net": 1416.40 },
+      "right": { "reg": 2040.00, "ot": 0.00, "gross": 2040.00, "fed": 244.80, "state": 91.80, "k401": 102.00, "health": 185.00, "net": 1416.40 }
+    },
+    {
+      "key": "EMP-07",
+      "name": "Grace Lund",
+      "group": "Warehouse",
+      "left": { "reg": 2160.00, "ot": 202.50, "gross": 2362.50, "fed": 283.50, "state": 106.31, "k401": 118.13, "health": 185.00, "net": 1669.56 },
+      "right": { "reg": 2160.00, "ot": 202.50, "gross": 2362.50, "fed": 283.50, "state": 106.31, "k401": 118.13, "health": 185.00, "net": 1669.56 }
+    },
+    {
+      "key": "EMP-08",
+      "name": "Hugo Meyer",
+      "group": "Warehouse",
+      "left": { "reg": 1840.00, "ot": 0.00, "gross": 1840.00, "fed": 220.80, "state": 82.80, "k401": 92.00, "health": 185.00, "net": 1259.40 },
+      "right": { "reg": 1840.00, "ot": 0.00, "gross": 1840.00, "fed": 220.80, "state": 82.80, "k401": 92.00, "health": 142.50, "net": 1301.90 },
+      "reason": "Payroll still deducts last year’s premium. The new rate took effect on 1 March.",
+      "attrs": { "rootCause": "health" }
+    },
+    {
+      "key": "EMP-09",
+      "name": "Imani Brooks",
+      "group": "Warehouse",
+      "left": { "reg": 2000.00, "ot": 0.00, "gross": 2000.00, "fed": 240.00, "state": 90.00, "k401": 100.00, "health": 185.00, "net": 1385.00 },
+      "reason": "Hired 17 March and active in HR. Payroll has no record, so nothing was paid."
+    },
+    {
+      "key": "EMP-10",
+      "name": "Jon Petrov",
+      "group": "Customer support",
+      "left": { "reg": 2400.00, "ot": 0.00, "gross": 2400.00, "fed": 288.00, "state": 108.00, "k401": 120.00, "health": 185.00, "net": 1699.00 },
+      "right": { "reg": 2400.00, "ot": 0.00, "gross": 2400.00, "fed": 288.00, "state": 108.00, "k401": 120.00, "health": 185.00, "net": 1699.00 }
+    },
+    {
+      "key": "EMP-11",
+      "name": "Keiko Mori",
+      "group": "Customer support",
+      "left": { "reg": 2560.00, "ot": 0.00, "gross": 2560.00, "fed": 307.20, "state": 115.20, "k401": 128.00, "health": 185.00, "net": 1824.60 },
+      "right": { "reg": 2560.00, "ot": 0.00, "gross": 2560.00, "fed": 307.20, "state": 115.20, "k401": 0.00, "health": 185.00, "net": 1952.60 },
+      "reason": "The 5% deferral election of 3 March never reached the payroll provider.",
+      "attrs": { "rootCause": "k401" }
+    },
+    {
+      "key": "EMP-12",
+      "name": "Liam Doyle",
+      "group": "Customer support",
+      "left": { "reg": 2120.00, "ot": 119.25, "gross": 2239.25, "fed": 268.71, "state": 100.77, "k401": 111.96, "health": 185.00, "net": 1572.81 },
+      "right": { "reg": 2120.00, "ot": 119.25, "gross": 2239.25, "fed": 268.71, "state": 100.77, "k401": 111.96, "health": 185.00, "net": 1572.81 }
+    },
+    {
+      "key": "EMP-13",
+      "name": "Mina Shah",
+      "group": "Customer support",
+      "left": { "reg": 2320.00, "ot": 0.00, "gross": 2320.00, "fed": 278.40, "state": 104.40, "k401": 116.00, "health": 185.00, "net": 1636.20 },
+      "right": { "reg": 2320.00, "ot": 0.00, "gross": 2320.00, "fed": 278.40, "state": 104.40, "k401": 116.00, "health": 185.00, "net": 1636.20 }
+    },
+    {
+      "key": "EMP-14",
+      "name": "Noor Aziz",
+      "group": "Customer support",
+      "left": { "reg": 2240.00, "ot": 0.00, "gross": 2240.00, "fed": 268.80, "state": 100.80, "k401": 112.00, "health": 185.00, "net": 1573.40 },
+      "right": { "reg": 2240.00, "ot": 0.00, "gross": 2240.00, "fed": 268.80, "state": 100.80, "k401": 112.00, "health": 185.00, "net": 1573.40 }
+    },
+    {
+      "key": "EMP-15",
+      "name": "Owen Clarke",
+      "group": "Customer support",
+      "left": { "reg": 2720.00, "ot": 0.00, "gross": 2720.00, "fed": 326.40, "state": 122.40, "k401": 136.00, "health": 185.00, "net": 1950.20 },
+      "right": { "reg": 2720.00, "ot": 0.00, "gross": 2720.00, "fed": 326.40, "state": 83.50, "k401": 136.00, "health": 185.00, "net": 1989.10 },
+      "reason": "Taxed for the wrong state. The move recorded in HR on 9 March is missing in payroll.",
+      "attrs": { "rootCause": "state" }
+    },
+    {
+      "key": "EMP-16",
+      "name": "Priya Raman",
+      "group": "Customer support",
+      "left": { "reg": 2640.00, "ot": 0.00, "gross": 2640.00, "fed": 316.80, "state": 118.80, "k401": 132.00, "health": 185.00, "net": 1887.40 },
+      "right": { "reg": 2640.00, "ot": 0.00, "gross": 2640.00, "fed": 316.80, "state": 118.80, "k401": 132.00, "health": 185.00, "net": 1887.40 },
+      "duplicate": "right",
+      "reason": "The register lists this employee twice. The second payment repeats the first to the cent."
+    },
+    {
+      "key": "EMP-17",
+      "name": "Dale Whitcomb",
+      "group": "Customer support",
+      "right": { "reg": 2200.00, "ot": 0.00, "gross": 2200.00, "fed": 264.00, "state": 99.00, "k401": 110.00, "health": 185.00, "net": 1542.00 },
+      "reason": "Terminated 13 March in HR. Payroll still paid a full period."
+    },
+    {
+      "key": "EMP-18",
+      "name": "Quinn Avery",
+      "group": "Finance",
+      "left": { "reg": 3360.00, "ot": 0.00, "gross": 3360.00, "fed": 403.20, "state": 151.20, "k401": 168.00, "health": 185.00, "net": 2452.60 },
+      "right": { "reg": 3360.00, "ot": 0.00, "gross": 3360.00, "fed": 403.20, "state": 151.20, "k401": 168.00, "health": 185.00, "net": 2452.60 }
+    },
+    {
+      "key": "EMP-19",
+      "name": "Rosa Marin",
+      "group": "Finance",
+      "left": { "reg": 3040.00, "ot": 0.00, "gross": 3040.00, "fed": 364.80, "state": 136.80, "k401": 152.00, "health": 185.00, "net": 2201.40 },
+      "right": { "reg": 3040.00, "ot": 0.00, "gross": 3040.00, "fed": 364.81, "state": 136.80, "k401": 152.00, "health": 185.00, "net": 2201.39 },
+      "reason": "One cent of rounding in federal withholding. Inside tolerance.",
+      "attrs": { "rootCause": "fed" }
+    },
+    {
+      "key": "EMP-20",
+      "name": "Sven Holm",
+      "group": "Finance",
+      "left": { "reg": 3200.00, "ot": 0.00, "gross": 3200.00, "fed": 384.00, "state": 144.00, "k401": 160.00, "health": 185.00, "net": 2327.00 },
+      "right": { "reg": 3200.00, "ot": 0.00, "gross": 3200.00, "fed": 384.00, "state": 144.00, "k401": 160.00, "health": 185.00, "net": 2327.00 }
+    },
+    {
+      "key": "EMP-21",
+      "name": "Tara Singh",
+      "group": "Finance",
+      "left": { "reg": 3600.00, "ot": 0.00, "gross": 3600.00, "fed": 432.00, "state": 162.00, "k401": 180.00, "health": 185.00, "net": 2641.00 },
+      "right": { "reg": 3600.00, "ot": 0.00, "gross": 3600.00, "fed": 432.00, "state": 162.00, "k401": 180.00, "health": 185.00, "net": 2641.00 }
+    },
+    {
+      "key": "EMP-22",
+      "name": "Uma Patel",
+      "group": "Finance",
+      "left": { "reg": 3120.00, "ot": 0.00, "gross": 3120.00, "fed": 374.40, "state": 140.40, "k401": 156.00, "health": 185.00, "net": 2264.20 },
+      "right": { "reg": 3120.00, "ot": 0.00, "gross": 3120.00, "fed": 374.40, "state": 140.40, "k401": 156.00, "health": 185.00, "net": 2264.20 }
+    },
+    {
+      "key": "EMP-23",
+      "name": "Victor Ng",
+      "group": "Finance",
+      "left": { "reg": 3280.00, "ot": 0.00, "gross": 3280.00, "fed": 393.60, "state": 147.60, "k401": 164.00, "health": 185.00, "net": 2389.80 },
+      "right": { "reg": 3280.00, "ot": 0.00, "gross": 3280.00, "fed": 393.60, "state": 147.60, "k401": 164.00, "health": 185.00, "net": 2389.79 },
+      "reason": "One cent of rounding in net pay. Inside tolerance.",
+      "attrs": { "rootCause": "net" }
+    },
+    {
+      "key": "EMP-24",
+      "name": "Wen Li",
+      "group": "Finance",
+      "left": { "reg": 3520.00, "ot": 0.00, "gross": 3520.00, "fed": 422.40, "state": 158.40, "k401": 176.00, "health": 185.00, "net": 2578.20 },
+      "right": { "reg": 3520.00, "ot": 0.00, "gross": 3520.00, "fed": 422.40, "state": 158.40, "k401": 176.00, "health": 185.00, "net": 2578.20 }
+    }
+  ]
+}

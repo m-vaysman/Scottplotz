@@ -1,0 +1,51 @@
+{
+  "left": { "name": "Grants ledger, payments recorded", "short": "Ledger" },
+  "right": { "name": "Bank statement, payments made", "short": "Bank" },
+  "unit": { "one": "award", "many": "awards" },
+  "asOf": "2026-03-31",
+  "tolerance": 1,
+  "fields": [
+    { "key": "amount", "label": "Payment amount", "decimals": 2 }
+  ],
+  "measure": "amount",
+  "text": {
+    "title": "Grant payments in the ledger against payments from the bank",
+    "lede": "Three levels side by side: departments, their programmes, and each programme's awards. Height is money paid out. Colour is the difference between ledger and bank, so a tinted department can be traced rightward to the programme, and then to the award, that causes it.",
+    "chartTitle": "Payments by department, programme and award",
+    "chartSub": "Disbursements in March 2026, in USD. Tolerance is 1.00 per award. Select any block.",
+    "item": "Award",
+    "name": "Recipient",
+    "reason": "Why"
+  },
+  "records": [
+    { "key": "GR-1110", "name": "Riverside Trust", "group": ["Housing", "Rent support"], "left": { "amount": 45000 }, "right": { "amount": 45000 } },
+    { "key": "GR-1117", "name": "Meadow Housing", "group": ["Housing", "Rent support"], "left": { "amount": 82000 }, "right": { "amount": 82000 } },
+    { "key": "GR-1124", "name": "Oakwell Library", "group": ["Housing", "Rent support"], "left": { "amount": 28000 }, "right": { "amount": 28000.5 }, "reason": "A bank charge of 0.50 added to the payment, inside tolerance." },
+    { "key": "GR-1210", "name": "Northfield Council", "group": ["Housing", "Home repairs"], "left": { "amount": 115000 }, "right": { "amount": 97750 }, "reason": "The bank paid 85%. A retention was withheld at payment and never booked in the ledger." },
+    { "key": "GR-1217", "name": "Meadow Housing", "group": ["Housing", "Home repairs"], "left": { "amount": 64000 }, "reason": "Recorded as paid. The bank returned the payment: the recipient's account was closed." },
+    { "key": "GR-1224", "name": "Linden Hospice", "group": ["Housing", "Home repairs"], "left": { "amount": 36000 }, "right": { "amount": 36000 } },
+    { "key": "GR-1310", "name": "Quay Food Bank", "group": ["Housing", "Shelter capacity"], "left": { "amount": 52000 }, "right": { "amount": 52000 } },
+    { "key": "GR-1317", "name": "Fenland Rescue", "group": ["Housing", "Shelter capacity"], "left": { "amount": 39000 }, "right": { "amount": 78000 }, "duplicate": "right", "reason": "The bank file was submitted twice and this award was paid both times." },
+    { "key": "GR-1324", "name": "Riverside Trust", "group": ["Housing", "Shelter capacity"], "left": { "amount": 71000 }, "right": { "amount": 71000 } },
+    { "key": "GR-2110", "name": "Mill Road Clinic", "group": ["Health", "Community clinics"], "left": { "amount": 95000 }, "right": { "amount": 95000 } },
+    { "key": "GR-2117", "name": "Linden Hospice", "group": ["Health", "Community clinics"], "left": { "amount": 48000 }, "right": { "amount": 48000 } },
+    { "key": "GR-2124", "name": "Riverside Trust", "group": ["Health", "Community clinics"], "left": { "amount": 62000 }, "right": { "amount": 62000 } },
+    { "key": "GR-2210", "name": "Castle Youth Club", "group": ["Health", "Mental health outreach"], "left": { "amount": 34000 }, "right": { "amount": 34000 } },
+    { "key": "GR-2217", "name": "Northfield Council", "group": ["Health", "Mental health outreach"], "left": { "amount": 58000 }, "right": { "amount": 58000 } },
+    { "key": "GR-2224", "name": "Mill Road Clinic", "group": ["Health", "Mental health outreach"], "left": { "amount": 41000 }, "right": { "amount": 41000 } },
+    { "key": "GR-3110", "name": "Castle Youth Club", "group": ["Education", "After-school clubs"], "left": { "amount": 26000 }, "right": { "amount": 26000 } },
+    { "key": "GR-3117", "name": "Harbour Arts", "group": ["Education", "After-school clubs"], "left": { "amount": 18000 }, "right": { "amount": 18000 } },
+    { "key": "GR-3124", "name": "Fenland Rescue", "group": ["Education", "After-school clubs"], "left": { "amount": 31000 }, "right": { "amount": 31000 } },
+    { "key": "GR-3210", "name": "Oakwell Library", "group": ["Education", "Adult learning"], "left": { "amount": 44000 }, "right": { "amount": 44000 } },
+    { "key": "GR-3217", "name": "Northfield Council", "group": ["Education", "Adult learning"], "left": { "amount": 53000 }, "right": { "amount": 53000 } },
+    { "key": "GR-3224", "name": "Meadow Housing", "group": ["Education", "Adult learning"], "left": { "amount": 29000 }, "right": { "amount": 29000 } },
+    { "key": "GR-3310", "name": "Quay Food Bank", "group": ["Education", "School meals"], "left": { "amount": 88000 }, "right": { "amount": 74800 }, "reason": "The bank paid 85%. A retention was withheld at payment and never booked in the ledger." },
+    { "key": "GR-3317", "name": "Northfield Council", "group": ["Education", "School meals"], "left": { "amount": 120000 }, "right": { "amount": 120000 } },
+    { "key": "GR-3324", "name": "Linden Hospice", "group": ["Education", "School meals"], "left": { "amount": 45000 }, "reason": "Recorded as paid. The bank returned the payment: the recipient's account was closed." },
+    { "key": "GR-4110", "name": "Harbour Arts", "group": ["Culture", "Local arts"], "left": { "amount": 38000 }, "right": { "amount": 38000 } },
+    { "key": "GR-4117", "name": "Castle Youth Club", "group": ["Culture", "Local arts"], "left": { "amount": 22000 }, "right": { "amount": 22000 } },
+    { "key": "none", "name": "Harbour Arts", "group": ["Culture", "Local arts"], "right": { "amount": 12500 }, "reason": "Paid by the bank from a manual instruction. No award exists in the ledger." },
+    { "key": "GR-4210", "name": "Oakwell Library", "group": ["Culture", "Libraries"], "left": { "amount": 67000 }, "right": { "amount": 67000 } },
+    { "key": "GR-4217", "name": "Northfield Council", "group": ["Culture", "Libraries"], "left": { "amount": 49000 }, "right": { "amount": 49000 } }
+  ]
+}

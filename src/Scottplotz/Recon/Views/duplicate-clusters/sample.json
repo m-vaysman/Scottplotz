@@ -1,0 +1,718 @@
+{
+ "left": {
+  "name": "Sales system accounts",
+  "short": "Sales"
+ },
+ "right": {
+  "name": "Billing system customers",
+  "short": "Billing"
+ },
+ "unit": {
+  "one": "customer",
+  "many": "customers"
+ },
+ "fields": [
+  {
+   "key": "address",
+   "label": "Address",
+   "type": "text",
+   "compare": false
+  },
+  {
+   "key": "tax",
+   "label": "Tax number",
+   "type": "text",
+   "compare": false
+  },
+  {
+   "key": "domain",
+   "label": "Email domain",
+   "type": "text",
+   "compare": false
+  },
+  {
+   "key": "phone",
+   "label": "Phone",
+   "type": "text",
+   "compare": false
+  }
+ ],
+ "text": {
+  "title": "Sales accounts against billing customers",
+  "lede": "Names and addresses never match exactly, so every candidate pair gets a similarity score. The strip shows where the scores fall against the two thresholds. Below it, records believed to be one customer are gathered into clusters, and a cluster with two records from one side is a duplicate.",
+  "stripTitle": "Similarity score of every candidate pair",
+  "stripSub": "One dot per pair. Above {match} is matched without review; {review} to {match} goes to a person; below {review} is treated as two different customers.",
+  "lowLabel": "Different customers",
+  "listTitle": "Clusters to review",
+  "listSub": "Blue squares are sales records, orange are billing records."
+ },
+ "labels": {
+  "exact": "Matched",
+  "tolerance": "Probable match, needs review",
+  "break": "Probably different customers",
+  "leftOnly": "Sales only",
+  "rightOnly": "Billing only",
+  "duplicate": "Duplicate"
+ },
+ "options": {
+  "matchFrom": 92,
+  "reviewFrom": 70
+ },
+ "records": [
+  {
+   "key": "CL-1",
+   "name": "Acme Corporation",
+   "status": "exact",
+   "attrs": {
+    "score": 96,
+    "sim_name": 94,
+    "sim_address": 100,
+    "sim_tax": 100,
+    "sim_domain": 100,
+    "sim_phone": 88
+   },
+   "left": [
+    {
+     "key": "A-1041",
+     "name": "Acme Corp.",
+     "address": "14 Mill Lane, Leeds",
+     "tax": "GB-448-2210",
+     "domain": "acme.example"
+    },
+    {
+     "key": "A-2290",
+     "name": "ACME Corporation",
+     "address": "14 Mill Ln, Leeds",
+     "tax": "GB-448-2210",
+     "domain": "acme.example"
+    }
+   ],
+   "right": [
+    {
+     "key": "C-0778",
+     "name": "Acme Corporation",
+     "address": "14 Mill Lane, Leeds",
+     "tax": "GB-448-2210",
+     "domain": "acme.example"
+    }
+   ],
+   "reason": "Two sales accounts point at one billing customer. Same tax number and address; the second account was opened by a different rep. Merge the sales accounts.",
+   "duplicate": "left"
+  },
+  {
+   "key": "CL-2",
+   "name": "Tidewell Supply",
+   "status": "exact",
+   "attrs": {
+    "score": 94,
+    "sim_name": 91,
+    "sim_address": 100,
+    "sim_tax": 100,
+    "sim_domain": 100,
+    "sim_phone": 100
+   },
+   "left": [
+    {
+     "key": "A-0612",
+     "name": "Tidewell Supply",
+     "address": "2 Quay Road, Hull",
+     "tax": "GB-301-7754",
+     "domain": "tidewell.example"
+    }
+   ],
+   "right": [
+    {
+     "key": "C-0340",
+     "name": "Tidewell Supply",
+     "address": "2 Quay Road, Hull",
+     "tax": "GB-301-7754",
+     "domain": "tidewell.example"
+    },
+    {
+     "key": "C-1195",
+     "name": "Tidewell Supply Co",
+     "address": "2 Quay Rd, Hull",
+     "tax": "GB-301-7754",
+     "domain": "tidewell.example"
+    }
+   ],
+   "reason": "Billing holds this customer twice. Invoices are split across the two records, so neither shows the full balance.",
+   "duplicate": "right"
+  },
+  {
+   "key": "CL-3",
+   "name": "Brightwater Dairy",
+   "status": "tolerance",
+   "attrs": {
+    "score": 88,
+    "sim_name": 82,
+    "sim_address": 76,
+    "sim_tax": 100,
+    "sim_domain": 100,
+    "sim_phone": 100
+   },
+   "left": [
+    {
+     "key": "A-0907",
+     "name": "Brightwater Dairy Ltd",
+     "address": "Unit 4, Fen Estate, Ely",
+     "tax": "GB-512-0098",
+     "domain": "brightwater.example"
+    }
+   ],
+   "right": [
+    {
+     "key": "C-0655",
+     "name": "Brightwater Dairies Limited",
+     "address": "Fen Industrial Estate, Unit 4, Ely",
+     "tax": "GB-512-0098",
+     "domain": "brightwater.example"
+    }
+   ],
+   "reason": "Name and address are written differently, but the tax number is identical. Almost certainly one customer. Confirm and link."
+  },
+  {
+   "key": "CL-4",
+   "name": "Corvin Ltd",
+   "status": "break",
+   "attrs": {
+    "score": 74,
+    "sim_name": 100,
+    "sim_address": 31,
+    "sim_tax": 0,
+    "sim_domain": 60,
+    "sim_phone": 0
+   },
+   "left": [
+    {
+     "key": "A-1388",
+     "name": "Corvin Ltd",
+     "address": "9 Canal Street, Leeds",
+     "tax": "GB-290-4411",
+     "domain": "corvin.example"
+    }
+   ],
+   "right": [
+    {
+     "key": "C-0921",
+     "name": "Corvin Ltd",
+     "address": "27 Rue Pasteur, Lyon",
+     "tax": "FR-77-310-552",
+     "domain": "corvin-fr.example"
+    }
+   ],
+   "reason": "Same name, different country, different tax number. These look like two legal entities of one group. Do not merge; link them under a parent."
+  },
+  {
+   "key": "CL-5",
+   "name": "Nadir Labs",
+   "status": "leftOnly",
+   "left": [
+    {
+     "key": "A-2051",
+     "name": "Nadir Labs",
+     "address": "60 Science Park, Cambridge",
+     "tax": "GB-618-3027",
+     "domain": "nadirlabs.example"
+    }
+   ],
+   "reason": "A sales account with no billing customer above the review threshold. Won last month and not yet set up for invoicing."
+  },
+  {
+   "key": "CL-6",
+   "name": "Quillon Freight",
+   "status": "rightOnly",
+   "right": [
+    {
+     "key": "C-1402",
+     "name": "Quillon Freight",
+     "address": "Dock 7, Felixstowe",
+     "tax": "GB-733-9120",
+     "domain": "quillon.example"
+    }
+   ],
+   "reason": "A billing customer with no sales account. Invoiced directly by finance; sales has no record of the relationship."
+  },
+  {
+   "key": "S-44",
+   "name": "Score 44",
+   "status": "break",
+   "count": 2,
+   "attrs": {
+    "score": 44
+   }
+  },
+  {
+   "key": "S-45",
+   "name": "Score 45",
+   "status": "break",
+   "count": 1,
+   "attrs": {
+    "score": 45
+   }
+  },
+  {
+   "key": "S-46",
+   "name": "Score 46",
+   "status": "break",
+   "count": 1,
+   "attrs": {
+    "score": 46
+   }
+  },
+  {
+   "key": "S-47",
+   "name": "Score 47",
+   "status": "break",
+   "count": 1,
+   "attrs": {
+    "score": 47
+   }
+  },
+  {
+   "key": "S-49",
+   "name": "Score 49",
+   "status": "break",
+   "count": 4,
+   "attrs": {
+    "score": 49
+   }
+  },
+  {
+   "key": "S-51",
+   "name": "Score 51",
+   "status": "break",
+   "count": 1,
+   "attrs": {
+    "score": 51
+   }
+  },
+  {
+   "key": "S-52",
+   "name": "Score 52",
+   "status": "break",
+   "count": 2,
+   "attrs": {
+    "score": 52
+   }
+  },
+  {
+   "key": "S-53",
+   "name": "Score 53",
+   "status": "break",
+   "count": 1,
+   "attrs": {
+    "score": 53
+   }
+  },
+  {
+   "key": "S-54",
+   "name": "Score 54",
+   "status": "break",
+   "count": 2,
+   "attrs": {
+    "score": 54
+   }
+  },
+  {
+   "key": "S-55",
+   "name": "Score 55",
+   "status": "break",
+   "count": 1,
+   "attrs": {
+    "score": 55
+   }
+  },
+  {
+   "key": "S-56",
+   "name": "Score 56",
+   "status": "break",
+   "count": 3,
+   "attrs": {
+    "score": 56
+   }
+  },
+  {
+   "key": "S-57",
+   "name": "Score 57",
+   "status": "break",
+   "count": 3,
+   "attrs": {
+    "score": 57
+   }
+  },
+  {
+   "key": "S-58",
+   "name": "Score 58",
+   "status": "break",
+   "count": 1,
+   "attrs": {
+    "score": 58
+   }
+  },
+  {
+   "key": "S-60",
+   "name": "Score 60",
+   "status": "break",
+   "count": 1,
+   "attrs": {
+    "score": 60
+   }
+  },
+  {
+   "key": "S-61",
+   "name": "Score 61",
+   "status": "break",
+   "count": 1,
+   "attrs": {
+    "score": 61
+   }
+  },
+  {
+   "key": "S-63",
+   "name": "Score 63",
+   "status": "break",
+   "count": 1,
+   "attrs": {
+    "score": 63
+   }
+  },
+  {
+   "key": "S-64",
+   "name": "Score 64",
+   "status": "break",
+   "count": 2,
+   "attrs": {
+    "score": 64
+   }
+  },
+  {
+   "key": "S-65",
+   "name": "Score 65",
+   "status": "break",
+   "count": 3,
+   "attrs": {
+    "score": 65
+   }
+  },
+  {
+   "key": "S-66",
+   "name": "Score 66",
+   "status": "break",
+   "count": 2,
+   "attrs": {
+    "score": 66
+   }
+  },
+  {
+   "key": "S-67",
+   "name": "Score 67",
+   "status": "break",
+   "count": 2,
+   "attrs": {
+    "score": 67
+   }
+  },
+  {
+   "key": "S-68",
+   "name": "Score 68",
+   "status": "break",
+   "count": 3,
+   "attrs": {
+    "score": 68
+   }
+  },
+  {
+   "key": "S-69",
+   "name": "Score 69",
+   "status": "break",
+   "count": 2,
+   "attrs": {
+    "score": 69
+   }
+  },
+  {
+   "key": "S-70",
+   "name": "Score 70",
+   "status": "tolerance",
+   "count": 1,
+   "attrs": {
+    "score": 70
+   }
+  },
+  {
+   "key": "S-71",
+   "name": "Score 71",
+   "status": "tolerance",
+   "count": 3,
+   "attrs": {
+    "score": 71
+   }
+  },
+  {
+   "key": "S-72",
+   "name": "Score 72",
+   "status": "tolerance",
+   "count": 3,
+   "attrs": {
+    "score": 72
+   }
+  },
+  {
+   "key": "S-73",
+   "name": "Score 73",
+   "status": "tolerance",
+   "count": 5,
+   "attrs": {
+    "score": 73
+   }
+  },
+  {
+   "key": "S-74",
+   "name": "Score 74",
+   "status": "tolerance",
+   "count": 3,
+   "attrs": {
+    "score": 74
+   }
+  },
+  {
+   "key": "S-75",
+   "name": "Score 75",
+   "status": "tolerance",
+   "count": 5,
+   "attrs": {
+    "score": 75
+   }
+  },
+  {
+   "key": "S-76",
+   "name": "Score 76",
+   "status": "tolerance",
+   "count": 3,
+   "attrs": {
+    "score": 76
+   }
+  },
+  {
+   "key": "S-77",
+   "name": "Score 77",
+   "status": "tolerance",
+   "count": 8,
+   "attrs": {
+    "score": 77
+   }
+  },
+  {
+   "key": "S-79",
+   "name": "Score 79",
+   "status": "tolerance",
+   "count": 1,
+   "attrs": {
+    "score": 79
+   }
+  },
+  {
+   "key": "S-80",
+   "name": "Score 80",
+   "status": "tolerance",
+   "count": 1,
+   "attrs": {
+    "score": 80
+   }
+  },
+  {
+   "key": "S-81",
+   "name": "Score 81",
+   "status": "tolerance",
+   "count": 2,
+   "attrs": {
+    "score": 81
+   }
+  },
+  {
+   "key": "S-82",
+   "name": "Score 82",
+   "status": "tolerance",
+   "count": 4,
+   "attrs": {
+    "score": 82
+   }
+  },
+  {
+   "key": "S-83",
+   "name": "Score 83",
+   "status": "tolerance",
+   "count": 6,
+   "attrs": {
+    "score": 83
+   }
+  },
+  {
+   "key": "S-84",
+   "name": "Score 84",
+   "status": "tolerance",
+   "count": 4,
+   "attrs": {
+    "score": 84
+   }
+  },
+  {
+   "key": "S-85",
+   "name": "Score 85",
+   "status": "tolerance",
+   "count": 2,
+   "attrs": {
+    "score": 85
+   }
+  },
+  {
+   "key": "S-86",
+   "name": "Score 86",
+   "status": "tolerance",
+   "count": 3,
+   "attrs": {
+    "score": 86
+   }
+  },
+  {
+   "key": "S-87",
+   "name": "Score 87",
+   "status": "tolerance",
+   "count": 2,
+   "attrs": {
+    "score": 87
+   }
+  },
+  {
+   "key": "S-89",
+   "name": "Score 89",
+   "status": "tolerance",
+   "count": 2,
+   "attrs": {
+    "score": 89
+   }
+  },
+  {
+   "key": "S-90",
+   "name": "Score 90",
+   "status": "tolerance",
+   "count": 3,
+   "attrs": {
+    "score": 90
+   }
+  },
+  {
+   "key": "S-92",
+   "name": "Score 92",
+   "status": "exact",
+   "count": 1,
+   "attrs": {
+    "score": 92
+   }
+  },
+  {
+   "key": "S-93",
+   "name": "Score 93",
+   "status": "exact",
+   "count": 16,
+   "attrs": {
+    "score": 93
+   }
+  },
+  {
+   "key": "S-94",
+   "name": "Score 94",
+   "status": "exact",
+   "count": 30,
+   "attrs": {
+    "score": 94
+   }
+  },
+  {
+   "key": "S-95",
+   "name": "Score 95",
+   "status": "exact",
+   "count": 14,
+   "attrs": {
+    "score": 95
+   }
+  },
+  {
+   "key": "S-96",
+   "name": "Score 96",
+   "status": "exact",
+   "count": 12,
+   "attrs": {
+    "score": 96
+   }
+  },
+  {
+   "key": "S-97",
+   "name": "Score 97",
+   "status": "exact",
+   "count": 28,
+   "attrs": {
+    "score": 97
+   }
+  },
+  {
+   "key": "S-98",
+   "name": "Score 98",
+   "status": "exact",
+   "count": 23,
+   "attrs": {
+    "score": 98
+   }
+  },
+  {
+   "key": "S-99",
+   "name": "Score 99",
+   "status": "exact",
+   "count": 16,
+   "attrs": {
+    "score": 99
+   }
+  },
+  {
+   "key": "S-100",
+   "name": "Score 100",
+   "status": "exact",
+   "count": 15,
+   "attrs": {
+    "score": 100
+   }
+  },
+  {
+   "key": "B-dup",
+   "name": "Other duplicates",
+   "status": "exact",
+   "count": 31,
+   "duplicate": true
+  },
+  {
+   "key": "B-exact",
+   "name": "Other exact",
+   "status": "exact",
+   "count": 1714
+  },
+  {
+   "key": "B-tolerance",
+   "name": "Other tolerance",
+   "status": "tolerance",
+   "count": 2
+  },
+  {
+   "key": "B-leftOnly",
+   "name": "Other leftOnly",
+   "status": "leftOnly",
+   "count": 40
+  },
+  {
+   "key": "B-rightOnly",
+   "name": "Other rightOnly",
+   "status": "rightOnly",
+   "count": 26
+  }
+ ]
+}

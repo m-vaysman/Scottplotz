@@ -1,0 +1,31 @@
+{
+  "name": "bridge",
+  "title": "Reconciliation bridge",
+  "description": "Waterfall chart walking from the left total to the right total through reconciling item groups.",
+  "needs": "A numeric measure; the left and right totals are the opening and closing points.",
+  "text": {
+    "title": "{left} to {right}",
+    "lede": "Each step is a group of reconciling items that walks the total of {leftShort} to the total of {rightShort}. A step takes the colour of the side that holds the items. Select a step to see what is in it.",
+    "chartTitle": "From {leftShort} to {rightShort}",
+    "chartSub": "Reconciliation waterfall.",
+    "leftEnding": "{leftShort} total",
+    "rightEnding": "{rightShort} total",
+    "unexplained": "Unexplained",
+    "unexplainedNote": "What is left after every item above. Nothing has been found for it yet.",
+    "noItems": "No items explain this amount. It stays open until someone finds them.",
+    "stepTotal": "Step total",
+    "effect": "Effect on bridge",
+    "date": "Date",
+    "reference": "Reference",
+    "description": "Description",
+    "other": "Other"
+  },
+  "options": [
+    {
+      "name": "showUnexplained",
+      "type": "bool",
+      "default": true,
+      "description": "Include a residual unexplained step if the bridge does not fully balance."
+    }
+  ]
+}
