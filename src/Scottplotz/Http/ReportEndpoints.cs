@@ -83,7 +83,15 @@ public static class ReportEndpoints
         {
             TableBlock table => new { kind = "table", title = table.Title, columns = table.Columns.Select(column => column.Title).ToList(), rows = table.Rows.Select(Plain).ToList(), note = table.Note },
             TilesBlock tiles => new { kind = "tiles", tiles = tiles.Tiles.Select(tile => new { label = tile.Label, value = CellText.Of(tile.Value), tone = Tone(tile.Value.Tone), sub = tile.Sub }).ToList() },
-            BarsBlock bars => new { kind = "bars", title = bars.Title, bars = bars.Bars.Select(bar => new { label = bar.Label, value = bar.Value, tone = Tone(bar.Tone), note = bar.Note }).ToList() },
+            BarsBlock bars => new
+            {
+                kind = "bars",
+                title = bars.Title,
+                firstSeries = bars.FirstSeries,
+                secondSeries = bars.SecondSeries,
+                bars = bars.Bars.Select(bar => new { label = bar.Label, value = bar.Value, second = bar.Second, tone = Tone(bar.Tone), note = bar.Note }).ToList()
+            },
+            LegendBlock legend => new { kind = "legend", items = legend.Items.Select(item => new { label = item.Label, tone = Tone(item.Tone), meaning = item.Meaning }).ToList() },
             NoteBlock note => new { kind = "note", text = note.Text },
             SectionBlock section => new { kind = "section", title = section.Title, sub = section.Sub, blocks = section.Blocks.Select(Plain).ToList() },
             DataBlock data => new { kind = "data", name = data.Name, columns = data.Table.Columns.Select(column => column.Title).ToList(), rows = data.Table.Rows.Select(Plain).ToList() },

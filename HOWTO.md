@@ -457,3 +457,107 @@ Start-Process dumbbell.html
 6. Click **Explain** to see the resolved model as JSON.
 7. A bad request shows the status, the title, the detail, and the `code`.
 8. Fill **API key** only when the server has `SCOTTPLOTZ_API_KEY` set. The previews need it too.
+
+## Reconciliation reports
+
+Scottplotz writes the 13 RecDiffy reports as HTML. You post one reconciliation result as JSON and name the report. Scottplotz works out every figure (counts, sums, differences, checks, ageing) and returns a page that holds finished values only: no formulas and no script. The same input feeds every report.
+
+| Id | Report | Answers |
+| --- | --- | --- |
+| `BO1` | Exception blotter | What do I fix first today? |
+| `BO2` | Side-by-side field compare | Exactly which fields disagree on each matched pair? |
+| `BO3` | Raw versus normalized | Why did these match when the raw values look different? |
+| `BO4` | Lifecycle chain | Which version of the trade is live, and what changed? |
+| `BO5` | Block and allocations | Do the allocations add up to the block? |
+| `BO6` | Settlement cash ladder | How much cash moves each day, and how much of it is in doubt? |
+| `MO1` | Control totals | Do the two books agree in total, and where does each difference come from? |
+| `MO2` | Match-quality scorecard | How good is matching, overall and by counterparty? |
+| `MO3` | Cascade funnel | How did the engine reach these results? |
+| `MO4` | Break heatmap | Where are breaks concentrated? |
+| `MO5` | Ageing and settlement status | How old are open items, and have they reached settlement? |
+| `MO6` | Tolerance usage | Are tolerances hiding drift? |
+| `MO7` | Match audit trail | Why was this matched, or not? |
+
+### Report endpoints
+
+| Request | Result |
+| --- | --- |
+| `GET /reports` | `200` and JSON for every report: id, slug, title, office, users, question, cadence, description, and the roles it needs |
+| `GET /reports/sample` | `200` and a made-up input that works with every report |
+| `POST /reports/{id}` | `200` and the report as an HTML page |
+| `POST /reports/{id}/data` | `200` and the report's computed values as JSON: every block, row and cell |
+| `GET /reports.html` | The reports gallery |
+
+`{id}` is the id (`MO5`) or the slug (`ageing`); case does not matter. An unknown report is `400` and lists the reports. When `SCOTTPLOTZ_API_KEY` is set, the two `POST` routes need `X-Api-Key`.
+
+### The input
+
+The full format, with every property, is in [docs/reports-input.md](docs/reports-input.md). In outline:
+
+```json
+{
+  "run": { "asOf": "2026-03-31", "profileId": "trade-recon", "roles": { "Counterparty": "Counterparty", "Quantity": "Quantity" } },
+  "options": { "theme": "auto" },
+  "passes": ["P1", "P2"],
+  "entries": [ { "id": "…", "alignment": "Matched", "outcome": "Break", "left": ["L-1"], "right": ["R-1"], "ours": { "Quantity": 1000 }, "theirs": { "Quantity": 900 }, "committedBy": "P1", "diffs": [ { "field": "Quantity", "role": "Quantity", "type": "decimal", "outcome": "Break", "ours": 1000, "theirs": 900, "deltaKind": "Number", "delta": -100 } ] } ],
+  "rows": [ { "source": "left", "rowKey": "L-1", "disposition": "Matched", "entryId": "…", "values": { "Quantity": 1000 } } ]
+}
+```
+
+- `run.roles` names the fields that play each role (counterparty, quantity, settle date and so on). A report that needs a role you did not map says so and is not written.
+- `entries` are the engine's results; `rows` are the input rows with their dispositions. Their order is kept.
+- Values are numbers, ISO dates (`yyyy-MM-dd`) or text, by role.
+
+### When a report request fails
+
+| `code` | What to do |
+| --- | --- |
+| `unknown-report` | Use an id or slug from `GET /reports` |
+| `malformed-json` | Send one JSON object |
+| `invalid-report-input` | The detail names the path, such as `$.entries[3].alignment`, and what is wrong: an unknown property, a missing required one, or a value that is not allowed |
+| `duplicate-key` | An entry id, or a row's source and key, appears twice |
+| `unknown-row`, `unknown-entry` | An entry names a row that is not in `rows`, or a row names an entry that is not in `entries` |
+| `report-unavailable` | The input lacks something this report needs. The detail says what, such as an unmapped role or missing `options.tolerances` |
+| `too-many-records` | Send fewer, or raise `Reports:MaxRows` or `Reports:MaxEntries` |
+
+### Reports with curl
+
+```bash
+curl -sS http://localhost:5240/reports
+
+curl -sS -o result.json http://localhost:5240/reports/sample
+
+curl -sS -o blotter.html http://localhost:5240/reports/BO1 \
+  -H "Content-Type: application/json" \
+  --data-binary @result.json
+
+curl -sS -o ageing.json http://localhost:5240/reports/ageing/data \
+  -H "Content-Type: application/json" \
+  --data-binary @result.json
+
+curl -sS http://localhost:5240/reports/MO5 \
+  -H "Content-Type: application/json" \
+  -d '{"run":{"asOf":"2026-03-31","profileId":"demo","roles":{}},"entries":[],"rows":[]}'
+```
+
+The last call fails on purpose: MO5 needs the trade date and settle date roles, and none are mapped.
+
+### Reports with PowerShell
+
+```powershell
+Invoke-WebRequest http://localhost:5240/reports/sample -OutFile result.json
+
+Invoke-WebRequest http://localhost:5240/reports/BO1 -Method POST -ContentType "application/json" -InFile result.json -OutFile blotter.html
+
+Start-Process blotter.html
+```
+
+### Reports gallery
+
+1. Open http://localhost:5240/reports.html. The main page links to it.
+2. Each report is a card with a live preview drawn from the sample, grouped by back office and middle office.
+3. Type in **Filter reports** to narrow the cards. Set **Previews** to force light or dark.
+4. Click a preview or **Open full size** to see the report in a new tab. You can save or print it from there.
+5. Click **Use my data** to go to the editor with that report selected. Paste your own input and click **Render**.
+6. Click **Values as JSON** to see the computed values behind the report.
+7. A bad input shows the status, the title, the detail, and the `code`.

@@ -41,6 +41,17 @@ curl -sS -o recon.html http://localhost:5240/recon/dumbbell \
 
 Try them at http://localhost:5240/recon.html. The request format is in [HOWTO.md](HOWTO.md#reconciliation-views), every view is listed in [docs/recon-views.md](docs/recon-views.md), and [docs/recon-porting.md](docs/recon-porting.md) says how to add one. These pages are drawn in the browser and do not use ScottPlot.
 
+## Reconciliation reports
+
+Scottplotz also writes the 13 RecDiffy back-office and middle-office reports (exception blotter, cash ladder, control totals, ageing and the rest) as HTML. You post one reconciliation result as JSON; every figure is worked out by the service and the page holds finished values only.
+
+```bash
+curl -sS -o result.json http://localhost:5240/reports/sample
+curl -sS -o blotter.html http://localhost:5240/reports/BO1 -H "Content-Type: application/json" --data-binary @result.json
+```
+
+Browse them at http://localhost:5240/reports.html. The input format is in [docs/reports-input.md](docs/reports-input.md) and the routes are in [HOWTO.md](HOWTO.md#reconciliation-reports).
+
 ## Run it on your machine
 
 You need the .NET 8 SDK.
