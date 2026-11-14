@@ -14,7 +14,7 @@ public static class ScottplotzHost
     {
         EmbeddedFont.Register();
 
-        var builder = WebApplication.CreateBuilder(args);
+        var builder = WebApplication.CreateBuilder(ContentRoots.Options(args));
         builder.Configuration
             .AddJsonFile(UserPaths.SettingsFile, optional: true, reloadOnChange: false)
             .AddEnvironmentVariables()
