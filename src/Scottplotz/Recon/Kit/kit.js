@@ -57,10 +57,11 @@ const RD = (() => {
     for (let v = 0; v < max + step * .999; v += step) out.push(+v.toPrecision(12));
     return out;
   };
-  const tieOut = el => {
+  // o.leftMeta / o.rightMeta replace the count text beside each side; o.net === false hides the net line.
+  const tieOut = (el, o = {}) => {
     const c = model.summary.counts, sm = model.summary, u = model.unit;
     const meta = (n, total) => `${int(n)} ${u}` + (total === null || !measure ? '' : `, ${fmt(measure.key, total)}`);
-    const side = (k, d, m) => h('div', {}, [h('i', { class: 'sw ' + k }), h('b', { text: (d.name.toLowerCase().startsWith(d.short.toLowerCase()) ? d.name : d.short) + ' ' }), d.name.toLowerCase().startsWith(d.short.toLowerCase()) ? null : h('span', { text: d.name }), h('span', { class: 'mt', text: m })]);
+    const side = (k, d, m) => h('div', {}, [h('i', { class: 'sw ' + k }), h('b', { text: (d.name.toLowerCase().includes(d.short.toLowerCase()) ? d.name : d.short) + ' ' }), d.name.toLowerCase().includes(d.short.toLowerCase()) ? null : h('span', { text: d.name }), h('span', { class: 'mt', text: m })]);
     const segs = [['lo', 'leftOnly'], ['ex', 'exact'], ['tol', 'tolerance'], ['brk', 'break'], ['ro', 'rightOnly']].filter(x => c[x[1]] > 0);
     const bar = h('div', { class: 'tiebar', role: 'img', 'aria-label': segs.map(x => `${label(x[1])} ${c[x[1]]}`).join(', ') },
       segs.map(x => hover(h('div', { class: 'seg ' + x[0], style: `flex:${c[x[1]]} 1 0`, text: int(c[x[1]]) }), label(x[1]), [`${int(c[x[1]])} ${u}`])));
@@ -68,10 +69,10 @@ const RD = (() => {
     const leg = h('div', { class: 'tie-leg' }, [
       li('l', '', 'leftOnly', c.leftOnly), li('', '=', 'exact', c.exact), li('tol', '≈', 'tolerance', c.tolerance),
       li('brk', '≠', 'break', c.break), li('r', '', 'rightOnly', c.rightOnly), li('dup', '', 'duplicate', sm.duplicates),
-      sm.net === null || !measure ? null : h('span', { class: 'net' }, [label('net') + ' ', h('b', { text: fmtSigned(measure.key, sm.net) })])
+      sm.net === null || !measure || o.net === false ? null : h('span', { class: 'net' }, [label('net') + ' ', h('b', { text: fmtSigned(measure.key, sm.net) })])
     ]);
     el.classList.add('panel');
-    el.replaceChildren(h('div', { class: 'tie-sides' }, [side('l', model.left, meta(sm.leftCount, sm.leftTotal)), side('r', model.right, meta(sm.rightCount, sm.rightTotal))]), bar, leg);
+    el.replaceChildren(h('div', { class: 'tie-sides' }, [side('l', model.left, o.leftMeta ?? meta(sm.leftCount, sm.leftTotal)), side('r', model.right, o.rightMeta ?? meta(sm.rightCount, sm.rightTotal))]), bar, leg);
   };
   document.querySelectorAll('[data-text]').forEach(e => { e.textContent = text(e.dataset.text); });
   document.querySelectorAll('[data-label]').forEach(e => { e.textContent = label(e.dataset.label); });

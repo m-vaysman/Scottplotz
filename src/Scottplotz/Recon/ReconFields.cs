@@ -138,7 +138,11 @@ public static class ReconFields
             .Select(group => new ReconFieldDraft(group.Key, group.Key, Guess(group.First().Value), null, true, null))
             .ToList();
 
-        return found.Count > 0
+        var bare = records.EnumerateArray()
+            .Where(record => record.ValueKind == JsonValueKind.Object)
+            .SelectMany(record => Sides.Select(side => ReconRead.Get(record, side)))
+            .Any(side => side is { ValueKind: JsonValueKind.Number });
+        return found.Count > 0 || !bare
             ? found
             : [new ReconFieldDraft("value", "Value", ReconFieldType.Number, null, true, null)];
     }

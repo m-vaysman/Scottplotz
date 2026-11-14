@@ -96,6 +96,17 @@ public sealed class ReconParserTests
     }
 
     [Fact]
+    public void Records_that_carry_no_values_have_no_fields_and_no_measure()
+    {
+        var model = Ok(Records("""{ "key": "a", "status": "exact", "count": 12, "attrs": { "stage": "Paid" } }"""));
+
+        Assert.Empty(model.Fields);
+        Assert.Null(model.Measure);
+        Assert.Null(model.Summary.LeftTotal);
+        Assert.Null(model.Summary.Net);
+    }
+
+    [Fact]
     public void A_record_with_no_side_and_no_status_is_rejected()
     {
         Assert.Equal("missing-sides", Fail(Records("""{ "key": "A" }""")).Code);

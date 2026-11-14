@@ -120,7 +120,7 @@ Summary counts are weighted by `count`. A record's `left` holds every declared f
 | `RD.groupNames(records, level)`, `RD.groupInfo(path)` | Group names in order; a group's entry from `model.groups` |
 | `RD.clip(text, n)` | Shorten text to `n` characters |
 | `RD.hover(el, title, lines)`, `RD.tip` | Tooltip |
-| `RD.tieOut(el)` | The standard tie-out panel, built from `model.summary` |
+| `RD.tieOut(el, { leftMeta, rightMeta, net })` | The standard tie-out panel, built from `model.summary`. `leftMeta` and `rightMeta` replace the count text beside a side; `net: false` hides the net line |
 
 An element with `data-text="key"` or `data-label="token"` in `view.html` is filled in for you.
 
