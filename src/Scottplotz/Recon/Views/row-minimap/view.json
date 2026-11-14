@@ -1,0 +1,25 @@
+{
+  "name": "row-minimap",
+  "title": "Row minimap",
+  "description": "Every record as a small mark on one strip, in the order sent and coloured by status. A draggable lens lists the records under it, and a profile counts the records that differ in each field.",
+  "needs": "Records in a meaningful order (such as key order). Runs of agreeing records can be sent as one status-only record with a `count`. The server accepts up to 20,000 records per request.",
+  "text": {
+    "title": "{left} against {right}",
+    "lede": "Every {unitOne} at once, in the order sent. Scattered marks are one-off differences. A solid block is a run that differs together. Move the lens along the strip to read the {unit} underneath it.",
+    "mapTitle": "Every {unitOne}, in the order sent",
+    "mapSub": "Select anywhere on the strip, or drag the lens, to read the {unit} under it.",
+    "mapLabel": "Minimap of every {unitOne}, coloured by status",
+    "profTitle": "Which fields differ",
+    "profSub": "{unit} with a difference in each field.",
+    "profNone": "No differences",
+    "lensTitle": "{from} to {to}: {bad} of {total} {unit} differ",
+    "lensAllAgree": "Everything under the lens agrees. The first {shown} are shown.",
+    "keyHead": "Key",
+    "sideHead": "Side",
+    "noRow": "No row",
+    "empty": "There are no records to draw."
+  },
+  "options": [
+    { "name": "lensRows", "type": "integer", "default": 40, "min": 1, "max": 1000, "description": "How many consecutive rows the lens covers." }
+  ]
+}

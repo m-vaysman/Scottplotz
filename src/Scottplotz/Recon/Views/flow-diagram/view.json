@@ -1,0 +1,29 @@
+{
+  "name": "flow-diagram",
+  "title": "Flow diagram",
+  "description": "A Sankey-style flow through successive stages. Each block is one value of a stage, each band is the number of records taking that route, and a block takes the colour of the status most of its records have.",
+  "needs": "Records with `count` (or one each) and one attr per stage naming the block it passes through. The stage attrs are named by the `stages` option; two or more stages.",
+  "text": {
+    "title": "{left} against {right}",
+    "lede": "Each {unitOne} passes through the stages from left to right. The width of a band is the number of {unit} taking that route, so the eye follows the volume and then the exceptions peeling away from it.",
+    "chartTitle": "How {unit} move from stage to stage",
+    "chartSub": "Select a block to follow it.",
+    "stage1": "",
+    "stage2": "",
+    "stage3": "",
+    "stage4": "",
+    "stage5": "",
+    "stage6": "",
+    "detailTitle": "{node}: {count} {unit}, {share}% of the total",
+    "flowTitle": "{from} to {to}",
+    "blockHead": "Block",
+    "countHead": "Count",
+    "shareHead": "Share of this block",
+    "cameFrom": "Came from",
+    "wentTo": "Went to"
+  },
+  "options": [
+    { "name": "stages", "type": "json", "default": ["pairing", "outcome", "action"], "description": "The attr names, in order, that name the block a record passes through at each stage. Two or more." },
+    { "name": "selected", "type": "text", "default": "", "description": "Name of the block to select when the page opens. Empty selects the block with the most broken records." }
+  ]
+}

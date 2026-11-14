@@ -1,0 +1,12 @@
+.card{fill:var(--surface);stroke:var(--ring)}
+.g{cursor:pointer}
+.g.dim{opacity:.22}
+.g.sel .card{stroke:var(--ink);stroke-width:1.5}
+.link{fill:none;stroke-width:2}
+.dlab{fill:var(--surface);stroke:var(--ring)}
+.filters{display:flex;gap:8px;margin-bottom:12px}
+.filters button{border:1px solid var(--ring);background:var(--surface);border-radius:14px;padding:4px 12px;cursor:pointer;font-size:13px}
+.filters button[aria-pressed=true]{background:var(--ink);color:var(--surface)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.verdict{margin-top:14px;font-size:14px}
+@media (max-width:900px){.pair{grid-template-columns:1fr}}

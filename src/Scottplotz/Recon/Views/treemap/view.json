@@ -1,0 +1,32 @@
+{
+  "name": "treemap",
+  "title": "Treemap with drill-down",
+  "description": "A two-level treemap. Column width and tile height show the measure, and colour shows how far the right side sits from the left, in the colour of the side that is higher. Select a column heading to open that group.",
+  "needs": "A numeric measure and records with a two-level group path such as [group, subgroup].",
+  "text": {
+    "title": "{left} against {right}",
+    "lede": "Area is {measure}. Colour is how far {rightShort} sits from {leftShort}, in the colour of the side that is higher. Start with the groups and subgroups, then open a group to see its {unit}.",
+    "chartTitle": "{measure} by group and subgroup",
+    "zoomTitle": "{group}: {measure} by subgroup and {unitOne}",
+    "chartSub": "Area is {measure}. Select a column heading to open that group.",
+    "allGroups": "All groups",
+    "back": "Back to all groups",
+    "ungrouped": "No group",
+    "noData": "Nothing to draw: no record has a value to size a tile.",
+    "tipValue": "{value} {measure}",
+    "tipDiff": "{rightShort} {pct}% against {leftShort}",
+    "tipNoPairs": "No paired {unit}",
+    "unpaired": "{n} unpaired",
+    "detailTitle": "{subgroup}, {group}",
+    "detailSub": "{n} {unit}, {total} {measure}.",
+    "detailDiff": "{rightShort} {pct}% against {leftShort} on paired {unit}.",
+    "colRecord": "Record",
+    "colName": "Name",
+    "colDifference": "Difference",
+    "colWhy": "Why",
+    "noReason": ""
+  },
+  "options": [
+    { "name": "colourScale", "type": "number", "default": 12, "min": 0.01, "max": 1000, "description": "The percent difference between the sides that gives a tile its full colour." }
+  ]
+}

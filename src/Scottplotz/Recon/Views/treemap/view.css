@@ -1,0 +1,9 @@
+.tile{cursor:pointer;stroke:var(--surface);stroke-width:2}
+.tile.on{stroke:var(--ink);stroke-width:2.5}
+.colhd{cursor:pointer;font-weight:600}
+.colhd:hover{text-decoration:underline}
+.crumbs{display:flex;gap:8px;align-items:center;margin-bottom:10px;font-size:13px}
+.crumbs button{border:1px solid var(--ring);background:var(--surface);border-radius:14px;padding:3px 12px;cursor:pointer}
+.scale{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink2);margin-left:auto}
+.scale i{display:block;width:26px;height:10px;border-radius:2px}
+tr.on td{font-weight:600;background:var(--wash)}

@@ -1,0 +1,256 @@
+{
+  "left": {
+    "name": "Carrier invoices",
+    "short": "Invoices"
+  },
+  "right": {
+    "name": "Rated shipments, transport system",
+    "short": "Shipments"
+  },
+  "unit": {
+    "one": "invoice",
+    "many": "invoices"
+  },
+  "asOf": "2026-03-31",
+  "tolerance": {
+    "absolute": 5,
+    "percent": 1
+  },
+  "text": {
+    "title": "Carrier invoices against rated shipments",
+    "lede": "Three questions, left to right: did each invoice find a shipment, did the amounts agree, and what happens to it now. The width of a band is the number of invoices taking that route, so the eye follows the volume and then the exceptions peeling away from it.",
+    "chartTitle": "How March’s invoices were paired, judged and dealt with",
+    "chartSub": "Counts of invoices and shipments. Tolerance is 1% or 5.00, whichever is larger. Select a block to follow it.",
+    "stage1": "Did it find a partner?",
+    "stage2": "Did the amounts agree?",
+    "stage3": "What happens next?",
+    "detailTitle": "{node}: {count} {unit}, {share}% of the month",
+    "countHead": "Invoices"
+  },
+  "options": {
+    "selected": "Accessorials differ"
+  },
+  "records": [
+    {
+      "key": "a1-o1-d1",
+      "name": "One invoice, one shipment, agrees, pay in full",
+      "count": 1100,
+      "status": "exact",
+      "attrs": {
+        "pairing": "One invoice, one shipment",
+        "outcome": "Agrees",
+        "action": "Pay in full"
+      }
+    },
+    {
+      "key": "a1-o2-d1",
+      "name": "One invoice, one shipment, within tolerance, pay in full",
+      "count": 230,
+      "status": "tolerance",
+      "attrs": {
+        "pairing": "One invoice, one shipment",
+        "outcome": "Within tolerance",
+        "action": "Pay in full"
+      }
+    },
+    {
+      "key": "a1-o3-d2",
+      "name": "One invoice, one shipment, fuel surcharge differs, pay the rated amount",
+      "count": 80,
+      "status": "break",
+      "attrs": {
+        "pairing": "One invoice, one shipment",
+        "outcome": "Fuel surcharge differs",
+        "action": "Pay the rated amount"
+      }
+    },
+    {
+      "key": "a1-o4-d2",
+      "name": "One invoice, one shipment, accessorials differ, pay the rated amount",
+      "count": 30,
+      "status": "break",
+      "attrs": {
+        "pairing": "One invoice, one shipment",
+        "outcome": "Accessorials differ",
+        "action": "Pay the rated amount"
+      }
+    },
+    {
+      "key": "a1-o4-d3",
+      "name": "One invoice, one shipment, accessorials differ, dispute with carrier",
+      "count": 34,
+      "status": "break",
+      "attrs": {
+        "pairing": "One invoice, one shipment",
+        "outcome": "Accessorials differ",
+        "action": "Dispute with carrier"
+      }
+    },
+    {
+      "key": "a1-o5-d3",
+      "name": "One invoice, one shipment, weight differs, dispute with carrier",
+      "count": 46,
+      "status": "break",
+      "attrs": {
+        "pairing": "One invoice, one shipment",
+        "outcome": "Weight differs",
+        "action": "Dispute with carrier"
+      }
+    },
+    {
+      "key": "a2-o1-d1",
+      "name": "Several invoices, one shipment, agrees, pay in full",
+      "count": 80,
+      "status": "exact",
+      "attrs": {
+        "pairing": "Several invoices, one shipment",
+        "outcome": "Agrees",
+        "action": "Pay in full"
+      }
+    },
+    {
+      "key": "a2-o2-d1",
+      "name": "Several invoices, one shipment, within tolerance, pay in full",
+      "count": 30,
+      "status": "tolerance",
+      "attrs": {
+        "pairing": "Several invoices, one shipment",
+        "outcome": "Within tolerance",
+        "action": "Pay in full"
+      }
+    },
+    {
+      "key": "a2-o3-d2",
+      "name": "Several invoices, one shipment, fuel surcharge differs, pay the rated amount",
+      "count": 16,
+      "status": "break",
+      "attrs": {
+        "pairing": "Several invoices, one shipment",
+        "outcome": "Fuel surcharge differs",
+        "action": "Pay the rated amount"
+      }
+    },
+    {
+      "key": "a2-o4-d2",
+      "name": "Several invoices, one shipment, accessorials differ, pay the rated amount",
+      "count": 10,
+      "status": "break",
+      "attrs": {
+        "pairing": "Several invoices, one shipment",
+        "outcome": "Accessorials differ",
+        "action": "Pay the rated amount"
+      }
+    },
+    {
+      "key": "a2-o5-d3",
+      "name": "Several invoices, one shipment, weight differs, dispute with carrier",
+      "count": 4,
+      "status": "break",
+      "attrs": {
+        "pairing": "Several invoices, one shipment",
+        "outcome": "Weight differs",
+        "action": "Dispute with carrier"
+      }
+    },
+    {
+      "key": "a3-o6-d3",
+      "name": "Invoice only, nothing to compare, dispute with carrier",
+      "count": 62,
+      "status": "leftOnly",
+      "attrs": {
+        "pairing": "Invoice only",
+        "outcome": "Nothing to compare",
+        "action": "Dispute with carrier"
+      }
+    },
+    {
+      "key": "a4-o6-d4",
+      "name": "Shipment only, nothing to compare, accrue the cost",
+      "count": 96,
+      "status": "rightOnly",
+      "attrs": {
+        "pairing": "Shipment only",
+        "outcome": "Nothing to compare",
+        "action": "Accrue the cost"
+      }
+    },
+    {
+      "key": "a5-o6-d5",
+      "name": "Duplicate invoice, nothing to compare, reject",
+      "count": 22,
+      "status": "break",
+      "attrs": {
+        "pairing": "Duplicate invoice",
+        "outcome": "Nothing to compare",
+        "action": "Reject"
+      },
+      "duplicate": "left"
+    }
+  ],
+  "groups": [
+    {
+      "key": "One invoice, one shipment",
+      "note": "The normal case: an invoice number that matches one shipment."
+    },
+    {
+      "key": "Several invoices, one shipment",
+      "note": "Split billing: linehaul and accessorials invoiced separately, added up before comparing."
+    },
+    {
+      "key": "Invoice only",
+      "note": "A carrier invoice with no shipment in the transport system."
+    },
+    {
+      "key": "Shipment only",
+      "note": "A delivered shipment the carrier has not invoiced."
+    },
+    {
+      "key": "Duplicate invoice",
+      "note": "The same invoice number received more than once."
+    },
+    {
+      "key": "Agrees",
+      "note": "Invoiced amount equals the rated amount."
+    },
+    {
+      "key": "Within tolerance",
+      "note": "Off by less than the tolerance, usually rounding in the fuel index."
+    },
+    {
+      "key": "Fuel surcharge differs",
+      "note": "The carrier used last week’s fuel index."
+    },
+    {
+      "key": "Accessorials differ",
+      "note": "Charges for waiting time, liftgate or redelivery that the shipment record does not support."
+    },
+    {
+      "key": "Weight differs",
+      "note": "The carrier re-weighed the freight and billed a higher class."
+    },
+    {
+      "key": "Nothing to compare",
+      "note": "No partner on the other side, so no amounts to compare."
+    },
+    {
+      "key": "Pay in full",
+      "note": "Released to payment with no human touch."
+    },
+    {
+      "key": "Pay the rated amount",
+      "note": "Short-pay: the invoice is paid at what the rating says, with a remittance note."
+    },
+    {
+      "key": "Dispute with carrier",
+      "note": "Held, with a query to the carrier."
+    },
+    {
+      "key": "Accrue the cost",
+      "note": "No invoice yet, so the expected cost is accrued at month end."
+    },
+    {
+      "key": "Reject",
+      "note": "Returned to the carrier unpaid."
+    }
+  ]
+}

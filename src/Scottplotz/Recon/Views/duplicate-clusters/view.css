@@ -1,0 +1,21 @@
+.cols{grid-template-columns:340px 1fr}
+.cl{display:block;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--grid);padding:10px 8px;cursor:pointer;border-radius:4px}
+.cl:hover,.cl[aria-current=true]{background:var(--wash)}
+.cl[aria-current=true]{box-shadow:inset 3px 0 0 var(--ink)}
+.cl b{font-weight:600;display:block}
+.cl span{color:var(--ink2);font-size:12px}
+.cl .recs{display:flex;gap:4px;margin-top:6px;align-items:center}
+.cl .recs .sw{margin:0;width:14px;height:14px}
+.cl .recs em{font-style:normal;color:var(--ink2);font-size:12px;margin-left:6px}
+.dot{stroke:var(--surface);stroke-width:1}
+.zone{fill:var(--wash)}
+.thr{stroke:var(--ink);stroke-width:1}
+.sim{display:grid;grid-template-columns:120px 1fr 44px;gap:7px 12px;align-items:center;font-size:13px;margin:14px 0 16px;max-width:520px}
+.sim .track{height:8px;border-radius:4px;background:var(--grid)}
+.sim .track i{display:block;height:8px;border-radius:4px;background:var(--tol)}
+.sim .track i.full{background:var(--exact)}
+.sim .track i.low{background:var(--brk)}
+.sim .n{text-align:right;font-variant-numeric:tabular-nums}
+.why{color:var(--ink2);margin-top:12px}
+.empty{color:var(--muted);padding:8px 0}
+@media (max-width:900px){.cols{grid-template-columns:1fr}}

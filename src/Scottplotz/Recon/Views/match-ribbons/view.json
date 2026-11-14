@@ -1,0 +1,36 @@
+{
+  "name": "match-ribbons",
+  "title": "Match ribbons",
+  "description": "Each match group draws its left records and right records as cards in two columns, joined by ribbons: one to one, one to many, or many to one. A card with no ribbon has no partner.",
+  "needs": "Records that carry `left` and `right` as arrays of lines ({ key, name, ...fields }). A numeric measure shows the amount on each card. Reads best with up to a few dozen groups.",
+  "text": {
+    "title": "{left} against {right}",
+    "lede": "{left} on the left, {right} on the right. A ribbon joins what was matched: one to one, one to several, or several to one. A card with no ribbon has no partner.",
+    "chartTitle": "How each {unitOne} was matched",
+    "chartSub": "Tolerance is {tolerance} per {unitOne}.",
+    "chartLabel": "{left} linked to {right}",
+    "leftTitle": "{left} (left)",
+    "rightTitle": "{right} (right)",
+    "showAll": "Show everything",
+    "showAttention": "Only what needs attention",
+    "leftOnlyNote": "no partner",
+    "rightOnlyNote": "no partner",
+    "duplicateNote": "duplicate",
+    "leftOne": "line",
+    "leftMany": "lines",
+    "rightOne": "line",
+    "rightMany": "lines",
+    "detailTitle": "{status}: {leftN} {leftNoun} to {rightN} {rightNoun}",
+    "leftHead": "Line",
+    "rightHead": "Line",
+    "nameHead": "Name",
+    "amountHead": "Amount",
+    "total": "Total",
+    "nothing": "Nothing on this side",
+    "verdict": "{leftShort} minus {rightShort}",
+    "noReason": ""
+  },
+  "options": [
+    { "name": "attentionOnly", "type": "bool", "default": false, "description": "Start with the groups that agree (exact and within tolerance) faded out, so only what needs attention stands out." }
+  ]
+}
