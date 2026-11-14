@@ -1,0 +1,28 @@
+{
+  "name": "duplicate-clusters",
+  "title": "Match scores and duplicate clusters",
+  "description": "A strip of dots shows where every candidate's match score falls against the match and review thresholds. Below it, candidate records believed to be one entity are gathered into clusters, with the lines from each side and the fields that differ.",
+  "needs": "Records with attrs.score (0 to 100) to place on the strip. Cluster records carry their candidate lines as arrays in left and right, and send status. Optional attrs named sim_<fieldKey> (and sim_name) draw per-field similarity bars. Bulk rows may be status-only with a count and a score.",
+  "text": {
+    "title": "{left} against {right}",
+    "lede": "Records rarely match exactly, so every candidate gets a similarity score. The strip shows where the scores fall against the two thresholds. Below it, records believed to be one entity are gathered into clusters, and a cluster with two lines from one side is a duplicate.",
+    "stripTitle": "Similarity score of every candidate",
+    "stripSub": "One dot per {unitOne}. At {match} or above is matched without review; {review} to {match} goes to a person; below {review} is treated as different.",
+    "lowLabel": "Different",
+    "reviewLabel": "Review from {review}",
+    "matchLabel": "Matched from {match}",
+    "noScores": "No record carries a score.",
+    "listTitle": "Clusters",
+    "listSub": "One square for each line from {leftShort} and from {rightShort}.",
+    "noClusters": "No clusters were sent.",
+    "scoreWord": "score {score}",
+    "sideColumn": "Side",
+    "recordColumn": "Record",
+    "nameColumn": "Name",
+    "noReason": ""
+  },
+  "options": [
+    { "name": "matchFrom", "type": "number", "default": 92, "min": 0, "max": 100, "description": "Score from which a candidate counts as matched without review." },
+    { "name": "reviewFrom", "type": "number", "default": 70, "min": 0, "max": 100, "description": "Score from which a candidate goes to review. Below it the candidates are treated as different." }
+  ]
+}
