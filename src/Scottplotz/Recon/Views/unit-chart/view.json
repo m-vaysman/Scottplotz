@@ -1,0 +1,26 @@
+{
+  "name": "unit-chart",
+  "title": "Unit chart",
+  "description": "One small square per record, grouped by category and sorted so agreed records come first.",
+  "needs": "Categorical records, optionally with groups and text or date fields.",
+  "text": {
+    "title": "{left} against {right}",
+    "lede": "Every {unitOne} is one square, grouped and sorted so the agreed ones come first.",
+    "chartTitle": "{unit} by group",
+    "chartSub": "Select a square to view details.",
+    "groupSub": "{count} {unit}, {open} need action",
+    "field": "Field",
+    "allAgree": "All fields agree.",
+    "truncated": "Showing the first {shown} of {total} {unit}."
+  },
+  "options": [
+    {
+      "name": "maxSquares",
+      "type": "integer",
+      "default": 600,
+      "min": 1,
+      "max": 2000,
+      "description": "Maximum number of unit squares to draw across all groups."
+    }
+  ]
+}

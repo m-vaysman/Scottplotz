@@ -1,0 +1,31 @@
+{
+  "name": "line-diff",
+  "title": "Side-by-side line diff",
+  "description": "Each line on the left side-by-side with the right, grouped by parent record. Differing cells are tinted on both sides, and missing lines show as gaps.",
+  "needs": "Records grouped by a parent entity with comparable fields.",
+  "text": {
+    "title": "{left} against {right}",
+    "lede": "Each {unitOne} on the left beside the corresponding line on the right. Cells that differ are tinted on both sides; a line that exists on one side only leaves a gap on the other.",
+    "listTitle": "{leftShort} and {rightShort} by group",
+    "listSub": "One indicator per {unitOne}.",
+    "leftSide": "{left}",
+    "rightSide": "{right}",
+    "linesDiffer": "{differ} of {total} {unit} differ",
+    "allAgree": "All {unit} agree",
+    "gapLeft": "No line in {leftShort}",
+    "gapRight": "No line in {rightShort}",
+    "defaultGroup": "All {unit}"
+  },
+  "options": [
+    {
+      "name": "sortBy",
+      "type": "choice",
+      "allowed": [
+        "input",
+        "breaks"
+      ],
+      "default": "input",
+      "description": "Order of groups in the list: input order, or groups with breaks first."
+    }
+  ]
+}

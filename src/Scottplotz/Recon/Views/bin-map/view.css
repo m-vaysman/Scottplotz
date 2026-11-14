@@ -1,0 +1,11 @@
+.cols{grid-template-columns:1fr 450px}
+#detail td{white-space:nowrap}
+.bin{cursor:pointer;stroke:var(--surface);stroke-width:2}
+.bin.on{stroke:var(--ink);stroke-width:2.5}
+.bin.on-link{stroke:var(--ink);stroke-width:2;stroke-dasharray:3 2}
+.aisle{cursor:pointer;font-weight:600;font-size:14px}
+.scale{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink2);margin-bottom:10px;flex-wrap:wrap}
+.scale i{display:block;width:26px;height:10px;border-radius:2px}
+tr.on td{font-weight:600;background:var(--wash)}
+tr.on-link td{font-weight:600;background:color-mix(in oklab,var(--wash) 50%,transparent)}
+@media (max-width:900px){.cols{grid-template-columns:1fr}}

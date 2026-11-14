@@ -1,0 +1,8 @@
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.pool{border:1px solid var(--ring);border-radius:5px;padding:10px 12px 6px;background:var(--plane);cursor:pointer;text-align:left;display:block;width:100%}
+.pool[aria-current=true]{border-color:var(--ink);outline:1px solid var(--ink)}
+.pool b{font-weight:600}
+.pool span{color:var(--ink2);font-size:12px;margin-left:8px}
+.leg{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--ink2);margin-bottom:12px}
+@media (max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.grid{grid-template-columns:1fr}}

@@ -154,6 +154,7 @@ An element with `data-text="key"` or `data-label="token"` in `view.html` is fill
 
 - `rec.pct` and `tolerance.percent` are in percent: 27.4 means 27.4%. Do not multiply by 100 again.
 - `duplicate` is a flag. Keep the side values as they are and mark the record (a ring, a note, an extra row). Do not double a value in `sample.json` to stand for a duplicate.
+- `view.js` runs inside a function, so a top-level `return` is allowed (for example to stop when there is nothing to draw). Its names do not leak to the page.
 - `RD` members are not globals. Take what you use from it first: `const { h, s, model, fmt } = RD;`.
 - Where the sample page lists its data, copy those values into `sample.json`. Where it generates data, write literal values that tell the same story and give counts close to the ones the page shows.
 - When the page opens, select the record or group that best shows the picture, usually the largest break.

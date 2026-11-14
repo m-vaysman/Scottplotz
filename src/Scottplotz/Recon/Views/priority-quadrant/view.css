@@ -1,0 +1,9 @@
+.cols{grid-template-columns:1fr 360px}
+.dot{stroke:var(--surface);stroke-width:2}
+.selring{fill:none;stroke:var(--ink);stroke-width:2}
+.zone{fill:var(--wash)}
+.leg{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--ink2);margin-bottom:8px}
+.big{font-size:26px;font-weight:600;margin:2px 0 10px}
+.why{color:var(--ink2);margin-top:12px}
+#plot{cursor:crosshair}
+@media (max-width:900px){.cols{grid-template-columns:1fr}}

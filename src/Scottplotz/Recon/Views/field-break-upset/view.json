@@ -1,0 +1,29 @@
+{
+  "name": "field-break-upset",
+  "title": "Field-break UpSet plot",
+  "description": "UpSet plot showing which fields break together across records, with combination frequencies and per-field totals.",
+  "needs": "Comparable fields where breaks can be identified across records.",
+  "text": {
+    "title": "{left} against {right}",
+    "lede": "A break is rarely one field. Each column is a combination of fields that break together: the dots say which fields, the bar says how many {unit}. A tall bar on a pair of fields is one cause producing many breaks.",
+    "chartTitle": "Which fields break together",
+    "chartSub": "Paired {unit} with at least one break. The bars at the left count every break in that field. Select a column.",
+    "unpairedTitle": "{unit} with no partner",
+    "unpairedSub": "No fields to compare.",
+    "leftOnlyDesc": "On {leftShort}, not confirmed by {rightShort}.",
+    "rightOnlyDesc": "Confirmed by {rightShort}, not on {leftShort}.",
+    "duplicateDesc": "Confirmed twice by {rightShort}.",
+    "detailTitle": "{count} {unit} break on {fields}",
+    "showing": "Showing {shown}.",
+    "mostly": "Mostly {value}.",
+    "and": "and",
+    "trade": "Record",
+    "name": "Name",
+    "noBreaks": "No field breaks recorded."
+  },
+  "options": [
+    { "name": "maxCombos", "type": "integer", "default": 9, "min": 1, "max": 50, "description": "Maximum number of field combinations to display." },
+    { "name": "sampleRows", "type": "integer", "default": 6, "min": 1, "max": 100, "description": "Maximum number of sample records to show in detail table." },
+    { "name": "captionAttr", "type": "text", "default": "", "description": "Attribute key whose most common value is named in the subtitle." }
+  ]
+}

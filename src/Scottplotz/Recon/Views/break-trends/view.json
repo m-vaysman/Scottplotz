@@ -1,0 +1,30 @@
+{
+  "name": "break-trends",
+  "title": "Break trends",
+  "description": "Small multiples of open breaks over time per group, showing whether discrepancies are growing or shrinking.",
+  "needs": "Records with group, date, and status over multiple reconciliation runs.",
+  "text": {
+    "title": "{left} against {right}, run by run",
+    "lede": "One reconciliation is a snapshot. Multiple runs show direction. Each panel shows open items for a group on a shared scale, with a column per date. Shrinking columns show cleanup; growing ones show risk.",
+    "chartTitle": "Open items per group, recent runs",
+    "chartSub": "All panels share one vertical scale. Select a group.",
+    "openSummary": "{now} open now, {was} initially",
+    "detailTitle": "{group}: {open} open {unit}",
+    "detailTitleTotal": "{group}: {open} open {unit}, {total} in the group",
+    "needsDates": "This view needs records with a group, a date and a status.",
+    "dateCol": "Date",
+    "totalCol": "Total open",
+    "changeCol": "Change",
+    "noNote": ""
+  },
+  "options": [
+    {
+      "name": "recentRuns",
+      "type": "integer",
+      "default": 6,
+      "min": 2,
+      "max": 50,
+      "description": "Number of recent runs to display in the detail table."
+    }
+  ]
+}
