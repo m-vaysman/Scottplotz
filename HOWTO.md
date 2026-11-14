@@ -449,9 +449,11 @@ Start-Process dumbbell.html
 
 ### Gallery page
 
-1. Open http://localhost:5240/recon.html.
-2. Pick a view. Its description, what it needs, and its options appear, and its sample loads into the box.
-3. Edit the request if you like. Set **Theme** to force light or dark.
-4. Click **Render**. The page appears on the right. **Open in a new tab** shows it full size, and you can save it from there.
-5. Click **Explain** to see the resolved model as JSON.
-6. A bad request shows the status, the title, the detail, and the `code`.
+1. Open http://localhost:5240/recon.html. The main page links to it.
+2. Every view is a card with a live preview, drawn by the service from that view's sample request. A preview is drawn when you scroll to it.
+3. Type in **Filter views** to narrow the cards. Set **Previews** to force light or dark.
+4. Click a preview or **Open full size** to see the page in a new tab. You can save it from there.
+5. Click **Edit request** to load that view's sample into the editor at the bottom and render it. Change the request and click **Render** again.
+6. Click **Explain** to see the resolved model as JSON.
+7. A bad request shows the status, the title, the detail, and the `code`.
+8. Fill **API key** only when the server has `SCOTTPLOTZ_API_KEY` set. The previews need it too.

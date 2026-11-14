@@ -34,6 +34,17 @@ public sealed class ReconGalleryTests : IClassFixture<TestAppFactory>
         Assert.Contains("X-Api-Key", html);
         Assert.Contains("sandbox=\"allow-scripts\"", html);
         Assert.DoesNotContain("https://", html);
+        Assert.Contains("id=\"grid\"", html);
+        Assert.Contains("Edit request", html);
+        Assert.Contains("Open full size", html);
+    }
+
+    [Fact]
+    public async Task The_main_page_links_to_the_gallery()
+    {
+        var html = await _client.GetStringAsync("/");
+
+        Assert.Contains("href=\"/recon.html\"", html);
     }
 
     [Fact]
