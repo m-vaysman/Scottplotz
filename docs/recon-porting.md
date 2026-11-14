@@ -150,6 +150,14 @@ An element with `data-text="key"` or `data-label="token"` in `view.html` is fill
 - Colours come from the kit's CSS variables (`--left`, `--right`, `--exact`, `--tol`, `--brk`, `--ink`, `--ink2`, `--muted`, `--grid`, `--axis`, `--surface`, `--plane`, `--wash`, `--mid`). No literal colours, so both themes work.
 - `sample.json` must parse as a request for the view.
 
+## Things that go wrong
+
+- `rec.pct` and `tolerance.percent` are in percent: 27.4 means 27.4%. Do not multiply by 100 again.
+- `duplicate` is a flag. Keep the side values as they are and mark the record (a ring, a note, an extra row). Do not double a value in `sample.json` to stand for a duplicate.
+- `RD` members are not globals. Take what you use from it first: `const { h, s, model, fmt } = RD;`.
+- Where the sample page lists its data, copy those values into `sample.json`. Where it generates data, write literal values that tell the same story and give counts close to the ones the page shows.
+- When the page opens, select the record or group that best shows the picture, usually the largest break.
+
 ## Check your port
 
 ```powershell

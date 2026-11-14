@@ -60,7 +60,7 @@ const RD = (() => {
   const tieOut = el => {
     const c = model.summary.counts, sm = model.summary, u = model.unit;
     const meta = (n, total) => `${int(n)} ${u}` + (total === null || !measure ? '' : `, ${fmt(measure.key, total)}`);
-    const side = (k, d, m) => h('div', {}, [h('i', { class: 'sw ' + k }), h('b', { text: d.short + ' ' }), d.name === d.short ? null : h('span', { text: d.name }), h('span', { class: 'mt', text: m })]);
+    const side = (k, d, m) => h('div', {}, [h('i', { class: 'sw ' + k }), h('b', { text: (d.name.toLowerCase().startsWith(d.short.toLowerCase()) ? d.name : d.short) + ' ' }), d.name.toLowerCase().startsWith(d.short.toLowerCase()) ? null : h('span', { text: d.name }), h('span', { class: 'mt', text: m })]);
     const segs = [['lo', 'leftOnly'], ['ex', 'exact'], ['tol', 'tolerance'], ['brk', 'break'], ['ro', 'rightOnly']].filter(x => c[x[1]] > 0);
     const bar = h('div', { class: 'tiebar', role: 'img', 'aria-label': segs.map(x => `${label(x[1])} ${c[x[1]]}`).join(', ') },
       segs.map(x => hover(h('div', { class: 'seg ' + x[0], style: `flex:${c[x[1]]} 1 0`, text: int(c[x[1]]) }), label(x[1]), [`${int(c[x[1]])} ${u}`])));
