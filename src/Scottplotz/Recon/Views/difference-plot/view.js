@@ -12,8 +12,8 @@ const plottable = model.records.filter(r => recVal(r) !== null);
 const sizes = plottable.map(r => Math.abs(recVal(r))).filter(v => v > 0);
 const minVal = sizes.length ? Math.min(...sizes) : 1;
 const maxVal = sizes.length ? Math.max(...sizes) : 10;
-let minLog = Math.floor(Math.log10(minVal || 1));
-let maxLog = Math.ceil(Math.log10(maxVal || 10));
+let minLog = Math.log10(minVal || 1) - 0.2;
+let maxLog = Math.log10(maxVal || 10) + 0.2;
 if (minLog >= maxLog) { minLog -= 1; maxLog += 1; }
 
 const W = 860, H = 500, X0 = 56, X1 = W - 14, Y0 = 16, Y1 = 380;
@@ -214,5 +214,5 @@ function show(p) {
   );
 }
 
-const initial = plottable.find(r => r.name === 'Tessel Semiconductors') ?? breaks[0] ?? plottable[0];
+const initial = [...breaks].sort((a, b) => Math.abs(b.delta ?? 0) - Math.abs(a.delta ?? 0))[0] ?? plottable[0];
 if (initial) show(initial);

@@ -1,5 +1,4 @@
 const { h, s, model, label, text, opt, int } = RD;
-RD.tieOut(document.getElementById('tie'));
 
 const passNames = model.groups.length > 0
   ? model.groups.map(g => g.path[0] || g.name)
@@ -68,12 +67,13 @@ const unmatchedRow = {
 };
 
 const rows = opt('showUnmatchedRow') !== false ? [...passList, unmatchedRow] : passList;
-if (rows.length === 0) return;
 
 const sumPassL = passList.reduce((t, p) => t + p.l, 0);
 const sumPassR = passList.reduce((t, p) => t + p.r, 0);
 const L0 = sumPassL + unmatchedLeft;
 const R0 = sumPassR + unmatchedRight;
+RD.tieOut(document.getElementById('tie'), { leftMeta: int(L0) + ' ' + model.unit, rightMeta: int(R0) + ' ' + model.unit });
+if (rows.length === 0) return;
 
 const W = 1100, MID = W / 2, GAP = 150, RH = 62, TOP = 30;
 const MAXW = MID - GAP - 70;

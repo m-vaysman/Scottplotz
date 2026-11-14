@@ -211,5 +211,5 @@ function show(r) {
   );
 }
 
-const sel = openItems.find(r => r.amt === 2850000) ?? openItems.find(r => r.status === 'break') ?? openItems.slice().sort((a, b) => b.amt - a.amt)[0];
+const sel = openItems.slice().sort((a, b) => b.amt - a.amt)[0];
 if (sel) show(sel);

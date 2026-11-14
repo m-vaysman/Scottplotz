@@ -59,14 +59,7 @@ D.forEach((r, i) => {
     `${model.right.short} ${rt === null ? label('none') : fmt(M, rt)}`
   ]);
 
-  if (r.name && r.key && r.name !== r.key) {
-    svg.append(
-      s('text', { class: 'sec', x: 6, y: cy + 4, text: clip(r.key, 12), ...np }),
-      s('text', { x: 80, y: cy + 4, text: clip(r.name, 26), ...np })
-    );
-  } else {
-    svg.append(s('text', { x: 6, y: cy + 4, text: clip(r.name || r.key, 36), ...np }));
-  }
+  svg.append(s('text', { x: 6, y: cy + 4, text: clip(r.name || r.key, 38), ...np }));
 
   if (r.pct === null || !isFinite(r.pct)) {
     const isLo = r.status === 'leftOnly';

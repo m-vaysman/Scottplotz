@@ -69,11 +69,12 @@ const truncText = totalDrawn < totalRecords
   : '';
 document.getElementById('chartSub').textContent = (subText ? subText : '') + truncText;
 
-let sel = model.records.find(r => r.status === 'leftOnly' && (r.group[0] || '').includes('204'))
-  || model.records.find(r => r.status === 'break')
-  || model.records.find(r => r.status === 'leftOnly')
-  || model.records[0]
-  || null;
+// Open the record that best shows the story: a left-only record in the group with the most open records.
+const isOpen = r => (r.status !== 'exact' && r.status !== 'tolerance') || r.duplicate;
+const pool = model.records.filter(isOpen);
+const openIn = r => pool.filter(p => p.group[0] === r.group[0]).reduce((n, p) => n + (p.count || 1), 0);
+const ranked = [...pool].sort((p, q) => openIn(q) - openIn(p));
+let sel = ranked.find(r => r.status === 'leftOnly') || ranked.find(r => r.status === 'break') || ranked[0] || model.records[0] || null;
 
 function show() {
   allButtons.forEach(({ el, rec }) => el.classList.toggle('on', rec === sel));

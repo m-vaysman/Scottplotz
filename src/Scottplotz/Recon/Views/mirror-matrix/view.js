@@ -13,7 +13,7 @@ const entities = [...new Set([...declared, ...fromRecs])];
 if (entities.length === 0) {
   entities.push(model.left.short, model.right.short);
 } else if (entities.length === 1) {
-  entities.push(model.right.short !== entities[0] ? model.right.short : 'Other');
+  entities.push(model.right.short !== entities[0] ? model.right.short : label('none'));
 }
 
 const P = new Map();
@@ -125,10 +125,8 @@ function show() {
   const tolAbs = model.tolerance?.absolute ?? 0;
   const statusStr = Math.abs(d) <= tolAbs ? text('pairAgrees') : text('pairDiff').replace('{diff}', fmtSigned(M, d));
   dsEl.textContent = text('pairSub')
-    .replace('{leftShort}', model.left.short)
-    .replace('{left}', fmt(M, l))
-    .replace('{rightShort}', model.right.short)
-    .replace('{right}', fmt(M, r))
+    .replace('{leftAmount}', fmt(M, l))
+    .replace('{rightAmount}', fmt(M, r))
     .replace('{status}', statusStr);
 
   const statusSymbol = rec => {
@@ -162,7 +160,7 @@ function show() {
     h('thead', {}, [
       h('tr', {}, [
         h('th', { text: '' }),
-        h('th', { text: text('document') }),
+        h('th', { text: text('document').charAt(0).toUpperCase() + text('document').slice(1) }),
         h('th', { class: 'n', text: model.left.short }),
         h('th', { class: 'n', text: model.right.short }),
         h('th', { class: 'n', text: text('difference') })

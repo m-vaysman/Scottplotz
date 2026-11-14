@@ -16,6 +16,7 @@
     "otherBreak": "Field differs",
     "field": "Field",
     "noReason": "Dates and fields agree.",
+    "noDates": "No start and end dates were found in these records.",
     "truncated": "Showing the first {shown} of {total} {unit}."
   },
   "options": [

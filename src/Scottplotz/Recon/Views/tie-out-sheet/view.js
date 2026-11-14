@@ -100,7 +100,7 @@ function show() {
     : text('totalsFoot').replace('{group}', g.name).replace('{total}', int(tot));
   document.getElementById('ct').textContent = headingText;
 
-  document.getElementById('sheetSub').textContent = text('sheetSub').replace('{tolerance}', RD.money(opt('totalTolerance') ?? 1, 2));
+  document.getElementById('sheetSub').textContent = text('sheetSub').replace('{totalTolerance}', RD.money(opt('totalTolerance') ?? 1, 2));
 
   document.getElementById('sheet').replaceChildren(h('table', { class: 'tbl sheet' }, [
     h('thead', {}, h('tr', {}, [

@@ -19,8 +19,8 @@
     "whyUnmatched": "Why it is unmatched",
     "passDetail": "{name} paired {leftCount} {leftShort} {unit} with {rightCount} {rightShort} {unit}",
     "unmatchedDetail": "{leftCount} {leftShort} {unit} and {rightCount} {rightShort} {unit} have no partner",
-    "unmatchedName": "Left unmatched after every pass",
-    "unmatchedRule": "No pass could pair these. Each one needs manual review: a missing booking, an incorrect identifier, or a trade cancelled on one side only.",
+    "unmatchedName": "Unmatched after every pass",
+    "unmatchedRule": "No pass could pair these. Each one needs manual review: a record missing on one side or an incorrect identifier.",
     "defaultPassName": "Matched"
   },
   "options": [

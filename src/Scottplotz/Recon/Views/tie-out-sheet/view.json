@@ -8,7 +8,7 @@
     "lede": "Compare control totals for each group before examining individual {unit}. A tick means both sides match. Rows that differ highlight which totals require investigation.",
     "groupsTitle": "Groups",
     "groupsSub": "One mark per control total.",
-    "sheetSub": "A total within {tolerance} counts as within tolerance.",
+    "sheetSub": "A total within {totalTolerance} counts as within tolerance.",
     "totalsBreak": "{group}: {bad} of {total} totals do not foot",
     "totalsFoot": "{group}: every total foots",
     "controlTotal": "Control total",

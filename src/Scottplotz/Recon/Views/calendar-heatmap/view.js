@@ -59,7 +59,7 @@ headerCells.push(h('th', { text: text('total') || 'Total' }));
 tbl.append(h('tr', {}, headerCells));
 
 const cells = new Map();
-let selRec = model.records.find(r => r.status === 'break') ?? model.records.find(r => r.delta !== 0) ?? model.records[0] ?? null;
+let selRec = [...model.records].filter(r => r.status === 'break' && r.date).sort((p, q) => Math.abs(q.delta ?? 0) - Math.abs(p.delta ?? 0))[0] ?? model.records.find(r => r.delta !== 0) ?? model.records[0] ?? null;
 let selKey = selRec ? ((selRec.group[0] || selRec.name || '') + '|' + (selRec.date ? selRec.date.slice(0, 10) : '')) : '';
 
 rowNames.forEach(gName => {
@@ -111,7 +111,7 @@ rowNames.forEach(gName => {
 });
 
 const chartEl = document.getElementById('chart');
-if (chartEl) chartEl.append(tbl);
+if (chartEl) chartEl.append(allDates.length ? tbl : h('p', { class: 'sub', text: text('noDates') }));
 
 function show() {
   cells.forEach((td, k) => td.classList.toggle('on', k === selKey));
@@ -131,7 +131,7 @@ function show() {
   const measureField = model.fields.find(f => f.key === M);
   const displayFields = otherFields.length > 0 ? otherFields : model.fields;
 
-  const mkCell = (v, cls) => h('td', { class: 'n' + cls + (v === null ? ' none' : ''), text: v === null ? label('none') : money(v) });
+  const mkCell = (v, cls, key) => h('td', { class: 'n' + cls + (v === null ? ' none' : ''), text: v === null ? label('none') : fmt(key, v) });
 
   const rows = displayFields.map(f => {
     const l = val(r, 'left', f.key);
@@ -141,9 +141,9 @@ function show() {
     const df = d !== null && Math.abs(d) > tol;
     return h('tr', {}, [
       h('td', { text: f.label }),
-      mkCell(l, df ? ' dl' : ''),
-      mkCell(right, df ? ' dr' : ''),
-      h('td', { class: 'n', text: d !== null && d !== 0 ? signed(d) : '' })
+      mkCell(l, df ? ' dl' : '', f.key),
+      mkCell(right, df ? ' dr' : '', f.key),
+      h('td', { class: 'n', text: d !== null && d !== 0 ? RD.fmtSigned(f.key, d) : '' })
     ]);
   });
 
@@ -154,9 +154,9 @@ function show() {
     const td = tl !== null && tr !== null ? tr - tl : null;
     tfoot = h('tfoot', {}, h('tr', {}, [
       h('td', { text: measureField.label }),
-      mkCell(tl, ''),
-      mkCell(tr, ''),
-      h('td', { class: 'n', text: td !== null && td !== 0 ? signed(td) : '' })
+      mkCell(tl, '', M),
+      mkCell(tr, '', M),
+      h('td', { class: 'n', text: td !== null && td !== 0 ? RD.fmtSigned(M, td) : '' })
     ]));
   }
 

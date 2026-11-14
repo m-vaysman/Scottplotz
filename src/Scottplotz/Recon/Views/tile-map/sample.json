@@ -1,11 +1,24 @@
 {
-  "left": { "name": "Till system, tax collected", "short": "Collected" },
-  "right": { "name": "State returns, tax filed", "short": "Filed" },
-  "unit": { "one": "jurisdiction", "many": "jurisdictions" },
+  "left": {
+    "name": "Till system, tax collected",
+    "short": "Collected"
+  },
+  "right": {
+    "name": "State returns, tax filed",
+    "short": "Filed"
+  },
+  "unit": {
+    "one": "jurisdiction",
+    "many": "jurisdictions"
+  },
   "asOf": "2026-03-31",
   "tolerance": 1,
   "fields": [
-    { "key": "amount", "label": "Tax amount", "decimals": 2 }
+    {
+      "key": "amount",
+      "label": "Tax amount",
+      "decimals": 2
+    }
   ],
   "measure": "amount",
   "text": {
@@ -21,78 +34,2005 @@
     "agreesNote": "Every jurisdiction filed what was collected."
   },
   "groups": [
-    { "key": "TX", "note": "A local rate rise on 1 January was loaded into the tills three weeks late, so less was collected than the return had to show." },
-    { "key": "CO", "note": "Two home-rule cities collect their own tax. The tills collected it, but no city return was filed." },
-    { "key": "IL", "note": "The return used gross sales before exempt grocery items were removed." },
-    { "key": "WA", "note": "The March return was submitted twice through the state portal." },
-    { "key": "TN", "note": "A return was filed for a county where the store closed in December." },
-    { "key": "PA", "note": "Clothing was taxed at the till in two new stores. It is exempt, so the return is lower." },
-    { "key": "FL", "note": "Rounding by county, inside tolerance." },
-    { "key": "GA", "note": "Rounding by county, inside tolerance." },
-    { "key": "NY", "note": "A prior-quarter correction was added to this return without a ledger entry." }
+    {
+      "key": "TX",
+      "note": "A local rate rise on 1 January was loaded into the tills three weeks late, so less was collected than the return had to show."
+    },
+    {
+      "key": "CO",
+      "note": "Two home-rule cities collect their own tax. The tills collected it, but no city return was filed."
+    },
+    {
+      "key": "IL",
+      "note": "The return used gross sales before exempt grocery items were removed."
+    },
+    {
+      "key": "WA",
+      "note": "The March return was submitted twice through the state portal."
+    },
+    {
+      "key": "TN",
+      "note": "A return was filed for a county where the store closed in December."
+    },
+    {
+      "key": "PA",
+      "note": "Clothing was taxed at the till in two new stores. It is exempt, so the return is lower."
+    },
+    {
+      "key": "FL",
+      "note": "Rounding by county, inside tolerance."
+    },
+    {
+      "key": "GA",
+      "note": "Rounding by county, inside tolerance."
+    },
+    {
+      "key": "NY",
+      "note": "A prior-quarter correction was added to this return without a ledger entry."
+    }
   ],
   "records": [
-    { "key": "TX-ST", "name": "State", "group": "TX", "left": { "amount": 45000 }, "right": { "amount": 45000 } },
-    { "key": "TX-CT", "name": "County", "group": "TX", "left": { "amount": 32000 }, "right": { "amount": 19550 }, "reason": "A local rate rise on 1 January was loaded into the tills three weeks late, so less was collected than the return had to show." },
-    { "key": "TX-CI", "name": "City", "group": "TX", "left": { "amount": 18000 }, "right": { "amount": 18000 } },
-    { "key": "CO-ST", "name": "State", "group": "CO", "left": { "amount": 28000 }, "right": { "amount": 28000 } },
-    { "key": "CO-DEN", "name": "City of Denver", "group": "CO", "left": { "amount": 9400 }, "reason": "Denver collects its own sales tax; no city return filed." },
-    { "key": "CO-AUR", "name": "City of Aurora", "group": "CO", "left": { "amount": 6200 }, "reason": "Aurora collects its own sales tax; no city return filed." },
-    { "key": "CO-TR", "name": "Transit district", "group": "CO", "left": { "amount": 4100 }, "right": { "amount": 4100 } },
-    { "key": "IL-ST", "name": "State", "group": "IL", "left": { "amount": 54000 }, "right": { "amount": 54000 } },
-    { "key": "IL-CT", "name": "County", "group": "IL", "left": { "amount": 22000 }, "right": { "amount": 26400 }, "reason": "The return used gross sales before exempt grocery items were removed." },
-    { "key": "IL-CI", "name": "City", "group": "IL", "left": { "amount": 15000 }, "right": { "amount": 15000 } },
-    { "key": "WA-ST", "name": "State", "group": "WA", "left": { "amount": 62000 }, "right": { "amount": 62000 } },
-    { "key": "WA-CI", "name": "City", "group": "WA", "left": { "amount": 18500 }, "right": { "amount": 18500 }, "duplicate": "right", "reason": "The March return was submitted twice through the state portal." },
-    { "key": "TN-ST", "name": "State", "group": "TN", "left": { "amount": 38000 }, "right": { "amount": 38000 } },
-    { "key": "TN-CT", "name": "County", "group": "TN", "left": { "amount": 14000 }, "right": { "amount": 14000 } },
-    { "key": "TN-CL", "name": "Closed county", "group": "TN", "right": { "amount": 2450 }, "reason": "A return was filed for a county where the store closed in December." },
-    { "key": "PA-ST", "name": "State", "group": "PA", "left": { "amount": 48000 }, "right": { "amount": 48000 } },
-    { "key": "PA-CT", "name": "County", "group": "PA", "left": { "amount": 16500 }, "right": { "amount": 11800 }, "reason": "Clothing was taxed at the till in two new stores. It is exempt, so the return is lower." },
-    { "key": "PA-CI", "name": "City", "group": "PA", "left": { "amount": 7200 }, "right": { "amount": 7200 } },
-    { "key": "FL-ST", "name": "State", "group": "FL", "left": { "amount": 76000 }, "right": { "amount": 75999.7 }, "reason": "Rounding by county, inside tolerance." },
-    { "key": "FL-CT", "name": "County", "group": "FL", "left": { "amount": 24500 }, "right": { "amount": 24500.4 }, "reason": "Rounding by county, inside tolerance." },
-    { "key": "GA-ST", "name": "State", "group": "GA", "left": { "amount": 41000 }, "right": { "amount": 40999.7 }, "reason": "Rounding by county, inside tolerance." },
-    { "key": "GA-CT", "name": "County", "group": "GA", "left": { "amount": 18200 }, "right": { "amount": 18200.4 }, "reason": "Rounding by county, inside tolerance." },
-    { "key": "NY-ST", "name": "State", "group": "NY", "left": { "amount": 82000 }, "right": { "amount": 82000 } },
-    { "key": "NY-CI", "name": "City", "group": "NY", "left": { "amount": 34000 }, "right": { "amount": 39800 }, "reason": "A prior-quarter correction was added to this return without a ledger entry." },
-    { "key": "NY-MT", "name": "Metropolitan district", "group": "NY", "left": { "amount": 12000 }, "right": { "amount": 12000 } },
-    { "key": "AL-ST", "name": "State", "group": "AL", "left": { "amount": 29500 }, "right": { "amount": 29500 } },
-    { "key": "AR-ST", "name": "State", "group": "AR", "left": { "amount": 21000 }, "right": { "amount": 21000 } },
-    { "key": "AZ-ST", "name": "State", "group": "AZ", "left": { "amount": 36200 }, "right": { "amount": 36200 } },
-    { "key": "CA-ST", "name": "State", "group": "CA", "left": { "amount": 125000 }, "right": { "amount": 125000 } },
-    { "key": "CT-ST", "name": "State", "group": "CT", "left": { "amount": 19800 }, "right": { "amount": 19800 } },
-    { "key": "DC-ST", "name": "District", "group": "DC", "left": { "amount": 8400 }, "right": { "amount": 8400 } },
-    { "key": "HI-ST", "name": "State", "group": "HI", "left": { "amount": 11500 }, "right": { "amount": 11500 } },
-    { "key": "IA-ST", "name": "State", "group": "IA", "left": { "amount": 18700 }, "right": { "amount": 18700 } },
-    { "key": "ID-ST", "name": "State", "group": "ID", "left": { "amount": 13400 }, "right": { "amount": 13400 } },
-    { "key": "IN-ST", "name": "State", "group": "IN", "left": { "amount": 34000 }, "right": { "amount": 34000 } },
-    { "key": "KS-ST", "name": "State", "group": "KS", "left": { "amount": 17200 }, "right": { "amount": 17200 } },
-    { "key": "KY-ST", "name": "State", "group": "KY", "left": { "amount": 24600 }, "right": { "amount": 24600 } },
-    { "key": "LA-ST", "name": "State", "group": "LA", "left": { "amount": 27800 }, "right": { "amount": 27800 } },
-    { "key": "MA-ST", "name": "State", "group": "MA", "left": { "amount": 42000 }, "right": { "amount": 42000 } },
-    { "key": "MD-ST", "name": "State", "group": "MD", "left": { "amount": 31500 }, "right": { "amount": 31500 } },
-    { "key": "ME-ST", "name": "State", "group": "ME", "left": { "amount": 9200 }, "right": { "amount": 9200 } },
-    { "key": "MI-ST", "name": "State", "group": "MI", "left": { "amount": 46500 }, "right": { "amount": 46500 } },
-    { "key": "MN-ST", "name": "State", "group": "MN", "left": { "amount": 33800 }, "right": { "amount": 33800 } },
-    { "key": "MO-ST", "name": "State", "group": "MO", "left": { "amount": 28400 }, "right": { "amount": 28400 } },
-    { "key": "MS-ST", "name": "State", "group": "MS", "left": { "amount": 15600 }, "right": { "amount": 15600 } },
-    { "key": "NC-ST", "name": "State", "group": "NC", "left": { "amount": 49000 }, "right": { "amount": 49000 } },
-    { "key": "ND-ST", "name": "State", "group": "ND", "left": { "amount": 7800 }, "right": { "amount": 7800 } },
-    { "key": "NE-ST", "name": "State", "group": "NE", "left": { "amount": 12900 }, "right": { "amount": 12900 } },
-    { "key": "NJ-ST", "name": "State", "group": "NJ", "left": { "amount": 51000 }, "right": { "amount": 51000 } },
-    { "key": "NM-ST", "name": "State", "group": "NM", "left": { "amount": 14200 }, "right": { "amount": 14200 } },
-    { "key": "NV-ST", "name": "State", "group": "NV", "left": { "amount": 26000 }, "right": { "amount": 26000 } },
-    { "key": "OH-ST", "name": "State", "group": "OH", "left": { "amount": 53500 }, "right": { "amount": 53500 } },
-    { "key": "OK-ST", "name": "State", "group": "OK", "left": { "amount": 21800 }, "right": { "amount": 21800 } },
-    { "key": "RI-ST", "name": "State", "group": "RI", "left": { "amount": 8700 }, "right": { "amount": 8700 } },
-    { "key": "SC-ST", "name": "State", "group": "SC", "left": { "amount": 26400 }, "right": { "amount": 26400 } },
-    { "key": "SD-ST", "name": "State", "group": "SD", "left": { "amount": 8100 }, "right": { "amount": 8100 } },
-    { "key": "UT-ST", "name": "State", "group": "UT", "left": { "amount": 20500 }, "right": { "amount": 20500 } },
-    { "key": "VA-ST", "name": "State", "group": "VA", "left": { "amount": 39400 }, "right": { "amount": 39400 } },
-    { "key": "VT-ST", "name": "State", "group": "VT", "left": { "amount": 5600 }, "right": { "amount": 5600 } },
-    { "key": "WI-ST", "name": "State", "group": "WI", "left": { "amount": 31200 }, "right": { "amount": 31200 } },
-    { "key": "WV-ST", "name": "State", "group": "WV", "left": { "amount": 11800 }, "right": { "amount": 11800 } },
-    { "key": "WY-ST", "name": "State", "group": "WY", "left": { "amount": 6900 }, "right": { "amount": 6900 } }
+    {
+      "key": "TX-ST",
+      "name": "State",
+      "group": "TX",
+      "left": {
+        "amount": 45000
+      },
+      "right": {
+        "amount": 45000
+      }
+    },
+    {
+      "key": "TX-CT",
+      "name": "County",
+      "group": "TX",
+      "left": {
+        "amount": 32000
+      },
+      "right": {
+        "amount": 19550
+      },
+      "reason": "A local rate rise on 1 January was loaded into the tills three weeks late, so less was collected than the return had to show."
+    },
+    {
+      "key": "TX-CI",
+      "name": "City",
+      "group": "TX",
+      "left": {
+        "amount": 18000
+      },
+      "right": {
+        "amount": 18000
+      }
+    },
+    {
+      "key": "CO-ST",
+      "name": "State",
+      "group": "CO",
+      "left": {
+        "amount": 28000
+      },
+      "right": {
+        "amount": 28000
+      }
+    },
+    {
+      "key": "CO-DEN",
+      "name": "City of Denver",
+      "group": "CO",
+      "left": {
+        "amount": 9400
+      },
+      "reason": "Denver collects its own sales tax; no city return filed."
+    },
+    {
+      "key": "CO-AUR",
+      "name": "City of Aurora",
+      "group": "CO",
+      "left": {
+        "amount": 6200
+      },
+      "reason": "Aurora collects its own sales tax; no city return filed."
+    },
+    {
+      "key": "CO-TR",
+      "name": "Transit district",
+      "group": "CO",
+      "left": {
+        "amount": 4100
+      },
+      "right": {
+        "amount": 4100
+      }
+    },
+    {
+      "key": "IL-ST",
+      "name": "State",
+      "group": "IL",
+      "left": {
+        "amount": 54000
+      },
+      "right": {
+        "amount": 54000
+      }
+    },
+    {
+      "key": "IL-CT",
+      "name": "County",
+      "group": "IL",
+      "left": {
+        "amount": 22000
+      },
+      "right": {
+        "amount": 26400
+      },
+      "reason": "The return used gross sales before exempt grocery items were removed."
+    },
+    {
+      "key": "IL-CI",
+      "name": "City",
+      "group": "IL",
+      "left": {
+        "amount": 15000
+      },
+      "right": {
+        "amount": 15000
+      }
+    },
+    {
+      "key": "WA-ST",
+      "name": "State",
+      "group": "WA",
+      "left": {
+        "amount": 62000
+      },
+      "right": {
+        "amount": 62000
+      }
+    },
+    {
+      "key": "WA-CI",
+      "name": "City",
+      "group": "WA",
+      "left": {
+        "amount": 18500
+      },
+      "right": {
+        "amount": 18500
+      },
+      "duplicate": "right",
+      "reason": "The March return was submitted twice through the state portal."
+    },
+    {
+      "key": "TN-ST",
+      "name": "State",
+      "group": "TN",
+      "left": {
+        "amount": 38000
+      },
+      "right": {
+        "amount": 38000
+      }
+    },
+    {
+      "key": "TN-CT",
+      "name": "County",
+      "group": "TN",
+      "left": {
+        "amount": 14000
+      },
+      "right": {
+        "amount": 14000
+      }
+    },
+    {
+      "key": "TN-CL",
+      "name": "Closed county",
+      "group": "TN",
+      "right": {
+        "amount": 2450
+      },
+      "reason": "A return was filed for a county where the store closed in December."
+    },
+    {
+      "key": "PA-ST",
+      "name": "State",
+      "group": "PA",
+      "left": {
+        "amount": 48000
+      },
+      "right": {
+        "amount": 48000
+      }
+    },
+    {
+      "key": "PA-CT",
+      "name": "County",
+      "group": "PA",
+      "left": {
+        "amount": 16500
+      },
+      "right": {
+        "amount": 11800
+      },
+      "reason": "Clothing was taxed at the till in two new stores. It is exempt, so the return is lower."
+    },
+    {
+      "key": "PA-CI",
+      "name": "City",
+      "group": "PA",
+      "left": {
+        "amount": 7200
+      },
+      "right": {
+        "amount": 7200
+      }
+    },
+    {
+      "key": "FL-ST",
+      "name": "State",
+      "group": "FL",
+      "left": {
+        "amount": 76000
+      },
+      "right": {
+        "amount": 75999.7
+      },
+      "reason": "Rounding by county, inside tolerance."
+    },
+    {
+      "key": "FL-CT",
+      "name": "County",
+      "group": "FL",
+      "left": {
+        "amount": 24500
+      },
+      "right": {
+        "amount": 24500.4
+      },
+      "reason": "Rounding by county, inside tolerance."
+    },
+    {
+      "key": "GA-ST",
+      "name": "State",
+      "group": "GA",
+      "left": {
+        "amount": 41000
+      },
+      "right": {
+        "amount": 40999.7
+      },
+      "reason": "Rounding by county, inside tolerance."
+    },
+    {
+      "key": "GA-CT",
+      "name": "County",
+      "group": "GA",
+      "left": {
+        "amount": 18200
+      },
+      "right": {
+        "amount": 18200.4
+      },
+      "reason": "Rounding by county, inside tolerance."
+    },
+    {
+      "key": "NY-ST",
+      "name": "State",
+      "group": "NY",
+      "left": {
+        "amount": 82000
+      },
+      "right": {
+        "amount": 82000
+      }
+    },
+    {
+      "key": "NY-CI",
+      "name": "City",
+      "group": "NY",
+      "left": {
+        "amount": 34000
+      },
+      "right": {
+        "amount": 39800
+      },
+      "reason": "A prior-quarter correction was added to this return without a ledger entry."
+    },
+    {
+      "key": "NY-MT",
+      "name": "Metropolitan district",
+      "group": "NY",
+      "left": {
+        "amount": 12000
+      },
+      "right": {
+        "amount": 12000
+      }
+    },
+    {
+      "key": "AL-ST",
+      "name": "State",
+      "group": "AL",
+      "left": {
+        "amount": 29500
+      },
+      "right": {
+        "amount": 29500
+      }
+    },
+    {
+      "key": "AL-CT",
+      "name": "County",
+      "group": "AL",
+      "left": {
+        "amount": 951.27
+      },
+      "right": {
+        "amount": 951.27
+      }
+    },
+    {
+      "key": "AL-CI",
+      "name": "City",
+      "group": "AL",
+      "left": {
+        "amount": 13723.86
+      },
+      "right": {
+        "amount": 13723.86
+      }
+    },
+    {
+      "key": "AR-ST",
+      "name": "State",
+      "group": "AR",
+      "left": {
+        "amount": 21000
+      },
+      "right": {
+        "amount": 21000
+      }
+    },
+    {
+      "key": "AR-CT",
+      "name": "County",
+      "group": "AR",
+      "left": {
+        "amount": 15255.64
+      },
+      "right": {
+        "amount": 15255.64
+      }
+    },
+    {
+      "key": "AR-CI",
+      "name": "City",
+      "group": "AR",
+      "left": {
+        "amount": 5703.06
+      },
+      "right": {
+        "amount": 5703.06
+      }
+    },
+    {
+      "key": "AR-TR",
+      "name": "Transit district",
+      "group": "AR",
+      "left": {
+        "amount": 1124.92
+      },
+      "right": {
+        "amount": 1124.92
+      }
+    },
+    {
+      "key": "AZ-ST",
+      "name": "State",
+      "group": "AZ",
+      "left": {
+        "amount": 36200
+      },
+      "right": {
+        "amount": 36200
+      }
+    },
+    {
+      "key": "AZ-CT",
+      "name": "County",
+      "group": "AZ",
+      "left": {
+        "amount": 5689.87
+      },
+      "right": {
+        "amount": 5689.87
+      }
+    },
+    {
+      "key": "AZ-CI",
+      "name": "City",
+      "group": "AZ",
+      "left": {
+        "amount": 25564.96
+      },
+      "right": {
+        "amount": 25564.96
+      }
+    },
+    {
+      "key": "AZ-TR",
+      "name": "Transit district",
+      "group": "AZ",
+      "left": {
+        "amount": 1917.98
+      },
+      "right": {
+        "amount": 1917.98
+      }
+    },
+    {
+      "key": "AZ-SD",
+      "name": "Special district",
+      "group": "AZ",
+      "left": {
+        "amount": 6151.96
+      },
+      "right": {
+        "amount": 6151.96
+      }
+    },
+    {
+      "key": "CA-ST",
+      "name": "State",
+      "group": "CA",
+      "left": {
+        "amount": 125000
+      },
+      "right": {
+        "amount": 125000
+      }
+    },
+    {
+      "key": "CA-CT",
+      "name": "County",
+      "group": "CA",
+      "left": {
+        "amount": 5542.71
+      },
+      "right": {
+        "amount": 5542.71
+      }
+    },
+    {
+      "key": "CA-CI",
+      "name": "City",
+      "group": "CA",
+      "left": {
+        "amount": 10569.44
+      },
+      "right": {
+        "amount": 10569.44
+      }
+    },
+    {
+      "key": "CA-TR",
+      "name": "Transit district",
+      "group": "CA",
+      "left": {
+        "amount": 5564.33
+      },
+      "right": {
+        "amount": 5564.33
+      }
+    },
+    {
+      "key": "CA-SD",
+      "name": "Special district",
+      "group": "CA",
+      "left": {
+        "amount": 6120.46
+      },
+      "right": {
+        "amount": 6120.46
+      }
+    },
+    {
+      "key": "CT-ST",
+      "name": "State",
+      "group": "CT",
+      "left": {
+        "amount": 19800
+      },
+      "right": {
+        "amount": 19800
+      }
+    },
+    {
+      "key": "CT-CT",
+      "name": "County",
+      "group": "CT",
+      "left": {
+        "amount": 1276.16
+      },
+      "right": {
+        "amount": 1276.16
+      }
+    },
+    {
+      "key": "CT-CI",
+      "name": "City",
+      "group": "CT",
+      "left": {
+        "amount": 2873.57
+      },
+      "right": {
+        "amount": 2873.57
+      }
+    },
+    {
+      "key": "CT-TR",
+      "name": "Transit district",
+      "group": "CT",
+      "left": {
+        "amount": 998.05
+      },
+      "right": {
+        "amount": 998.05
+      }
+    },
+    {
+      "key": "CT-SD",
+      "name": "Special district",
+      "group": "CT",
+      "left": {
+        "amount": 4672.38
+      },
+      "right": {
+        "amount": 4672.38
+      }
+    },
+    {
+      "key": "DC-ST",
+      "name": "District",
+      "group": "DC",
+      "left": {
+        "amount": 8400
+      },
+      "right": {
+        "amount": 8400
+      }
+    },
+    {
+      "key": "DC-CT",
+      "name": "County",
+      "group": "DC",
+      "left": {
+        "amount": 4769.14
+      },
+      "right": {
+        "amount": 4769.14
+      }
+    },
+    {
+      "key": "DC-CI",
+      "name": "City",
+      "group": "DC",
+      "left": {
+        "amount": 4891.2
+      },
+      "right": {
+        "amount": 4891.2
+      }
+    },
+    {
+      "key": "DC-TR",
+      "name": "Transit district",
+      "group": "DC",
+      "left": {
+        "amount": 7878.25
+      },
+      "right": {
+        "amount": 7878.25
+      }
+    },
+    {
+      "key": "HI-ST",
+      "name": "State",
+      "group": "HI",
+      "left": {
+        "amount": 11500
+      },
+      "right": {
+        "amount": 11500
+      }
+    },
+    {
+      "key": "HI-CT",
+      "name": "County",
+      "group": "HI",
+      "left": {
+        "amount": 15177.37
+      },
+      "right": {
+        "amount": 15177.37
+      }
+    },
+    {
+      "key": "HI-CI",
+      "name": "City",
+      "group": "HI",
+      "left": {
+        "amount": 21905.21
+      },
+      "right": {
+        "amount": 21905.21
+      }
+    },
+    {
+      "key": "HI-TR",
+      "name": "Transit district",
+      "group": "HI",
+      "left": {
+        "amount": 1356.16
+      },
+      "right": {
+        "amount": 1356.16
+      }
+    },
+    {
+      "key": "IA-ST",
+      "name": "State",
+      "group": "IA",
+      "left": {
+        "amount": 18700
+      },
+      "right": {
+        "amount": 18700
+      }
+    },
+    {
+      "key": "IA-CT",
+      "name": "County",
+      "group": "IA",
+      "left": {
+        "amount": 3307.16
+      },
+      "right": {
+        "amount": 3307.16
+      }
+    },
+    {
+      "key": "IA-CI",
+      "name": "City",
+      "group": "IA",
+      "left": {
+        "amount": 6827.5
+      },
+      "right": {
+        "amount": 6827.5
+      }
+    },
+    {
+      "key": "ID-ST",
+      "name": "State",
+      "group": "ID",
+      "left": {
+        "amount": 13400
+      },
+      "right": {
+        "amount": 13400
+      }
+    },
+    {
+      "key": "ID-CT",
+      "name": "County",
+      "group": "ID",
+      "left": {
+        "amount": 17525.48
+      },
+      "right": {
+        "amount": 17525.48
+      }
+    },
+    {
+      "key": "ID-CI",
+      "name": "City",
+      "group": "ID",
+      "left": {
+        "amount": 6866.26
+      },
+      "right": {
+        "amount": 6866.26
+      }
+    },
+    {
+      "key": "ID-TR",
+      "name": "Transit district",
+      "group": "ID",
+      "left": {
+        "amount": 1504.85
+      },
+      "right": {
+        "amount": 1504.85
+      }
+    },
+    {
+      "key": "ID-SD",
+      "name": "Special district",
+      "group": "ID",
+      "left": {
+        "amount": 16118.17
+      },
+      "right": {
+        "amount": 16118.17
+      }
+    },
+    {
+      "key": "IN-ST",
+      "name": "State",
+      "group": "IN",
+      "left": {
+        "amount": 34000
+      },
+      "right": {
+        "amount": 34000
+      }
+    },
+    {
+      "key": "IN-CT",
+      "name": "County",
+      "group": "IN",
+      "left": {
+        "amount": 2427.36
+      },
+      "right": {
+        "amount": 2427.36
+      }
+    },
+    {
+      "key": "IN-CI",
+      "name": "City",
+      "group": "IN",
+      "left": {
+        "amount": 10043.81
+      },
+      "right": {
+        "amount": 10043.81
+      }
+    },
+    {
+      "key": "IN-TR",
+      "name": "Transit district",
+      "group": "IN",
+      "left": {
+        "amount": 1983.56
+      },
+      "right": {
+        "amount": 1983.56
+      }
+    },
+    {
+      "key": "KS-ST",
+      "name": "State",
+      "group": "KS",
+      "left": {
+        "amount": 17200
+      },
+      "right": {
+        "amount": 17200
+      }
+    },
+    {
+      "key": "KS-CT",
+      "name": "County",
+      "group": "KS",
+      "left": {
+        "amount": 13935.4
+      },
+      "right": {
+        "amount": 13935.4
+      }
+    },
+    {
+      "key": "KS-CI",
+      "name": "City",
+      "group": "KS",
+      "left": {
+        "amount": 28326.77
+      },
+      "right": {
+        "amount": 28326.77
+      }
+    },
+    {
+      "key": "KS-TR",
+      "name": "Transit district",
+      "group": "KS",
+      "left": {
+        "amount": 11573.48
+      },
+      "right": {
+        "amount": 11573.48
+      }
+    },
+    {
+      "key": "KY-ST",
+      "name": "State",
+      "group": "KY",
+      "left": {
+        "amount": 24600
+      },
+      "right": {
+        "amount": 24600
+      }
+    },
+    {
+      "key": "KY-CT",
+      "name": "County",
+      "group": "KY",
+      "left": {
+        "amount": 7164.69
+      },
+      "right": {
+        "amount": 7164.69
+      }
+    },
+    {
+      "key": "KY-CI",
+      "name": "City",
+      "group": "KY",
+      "left": {
+        "amount": 11697.97
+      },
+      "right": {
+        "amount": 11697.97
+      }
+    },
+    {
+      "key": "KY-TR",
+      "name": "Transit district",
+      "group": "KY",
+      "left": {
+        "amount": 3463.9
+      },
+      "right": {
+        "amount": 3463.9
+      }
+    },
+    {
+      "key": "LA-ST",
+      "name": "State",
+      "group": "LA",
+      "left": {
+        "amount": 27800
+      },
+      "right": {
+        "amount": 27800
+      }
+    },
+    {
+      "key": "LA-CT",
+      "name": "County",
+      "group": "LA",
+      "left": {
+        "amount": 1432.22
+      },
+      "right": {
+        "amount": 1432.22
+      }
+    },
+    {
+      "key": "LA-CI",
+      "name": "City",
+      "group": "LA",
+      "left": {
+        "amount": 2887.72
+      },
+      "right": {
+        "amount": 2887.72
+      }
+    },
+    {
+      "key": "LA-TR",
+      "name": "Transit district",
+      "group": "LA",
+      "left": {
+        "amount": 5785.79
+      },
+      "right": {
+        "amount": 5785.79
+      }
+    },
+    {
+      "key": "MA-ST",
+      "name": "State",
+      "group": "MA",
+      "left": {
+        "amount": 42000
+      },
+      "right": {
+        "amount": 42000
+      }
+    },
+    {
+      "key": "MA-CT",
+      "name": "County",
+      "group": "MA",
+      "left": {
+        "amount": 5346.28
+      },
+      "right": {
+        "amount": 5346.28
+      }
+    },
+    {
+      "key": "MA-CI",
+      "name": "City",
+      "group": "MA",
+      "left": {
+        "amount": 10386.95
+      },
+      "right": {
+        "amount": 10386.95
+      }
+    },
+    {
+      "key": "MA-TR",
+      "name": "Transit district",
+      "group": "MA",
+      "left": {
+        "amount": 12901.43
+      },
+      "right": {
+        "amount": 12901.43
+      }
+    },
+    {
+      "key": "MD-ST",
+      "name": "State",
+      "group": "MD",
+      "left": {
+        "amount": 31500
+      },
+      "right": {
+        "amount": 31500
+      }
+    },
+    {
+      "key": "MD-CT",
+      "name": "County",
+      "group": "MD",
+      "left": {
+        "amount": 16929.26
+      },
+      "right": {
+        "amount": 16929.26
+      }
+    },
+    {
+      "key": "MD-CI",
+      "name": "City",
+      "group": "MD",
+      "left": {
+        "amount": 14343.52
+      },
+      "right": {
+        "amount": 14343.52
+      }
+    },
+    {
+      "key": "MD-TR",
+      "name": "Transit district",
+      "group": "MD",
+      "left": {
+        "amount": 11034.06
+      },
+      "right": {
+        "amount": 11034.06
+      }
+    },
+    {
+      "key": "MD-SD",
+      "name": "Special district",
+      "group": "MD",
+      "left": {
+        "amount": 7250.15
+      },
+      "right": {
+        "amount": 7250.15
+      }
+    },
+    {
+      "key": "ME-ST",
+      "name": "State",
+      "group": "ME",
+      "left": {
+        "amount": 9200
+      },
+      "right": {
+        "amount": 9200
+      }
+    },
+    {
+      "key": "ME-CT",
+      "name": "County",
+      "group": "ME",
+      "left": {
+        "amount": 4811.53
+      },
+      "right": {
+        "amount": 4811.53
+      }
+    },
+    {
+      "key": "ME-CI",
+      "name": "City",
+      "group": "ME",
+      "left": {
+        "amount": 26925.95
+      },
+      "right": {
+        "amount": 26925.95
+      }
+    },
+    {
+      "key": "ME-TR",
+      "name": "Transit district",
+      "group": "ME",
+      "left": {
+        "amount": 22095.27
+      },
+      "right": {
+        "amount": 22095.27
+      }
+    },
+    {
+      "key": "MI-ST",
+      "name": "State",
+      "group": "MI",
+      "left": {
+        "amount": 46500
+      },
+      "right": {
+        "amount": 46500
+      }
+    },
+    {
+      "key": "MI-CT",
+      "name": "County",
+      "group": "MI",
+      "left": {
+        "amount": 15859.96
+      },
+      "right": {
+        "amount": 15859.96
+      }
+    },
+    {
+      "key": "MI-CI",
+      "name": "City",
+      "group": "MI",
+      "left": {
+        "amount": 11502.17
+      },
+      "right": {
+        "amount": 11502.17
+      }
+    },
+    {
+      "key": "MN-ST",
+      "name": "State",
+      "group": "MN",
+      "left": {
+        "amount": 33800
+      },
+      "right": {
+        "amount": 33800
+      }
+    },
+    {
+      "key": "MN-CT",
+      "name": "County",
+      "group": "MN",
+      "left": {
+        "amount": 5598.01
+      },
+      "right": {
+        "amount": 5598.01
+      }
+    },
+    {
+      "key": "MN-CI",
+      "name": "City",
+      "group": "MN",
+      "left": {
+        "amount": 16075.49
+      },
+      "right": {
+        "amount": 16075.49
+      }
+    },
+    {
+      "key": "MN-TR",
+      "name": "Transit district",
+      "group": "MN",
+      "left": {
+        "amount": 4702.59
+      },
+      "right": {
+        "amount": 4702.59
+      }
+    },
+    {
+      "key": "MN-SD",
+      "name": "Special district",
+      "group": "MN",
+      "left": {
+        "amount": 3927.74
+      },
+      "right": {
+        "amount": 3927.74
+      }
+    },
+    {
+      "key": "MO-ST",
+      "name": "State",
+      "group": "MO",
+      "left": {
+        "amount": 28400
+      },
+      "right": {
+        "amount": 28400
+      }
+    },
+    {
+      "key": "MO-CT",
+      "name": "County",
+      "group": "MO",
+      "left": {
+        "amount": 4970.33
+      },
+      "right": {
+        "amount": 4970.33
+      }
+    },
+    {
+      "key": "MO-CI",
+      "name": "City",
+      "group": "MO",
+      "left": {
+        "amount": 22353.3
+      },
+      "right": {
+        "amount": 22353.3
+      }
+    },
+    {
+      "key": "MS-ST",
+      "name": "State",
+      "group": "MS",
+      "left": {
+        "amount": 15600
+      },
+      "right": {
+        "amount": 15600
+      }
+    },
+    {
+      "key": "MS-CT",
+      "name": "County",
+      "group": "MS",
+      "left": {
+        "amount": 1385.25
+      },
+      "right": {
+        "amount": 1385.25
+      }
+    },
+    {
+      "key": "MS-CI",
+      "name": "City",
+      "group": "MS",
+      "left": {
+        "amount": 11037.77
+      },
+      "right": {
+        "amount": 11037.77
+      }
+    },
+    {
+      "key": "NC-ST",
+      "name": "State",
+      "group": "NC",
+      "left": {
+        "amount": 49000
+      },
+      "right": {
+        "amount": 49000
+      }
+    },
+    {
+      "key": "NC-CT",
+      "name": "County",
+      "group": "NC",
+      "left": {
+        "amount": 5718.98
+      },
+      "right": {
+        "amount": 5718.98
+      }
+    },
+    {
+      "key": "NC-CI",
+      "name": "City",
+      "group": "NC",
+      "left": {
+        "amount": 9843.47
+      },
+      "right": {
+        "amount": 9843.47
+      }
+    },
+    {
+      "key": "NC-TR",
+      "name": "Transit district",
+      "group": "NC",
+      "left": {
+        "amount": 6918.22
+      },
+      "right": {
+        "amount": 6918.22
+      }
+    },
+    {
+      "key": "NC-SD",
+      "name": "Special district",
+      "group": "NC",
+      "left": {
+        "amount": 4501.34
+      },
+      "right": {
+        "amount": 4501.34
+      }
+    },
+    {
+      "key": "ND-ST",
+      "name": "State",
+      "group": "ND",
+      "left": {
+        "amount": 7800
+      },
+      "right": {
+        "amount": 7800
+      }
+    },
+    {
+      "key": "ND-CT",
+      "name": "County",
+      "group": "ND",
+      "left": {
+        "amount": 1846.95
+      },
+      "right": {
+        "amount": 1846.95
+      }
+    },
+    {
+      "key": "ND-CI",
+      "name": "City",
+      "group": "ND",
+      "left": {
+        "amount": 17785.53
+      },
+      "right": {
+        "amount": 17785.53
+      }
+    },
+    {
+      "key": "ND-TR",
+      "name": "Transit district",
+      "group": "ND",
+      "left": {
+        "amount": 5052.08
+      },
+      "right": {
+        "amount": 5052.08
+      }
+    },
+    {
+      "key": "ND-SD",
+      "name": "Special district",
+      "group": "ND",
+      "left": {
+        "amount": 3353.9
+      },
+      "right": {
+        "amount": 3353.9
+      }
+    },
+    {
+      "key": "NE-ST",
+      "name": "State",
+      "group": "NE",
+      "left": {
+        "amount": 12900
+      },
+      "right": {
+        "amount": 12900
+      }
+    },
+    {
+      "key": "NE-CT",
+      "name": "County",
+      "group": "NE",
+      "left": {
+        "amount": 1169.55
+      },
+      "right": {
+        "amount": 1169.55
+      }
+    },
+    {
+      "key": "NE-CI",
+      "name": "City",
+      "group": "NE",
+      "left": {
+        "amount": 6713.29
+      },
+      "right": {
+        "amount": 6713.29
+      }
+    },
+    {
+      "key": "NJ-ST",
+      "name": "State",
+      "group": "NJ",
+      "left": {
+        "amount": 51000
+      },
+      "right": {
+        "amount": 51000
+      }
+    },
+    {
+      "key": "NJ-CT",
+      "name": "County",
+      "group": "NJ",
+      "left": {
+        "amount": 5909.88
+      },
+      "right": {
+        "amount": 5909.88
+      }
+    },
+    {
+      "key": "NJ-CI",
+      "name": "City",
+      "group": "NJ",
+      "left": {
+        "amount": 4750.63
+      },
+      "right": {
+        "amount": 4750.63
+      }
+    },
+    {
+      "key": "NM-ST",
+      "name": "State",
+      "group": "NM",
+      "left": {
+        "amount": 14200
+      },
+      "right": {
+        "amount": 14200
+      }
+    },
+    {
+      "key": "NM-CT",
+      "name": "County",
+      "group": "NM",
+      "left": {
+        "amount": 14506.87
+      },
+      "right": {
+        "amount": 14506.87
+      }
+    },
+    {
+      "key": "NM-CI",
+      "name": "City",
+      "group": "NM",
+      "left": {
+        "amount": 14656.71
+      },
+      "right": {
+        "amount": 14656.71
+      }
+    },
+    {
+      "key": "NM-TR",
+      "name": "Transit district",
+      "group": "NM",
+      "left": {
+        "amount": 7794.19
+      },
+      "right": {
+        "amount": 7794.19
+      }
+    },
+    {
+      "key": "NM-SD",
+      "name": "Special district",
+      "group": "NM",
+      "left": {
+        "amount": 14228.15
+      },
+      "right": {
+        "amount": 14228.15
+      }
+    },
+    {
+      "key": "NV-ST",
+      "name": "State",
+      "group": "NV",
+      "left": {
+        "amount": 26000
+      },
+      "right": {
+        "amount": 26000
+      }
+    },
+    {
+      "key": "NV-CT",
+      "name": "County",
+      "group": "NV",
+      "left": {
+        "amount": 18531.54
+      },
+      "right": {
+        "amount": 18531.54
+      }
+    },
+    {
+      "key": "NV-CI",
+      "name": "City",
+      "group": "NV",
+      "left": {
+        "amount": 2161.96
+      },
+      "right": {
+        "amount": 2161.96
+      }
+    },
+    {
+      "key": "OH-ST",
+      "name": "State",
+      "group": "OH",
+      "left": {
+        "amount": 53500
+      },
+      "right": {
+        "amount": 53500
+      }
+    },
+    {
+      "key": "OH-CT",
+      "name": "County",
+      "group": "OH",
+      "left": {
+        "amount": 2327.13
+      },
+      "right": {
+        "amount": 2327.13
+      }
+    },
+    {
+      "key": "OH-CI",
+      "name": "City",
+      "group": "OH",
+      "left": {
+        "amount": 19512.04
+      },
+      "right": {
+        "amount": 19512.04
+      }
+    },
+    {
+      "key": "OH-TR",
+      "name": "Transit district",
+      "group": "OH",
+      "left": {
+        "amount": 7847.71
+      },
+      "right": {
+        "amount": 7847.71
+      }
+    },
+    {
+      "key": "OK-ST",
+      "name": "State",
+      "group": "OK",
+      "left": {
+        "amount": 21800
+      },
+      "right": {
+        "amount": 21800
+      }
+    },
+    {
+      "key": "OK-CT",
+      "name": "County",
+      "group": "OK",
+      "left": {
+        "amount": 2448.7
+      },
+      "right": {
+        "amount": 2448.7
+      }
+    },
+    {
+      "key": "OK-CI",
+      "name": "City",
+      "group": "OK",
+      "left": {
+        "amount": 1485.6
+      },
+      "right": {
+        "amount": 1485.6
+      }
+    },
+    {
+      "key": "OK-TR",
+      "name": "Transit district",
+      "group": "OK",
+      "left": {
+        "amount": 19610.62
+      },
+      "right": {
+        "amount": 19610.62
+      }
+    },
+    {
+      "key": "RI-ST",
+      "name": "State",
+      "group": "RI",
+      "left": {
+        "amount": 8700
+      },
+      "right": {
+        "amount": 8700
+      }
+    },
+    {
+      "key": "RI-CT",
+      "name": "County",
+      "group": "RI",
+      "left": {
+        "amount": 2992.03
+      },
+      "right": {
+        "amount": 2992.03
+      }
+    },
+    {
+      "key": "RI-CI",
+      "name": "City",
+      "group": "RI",
+      "left": {
+        "amount": 8816.48
+      },
+      "right": {
+        "amount": 8816.48
+      }
+    },
+    {
+      "key": "RI-TR",
+      "name": "Transit district",
+      "group": "RI",
+      "left": {
+        "amount": 968.77
+      },
+      "right": {
+        "amount": 968.77
+      }
+    },
+    {
+      "key": "RI-SD",
+      "name": "Special district",
+      "group": "RI",
+      "left": {
+        "amount": 6912.78
+      },
+      "right": {
+        "amount": 6912.78
+      }
+    },
+    {
+      "key": "SC-ST",
+      "name": "State",
+      "group": "SC",
+      "left": {
+        "amount": 26400
+      },
+      "right": {
+        "amount": 26400
+      }
+    },
+    {
+      "key": "SC-CT",
+      "name": "County",
+      "group": "SC",
+      "left": {
+        "amount": 3722.67
+      },
+      "right": {
+        "amount": 3722.67
+      }
+    },
+    {
+      "key": "SC-CI",
+      "name": "City",
+      "group": "SC",
+      "left": {
+        "amount": 1097.65
+      },
+      "right": {
+        "amount": 1097.65
+      }
+    },
+    {
+      "key": "SD-ST",
+      "name": "State",
+      "group": "SD",
+      "left": {
+        "amount": 8100
+      },
+      "right": {
+        "amount": 8100
+      }
+    },
+    {
+      "key": "SD-CT",
+      "name": "County",
+      "group": "SD",
+      "left": {
+        "amount": 3184.53
+      },
+      "right": {
+        "amount": 3184.53
+      }
+    },
+    {
+      "key": "SD-CI",
+      "name": "City",
+      "group": "SD",
+      "left": {
+        "amount": 1998.77
+      },
+      "right": {
+        "amount": 1998.77
+      }
+    },
+    {
+      "key": "SD-TR",
+      "name": "Transit district",
+      "group": "SD",
+      "left": {
+        "amount": 3353.31
+      },
+      "right": {
+        "amount": 3353.31
+      }
+    },
+    {
+      "key": "SD-SD",
+      "name": "Special district",
+      "group": "SD",
+      "left": {
+        "amount": 19881.28
+      },
+      "right": {
+        "amount": 19881.28
+      }
+    },
+    {
+      "key": "UT-ST",
+      "name": "State",
+      "group": "UT",
+      "left": {
+        "amount": 20500
+      },
+      "right": {
+        "amount": 20500
+      }
+    },
+    {
+      "key": "UT-CT",
+      "name": "County",
+      "group": "UT",
+      "left": {
+        "amount": 11614.06
+      },
+      "right": {
+        "amount": 11614.06
+      }
+    },
+    {
+      "key": "UT-CI",
+      "name": "City",
+      "group": "UT",
+      "left": {
+        "amount": 9058.67
+      },
+      "right": {
+        "amount": 9058.67
+      }
+    },
+    {
+      "key": "UT-TR",
+      "name": "Transit district",
+      "group": "UT",
+      "left": {
+        "amount": 3533.89
+      },
+      "right": {
+        "amount": 3533.89
+      }
+    },
+    {
+      "key": "UT-SD",
+      "name": "Special district",
+      "group": "UT",
+      "left": {
+        "amount": 1406.64
+      },
+      "right": {
+        "amount": 1406.64
+      }
+    },
+    {
+      "key": "VA-ST",
+      "name": "State",
+      "group": "VA",
+      "left": {
+        "amount": 39400
+      },
+      "right": {
+        "amount": 39400
+      }
+    },
+    {
+      "key": "VA-CT",
+      "name": "County",
+      "group": "VA",
+      "left": {
+        "amount": 9136.98
+      },
+      "right": {
+        "amount": 9136.98
+      }
+    },
+    {
+      "key": "VA-CI",
+      "name": "City",
+      "group": "VA",
+      "left": {
+        "amount": 8656.97
+      },
+      "right": {
+        "amount": 8656.97
+      }
+    },
+    {
+      "key": "VA-TR",
+      "name": "Transit district",
+      "group": "VA",
+      "left": {
+        "amount": 9467.93
+      },
+      "right": {
+        "amount": 9467.93
+      }
+    },
+    {
+      "key": "VA-SD",
+      "name": "Special district",
+      "group": "VA",
+      "left": {
+        "amount": 7058.24
+      },
+      "right": {
+        "amount": 7058.24
+      }
+    },
+    {
+      "key": "VT-ST",
+      "name": "State",
+      "group": "VT",
+      "left": {
+        "amount": 5600
+      },
+      "right": {
+        "amount": 5600
+      }
+    },
+    {
+      "key": "VT-CT",
+      "name": "County",
+      "group": "VT",
+      "left": {
+        "amount": 1532.72
+      },
+      "right": {
+        "amount": 1532.72
+      }
+    },
+    {
+      "key": "VT-CI",
+      "name": "City",
+      "group": "VT",
+      "left": {
+        "amount": 8118.24
+      },
+      "right": {
+        "amount": 8118.24
+      }
+    },
+    {
+      "key": "VT-TR",
+      "name": "Transit district",
+      "group": "VT",
+      "left": {
+        "amount": 24960.7
+      },
+      "right": {
+        "amount": 24960.7
+      }
+    },
+    {
+      "key": "VT-SD",
+      "name": "Special district",
+      "group": "VT",
+      "left": {
+        "amount": 2117.44
+      },
+      "right": {
+        "amount": 2117.44
+      }
+    },
+    {
+      "key": "WI-ST",
+      "name": "State",
+      "group": "WI",
+      "left": {
+        "amount": 31200
+      },
+      "right": {
+        "amount": 31200
+      }
+    },
+    {
+      "key": "WI-CT",
+      "name": "County",
+      "group": "WI",
+      "left": {
+        "amount": 14523.71
+      },
+      "right": {
+        "amount": 14523.71
+      }
+    },
+    {
+      "key": "WI-CI",
+      "name": "City",
+      "group": "WI",
+      "left": {
+        "amount": 14106.09
+      },
+      "right": {
+        "amount": 14106.09
+      }
+    },
+    {
+      "key": "WI-TR",
+      "name": "Transit district",
+      "group": "WI",
+      "left": {
+        "amount": 1429.58
+      },
+      "right": {
+        "amount": 1429.58
+      }
+    },
+    {
+      "key": "WV-ST",
+      "name": "State",
+      "group": "WV",
+      "left": {
+        "amount": 11800
+      },
+      "right": {
+        "amount": 11800
+      }
+    },
+    {
+      "key": "WV-CT",
+      "name": "County",
+      "group": "WV",
+      "left": {
+        "amount": 1939
+      },
+      "right": {
+        "amount": 1939
+      }
+    },
+    {
+      "key": "WV-CI",
+      "name": "City",
+      "group": "WV",
+      "left": {
+        "amount": 22194.5
+      },
+      "right": {
+        "amount": 22194.5
+      }
+    },
+    {
+      "key": "WV-TR",
+      "name": "Transit district",
+      "group": "WV",
+      "left": {
+        "amount": 5060.94
+      },
+      "right": {
+        "amount": 5060.94
+      }
+    },
+    {
+      "key": "WY-ST",
+      "name": "State",
+      "group": "WY",
+      "left": {
+        "amount": 6900
+      },
+      "right": {
+        "amount": 6900
+      }
+    },
+    {
+      "key": "WY-CT",
+      "name": "County",
+      "group": "WY",
+      "left": {
+        "amount": 13709.97
+      },
+      "right": {
+        "amount": 13709.97
+      }
+    },
+    {
+      "key": "WY-CI",
+      "name": "City",
+      "group": "WY",
+      "left": {
+        "amount": 993.89
+      },
+      "right": {
+        "amount": 993.89
+      }
+    },
+    {
+      "key": "WY-TR",
+      "name": "Transit district",
+      "group": "WY",
+      "left": {
+        "amount": 3352.96
+      },
+      "right": {
+        "amount": 3352.96
+      }
+    }
   ]
 }

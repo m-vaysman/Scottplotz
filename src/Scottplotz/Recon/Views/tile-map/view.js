@@ -50,7 +50,8 @@ gridEntries.forEach(([code, [cx, cy]]) => {
   });
   const d = sumR - sumL;
   const hasDiff = Math.abs(d) > (tol || 0);
-  const ratio = hasDiff ? (sumL ? Math.max(-1, Math.min(1, d / sumL)) : (d > 0 ? 1 : -1)) : 0;
+  const full = opt('colourScale') > 0 ? opt('colourScale') : 15;
+  const ratio = hasDiff ? Math.sign(d) * Math.min(1, .25 + .75 * (sumL ? Math.abs(d / sumL) * 100 / full : 1)) : 0;
   const fill = hasDiff ? RD.diff(ratio) : 'var(--mid)';
 
   const tileObj = { code, cx, cy, records: recs, sumLeft: sumL, sumRight: sumR, d, hasDiff };
@@ -75,6 +76,7 @@ gridEntries.forEach(([code, [cx, cy]]) => {
 
   const np = { 'pointer-events': 'none', 'text-anchor': 'middle' };
   svg.append(rect, s('text', { x: x + T / 2, y: y + T / 2 + (hasDiff ? -2 : 4), 'font-weight': 600, text: code, ...np }));
+  if (recs.some(r => r.duplicate)) svg.append(s('rect', { x: x + 5, y: y + 5, width: T - 10, height: T - 10, rx: 3, fill: 'none', stroke: 'var(--ink)', 'stroke-width': 1.5, 'pointer-events': 'none' }));
   if (hasDiff) {
     const absD = Math.abs(d);
     const diffText = absD >= 1e6 ? RD.signed(d / 1e6, 1) + 'M' : absD >= 1e3 ? RD.signed(d / 1e3, 1) + 'K' : RD.signed(d, Math.abs(d) % 1 === 0 ? 0 : 1);
@@ -96,7 +98,7 @@ if (!sel && tilesData.length > 0) sel = tilesData[0];
 
 function show() {
   tileDomMap.forEach((rect, td) => { rect.setAttribute('class', td === sel ? 'tile on' : 'tile'); });
-  if (!sel) return;
+  if (!sel) { document.getElementById('ds').textContent = text('noTiles'); return; }
   const st = sel, l = st.sumLeft, r = st.sumRight, d = r - l;
   const note = RD.groupInfo([st.code])?.note ?? text('agreesNote');
   const dFmt = fmtSigned(M ? M.key : null, d);
@@ -149,4 +151,4 @@ function show() {
     foot
   ]));
 }
-if (sel) show();
+show();

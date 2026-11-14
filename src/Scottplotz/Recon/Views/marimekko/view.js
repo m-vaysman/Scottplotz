@@ -117,7 +117,7 @@ groupsToRender.forEach((p, pi) => {
     y -= hh;
   });
 
-  const labelText = w > 70 ? p.name : clip(p.name.split(' ')[0], Math.max(3, Math.floor(w / 8)));
+  const labelText = w > 70 ? p.name : clip(p.name.split(' ')[0], Math.max(4, Math.floor(w / 6)));
   const textGroup = s('g', { style: 'cursor:pointer' }, [
     s('text', { x: x0 + w / 2, y: Y1 + 18, 'text-anchor': 'middle', 'font-weight': 600, text: labelText }),
     s('text', { class: 'sec', x: x0 + w / 2, y: Y1 + 34, 'text-anchor': 'middle', text: int(p.count) })
@@ -158,7 +158,7 @@ function show() {
   const theadRow = [
     h('th', { text: '' }),
     h('th', { text: text('result') }),
-    h('th', { class: 'n', text: model.unit }),
+    h('th', { class: 'n', text: model.unit.charAt(0).toUpperCase() + model.unit.slice(1) }),
     h('th', { class: 'n', text: text('share') })
   ];
   if (hasMeasure) theadRow.push(h('th', { class: 'n', text: M.label }));

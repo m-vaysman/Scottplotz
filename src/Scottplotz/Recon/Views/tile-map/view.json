@@ -12,9 +12,10 @@
     "scaleRight": "{rightShort} higher",
     "detailTitle": "{code}: {rightShort} {diff} against {leftShort}",
     "detailAgrees": "{code}: {leftShort} and {rightShort} agree",
-    "agreesNote": "Every jurisdiction filed what was collected.",
+    "agreesNote": "Every {unitOne} agrees.",
     "item": "{unitOne}",
     "total": "Total",
+    "noTiles": "No record has a first group that matches a tile on the grid.",
     "difference": "Difference"
   },
   "options": [
@@ -32,6 +33,14 @@
         "HI": [0, 7], "TX": [4, 7], "FL": [9, 7]
       },
       "description": "Grid layout mapping tile codes to [column, row] coordinates."
+    },
+    {
+      "name": "colourScale",
+      "type": "number",
+      "default": 15,
+      "min": 0.1,
+      "max": 1000,
+      "description": "Percent difference of a tile (summed difference over summed left) that gives full colour."
     }
   ]
 }

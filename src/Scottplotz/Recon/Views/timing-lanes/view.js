@@ -1,7 +1,7 @@
 const { h, s, model, label, text, opt, fmt, val, money, int } = RD;
 RD.tieOut(document.getElementById('tie'));
 
-const dateFieldKey = opt('dateField') || model.fields.find(f => f.type === 'date')?.key || 'day';
+const dateFieldKey = opt('dateField') || model.fields.find(f => f.type === 'date')?.key || '';
 
 function toDateKey(v) {
   if (!v) return null;
@@ -33,7 +33,11 @@ model.records.forEach(r => {
   if (dk) allDateKeys.push(dk);
 });
 
-let minKey = allDateKeys[0] || new Date().toISOString().slice(0, 10);
+if (!allDateKeys.length) {
+  document.getElementById('chart').append(h('p', { class: 'sub', text: text('noDates') }));
+  return;
+}
+let minKey = allDateKeys[0];
 let maxKey = minKey;
 allDateKeys.forEach(k => {
   if (k < minKey) minKey = k;

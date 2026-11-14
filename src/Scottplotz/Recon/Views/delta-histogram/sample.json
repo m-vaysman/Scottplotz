@@ -1,11 +1,24 @@
 {
-  "left": { "name": "Network switch call records", "short": "Switch" },
-  "right": { "name": "Billing system rated usage", "short": "Billing" },
-  "unit": { "one": "call", "many": "calls" },
+  "left": {
+    "name": "Network switch call records",
+    "short": "Switch"
+  },
+  "right": {
+    "name": "Billing system rated usage",
+    "short": "Billing"
+  },
+  "unit": {
+    "one": "call",
+    "many": "calls"
+  },
   "asOf": "2026-03-30",
   "tolerance": 1,
   "fields": [
-    { "key": "seconds", "label": "Duration (seconds)", "decimals": 0 }
+    {
+      "key": "seconds",
+      "label": "Duration (seconds)",
+      "decimals": 0
+    }
   ],
   "measure": "seconds",
   "text": {
@@ -26,64 +39,690 @@
     "topGroup": "{pct}% of them are on {group}."
   },
   "records": [
-    { "key": "BULK-EXACT", "name": "Standard rated calls", "group": "TRK-EAST-04", "left": { "seconds": 60 }, "right": { "seconds": 60 }, "count": 3644 },
-    { "key": "C9000001", "name": "Call 9000001", "group": "TRK-EAST-04", "left": { "seconds": 120 }, "right": { "seconds": 120 } },
-    { "key": "C9000002", "name": "Call 9000002", "group": "TRK-WEST-01", "left": { "seconds": 45 }, "right": { "seconds": 45 } },
-    { "key": "C9000003", "name": "Call 9000003", "group": "TRK-EAST-07", "left": { "seconds": 210 }, "right": { "seconds": 210 } },
-    { "key": "C9000004", "name": "Call 9000004", "group": "TRK-MOB-11", "left": { "seconds": 84 }, "right": { "seconds": 84 } },
-    { "key": "C9000005", "name": "Call 9000005", "group": "TRK-INTL-02", "left": { "seconds": 330 }, "right": { "seconds": 330 } },
-    { "key": "C9000006", "name": "Call 9000006", "group": "TRK-EAST-04", "left": { "seconds": 55 }, "right": { "seconds": 55 } },
-    { "key": "BULK-TOL-P1", "name": "Rounding up (+1s)", "group": "TRK-WEST-01", "left": { "seconds": 60 }, "right": { "seconds": 61 }, "count": 176 },
-    { "key": "C9000011", "name": "Call 9000011", "group": "TRK-WEST-01", "left": { "seconds": 95 }, "right": { "seconds": 96 } },
-    { "key": "C9000012", "name": "Call 9000012", "group": "TRK-EAST-04", "left": { "seconds": 142 }, "right": { "seconds": 143 } },
-    { "key": "C9000013", "name": "Call 9000013", "group": "TRK-EAST-07", "left": { "seconds": 38 }, "right": { "seconds": 39 } },
-    { "key": "C9000014", "name": "Call 9000014", "group": "TRK-MOB-11", "left": { "seconds": 72 }, "right": { "seconds": 73 } },
-    { "key": "BULK-TOL-M1", "name": "Rounding down (-1s)", "group": "TRK-EAST-07", "left": { "seconds": 60 }, "right": { "seconds": 59 }, "count": 173 },
-    { "key": "C9000021", "name": "Call 9000021", "group": "TRK-EAST-07", "left": { "seconds": 180 }, "right": { "seconds": 179 } },
-    { "key": "C9000022", "name": "Call 9000022", "group": "TRK-WEST-01", "left": { "seconds": 65 }, "right": { "seconds": 64 } },
-    { "key": "C9000023", "name": "Call 9000023", "group": "TRK-EAST-04", "left": { "seconds": 110 }, "right": { "seconds": 109 } },
-    { "key": "C9000024", "name": "Call 9000024", "group": "TRK-MOB-11", "left": { "seconds": 49 }, "right": { "seconds": 48 } },
-    { "key": "BULK-BRK-P6", "name": "6-second increment rounding", "group": "TRK-INTL-02", "left": { "seconds": 60 }, "right": { "seconds": 66 }, "count": 74, "reason": "Billing rounds this trunk up to six-second increments. The contract says per second." },
-    { "key": "C9000101", "name": "Call 9000101", "group": "TRK-INTL-02", "left": { "seconds": 42 }, "right": { "seconds": 48 }, "reason": "Billing rounds this trunk up to six-second increments. The contract says per second." },
-    { "key": "C9000102", "name": "Call 9000102", "group": "TRK-INTL-02", "left": { "seconds": 105 }, "right": { "seconds": 111 }, "reason": "Billing rounds this trunk up to six-second increments. The contract says per second." },
-    { "key": "C9000103", "name": "Call 9000103", "group": "TRK-INTL-02", "left": { "seconds": 18 }, "right": { "seconds": 24 }, "reason": "Billing rounds this trunk up to six-second increments. The contract says per second." },
-    { "key": "C9000104", "name": "Call 9000104", "group": "TRK-INTL-02", "left": { "seconds": 54 }, "right": { "seconds": 60 }, "reason": "Billing rounds this trunk up to six-second increments. The contract says per second." },
-    { "key": "C9000105", "name": "Call 9000105", "group": "TRK-INTL-02", "left": { "seconds": 210 }, "right": { "seconds": 216 }, "reason": "Billing rounds this trunk up to six-second increments. The contract says per second." },
-    { "key": "C9000106", "name": "Call 9000106", "group": "TRK-INTL-02", "left": { "seconds": 84 }, "right": { "seconds": 90 }, "reason": "Billing rounds this trunk up to six-second increments. The contract says per second." },
-    { "key": "C9000107", "name": "Call 9000107", "group": "TRK-INTL-02", "left": { "seconds": 132 }, "right": { "seconds": 138 }, "reason": "Billing rounds this trunk up to six-second increments. The contract says per second." },
-    { "key": "C9000108", "name": "Call 9000108", "group": "TRK-INTL-02", "left": { "seconds": 72 }, "right": { "seconds": 78 }, "reason": "Billing rounds this trunk up to six-second increments. The contract says per second." },
-    { "key": "BULK-BRK-M30", "name": "30-second free period drop", "group": "TRK-MOB-11", "left": { "seconds": 90 }, "right": { "seconds": 60 }, "count": 30, "reason": "Billing drops the first 30 seconds on this trunk, a free-period rule left over from an old plan." },
-    { "key": "C9000201", "name": "Call 9000201", "group": "TRK-MOB-11", "left": { "seconds": 75 }, "right": { "seconds": 45 }, "reason": "Billing drops the first 30 seconds on this trunk, a free-period rule left over from an old plan." },
-    { "key": "C9000202", "name": "Call 9000202", "group": "TRK-MOB-11", "left": { "seconds": 140 }, "right": { "seconds": 110 }, "reason": "Billing drops the first 30 seconds on this trunk, a free-period rule left over from an old plan." },
-    { "key": "C9000203", "name": "Call 9000203", "group": "TRK-MOB-11", "left": { "seconds": 55 }, "right": { "seconds": 25 }, "reason": "Billing drops the first 30 seconds on this trunk, a free-period rule left over from an old plan." },
-    { "key": "C9000204", "name": "Call 9000204", "group": "TRK-MOB-11", "left": { "seconds": 185 }, "right": { "seconds": 155 }, "reason": "Billing drops the first 30 seconds on this trunk, a free-period rule left over from an old plan." },
-    { "key": "C9000205", "name": "Call 9000205", "group": "TRK-MOB-11", "left": { "seconds": 65 }, "right": { "seconds": 35 }, "reason": "Billing drops the first 30 seconds on this trunk, a free-period rule left over from an old plan." },
-    { "key": "C9000206", "name": "Call 9000206", "group": "TRK-MOB-11", "left": { "seconds": 95 }, "right": { "seconds": 65 }, "reason": "Billing drops the first 30 seconds on this trunk, a free-period rule left over from an old plan." },
-    { "key": "C9000207", "name": "Call 9000207", "group": "TRK-MOB-11", "left": { "seconds": 120 }, "right": { "seconds": 90 }, "reason": "Billing drops the first 30 seconds on this trunk, a free-period rule left over from an old plan." },
-    { "key": "C9000208", "name": "Call 9000208", "group": "TRK-MOB-11", "left": { "seconds": 80 }, "right": { "seconds": 50 }, "reason": "Billing drops the first 30 seconds on this trunk, a free-period rule left over from an old plan." },
-    { "key": "C9000302", "name": "Call 9000302", "group": "TRK-INTL-02", "left": { "seconds": 58 }, "right": { "seconds": 60 } },
-    { "key": "C9000303", "name": "Call 9000303", "group": "TRK-INTL-02", "left": { "seconds": 57 }, "right": { "seconds": 60 } },
-    { "key": "C9000304", "name": "Call 9000304", "group": "TRK-INTL-02", "left": { "seconds": 56 }, "right": { "seconds": 60 } },
-    { "key": "C9000305", "name": "Call 9000305", "group": "TRK-INTL-02", "left": { "seconds": 55 }, "right": { "seconds": 60 } },
-    { "key": "C9000306", "name": "Call 9000306", "group": "TRK-EAST-04", "left": { "seconds": 82 }, "right": { "seconds": 80 } },
-    { "key": "C9000307", "name": "Call 9000307", "group": "TRK-WEST-01", "left": { "seconds": 113 }, "right": { "seconds": 110 } },
-    { "key": "C9000308", "name": "Call 9000308", "group": "TRK-EAST-07", "left": { "seconds": 64 }, "right": { "seconds": 60 } },
-    { "key": "C9000309", "name": "Call 9000309", "group": "TRK-EAST-04", "left": { "seconds": 95 }, "right": { "seconds": 90 } },
-    { "key": "C9000310", "name": "Call 9000310", "group": "TRK-WEST-01", "left": { "seconds": 128 }, "right": { "seconds": 120 } },
-    { "key": "C9000311", "name": "Call 9000311", "group": "TRK-EAST-07", "left": { "seconds": 72 }, "right": { "seconds": 60 } },
-    { "key": "C9000312", "name": "Call 9000312", "group": "TRK-MOB-11", "left": { "seconds": 105 }, "right": { "seconds": 90 } },
-    { "key": "C9000313", "name": "Call 9000313", "group": "TRK-WEST-01", "left": { "seconds": 88 }, "right": { "seconds": 70 } },
-    { "key": "C9000314", "name": "Call 9000314", "group": "TRK-EAST-04", "left": { "seconds": 140 }, "right": { "seconds": 120 } },
-    { "key": "C9000315", "name": "Call 9000315", "group": "TRK-EAST-07", "left": { "seconds": 52 }, "right": { "seconds": 60 } },
-    { "key": "C9000316", "name": "Call 9000316", "group": "TRK-WEST-01", "left": { "seconds": 90 }, "right": { "seconds": 100 } },
-    { "key": "C9000317", "name": "Call 9000317", "group": "TRK-EAST-04", "left": { "seconds": 48 }, "right": { "seconds": 60 } },
-    { "key": "C9000318", "name": "Call 9000318", "group": "TRK-MOB-11", "left": { "seconds": 75 }, "right": { "seconds": 90 } },
-    { "key": "C9000319", "name": "Call 9000319", "group": "TRK-WEST-01", "left": { "seconds": 62 }, "right": { "seconds": 80 } },
-    { "key": "C9000320", "name": "Call 9000320", "group": "TRK-EAST-07", "left": { "seconds": 100 }, "right": { "seconds": 120 } },
-    { "key": "BULK-BRK-P25", "name": "Manual adjustments (>20s)", "group": "TRK-INTL-02", "left": { "seconds": 45 }, "right": { "seconds": 70 }, "count": 12, "reason": "Manual operator rate adjustment." },
-    { "key": "C9000325", "name": "Call 9000325", "group": "TRK-INTL-02", "left": { "seconds": 30 }, "right": { "seconds": 58 }, "reason": "Manual operator rate adjustment." },
-    { "key": "BULK-LO", "name": "Unbilled switch calls", "group": "TRK-EAST-04", "status": "leftOnly", "left": { "seconds": 2400 }, "count": 37, "reason": "On the switch, never billed. Revenue is leaking." },
-    { "key": "BULK-RO", "name": "Billed with no switch record", "group": "TRK-MOB-11", "status": "rightOnly", "right": { "seconds": 920 }, "count": 12, "reason": "Billed with no switch record. A customer could dispute these." },
-    { "key": "BULK-DUP", "name": "Rated twice in billing", "group": "TRK-INTL-02", "status": "exact", "left": { "seconds": 540 }, "right": { "seconds": 540 }, "count": 9, "duplicate": "right", "reason": "Rated twice in billing from one switch record." }
+    {
+      "key": "BULK-EXACT",
+      "name": "Standard rated calls",
+      "group": "TRK-EAST-04",
+      "left": {
+        "seconds": 60
+      },
+      "right": {
+        "seconds": 60
+      },
+      "count": 3644
+    },
+    {
+      "key": "C9000001",
+      "name": "Call 9000001",
+      "group": "TRK-EAST-04",
+      "left": {
+        "seconds": 120
+      },
+      "right": {
+        "seconds": 120
+      }
+    },
+    {
+      "key": "C9000002",
+      "name": "Call 9000002",
+      "group": "TRK-WEST-01",
+      "left": {
+        "seconds": 45
+      },
+      "right": {
+        "seconds": 45
+      }
+    },
+    {
+      "key": "C9000003",
+      "name": "Call 9000003",
+      "group": "TRK-EAST-07",
+      "left": {
+        "seconds": 210
+      },
+      "right": {
+        "seconds": 210
+      }
+    },
+    {
+      "key": "C9000004",
+      "name": "Call 9000004",
+      "group": "TRK-MOB-11",
+      "left": {
+        "seconds": 84
+      },
+      "right": {
+        "seconds": 84
+      }
+    },
+    {
+      "key": "C9000005",
+      "name": "Call 9000005",
+      "group": "TRK-INTL-02",
+      "left": {
+        "seconds": 330
+      },
+      "right": {
+        "seconds": 330
+      }
+    },
+    {
+      "key": "C9000006",
+      "name": "Call 9000006",
+      "group": "TRK-EAST-04",
+      "left": {
+        "seconds": 55
+      },
+      "right": {
+        "seconds": 55
+      }
+    },
+    {
+      "key": "BULK-TOL-P1",
+      "name": "Rounding up (+1s)",
+      "group": "TRK-WEST-01",
+      "left": {
+        "seconds": 60
+      },
+      "right": {
+        "seconds": 61
+      },
+      "count": 176
+    },
+    {
+      "key": "C9000011",
+      "name": "Call 9000011",
+      "group": "TRK-WEST-01",
+      "left": {
+        "seconds": 95
+      },
+      "right": {
+        "seconds": 96
+      }
+    },
+    {
+      "key": "C9000012",
+      "name": "Call 9000012",
+      "group": "TRK-EAST-04",
+      "left": {
+        "seconds": 142
+      },
+      "right": {
+        "seconds": 143
+      }
+    },
+    {
+      "key": "C9000013",
+      "name": "Call 9000013",
+      "group": "TRK-EAST-07",
+      "left": {
+        "seconds": 38
+      },
+      "right": {
+        "seconds": 39
+      }
+    },
+    {
+      "key": "C9000014",
+      "name": "Call 9000014",
+      "group": "TRK-MOB-11",
+      "left": {
+        "seconds": 72
+      },
+      "right": {
+        "seconds": 73
+      }
+    },
+    {
+      "key": "BULK-TOL-M1",
+      "name": "Rounding down (-1s)",
+      "group": "TRK-EAST-07",
+      "left": {
+        "seconds": 60
+      },
+      "right": {
+        "seconds": 59
+      },
+      "count": 173
+    },
+    {
+      "key": "C9000021",
+      "name": "Call 9000021",
+      "group": "TRK-EAST-07",
+      "left": {
+        "seconds": 180
+      },
+      "right": {
+        "seconds": 179
+      }
+    },
+    {
+      "key": "C9000022",
+      "name": "Call 9000022",
+      "group": "TRK-WEST-01",
+      "left": {
+        "seconds": 65
+      },
+      "right": {
+        "seconds": 64
+      }
+    },
+    {
+      "key": "C9000023",
+      "name": "Call 9000023",
+      "group": "TRK-EAST-04",
+      "left": {
+        "seconds": 110
+      },
+      "right": {
+        "seconds": 109
+      }
+    },
+    {
+      "key": "C9000024",
+      "name": "Call 9000024",
+      "group": "TRK-MOB-11",
+      "left": {
+        "seconds": 49
+      },
+      "right": {
+        "seconds": 48
+      }
+    },
+    {
+      "key": "BULK-BRK-P6",
+      "name": "6-second increment rounding",
+      "group": "TRK-INTL-02",
+      "left": {
+        "seconds": 60
+      },
+      "right": {
+        "seconds": 66
+      },
+      "count": 74,
+      "reason": "Billing rounds this trunk up to six-second increments. The contract says per second.",
+      "attrs": {
+        "note": "Rounded up to 6 s"
+      }
+    },
+    {
+      "key": "C9000101",
+      "name": "Call 9000101",
+      "group": "TRK-INTL-02",
+      "left": {
+        "seconds": 42
+      },
+      "right": {
+        "seconds": 48
+      },
+      "reason": "Billing rounds this trunk up to six-second increments. The contract says per second."
+    },
+    {
+      "key": "C9000102",
+      "name": "Call 9000102",
+      "group": "TRK-INTL-02",
+      "left": {
+        "seconds": 105
+      },
+      "right": {
+        "seconds": 111
+      },
+      "reason": "Billing rounds this trunk up to six-second increments. The contract says per second."
+    },
+    {
+      "key": "C9000103",
+      "name": "Call 9000103",
+      "group": "TRK-INTL-02",
+      "left": {
+        "seconds": 18
+      },
+      "right": {
+        "seconds": 24
+      },
+      "reason": "Billing rounds this trunk up to six-second increments. The contract says per second."
+    },
+    {
+      "key": "C9000104",
+      "name": "Call 9000104",
+      "group": "TRK-INTL-02",
+      "left": {
+        "seconds": 54
+      },
+      "right": {
+        "seconds": 60
+      },
+      "reason": "Billing rounds this trunk up to six-second increments. The contract says per second."
+    },
+    {
+      "key": "C9000105",
+      "name": "Call 9000105",
+      "group": "TRK-INTL-02",
+      "left": {
+        "seconds": 210
+      },
+      "right": {
+        "seconds": 216
+      },
+      "reason": "Billing rounds this trunk up to six-second increments. The contract says per second."
+    },
+    {
+      "key": "C9000106",
+      "name": "Call 9000106",
+      "group": "TRK-INTL-02",
+      "left": {
+        "seconds": 84
+      },
+      "right": {
+        "seconds": 90
+      },
+      "reason": "Billing rounds this trunk up to six-second increments. The contract says per second."
+    },
+    {
+      "key": "C9000107",
+      "name": "Call 9000107",
+      "group": "TRK-INTL-02",
+      "left": {
+        "seconds": 132
+      },
+      "right": {
+        "seconds": 138
+      },
+      "reason": "Billing rounds this trunk up to six-second increments. The contract says per second."
+    },
+    {
+      "key": "C9000108",
+      "name": "Call 9000108",
+      "group": "TRK-INTL-02",
+      "left": {
+        "seconds": 72
+      },
+      "right": {
+        "seconds": 78
+      },
+      "reason": "Billing rounds this trunk up to six-second increments. The contract says per second."
+    },
+    {
+      "key": "BULK-BRK-M30",
+      "name": "30-second free period drop",
+      "group": "TRK-MOB-11",
+      "left": {
+        "seconds": 90
+      },
+      "right": {
+        "seconds": 60
+      },
+      "count": 30,
+      "reason": "Billing drops the first 30 seconds on this trunk, a free-period rule left over from an old plan.",
+      "attrs": {
+        "note": "30 s cut off"
+      }
+    },
+    {
+      "key": "C9000201",
+      "name": "Call 9000201",
+      "group": "TRK-MOB-11",
+      "left": {
+        "seconds": 75
+      },
+      "right": {
+        "seconds": 45
+      },
+      "reason": "Billing drops the first 30 seconds on this trunk, a free-period rule left over from an old plan."
+    },
+    {
+      "key": "C9000202",
+      "name": "Call 9000202",
+      "group": "TRK-MOB-11",
+      "left": {
+        "seconds": 140
+      },
+      "right": {
+        "seconds": 110
+      },
+      "reason": "Billing drops the first 30 seconds on this trunk, a free-period rule left over from an old plan."
+    },
+    {
+      "key": "C9000203",
+      "name": "Call 9000203",
+      "group": "TRK-MOB-11",
+      "left": {
+        "seconds": 55
+      },
+      "right": {
+        "seconds": 25
+      },
+      "reason": "Billing drops the first 30 seconds on this trunk, a free-period rule left over from an old plan."
+    },
+    {
+      "key": "C9000204",
+      "name": "Call 9000204",
+      "group": "TRK-MOB-11",
+      "left": {
+        "seconds": 185
+      },
+      "right": {
+        "seconds": 155
+      },
+      "reason": "Billing drops the first 30 seconds on this trunk, a free-period rule left over from an old plan."
+    },
+    {
+      "key": "C9000205",
+      "name": "Call 9000205",
+      "group": "TRK-MOB-11",
+      "left": {
+        "seconds": 65
+      },
+      "right": {
+        "seconds": 35
+      },
+      "reason": "Billing drops the first 30 seconds on this trunk, a free-period rule left over from an old plan."
+    },
+    {
+      "key": "C9000206",
+      "name": "Call 9000206",
+      "group": "TRK-MOB-11",
+      "left": {
+        "seconds": 95
+      },
+      "right": {
+        "seconds": 65
+      },
+      "reason": "Billing drops the first 30 seconds on this trunk, a free-period rule left over from an old plan."
+    },
+    {
+      "key": "C9000207",
+      "name": "Call 9000207",
+      "group": "TRK-MOB-11",
+      "left": {
+        "seconds": 120
+      },
+      "right": {
+        "seconds": 90
+      },
+      "reason": "Billing drops the first 30 seconds on this trunk, a free-period rule left over from an old plan."
+    },
+    {
+      "key": "C9000208",
+      "name": "Call 9000208",
+      "group": "TRK-MOB-11",
+      "left": {
+        "seconds": 80
+      },
+      "right": {
+        "seconds": 50
+      },
+      "reason": "Billing drops the first 30 seconds on this trunk, a free-period rule left over from an old plan."
+    },
+    {
+      "key": "C9000302",
+      "name": "Call 9000302",
+      "group": "TRK-INTL-02",
+      "left": {
+        "seconds": 58
+      },
+      "right": {
+        "seconds": 60
+      }
+    },
+    {
+      "key": "C9000303",
+      "name": "Call 9000303",
+      "group": "TRK-INTL-02",
+      "left": {
+        "seconds": 57
+      },
+      "right": {
+        "seconds": 60
+      }
+    },
+    {
+      "key": "C9000304",
+      "name": "Call 9000304",
+      "group": "TRK-INTL-02",
+      "left": {
+        "seconds": 56
+      },
+      "right": {
+        "seconds": 60
+      }
+    },
+    {
+      "key": "C9000305",
+      "name": "Call 9000305",
+      "group": "TRK-INTL-02",
+      "left": {
+        "seconds": 55
+      },
+      "right": {
+        "seconds": 60
+      }
+    },
+    {
+      "key": "C9000306",
+      "name": "Call 9000306",
+      "group": "TRK-EAST-04",
+      "left": {
+        "seconds": 82
+      },
+      "right": {
+        "seconds": 80
+      }
+    },
+    {
+      "key": "C9000307",
+      "name": "Call 9000307",
+      "group": "TRK-WEST-01",
+      "left": {
+        "seconds": 113
+      },
+      "right": {
+        "seconds": 110
+      }
+    },
+    {
+      "key": "C9000308",
+      "name": "Call 9000308",
+      "group": "TRK-EAST-07",
+      "left": {
+        "seconds": 64
+      },
+      "right": {
+        "seconds": 60
+      }
+    },
+    {
+      "key": "C9000309",
+      "name": "Call 9000309",
+      "group": "TRK-EAST-04",
+      "left": {
+        "seconds": 95
+      },
+      "right": {
+        "seconds": 90
+      }
+    },
+    {
+      "key": "C9000310",
+      "name": "Call 9000310",
+      "group": "TRK-WEST-01",
+      "left": {
+        "seconds": 128
+      },
+      "right": {
+        "seconds": 120
+      }
+    },
+    {
+      "key": "C9000311",
+      "name": "Call 9000311",
+      "group": "TRK-EAST-07",
+      "left": {
+        "seconds": 72
+      },
+      "right": {
+        "seconds": 60
+      }
+    },
+    {
+      "key": "C9000312",
+      "name": "Call 9000312",
+      "group": "TRK-MOB-11",
+      "left": {
+        "seconds": 105
+      },
+      "right": {
+        "seconds": 90
+      }
+    },
+    {
+      "key": "C9000313",
+      "name": "Call 9000313",
+      "group": "TRK-WEST-01",
+      "left": {
+        "seconds": 88
+      },
+      "right": {
+        "seconds": 70
+      }
+    },
+    {
+      "key": "C9000314",
+      "name": "Call 9000314",
+      "group": "TRK-EAST-04",
+      "left": {
+        "seconds": 140
+      },
+      "right": {
+        "seconds": 120
+      }
+    },
+    {
+      "key": "C9000315",
+      "name": "Call 9000315",
+      "group": "TRK-EAST-07",
+      "left": {
+        "seconds": 52
+      },
+      "right": {
+        "seconds": 60
+      }
+    },
+    {
+      "key": "C9000316",
+      "name": "Call 9000316",
+      "group": "TRK-WEST-01",
+      "left": {
+        "seconds": 90
+      },
+      "right": {
+        "seconds": 100
+      }
+    },
+    {
+      "key": "C9000317",
+      "name": "Call 9000317",
+      "group": "TRK-EAST-04",
+      "left": {
+        "seconds": 48
+      },
+      "right": {
+        "seconds": 60
+      }
+    },
+    {
+      "key": "C9000318",
+      "name": "Call 9000318",
+      "group": "TRK-MOB-11",
+      "left": {
+        "seconds": 75
+      },
+      "right": {
+        "seconds": 90
+      }
+    },
+    {
+      "key": "C9000319",
+      "name": "Call 9000319",
+      "group": "TRK-WEST-01",
+      "left": {
+        "seconds": 62
+      },
+      "right": {
+        "seconds": 80
+      }
+    },
+    {
+      "key": "C9000320",
+      "name": "Call 9000320",
+      "group": "TRK-EAST-07",
+      "left": {
+        "seconds": 100
+      },
+      "right": {
+        "seconds": 120
+      }
+    },
+    {
+      "key": "BULK-BRK-P25",
+      "name": "Manual adjustments (>20s)",
+      "group": "TRK-INTL-02",
+      "left": {
+        "seconds": 45
+      },
+      "right": {
+        "seconds": 70
+      },
+      "count": 12,
+      "reason": "Manual operator rate adjustment."
+    },
+    {
+      "key": "C9000325",
+      "name": "Call 9000325",
+      "group": "TRK-INTL-02",
+      "left": {
+        "seconds": 30
+      },
+      "right": {
+        "seconds": 58
+      },
+      "reason": "Manual operator rate adjustment."
+    },
+    {
+      "key": "BULK-LO",
+      "name": "Unbilled switch calls",
+      "group": "TRK-EAST-04",
+      "status": "leftOnly",
+      "left": {
+        "seconds": 2400
+      },
+      "count": 37,
+      "reason": "On the switch, never billed. Revenue is leaking."
+    },
+    {
+      "key": "BULK-RO",
+      "name": "Billed with no switch record",
+      "group": "TRK-MOB-11",
+      "status": "rightOnly",
+      "right": {
+        "seconds": 920
+      },
+      "count": 12,
+      "reason": "Billed with no switch record. A customer could dispute these."
+    },
+    {
+      "key": "BULK-DUP",
+      "name": "Rated twice in billing",
+      "group": "TRK-INTL-02",
+      "status": "exact",
+      "left": {
+        "seconds": 540
+      },
+      "right": {
+        "seconds": 540
+      },
+      "count": 9,
+      "duplicate": "right",
+      "reason": "Rated twice in billing from one switch record."
+    }
   ]
 }

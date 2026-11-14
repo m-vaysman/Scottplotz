@@ -73,7 +73,7 @@ const btns = groups.map(g => {
     ? text('linesDiffer').replace('{differ}', int(badCount)).replace('{total}', int(totalCount)).replace('{unit}', model.unit)
     : text('allAgree').replace('{unit}', model.unit);
 
-  const who = g.attrs.patient || g.info?.name || g.attrs.who || '';
+  const who = (g.info?.name && g.info.name !== g.key ? g.info.name : '');
   const title = g.key || text('defaultGroup');
 
   const b = h('button', {
@@ -95,18 +95,11 @@ function show() {
   if (!sel) return;
   btns.forEach(b => b.el.setAttribute('aria-current', String(b.g === sel)));
   const g = sel;
-  const who = g.attrs.patient || g.info?.name || g.attrs.who || '';
+  const who = (g.info?.name && g.info.name !== g.key ? g.info.name : '');
   const title = g.key || text('defaultGroup');
   document.getElementById('dt').textContent = who ? `${title}, ${who}` : title;
 
-  let meta = text('groupMeta');
-  if (meta && g.attrs.dos) {
-    meta = meta.replace('{dos}', g.attrs.dos);
-  } else if (Object.keys(g.attrs).length) {
-    meta = Object.entries(g.attrs).map(([k, v]) => `${k}: ${v}`).join(', ');
-  } else {
-    meta = '';
-  }
+  const meta = Object.entries(g.attrs).map(([k, v]) => k + ': ' + v).join('. ');
   document.getElementById('ds').textContent = meta;
 
   const diffEl = document.getElementById('diff');

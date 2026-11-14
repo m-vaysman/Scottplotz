@@ -32,13 +32,13 @@
     },
     {
       "key": "Retail stores",
-      "left": { "members": 2241, "pay": 5378400, "ee": 268920, "er": 430272, "vol": 1800, "hash": 92452 },
-      "right": { "members": 2241, "pay": 5378150, "ee": 268907.5, "er": 430252, "vol": 1800, "hash": 90195 }
+      "left": { "members": 2241, "pay": 5378400, "ee": 268920, "er": 430272, "vol": 1800, "hash": 92443 },
+      "right": { "members": 2241, "pay": 5378150, "ee": 268907.5, "er": 430252, "vol": 1800, "hash": 90186 }
     },
     {
       "key": "Logistics",
-      "left": { "members": 657, "pay": 2167787.5, "ee": 108389.38, "er": 173423, "vol": 650, "hash": 9720 },
-      "right": { "members": 658, "pay": 2171087.5, "ee": 108554.37, "er": 173687, "vol": 650, "hash": 71597 }
+      "left": { "members": 657, "pay": 2167787.5, "ee": 108389.38, "er": 173423, "vol": 650, "hash": 9711 },
+      "right": { "members": 658, "pay": 2171087.5, "ee": 108554.37, "er": 173687, "vol": 650, "hash": 71588 }
     }
   ],
   "totals": {

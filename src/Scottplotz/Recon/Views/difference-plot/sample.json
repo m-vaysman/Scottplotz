@@ -425,6 +425,7 @@
       "name": "Lowther Group",
       "left": { "marketValue": 17800000, "qty": 356000, "price": 50 },
       "right": { "marketValue": 17740000, "qty": 356000, "price": 49.83 }
-    }
+    },
+    { "key": "POS-BULK", "name": "Positions that agree exactly", "status": "exact", "count": 101 }
   ]
 }

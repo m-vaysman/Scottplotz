@@ -1,26 +1,26 @@
 {
   "name": "bin-map",
-  "title": "Cycle-count bin map",
-  "description": "Warehouse grid of cells by aisle and rack face. Grey cells counted as expected; tinted cells show the direction and magnitude of quantity differences.",
-  "needs": "A numeric measure. Records represent bins with group [aisle, face] and attrs.slot.",
+  "title": "Cell map",
+  "description": "Grid of cells by group and sub-group. Grey cells agree; tinted cells show the direction and size of the difference.",
+  "needs": "A numeric measure. Records with group [row, sub-row] and attrs.slot for the position along the row; attrs.cost optionally prices the difference.",
   "text": {
     "title": "{left} against {right}",
-    "lede": "Grid of {unit} by aisle and face. A grey cell counted as expected. A tinted cell differs, in the colour of the side that is higher.",
+    "lede": "Grid of {unit} by group and sub-group. A grey cell agrees. A tinted cell differs, in the colour of the side that is higher.",
     "chartTitle": "{measure} difference by {unitOne}",
-    "chartSub": "Tolerance is {tolerance} per {unitOne}. Select a cell or an aisle.",
+    "chartSub": "Tolerance is {tolerance} per {unitOne}. Select a cell or a group.",
     "leftHigher": "{leftShort} higher",
     "rightHigher": "{rightShort} higher",
-    "duplicateLegend": "Duplicate scan",
-    "aisleSummary": "Aisle {aisle}: {differCount} of {totalCount} {unit} differ",
+    "duplicateLegend": "Duplicate",
+    "groupSummary": "{group}: {differCount} of {totalCount} {unit} differ",
     "allSummary": "{differCount} of {totalCount} {unit} differ",
-    "aisleTotal": "Total",
+    "groupTotal": "Total",
     "bin": "{unitOne}",
     "item": "Item",
     "units": "{measure}",
     "atCost": "Difference",
-    "expected": "{key} counted as expected.",
+    "expected": "{key} agrees.",
     "inTolerance": "{key} is within tolerance.",
-    "recount": "{key} differs with no pattern around it."
+    "recount": "{key} differs."
   },
   "options": [
     {

@@ -1,11 +1,30 @@
 {
-  "left": { "name": "Sales system, contracted monthly value", "short": "Contracted" },
-  "right": { "name": "Billing system, invoiced", "short": "Billed" },
-  "unit": { "one": "customer", "many": "customers" },
+  "left": {
+    "name": "Sales system, contracted monthly value",
+    "short": "Contracted"
+  },
+  "right": {
+    "name": "Billing system, invoiced",
+    "short": "Billed"
+  },
+  "unit": {
+    "one": "customer",
+    "many": "customers"
+  },
   "asOf": "2026-03-31",
   "tolerance": 1,
   "fields": [
-    { "key": "monthly", "label": "Monthly value", "decimals": 2 }
+    {
+      "key": "monthly",
+      "label": "Monthly value",
+      "decimals": 2
+    },
+    {
+      "key": "yearly",
+      "label": "Yearly value",
+      "decimals": 2,
+      "compare": false
+    }
   ],
   "measure": "monthly",
   "text": {
@@ -22,30 +41,305 @@
     "duplicate": "Invoiced twice"
   },
   "records": [
-    { "key": "Aldgate Mills", "name": "Aldgate Mills", "left": { "monthly": 520 }, "right": { "monthly": 520 } },
-    { "key": "Borrow Hill", "name": "Borrow Hill", "left": { "monthly": 1450 }, "right": { "monthly": 1450 } },
-    { "key": "Caxton Freight", "name": "Caxton Freight", "left": { "monthly": 8400 }, "right": { "monthly": 10500 }, "reason": "The January price rise was applied twice in billing." },
-    { "key": "Dunlin Hotels", "name": "Dunlin Hotels", "left": { "monthly": 3200 }, "right": { "monthly": 3200 }, "duplicate": "right", "reason": "Two invoices were raised for March, one by the renewal job and one by hand." },
-    { "key": "Eaves Roofing", "name": "Eaves Roofing", "left": { "monthly": 2100 }, "right": { "monthly": 2100 } },
-    { "key": "Foxton Marine", "name": "Foxton Marine", "left": { "monthly": 14200 }, "right": { "monthly": 11360 }, "reason": "A 20% first-year discount expired in February. Billing still applies it." },
-    { "key": "Greywell Clinics", "name": "Greywell Clinics", "left": { "monthly": 3800 }, "right": { "monthly": 3800 } },
-    { "key": "Hythe Cold Store", "name": "Hythe Cold Store", "left": { "monthly": 4400 }, "right": { "monthly": 4400 } },
-    { "key": "Ivel Foods", "name": "Ivel Foods", "left": { "monthly": 5900 }, "right": { "monthly": 5900 } },
-    { "key": "Jarrow Steel", "name": "Jarrow Steel", "left": { "monthly": 9600 }, "right": { "monthly": 10752 }, "reason": "Twelve seats were added in billing with no contract amendment." },
-    { "key": "Kelso Vineyards", "name": "Kelso Vineyards", "left": { "monthly": 7800 }, "right": { "monthly": 7800 } },
-    { "key": "Larkhall Schools", "name": "Larkhall Schools", "left": { "monthly": 8900 }, "right": { "monthly": 8900 } },
-    { "key": "Mossley Print", "name": "Mossley Print", "left": { "monthly": 11000 }, "right": { "monthly": 5500 }, "reason": "The customer downgraded in the sales system. Billing was changed, the contract record was not." },
-    { "key": "Norham Dental", "name": "Norham Dental", "left": { "monthly": 12000 }, "right": { "monthly": 12000 } },
-    { "key": "Oxgate Labs", "name": "Oxgate Labs", "left": { "monthly": 13500 }, "right": { "monthly": 13500 } },
-    { "key": "Pinner Motors", "name": "Pinner Motors", "left": { "monthly": 15200 }, "right": { "monthly": 15200 } },
-    { "key": "Quorn Dairy", "name": "Quorn Dairy", "left": { "monthly": 4800 }, "right": { "monthly": 4800.24 }, "reason": "A rounding difference on the per-seat price, inside tolerance." },
-    { "key": "Ruthin Glass", "name": "Ruthin Glass", "left": { "monthly": 16800 }, "right": { "monthly": 16800 } },
-    { "key": "Selby Grain", "name": "Selby Grain", "left": { "monthly": 6300 }, "right": { "monthly": 5670 }, "reason": "Billing prorated the month for a renewal that had no gap." },
-    { "key": "Thirsk Timber", "name": "Thirsk Timber", "left": { "monthly": 19400 }, "right": { "monthly": 19400 } },
-    { "key": "Usk Valley Water", "name": "Usk Valley Water", "left": { "monthly": 17500 }, "right": { "monthly": 24500 }, "reason": "An add-on module is billed that sales recorded as a free trial." },
-    { "key": "Varley Tools", "name": "Varley Tools", "left": { "monthly": 22100 }, "right": { "monthly": 22100 } },
-    { "key": "Wyre Aerospace", "name": "Wyre Aerospace", "left": { "monthly": 7200 }, "reason": "Signed on 2 March and live. No subscription was ever created in billing, so nothing has been invoiced." },
-    { "key": "Yeo Ceramics", "name": "Yeo Ceramics", "left": { "monthly": 2600 }, "reason": "Contract active. The billing subscription was cancelled by mistake during a card update." },
-    { "key": "Zennor Hotels", "name": "Zennor Hotels", "right": { "monthly": 1850 }, "reason": "Still billed monthly. The contract ended in December and was never renewed." }
+    {
+      "key": "Aldgate Mills",
+      "name": "Aldgate Mills",
+      "left": {
+        "monthly": 520,
+        "yearly": 6240
+      },
+      "right": {
+        "monthly": 520,
+        "yearly": 6240
+      }
+    },
+    {
+      "key": "Borrow Hill",
+      "name": "Borrow Hill",
+      "left": {
+        "monthly": 1450,
+        "yearly": 17400
+      },
+      "right": {
+        "monthly": 1450,
+        "yearly": 17400
+      }
+    },
+    {
+      "key": "Caxton Freight",
+      "name": "Caxton Freight",
+      "left": {
+        "monthly": 8400,
+        "yearly": 100800
+      },
+      "right": {
+        "monthly": 10500,
+        "yearly": 126000
+      },
+      "reason": "The January price rise was applied twice in billing."
+    },
+    {
+      "key": "Dunlin Hotels",
+      "name": "Dunlin Hotels",
+      "left": {
+        "monthly": 3200,
+        "yearly": 38400
+      },
+      "right": {
+        "monthly": 3200,
+        "yearly": 38400
+      },
+      "duplicate": "right",
+      "reason": "Two invoices were raised for March, one by the renewal job and one by hand."
+    },
+    {
+      "key": "Eaves Roofing",
+      "name": "Eaves Roofing",
+      "left": {
+        "monthly": 2100,
+        "yearly": 25200
+      },
+      "right": {
+        "monthly": 2100,
+        "yearly": 25200
+      }
+    },
+    {
+      "key": "Foxton Marine",
+      "name": "Foxton Marine",
+      "left": {
+        "monthly": 14200,
+        "yearly": 170400
+      },
+      "right": {
+        "monthly": 11360,
+        "yearly": 136320
+      },
+      "reason": "A 20% first-year discount expired in February. Billing still applies it."
+    },
+    {
+      "key": "Greywell Clinics",
+      "name": "Greywell Clinics",
+      "left": {
+        "monthly": 3800,
+        "yearly": 45600
+      },
+      "right": {
+        "monthly": 3800,
+        "yearly": 45600
+      }
+    },
+    {
+      "key": "Hythe Cold Store",
+      "name": "Hythe Cold Store",
+      "left": {
+        "monthly": 4400,
+        "yearly": 52800
+      },
+      "right": {
+        "monthly": 4400,
+        "yearly": 52800
+      }
+    },
+    {
+      "key": "Ivel Foods",
+      "name": "Ivel Foods",
+      "left": {
+        "monthly": 5900,
+        "yearly": 70800
+      },
+      "right": {
+        "monthly": 5900,
+        "yearly": 70800
+      }
+    },
+    {
+      "key": "Jarrow Steel",
+      "name": "Jarrow Steel",
+      "left": {
+        "monthly": 9600,
+        "yearly": 115200
+      },
+      "right": {
+        "monthly": 10752,
+        "yearly": 129024
+      },
+      "reason": "Twelve seats were added in billing with no contract amendment."
+    },
+    {
+      "key": "Kelso Vineyards",
+      "name": "Kelso Vineyards",
+      "left": {
+        "monthly": 7800,
+        "yearly": 93600
+      },
+      "right": {
+        "monthly": 7800,
+        "yearly": 93600
+      }
+    },
+    {
+      "key": "Larkhall Schools",
+      "name": "Larkhall Schools",
+      "left": {
+        "monthly": 8900,
+        "yearly": 106800
+      },
+      "right": {
+        "monthly": 8900,
+        "yearly": 106800
+      }
+    },
+    {
+      "key": "Mossley Print",
+      "name": "Mossley Print",
+      "left": {
+        "monthly": 11000,
+        "yearly": 132000
+      },
+      "right": {
+        "monthly": 5500,
+        "yearly": 66000
+      },
+      "reason": "The customer downgraded in the sales system. Billing was changed, the contract record was not."
+    },
+    {
+      "key": "Norham Dental",
+      "name": "Norham Dental",
+      "left": {
+        "monthly": 12000,
+        "yearly": 144000
+      },
+      "right": {
+        "monthly": 12000,
+        "yearly": 144000
+      }
+    },
+    {
+      "key": "Oxgate Labs",
+      "name": "Oxgate Labs",
+      "left": {
+        "monthly": 13500,
+        "yearly": 162000
+      },
+      "right": {
+        "monthly": 13500,
+        "yearly": 162000
+      }
+    },
+    {
+      "key": "Pinner Motors",
+      "name": "Pinner Motors",
+      "left": {
+        "monthly": 15200,
+        "yearly": 182400
+      },
+      "right": {
+        "monthly": 15200,
+        "yearly": 182400
+      }
+    },
+    {
+      "key": "Quorn Dairy",
+      "name": "Quorn Dairy",
+      "left": {
+        "monthly": 4800,
+        "yearly": 57600
+      },
+      "right": {
+        "monthly": 4800.24,
+        "yearly": 57602.88
+      },
+      "reason": "A rounding difference on the per-seat price, inside tolerance."
+    },
+    {
+      "key": "Ruthin Glass",
+      "name": "Ruthin Glass",
+      "left": {
+        "monthly": 16800,
+        "yearly": 201600
+      },
+      "right": {
+        "monthly": 16800,
+        "yearly": 201600
+      }
+    },
+    {
+      "key": "Selby Grain",
+      "name": "Selby Grain",
+      "left": {
+        "monthly": 6300,
+        "yearly": 75600
+      },
+      "right": {
+        "monthly": 5670,
+        "yearly": 68040
+      },
+      "reason": "Billing prorated the month for a renewal that had no gap."
+    },
+    {
+      "key": "Thirsk Timber",
+      "name": "Thirsk Timber",
+      "left": {
+        "monthly": 19400,
+        "yearly": 232800
+      },
+      "right": {
+        "monthly": 19400,
+        "yearly": 232800
+      }
+    },
+    {
+      "key": "Usk Valley Water",
+      "name": "Usk Valley Water",
+      "left": {
+        "monthly": 17500,
+        "yearly": 210000
+      },
+      "right": {
+        "monthly": 24500,
+        "yearly": 294000
+      },
+      "reason": "An add-on module is billed that sales recorded as a free trial."
+    },
+    {
+      "key": "Varley Tools",
+      "name": "Varley Tools",
+      "left": {
+        "monthly": 22100,
+        "yearly": 265200
+      },
+      "right": {
+        "monthly": 22100,
+        "yearly": 265200
+      }
+    },
+    {
+      "key": "Wyre Aerospace",
+      "name": "Wyre Aerospace",
+      "left": {
+        "monthly": 7200,
+        "yearly": 86400
+      },
+      "reason": "Signed on 2 March and live. No subscription was ever created in billing, so nothing has been invoiced."
+    },
+    {
+      "key": "Yeo Ceramics",
+      "name": "Yeo Ceramics",
+      "left": {
+        "monthly": 2600,
+        "yearly": 31200
+      },
+      "reason": "Contract active. The billing subscription was cancelled by mistake during a card update."
+    },
+    {
+      "key": "Zennor Hotels",
+      "name": "Zennor Hotels",
+      "right": {
+        "monthly": 1850,
+        "yearly": 22200
+      },
+      "reason": "Still billed monthly. The contract ended in December and was never renewed."
+    }
   ]
 }

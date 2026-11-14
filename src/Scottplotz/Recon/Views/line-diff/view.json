@@ -10,7 +10,6 @@
     "listSub": "One indicator per {unitOne}.",
     "leftSide": "{left}",
     "rightSide": "{right}",
-    "groupMeta": "{dos}",
     "linesDiffer": "{differ} of {total} {unit} differ",
     "allAgree": "All {unit} agree",
     "gapLeft": "No line in {leftShort}",
@@ -21,7 +20,10 @@
     {
       "name": "sortBy",
       "type": "choice",
-      "allowed": ["input", "breaks"],
+      "allowed": [
+        "input",
+        "breaks"
+      ],
       "default": "input",
       "description": "Order of groups in the list: input order, or groups with breaks first."
     }

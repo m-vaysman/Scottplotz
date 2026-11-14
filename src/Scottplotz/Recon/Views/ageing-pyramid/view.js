@@ -1,5 +1,6 @@
 const { h, s, model, label, text, opt, fmt, val, int, money } = RD;
 RD.tieOut(document.getElementById('tie'));
+document.getElementById('cs').textContent = model.asOf ? text('chartSub') : text('chartSubUndated');
 
 const asOfDate = model.asOf ? new Date(model.asOf) : null;
 function getAge(rec) {
@@ -156,7 +157,7 @@ function draw() {
       h('th', { text: text('colReason') })
     ])),
     h('tbody', {}, shownRows.map(x => {
-      const dup = x.rec.duplicate ? ' ×2' : '';
+      const dup = x.rec.duplicate ? ' (' + label('duplicate').toLowerCase() + ')' : '';
       const isLo = side === 'leftOnly';
       const isRo = side === 'rightOnly';
       const lAmt = val(x.rec, 'left');

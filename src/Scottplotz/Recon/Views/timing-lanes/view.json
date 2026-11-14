@@ -2,7 +2,7 @@
   "name": "timing-lanes",
   "title": "Timing lanes",
   "description": "Two horizontal lanes by date showing the lag between matching events.",
-  "needs": "Date values on each side, such as capture date and settlement date.",
+  "needs": "A date field with a value on each side, such as capture date and settlement date. A second date for a duplicate goes in attrs.dupDay.",
   "text": {
     "title": "{left} against {right}",
     "lede": "The top lane is the date of {leftShort}. The bottom lane is the date of {rightShort}. A line joins the two, so its slope is the wait. Steep lines settled on time; long, flat lines were late; a dot with no line never found its partner.",
@@ -31,7 +31,8 @@
     "statusRightOnly": "right only",
     "duplicateSuffix": ", ×2",
     "defaultBreakReason": "",
-    "and": "and"
+    "and": "and",
+    "noDates": "No record has a date on either side, so there are no lanes to draw. Send a date field."
   },
   "options": [
     {

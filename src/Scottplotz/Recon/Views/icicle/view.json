@@ -14,7 +14,8 @@
     "name": "Name",
     "total": "Total",
     "all": "All",
-    "differ": "{count} differ"
+    "differ": "{count} differ",
+    "detailTitle": "{group}: {rightShort} {diff} against {leftShort}"
   },
   "options": [
     {

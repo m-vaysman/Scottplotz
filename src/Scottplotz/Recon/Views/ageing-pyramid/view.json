@@ -9,6 +9,7 @@
     "chartTitleCount": "Unpaired {unit} by age, counted",
     "chartTitleAmount": "Unpaired {unit} by age, by {measure}",
     "chartSub": "Open items as of {asOf}. Select a bar to list its items.",
+    "chartSubUndated": "Open items. Select a bar to list its items.",
     "chartAria": "Open items by age and side",
     "modeCount": "Number of {unit}",
     "modeAmount": "{measure} amount",

@@ -118,7 +118,7 @@ function show() {
   const cell = (side, f, differs) => {
     const v = val(r, side, f.key);
     return h('td', {
-      class: (f.type === 'number' ? 'n' : '') +
+      class: 'n' +
              (differs ? (side === 'left' ? ' dl' : ' dr') : '') +
              (v === null ? ' none' : ''),
       text: fmt(f.key, v)

@@ -12,16 +12,16 @@
   ],
   "measure": "amt",
   "totals": {
-    "left": 829.63,
+    "left": 839.63,
     "right": 727.73
   },
   "groups": [
-    { "key": "CLM-88213", "attrs": { "patient": "M. Okafor", "dos": "4 March 2026" } },
-    { "key": "CLM-88240", "attrs": { "patient": "D. Lindqvist", "dos": "6 March 2026" } },
-    { "key": "CLM-88251", "attrs": { "patient": "R. Castellanos", "dos": "9 March 2026" } },
-    { "key": "CLM-88267", "attrs": { "patient": "A. Brennan", "dos": "10 March 2026" } },
-    { "key": "CLM-88270", "attrs": { "patient": "T. Nakamura", "dos": "11 March 2026" } },
-    { "key": "CLM-88302", "attrs": { "patient": "S. Abara", "dos": "2 March 2026" } }
+    { "key": "CLM-88213", "name": "M. Okafor", "attrs": { "Date of service": "4 March 2026" } },
+    { "key": "CLM-88240", "name": "D. Lindqvist", "attrs": { "Date of service": "6 March 2026" } },
+    { "key": "CLM-88251", "name": "R. Castellanos", "attrs": { "Date of service": "9 March 2026" } },
+    { "key": "CLM-88267", "name": "A. Brennan", "attrs": { "Date of service": "10 March 2026" } },
+    { "key": "CLM-88270", "name": "T. Nakamura", "attrs": { "Date of service": "11 March 2026" } },
+    { "key": "CLM-88302", "name": "S. Abara", "attrs": { "Date of service": "2 March 2026" } }
   ],
   "records": [
     { "key": "CLM-88213-1", "group": "CLM-88213", "left": { "cpt": "99214", "mod": "25", "units": 1, "amt": 148.12 }, "right": { "cpt": "99213", "mod": "25", "units": 1, "amt": 101.40 }, "status": "break", "reason": "Downcoded from 99214 to 99213. The payer says the notes support a lower visit level. 46.72 short." },
@@ -47,7 +47,6 @@
     "listSub": "One bar per claim line.",
     "leftSide": "Expected, from billing",
     "rightSide": "Remittance, from payer",
-    "groupMeta": "Date of service {dos}.",
     "linesDiffer": "{differ} of {total} lines differ",
     "allAgree": "all lines agree",
     "gapLeft": "no line in billing",

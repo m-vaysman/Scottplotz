@@ -51,7 +51,7 @@ const colW = (X1 - X0) / numBins;
 const x = k => X0 + (k + beyond) * colW;
 
 const maxCount = Math.max(0, ...Array.from(bins.values()).map(b => b.count));
-const rawTicks = RD.ticks(maxCount, 4);
+const rawTicks = RD.ticks(maxCount, Math.max(1, Math.min(4, Math.floor(maxCount))));
 const topTick = rawTicks[rawTicks.length - 1] || 1;
 const yTicks = [0];
 if (topTick >= 20) {
@@ -82,7 +82,7 @@ yTicks.forEach(t => {
 });
 
 const step = maxBins <= 6 ? 1 : maxBins <= 12 ? 2 : maxBins <= 25 ? 5 : maxBins <= 50 ? 10 : 20;
-const dec = Number.isInteger(bw) ? 0 : (RD.measure?.decimals ?? 2);
+const dec = (String(+bw.toPrecision(10)).split('.')[1] || '').length;
 for (let k = -Math.floor(maxBins / step) * step; k <= maxBins; k += step) {
   const valDiff = k * bw;
   const txt = valDiff === 0 ? '0' : (valDiff > 0 ? '+' : '−') + Math.abs(valDiff).toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec });
@@ -96,12 +96,11 @@ svg.append(
 );
 
 let sel = 0, bestCount = -1;
-bins.forEach((b, k) => {
-  if (k !== 0 && b.count > bestCount) {
-    bestCount = b.count;
-    sel = k;
-  }
+const pickFrom = test => bins.forEach((b, k) => {
+  if (k !== 0 && b.count > bestCount && b.records.some(test)) { bestCount = b.count; sel = k; }
 });
+pickFrom(r => r.status === 'break');
+if (bestCount <= 0) pickFrom(() => true);
 if (bestCount <= 0 && bins.has(0)) sel = 0;
 
 const bars = new Map();
@@ -139,6 +138,8 @@ bins.forEach((bin, k) => {
 
   bars.set(k, b);
   svg.append(b);
+  const noted = bin.records.find(r => r.attrs && r.attrs.note);
+  if (noted) svg.append(s('text', { x: Math.min(X1 - 40, Math.max(X0 + 40, x(k) + colW / 2)), y: top - 6, 'text-anchor': 'middle', text: String(noted.attrs.note), 'pointer-events': 'none' }));
 });
 
 document.getElementById('chart').append(svg);

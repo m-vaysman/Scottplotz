@@ -36,7 +36,7 @@ const names = RD.groupNames();
 const groups = (names.length ? names : ['']).map(name => {
   const gRecs = names.length ? model.records.filter(r => r.group[0] === name) : [...model.records];
   return {
-    name: name || model.left.name,
+    name: name || text('groupsTitle'),
     key: name,
     recs: gRecs.sort((a, b) => (a.date || '').localeCompare(b.date || ''))
   };
@@ -101,11 +101,15 @@ function show() {
   });
 
   if (N > 0) {
+    const ps = recs.map(r => parseDate(r.date));
+    const days = new Set(ps.map(p => p && `${p.month}-${p.day}`));
+    const daily = ps.every(p => p) && days.size > 1 && days.size <= 14;
     const xStep = Math.max(1, Math.round(N / 6));
-    for (let i = 0; i < N; i += xStep) {
+    for (let i = 0; i < N; i += daily ? 1 : xStep) {
+      if (daily && !(i === 0 || ps[i].day !== ps[i - 1].day)) continue;
       svg.append(
         s('line', { class: 'gridl', x1: x(i), x2: x(i), y1: T0, y2: R1 }),
-        s('text', { class: 'mut', x: x(i) + 2, y: 368, text: formatXLabel(recs[i], i) })
+        s('text', { class: 'mut', x: x(i) + 2, y: 368, text: daily ? `${ps[i].day} ${monthNames[ps[i].month - 1]}` : formatXLabel(recs[i], i) })
       );
     }
   }
@@ -211,7 +215,7 @@ function show() {
   }
   document.getElementById('ct').textContent = g.name + (dateRange ? `, ${dateRange}` : '');
   const gInfo = RD.groupInfo([g.key]);
-  document.getElementById('cs').textContent = gInfo?.note || recs.find(r => r.reason)?.reason || text('groupAgrees');
+  document.getElementById('cs').textContent = gInfo?.note || recs.find(r => r.reason)?.reason || (recs.some(r => r.status !== 'exact') ? '' : text('groupAgrees'));
 
   const bad = recs.filter(r => r.status !== 'exact');
   const maxTable = opt('maxTableRows') || 12;

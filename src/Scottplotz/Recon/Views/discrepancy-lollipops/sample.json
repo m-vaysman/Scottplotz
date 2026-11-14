@@ -34,11 +34,11 @@
         { "name": "Video pre-roll", "impr": 336000 }
       ],
       "right": [
-        { "name": "Homepage top", "impr": 1400000 },
-        { "name": "Article inline", "impr": 1070000 },
-        { "name": "Mobile sticky", "impr": 80000 },
-        { "name": "Sidebar", "impr": 235200 },
-        { "name": "Video pre-roll", "impr": 264000 }
+        { "name": "Homepage top", "impr": 1330182 },
+        { "name": "Article inline", "impr": 154098 },
+        { "name": "Mobile sticky", "impr": 782460 },
+        { "name": "Sidebar", "impr": 469476 },
+        { "name": "Video pre-roll", "impr": 312984 }
       ],
       "reason": "The advertiser’s tag loads late on mobile. A quarter of impressions are served and never counted by them."
     },

@@ -193,7 +193,7 @@ function show() {
 
   const nodeTitle = node.name || text('all');
   const dStr = fmtSigned(M, d);
-  document.getElementById('dt').textContent = `${nodeTitle}: ${model.right.short} ${dStr} against ${model.left.short}`;
+  document.getElementById('dt').textContent = text('detailTitle').replace('{group}', nodeTitle).replace('{diff}', dStr);
   const unitStr = recCount === 1 ? model.unitOne : model.unit;
   document.getElementById('ds').textContent = `${int(recCount)} ${unitStr}, ` + text('differ').replace('{count}', int(diffCount)) + '.';
 

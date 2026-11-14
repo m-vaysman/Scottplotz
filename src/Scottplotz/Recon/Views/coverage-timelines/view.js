@@ -43,9 +43,12 @@ D.forEach(r => {
     }
   });
 });
-if (!isFinite(minT) || !isFinite(maxT)) {
-  minT = Date.UTC(2026, 0, 1);
-  maxT = Date.UTC(2026, 11, 31);
+const hasDates = isFinite(minT) && isFinite(maxT);
+if (!hasDates) {
+  const yr = model.asOf && !isNaN(new Date(model.asOf).getTime()) ? new Date(model.asOf).getUTCFullYear() : 1970;
+  minT = Date.UTC(yr, 0, 1);
+  maxT = Date.UTC(yr, 11, 31);
+  document.getElementById('chartSub').textContent += ' ' + text('noDates');
 }
 if (minT === maxT) maxT = minT + 86400000;
 
@@ -55,6 +58,12 @@ const x = t => X0 + (t - minT) / (maxT - minT || 1) * (X1 - X0);
 const svg = s('svg', { viewBox: `0 0 ${W} ${TOP + D.length * RH + 4}`, width: '100%', role: 'img', 'aria-label': text('chartTitle') });
 
 const MN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const fmtField = (key, v) => {
+  const f = RD.field(key), t = f && f.type === 'date' ? parseDate(v) : null;
+  if (t === null) return fmt(key, v);
+  const d = new Date(t);
+  return d.getUTCDate() + ' ' + MN[d.getUTCMonth()] + (new Date(minT).getUTCFullYear() !== new Date(maxT).getUTCFullYear() ? ' ' + d.getUTCFullYear() : '');
+};
 const dMin = new Date(minT), dMax = new Date(maxT);
 const ticks = [];
 let cur = new Date(Date.UTC(dMin.getUTCFullYear(), dMin.getUTCMonth(), 1));
@@ -101,8 +110,8 @@ D.forEach((r, i) => {
   const hasRight = rStart !== null && rEnd !== null;
 
   hit.addEventListener('click', () => { sel = r; show(); });
-  const lHover = hasLeft ? `${fmt(startKey, r.left[startKey])} – ${fmt(endKey, r.left[endKey])}` : label('none');
-  const rHover = hasRight ? `${fmt(startKey, r.right[startKey])} – ${fmt(endKey, r.right[endKey])}` : label('none');
+  const lHover = hasLeft ? `${fmtField(startKey, r.left[startKey])} – ${fmtField(endKey, r.left[endKey])}` : label('none');
+  const rHover = hasRight ? `${fmtField(startKey, r.right[startKey])} – ${fmtField(endKey, r.right[endKey])}` : label('none');
   RD.hover(hit, r.name === r.key ? r.name : `${r.key}, ${r.name}`, [`${model.left.short}: ${lHover}`, `${model.right.short}: ${rHover}`]);
 
   svg.append(s('text', { x: 6, y: cy + 4, text: clip(r.name || r.key, 22), ...np }));
@@ -165,8 +174,8 @@ function show() {
     const differs = a !== null && b !== null && a !== b;
     return h('tr', {}, [
       h('td', { text: f.label }),
-      h('td', { class: (f.type === 'number' ? 'n ' : '') + (differs ? 'dl' : '') + (a === null ? ' none' : ''), text: fmt(f.key, a) }),
-      h('td', { class: (f.type === 'number' ? 'n ' : '') + (differs ? 'dr' : ''), text: fmt(f.key, b) })
+      h('td', { class: (f.type === 'number' ? 'n ' : '') + (differs ? 'dl' : '') + (a === null ? ' none' : ''), text: fmtField(f.key, a) }),
+      h('td', { class: (f.type === 'number' ? 'n ' : '') + (differs ? 'dr' : ''), text: fmtField(f.key, b) })
     ]);
   };
 
@@ -179,7 +188,7 @@ function show() {
       ])),
       h('tbody', {}, model.fields.map(row))
     ]),
-    h('p', { class: 'why', text: r.reason || text('noReason') })
+    h('p', { class: 'why', text: r.reason || (r.status === 'exact' ? text('noReason') : '') })
   );
 }
 if (sel) show();

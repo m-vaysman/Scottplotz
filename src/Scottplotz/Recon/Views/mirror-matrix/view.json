@@ -13,7 +13,7 @@
     "axisLabel": "{rightShort}",
     "rowHeader": "{leftShort}",
     "pairTitle": "{row} \u2192 {col}",
-    "pairSub": "{leftShort} {left}, {rightShort} {right}. {status}",
+    "pairSub": "{leftShort} {leftAmount}, {rightShort} {rightAmount}. {status}",
     "pairAgrees": "Both sides agree.",
     "pairDiff": "Out by {diff}.",
     "document": "{unitOne}",

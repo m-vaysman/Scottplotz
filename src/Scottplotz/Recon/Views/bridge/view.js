@@ -81,7 +81,7 @@ function niceTicks(min, max, n = 5) {
 function tickFmt(v) {
   if (Math.abs(v) >= 1e6 && v % 1e5 === 0) return (v / 1e6).toLocaleString('en-US', { maximumFractionDigits: 2 }) + 'M';
   if (Math.abs(v) >= 1e3 && v % 1e2 === 0) return (v / 1e3).toLocaleString('en-US', { maximumFractionDigits: 2 }) + 'K';
-  return M ? fmt(M.key, v) : int(v);
+  return M ? fmt(M, v) : int(v);
 }
 
 const W = 1100, RH = 44, X0 = 250, X1 = 930, top = 34;
@@ -132,16 +132,16 @@ rows.forEach((r, i) => {
 
   if ('mark' in r) {
     svg.append(s('line', { x1: x(r.mark), x2: x(r.mark), y1: cy - 13, y2: cy + 13, stroke: 'var(--ink)', 'stroke-width': 3, 'stroke-linecap': 'round', 'pointer-events': 'none' }));
-    svg.append(s('text', { x: W - 6, y: cy + 4, 'text-anchor': 'end', 'font-weight': 600, text: fmt(M?.key, r.mark), 'pointer-events': 'none' }));
+    svg.append(s('text', { x: W - 6, y: cy + 4, 'text-anchor': 'end', 'font-weight': 600, text: fmt(M, r.mark), 'pointer-events': 'none' }));
   } else {
     const a = x(Math.min(r.from, r.to)), b = x(Math.max(r.from, r.to));
     svg.append(s('rect', { class: r.cls === 'dup' ? 'dupbar' : 'f-' + r.cls, x: a, y: cy - 10, width: Math.max(3, b - a), height: 20, rx: 3, 'pointer-events': 'none' }));
-    svg.append(s('text', { x: W - 6, y: cy + 4, 'text-anchor': 'end', text: fmtSigned(M?.key, r.effect), 'pointer-events': 'none' }));
+    svg.append(s('text', { x: W - 6, y: cy + 4, 'text-anchor': 'end', text: fmtSigned(M, r.effect), 'pointer-events': 'none' }));
     const count = r.records.reduce((sum, rec) => sum + (rec.count || 1), 0);
     const countText = count ? `${int(count)} ${count === 1 ? model.unitOne : model.unit}` : '';
     svg.append(s('text', { class: 'mut', x: b + 8, y: cy + 4, text: countText, 'pointer-events': 'none' }));
     hit.addEventListener('click', () => { sel = i; show(); });
-    RD.hover(hit, r.name, [fmtSigned(M?.key, r.effect), r.note]);
+    RD.hover(hit, r.name, [fmtSigned(M, r.effect), r.note]);
   }
 
   const next = 'mark' in r ? r.mark : r.to;
@@ -157,14 +157,14 @@ function show() {
   const st = rows[sel];
   if (!st) return;
   if ('mark' in st) {
-    document.getElementById('dt').textContent = `${st.name}: ${fmt(M?.key, st.mark)}`;
+    document.getElementById('dt').textContent = `${st.name}: ${fmt(M, st.mark)}`;
     document.getElementById('ds').textContent = '';
     document.getElementById('detail').replaceChildren();
     return;
   }
-  document.getElementById('dt').textContent = `${st.name}: ${fmtSigned(M?.key, st.effect)}`;
+  document.getElementById('dt').textContent = `${st.name}: ${fmtSigned(M, st.effect)}`;
   document.getElementById('ds').textContent = st.note || '';
-  const cell = v => h('td', { class: 'n' + (v === null || v === undefined ? ' none' : ''), text: v === null || v === undefined ? label('none') : fmt(M?.key, v) });
+  const cell = v => h('td', { class: 'n' + (v === null || v === undefined ? ' none' : ''), text: v === null || v === undefined ? label('none') : fmt(M, v) });
   const body = st.records.map(r => {
     const l = val(r, 'left');
     const rt = val(r, 'right');
@@ -175,7 +175,7 @@ function show() {
       h('td', { text: r.name || '' }),
       cell(l),
       cell(rt),
-      h('td', { class: 'n', text: fmtSigned(M?.key, eff) })
+      h('td', { class: 'n', text: fmtSigned(M, eff) })
     ]);
   });
   const table = h('table', { class: 'tbl' }, [
@@ -190,7 +190,7 @@ function show() {
     h('tbody', {}, body),
     h('tfoot', {}, h('tr', {}, [
       h('td', { colspan: 5, text: text('stepTotal') }),
-      h('td', { class: 'n', text: fmtSigned(M?.key, st.effect) })
+      h('td', { class: 'n', text: fmtSigned(M, st.effect) })
     ]))
   ]);
   document.getElementById('detail').replaceChildren(

@@ -22,7 +22,7 @@ const colourScale = opt('colourScale') || 25;
 
 const cells = new Map();
 const tbl = h('table', { class: 'mx' });
-const headerName = text('record') || model.unitOne || 'Record';
+const headerName = (text('record') || model.unitOne).replace(/^./, c => c.toUpperCase());
 tbl.append(h('tr', {}, [h('th', { class: 'nm', text: headerName }), ...cols.map(c => h('th', { text: c.label }))]));
 
 let curRi = 0;
@@ -102,7 +102,7 @@ groups.forEach(g => {
 
 const footTds = cols.map(col => {
   let sum = 0, hasVal = false;
-  rows.forEach(r => {
+  rows.filter(r => r.status !== 'leftOnly' && r.status !== 'rightOnly').forEach(r => {
     const l = val(r, 'left', col.key);
     const rt = val(r, 'right', col.key);
     if (l !== null || rt !== null) {
@@ -183,7 +183,7 @@ function show() {
     }
   }
 
-  const whyText = (r.reason || text('allAgree')) + follows;
+  const whyText = (r.reason || (r.status === 'break' || r.status === 'tolerance' ? '' : text('allAgree'))) + follows;
   const detailTable = h('table', { class: 'tbl' }, [
     h('thead', {}, h('tr', {}, [
       h('th', { text: text('component') }),

@@ -67,9 +67,7 @@ aisles.forEach(a => {
   svg.append(t);
 });
 
-let sel = model.records.find(r => r.key === 'CR-15') ||
-  model.records.find(r => r.status === 'break') ||
-  model.records[0];
+let sel;
 const cells = new Map();
 const scale = opt('colourScale') || 30;
 
@@ -129,6 +127,12 @@ const costVal = r => {
   }
   return r.delta;
 };
+{
+  const cnt = new Map(); model.records.forEach(r => { if (r.status !== 'exact') cnt.set(r.group[0] ?? '', (cnt.get(r.group[0] ?? '') || 0) + r.count); });
+  const top = [...cnt.entries()].sort((p, q) => q[1] - p[1])[0];
+  const pool = model.records.filter(r => r.status === 'break' && (!top || (r.group[0] ?? '') === top[0]));
+  sel = pool.sort((p, q) => Math.abs(costVal(q) ?? 0) - Math.abs(costVal(p) ?? 0))[0] || model.records.find(r => r.status === 'break') || model.records[0];
+}
 
 function show() {
   if (!sel) return;
@@ -149,8 +153,8 @@ function show() {
   const dtEl = document.getElementById('dt');
   if (dtEl) {
     if (selAisle) {
-      dtEl.textContent = text('aisleSummary')
-        .replace('{aisle}', selAisle)
+      dtEl.textContent = text('groupSummary')
+        .replace('{group}', selAisle)
         .replace('{differCount}', int(differCount))
         .replace('{totalCount}', int(aisleTotal))
         .replace('{unit}', model.unit);
@@ -178,7 +182,7 @@ function show() {
   const rows = sorted.slice(0, 14);
 
   const thCols = [
-    h('th', { text: text('bin') }),
+    h('th', { text: text('bin').charAt(0).toUpperCase() + text('bin').slice(1) }),
     h('th', { text: text('item') }),
     h('th', { class: 'n', text: model.left.short }),
     h('th', { class: 'n', text: model.right.short }),
@@ -193,7 +197,7 @@ function show() {
     const l = val(r, 'left');
     const rt = val(r, 'right');
     const tds = [
-      h('td', { text: r.key + (r.duplicate ? ' ×2' : '') }),
+      h('td', { text: r.key + (r.duplicate ? ' (' + label('duplicate').toLowerCase() + ')' : '') }),
       h('td', { text: clip(r.name, 28) }),
       h('td', { class: 'n' + (df ? ' dl' : '') + (l === null ? ' none' : ''), text: l === null ? label('none') : fmt(M, l) }),
       h('td', { class: 'n' + (df ? ' dr' : '') + (rt === null ? ' none' : ''), text: rt === null ? label('none') : fmt(M, rt) }),
@@ -212,7 +216,7 @@ function show() {
 
   const totalCost = displayRecords.reduce((t, x) => t + (costVal(x) ?? 0), 0);
   const tfoot = h('tfoot', {}, h('tr', {}, [
-    h('td', { colspan: hasCost ? 5 : 4, text: text('aisleTotal') }),
+    h('td', { colspan: hasCost ? 5 : 4, text: text('groupTotal') }),
     h('td', { class: 'n', text: hasCost ? RD.signed(totalCost) : fmtSigned(M, totalCost) })
   ]));
 
