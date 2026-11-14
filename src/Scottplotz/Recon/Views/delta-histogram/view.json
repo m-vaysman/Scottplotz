@@ -1,0 +1,48 @@
+{
+  "name": "delta-histogram",
+  "title": "Delta histogram",
+  "description": "Histogram of differences on a shared measure for matched records, with a tolerance band and side counts.",
+  "needs": "A numeric measure and records on both sides.",
+  "text": {
+    "title": "{left} against {right}",
+    "lede": "Distribution of {measure} differences ({rightShort} minus {leftShort}). Records within tolerance fall inside the shaded band.",
+    "chartTitle": "{measure} difference per {unitOne}, {rightShort} minus {leftShort}",
+    "chartSub": "Tolerance is {tolerance} per {unitOne}. Bar heights are compressed with a square-root scale. Select a bar.",
+    "bothAgree": "Agrees",
+    "withinTol": "Within tolerance",
+    "leftHigher": "{leftShort} higher",
+    "rightHigher": "{rightShort} higher",
+    "unmatchedTitle": "{unit} with no partner",
+    "unmatchedSub": "These have no difference to plot.",
+    "leftOnlyDesc": "In {left} only; missing from {right}.",
+    "rightOnlyDesc": "In {right} only; missing from {left}.",
+    "dupDesc": "Recorded more than once.",
+    "axisLabel": "Difference in {measure}",
+    "beyond": "beyond",
+    "noRecords": "No records in this bin.",
+    "showingFirst": "Showing the first {shown} of {total} {unit}.",
+    "topGroup": "{pct}% in {group}.",
+    "detailTitle": "{count} {unit} at {diff}",
+    "detailTitleBeyond": "{count} {unit} more than {bound} ({dir})",
+    "detailTitleExact": "{count} {unit} that agree exactly",
+    "difference": "Difference",
+    "field": "Record",
+    "group": "Group"
+  },
+  "options": [
+    {
+      "name": "binWidth",
+      "type": "number",
+      "default": null,
+      "description": "Width of each histogram bin in measure units; defaults to the tolerance or an auto-calculated step."
+    },
+    {
+      "name": "maxBins",
+      "type": "integer",
+      "default": 20,
+      "min": 1,
+      "max": 100,
+      "description": "Maximum number of bins to display on each side of zero before grouping into beyond bins."
+    }
+  ]
+}

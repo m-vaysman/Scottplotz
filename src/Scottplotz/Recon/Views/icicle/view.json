@@ -1,0 +1,28 @@
+{
+  "name": "icicle",
+  "title": "Icicle plot",
+  "description": "Hierarchical partition display with columns for each group level and individual records. Block height shows measure and colour shows difference.",
+  "needs": "A numeric measure and grouped records.",
+  "text": {
+    "title": "{left} against {right}",
+    "lede": "Hierarchical columns for each group level and individual {unit}. Height is {measure}. Colour is the difference between {leftShort} and {rightShort}.",
+    "chartTitle": "{measure} by group and {unitOne}",
+    "chartSub": "Tolerance is {tolerance} per {unitOne}. Select any block.",
+    "difference": "Difference",
+    "reason": "Reason",
+    "item": "Item",
+    "name": "Name",
+    "total": "Total",
+    "all": "All",
+    "differ": "{count} differ"
+  },
+  "options": [
+    {
+      "name": "sortBy",
+      "type": "choice",
+      "allowed": ["input", "difference"],
+      "default": "input",
+      "description": "Sort order of siblings within each group: as sent, or largest difference first."
+    }
+  ]
+}

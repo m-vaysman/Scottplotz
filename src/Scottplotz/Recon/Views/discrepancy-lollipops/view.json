@@ -1,0 +1,25 @@
+{
+  "name": "discrepancy-lollipops",
+  "title": "Discrepancy lollipops",
+  "description": "Lollipop plot of percentage difference against a tolerance band, trailing stems to zero for breaks.",
+  "needs": "A numeric measure and percentage tolerance.",
+  "text": {
+    "title": "{left} against {right}",
+    "lede": "Each {unitOne} is a dot on one scale of percentage difference. Inside the tolerance band is normal. A dot outside trails a stem back to zero in the colour of the side that is higher.",
+    "chartTitle": "{rightShort} against {leftShort}, by {unitOne}",
+    "chartSub": "Tolerance is {tolerance}%. Sorted by difference.",
+    "legendBand": "Inside tolerance (±{tolerance}%)",
+    "legendRight": "{rightShort} higher",
+    "legendLeft": "{leftShort} higher",
+    "difference": "Difference",
+    "field": "Field",
+    "line": "Line",
+    "noReason": "Inside tolerance.",
+    "agreesReason": "Both sides agree.",
+    "truncated": "Showing the first {shown} of {total} {unit}."
+  },
+  "options": [
+    { "name": "sortBy", "type": "choice", "allowed": ["difference", "input"], "default": "difference", "description": "Row order: largest percentage difference first, or as sent." },
+    { "name": "maxRows", "type": "integer", "default": 200, "min": 1, "max": 1000, "description": "Draw at most this many records." }
+  ]
+}

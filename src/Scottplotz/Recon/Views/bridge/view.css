@@ -1,0 +1,4 @@
+.row-hit{fill:transparent;cursor:pointer}
+.row-hit:hover{fill:var(--wash)}
+.row-sel{fill:var(--wash)}
+.dupbar{fill:var(--surface);stroke:var(--brk);stroke-width:1.5}

@@ -1,0 +1,59 @@
+{
+  "left": { "name": "Billing system, contract rates", "short": "Expected" },
+  "right": { "name": "Remittance advice 835", "short": "Remittance" },
+  "unit": { "one": "claim line", "many": "claim lines" },
+  "asOf": "2026-03-31",
+  "tolerance": 0.05,
+  "fields": [
+    { "key": "cpt", "label": "Code", "type": "text" },
+    { "key": "mod", "label": "Modifier", "type": "text" },
+    { "key": "units", "label": "Units", "type": "number", "decimals": 0 },
+    { "key": "amt", "label": "Amount", "type": "number", "decimals": 2 }
+  ],
+  "measure": "amt",
+  "totals": {
+    "left": 829.63,
+    "right": 727.73
+  },
+  "groups": [
+    { "key": "CLM-88213", "attrs": { "patient": "M. Okafor", "dos": "4 March 2026" } },
+    { "key": "CLM-88240", "attrs": { "patient": "D. Lindqvist", "dos": "6 March 2026" } },
+    { "key": "CLM-88251", "attrs": { "patient": "R. Castellanos", "dos": "9 March 2026" } },
+    { "key": "CLM-88267", "attrs": { "patient": "A. Brennan", "dos": "10 March 2026" } },
+    { "key": "CLM-88270", "attrs": { "patient": "T. Nakamura", "dos": "11 March 2026" } },
+    { "key": "CLM-88302", "attrs": { "patient": "S. Abara", "dos": "2 March 2026" } }
+  ],
+  "records": [
+    { "key": "CLM-88213-1", "group": "CLM-88213", "left": { "cpt": "99214", "mod": "25", "units": 1, "amt": 148.12 }, "right": { "cpt": "99213", "mod": "25", "units": 1, "amt": 101.40 }, "status": "break", "reason": "Downcoded from 99214 to 99213. The payer says the notes support a lower visit level. 46.72 short." },
+    { "key": "CLM-88213-2", "group": "CLM-88213", "left": { "cpt": "93000", "mod": "", "units": 1, "amt": 21.75 }, "right": { "cpt": "93000", "mod": "", "units": 1, "amt": 21.75 }, "status": "exact" },
+    { "key": "CLM-88213-3", "group": "CLM-88213", "left": { "cpt": "36415", "mod": "", "units": 1, "amt": 3.00 }, "status": "leftOnly", "reason": "Not on the remittance. The payer bundles the blood draw into the visit (adjustment code CO-97)." },
+    { "key": "CLM-88240-1", "group": "CLM-88240", "left": { "cpt": "97110", "mod": "GP", "units": 4, "amt": 124.80 }, "right": { "cpt": "97110", "mod": "GP", "units": 3, "amt": 93.60 }, "status": "break", "reason": "Four units billed, three paid. The fourth exceeds the plan’s daily limit. 31.20 short." },
+    { "key": "CLM-88240-2", "group": "CLM-88240", "left": { "cpt": "97140", "mod": "GP", "units": 2, "amt": 58.20 }, "right": { "cpt": "97140", "mod": "GP", "units": 2, "amt": 58.20 }, "status": "exact" },
+    { "key": "CLM-88251-1", "group": "CLM-88251", "left": { "cpt": "99396", "mod": "", "units": 1, "amt": 162.00 }, "right": { "cpt": "99396", "mod": "", "units": 1, "amt": 162.00 }, "status": "exact" },
+    { "key": "CLM-88251-2", "group": "CLM-88251", "left": { "cpt": "90686", "mod": "", "units": 1, "amt": 24.10 }, "right": { "cpt": "90686", "mod": "", "units": 1, "amt": 24.12 }, "status": "tolerance", "reason": "Two cents over, inside the 0.05 tolerance." },
+    { "key": "CLM-88251-3", "group": "CLM-88251", "left": { "cpt": "90471", "mod": "", "units": 1, "amt": 27.50 }, "right": { "cpt": "90471", "mod": "", "units": 1, "amt": 27.50 }, "duplicate": "right", "reason": "The payer paid the vaccine administration twice. Expect a take-back of 27.50." },
+    { "key": "CLM-88267-1", "group": "CLM-88267", "left": { "cpt": "99203", "mod": "", "units": 1, "amt": 113.90 }, "right": { "cpt": "99203", "mod": "", "units": 1, "amt": 113.90 }, "status": "exact" },
+    { "key": "CLM-88267-2", "group": "CLM-88267", "left": { "cpt": "81002", "mod": "", "units": 1, "amt": 3.48 }, "right": { "cpt": "81002", "mod": "", "units": 1, "amt": 3.48 }, "status": "exact" },
+    { "key": "CLM-88267-3", "group": "CLM-88267", "left": { "cpt": "87880", "mod": "", "units": 1, "amt": 16.53 }, "right": { "cpt": "87880", "mod": "", "units": 1, "amt": 16.53 }, "status": "exact" },
+    { "key": "CLM-88270-1", "group": "CLM-88270", "left": { "cpt": "99213", "mod": "", "units": 1, "amt": 101.40 }, "status": "leftOnly", "reason": "The whole claim is missing from this remittance. Submitted 12 March, no response in 19 days." },
+    { "key": "CLM-88270-2", "group": "CLM-88270", "left": { "cpt": "94010", "mod": "", "units": 1, "amt": 34.85 }, "status": "leftOnly" },
+    { "key": "CLM-88302-1", "group": "CLM-88302", "right": { "cpt": "99212", "mod": "", "units": 1, "amt": 61.20 }, "status": "rightOnly", "reason": "Paid, but billing has no such claim. Likely posted under another patient account." },
+    { "key": "CLM-88302-2", "group": "CLM-88302", "right": { "cpt": "87804", "mod": "", "units": 1, "amt": 16.55 }, "status": "rightOnly" }
+  ],
+  "text": {
+    "title": "Expected payment against the payer's remittance",
+    "lede": "Each claim line as billing expects it, beside the line the payer returned. Cells that differ are tinted on both sides; a line that exists on one side only leaves a gap on the other.",
+    "listTitle": "Claims in this remittance",
+    "listSub": "One bar per claim line.",
+    "leftSide": "Expected, from billing",
+    "rightSide": "Remittance, from payer",
+    "groupMeta": "Date of service {dos}.",
+    "linesDiffer": "{differ} of {total} lines differ",
+    "allAgree": "all lines agree",
+    "gapLeft": "no line in billing",
+    "gapRight": "no line on the remittance"
+  },
+  "labels": {
+    "net": "Paid minus expected"
+  }
+}

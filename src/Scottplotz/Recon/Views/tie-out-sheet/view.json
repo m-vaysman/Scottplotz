@@ -1,0 +1,34 @@
+{
+  "name": "tie-out-sheet",
+  "title": "Tie-out sheet",
+  "description": "Per-group sheet of control totals across number fields with foot, tolerance, and break marks, followed by exception records.",
+  "needs": "Numeric fields and records organized by group.",
+  "text": {
+    "title": "{left} against {right}",
+    "lede": "Compare control totals for each group before examining individual {unit}. A tick means both sides match. Rows that differ highlight which totals require investigation.",
+    "groupsTitle": "Groups",
+    "groupsSub": "One mark per control total.",
+    "sheetSub": "A total within {tolerance} counts as within tolerance.",
+    "totalsBreak": "{group}: {bad} of {total} totals do not foot",
+    "totalsFoot": "{group}: every total foots",
+    "controlTotal": "Control total",
+    "difference": "Difference",
+    "exceptionsTitle": "The {count} {unit} behind the differences in {group}",
+    "noExceptionsTitle": "{group} foots, so no {unit} need a look",
+    "pickGroupPrompt": "Pick a group with a mark that is not a tick.",
+    "result": "Result",
+    "record": "Record",
+    "name": "Name",
+    "why": "Why",
+    "noReason": "",
+    "allGroups": "All records"
+  },
+  "options": [
+    {
+      "name": "totalTolerance",
+      "type": "number",
+      "default": 1,
+      "description": "Allowed difference on a control total to count as within tolerance."
+    }
+  ]
+}

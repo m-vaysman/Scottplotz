@@ -1,0 +1,85 @@
+{
+  "left": { "name": "Our revenue accounting, coupons billed", "short": "Billed" },
+  "right": { "name": "Partner acceptance files", "short": "Accepted" },
+  "unit": { "one": "coupon", "many": "coupons" },
+  "asOf": "2026-03-31",
+  "tolerance": 0,
+  "fields": [
+    { "key": "amount", "label": "Billed value", "decimals": 0 }
+  ],
+  "measure": "amount",
+  "groups": [
+    { "key": "Aurora Air", "note": "Our largest partner and a clean one. Differences are mostly currency rounding." },
+    { "key": "Blue Meridian", "note": "Normal for its size." },
+    { "key": "Cordillera", "note": "A quarter of coupons differ in amount. They prorate multi-leg fares by distance; we prorate by published fare." },
+    { "key": "Delta Sur", "note": "Clean." },
+    { "key": "Estrella", "note": "More than a third of what we billed was not accepted. Their system rejects coupons for a code-share flight number that changed in February." },
+    { "key": "Fjord Wings", "note": "They claim many coupons we never billed. Passengers rebooked onto their flights at the airport, with no record reaching our revenue system." },
+    { "key": "Gulf Coastal", "note": "Clean and small." }
+  ],
+  "text": {
+    "title": "Flight coupons we billed against what partner airlines accepted",
+    "lede": "Two questions in one picture. The width of a column is how much business we do with that partner. The split inside it is how the matching came out. A wide column with a thin dark band is healthy; a narrow column that is mostly dark or coloured is a small partner causing most of the work.",
+    "chartTitle": "Match results by partner airline",
+    "chartSub": "Coupons flown in March 2026. Column width is coupon count; the vertical axis is share of that partner's coupons. Select a column.",
+    "acceptedTwice": "{count} coupons were accepted twice."
+  },
+  "labels": {
+    "exact": "Agrees",
+    "tolerance": "Within tolerance",
+    "break": "Amount differs",
+    "leftOnly": "Billed by us, not accepted",
+    "rightOnly": "Claimed by them, not billed"
+  },
+  "options": {
+    "initialGroup": "Estrella"
+  },
+  "records": [
+    { "key": "AUR-EX", "group": "Aurora Air", "status": "exact", "count": 5208, "left": { "amount": 937440 }, "right": { "amount": 937440 } },
+    { "key": "AUR-EX-DUP", "group": "Aurora Air", "status": "exact", "count": 2, "left": { "amount": 360 }, "right": { "amount": 360 }, "duplicate": "right" },
+    { "key": "AUR-TOL", "group": "Aurora Air", "status": "tolerance", "count": 410, "left": { "amount": 73800 }, "right": { "amount": 73800 }, "reason": "Currency conversion on different days." },
+    { "key": "AUR-BRK", "group": "Aurora Air", "status": "break", "count": 180, "left": { "amount": 32400 }, "right": { "amount": 35640 }, "reason": "Fare prorated by a different method." },
+    { "key": "AUR-LO", "group": "Aurora Air", "status": "leftOnly", "count": 60, "left": { "amount": 10800 }, "reason": "Rejected by their system or still in their queue." },
+    { "key": "AUR-RO", "group": "Aurora Air", "status": "rightOnly", "count": 40, "right": { "amount": 7200 }, "reason": "Flown on their aircraft with no coupon in our system." },
+
+    { "key": "BM-EX", "group": "Blue Meridian", "status": "exact", "count": 3116, "left": { "amount": 632548 }, "right": { "amount": 632548 } },
+    { "key": "BM-EX-DUP", "group": "Blue Meridian", "status": "exact", "count": 4, "left": { "amount": 812 }, "right": { "amount": 812 }, "duplicate": "right" },
+    { "key": "BM-TOL", "group": "Blue Meridian", "status": "tolerance", "count": 260, "left": { "amount": 52780 }, "right": { "amount": 52780 }, "reason": "Currency conversion on different days." },
+    { "key": "BM-BRK", "group": "Blue Meridian", "status": "break", "count": 240, "left": { "amount": 48720 }, "right": { "amount": 53592 }, "reason": "Fare prorated by a different method." },
+    { "key": "BM-LO", "group": "Blue Meridian", "status": "leftOnly", "count": 90, "left": { "amount": 18270 }, "reason": "Rejected by their system or still in their queue." },
+    { "key": "BM-RO", "group": "Blue Meridian", "status": "rightOnly", "count": 70, "right": { "amount": 14210 }, "reason": "Flown on their aircraft with no coupon in our system." },
+
+    { "key": "CD-EX", "group": "Cordillera", "status": "exact", "count": 1479, "left": { "amount": 334254 }, "right": { "amount": 334254 } },
+    { "key": "CD-EX-DUP", "group": "Cordillera", "status": "exact", "count": 1, "left": { "amount": 226 }, "right": { "amount": 226 }, "duplicate": "right" },
+    { "key": "CD-TOL", "group": "Cordillera", "status": "tolerance", "count": 120, "left": { "amount": 27120 }, "right": { "amount": 27120 }, "reason": "Currency conversion on different days." },
+    { "key": "CD-BRK", "group": "Cordillera", "status": "break", "count": 610, "left": { "amount": 137860 }, "right": { "amount": 151646 }, "reason": "Fare prorated by a different method." },
+    { "key": "CD-LO", "group": "Cordillera", "status": "leftOnly", "count": 80, "left": { "amount": 18080 }, "reason": "Rejected by their system or still in their queue." },
+    { "key": "CD-RO", "group": "Cordillera", "status": "rightOnly", "count": 50, "right": { "amount": 11300 }, "reason": "Flown on their aircraft with no coupon in our system." },
+
+    { "key": "DS-EX", "group": "Delta Sur", "status": "exact", "count": 1950, "left": { "amount": 485550 }, "right": { "amount": 485550 } },
+    { "key": "DS-TOL", "group": "Delta Sur", "status": "tolerance", "count": 180, "left": { "amount": 44820 }, "right": { "amount": 44820 }, "reason": "Currency conversion on different days." },
+    { "key": "DS-BRK", "group": "Delta Sur", "status": "break", "count": 90, "left": { "amount": 22410 }, "right": { "amount": 24651 }, "reason": "Fare prorated by a different method." },
+    { "key": "DS-LO", "group": "Delta Sur", "status": "leftOnly", "count": 40, "left": { "amount": 9960 }, "reason": "Rejected by their system or still in their queue." },
+    { "key": "DS-RO", "group": "Delta Sur", "status": "rightOnly", "count": 30, "right": { "amount": 7470 }, "reason": "Flown on their aircraft with no coupon in our system." },
+
+    { "key": "ES-EX", "group": "Estrella", "status": "exact", "count": 617, "left": { "amount": 167824 }, "right": { "amount": 167824 } },
+    { "key": "ES-EX-DUP", "group": "Estrella", "status": "exact", "count": 3, "left": { "amount": 816 }, "right": { "amount": 816 }, "duplicate": "right" },
+    { "key": "ES-TOL", "group": "Estrella", "status": "tolerance", "count": 40, "left": { "amount": 10880 }, "right": { "amount": 10880 }, "reason": "Currency conversion on different days." },
+    { "key": "ES-BRK", "group": "Estrella", "status": "break", "count": 60, "left": { "amount": 16320 }, "right": { "amount": 17952 }, "reason": "Fare prorated by a different method." },
+    { "key": "ES-LO", "group": "Estrella", "status": "leftOnly", "count": 410, "left": { "amount": 111520 }, "reason": "Rejected by their system or still in their queue." },
+    { "key": "ES-RO", "group": "Estrella", "status": "rightOnly", "count": 30, "right": { "amount": 8160 }, "reason": "Flown on their aircraft with no coupon in our system." },
+
+    { "key": "FW-EX", "group": "Fjord Wings", "status": "exact", "count": 874, "left": { "amount": 257830 }, "right": { "amount": 257830 } },
+    { "key": "FW-EX-DUP", "group": "Fjord Wings", "status": "exact", "count": 6, "left": { "amount": 1770 }, "right": { "amount": 1770 }, "duplicate": "right" },
+    { "key": "FW-TOL", "group": "Fjord Wings", "status": "tolerance", "count": 70, "left": { "amount": 20650 }, "right": { "amount": 20650 }, "reason": "Currency conversion on different days." },
+    { "key": "FW-BRK", "group": "Fjord Wings", "status": "break", "count": 50, "left": { "amount": 14750 }, "right": { "amount": 16225 }, "reason": "Fare prorated by a different method." },
+    { "key": "FW-LO", "group": "Fjord Wings", "status": "leftOnly", "count": 20, "left": { "amount": 5900 }, "reason": "Rejected by their system or still in their queue." },
+    { "key": "FW-RO", "group": "Fjord Wings", "status": "rightOnly", "count": 240, "right": { "amount": 70800 }, "reason": "Flown on their aircraft with no coupon in our system." },
+
+    { "key": "GC-EX", "group": "Gulf Coastal", "status": "exact", "count": 410, "left": { "amount": 130380 }, "right": { "amount": 130380 } },
+    { "key": "GC-TOL", "group": "Gulf Coastal", "status": "tolerance", "count": 30, "left": { "amount": 9540 }, "right": { "amount": 9540 }, "reason": "Currency conversion on different days." },
+    { "key": "GC-BRK", "group": "Gulf Coastal", "status": "break", "count": 20, "left": { "amount": 6360 }, "right": { "amount": 6996 }, "reason": "Fare prorated by a different method." },
+    { "key": "GC-LO", "group": "Gulf Coastal", "status": "leftOnly", "count": 10, "left": { "amount": 3180 }, "reason": "Rejected by their system or still in their queue." },
+    { "key": "GC-RO", "group": "Gulf Coastal", "status": "rightOnly", "count": 10, "right": { "amount": 3180 }, "reason": "Flown on their aircraft with no coupon in our system." }
+  ]
+}

@@ -1,0 +1,138 @@
+{
+  "left": { "name": "Publisher ad server", "short": "Publisher" },
+  "right": { "name": "Advertiser ad server", "short": "Advertiser" },
+  "unit": { "one": "campaign", "many": "campaigns" },
+  "asOf": "2026-03-31",
+  "tolerance": { "percent": 10 },
+  "fields": [
+    { "key": "impr", "label": "Impressions", "decimals": 0 }
+  ],
+  "measure": "impr",
+  "text": {
+    "title": "Impressions the publisher counted against impressions the advertiser counted",
+    "lede": "Two ad servers never agree exactly, so the question is how far apart they are. Each campaign is a dot on one scale of percentage difference. Inside the grey band is normal. A dot outside it trails a stem back to zero, in the colour of the side that counted more.",
+    "chartTitle": "Advertiser count against publisher count, by campaign",
+    "chartSub": "March 2026. The band is the 10% the contract allows. Sorted by size of difference. Select a campaign.",
+    "legendBand": "Inside the allowed band",
+    "legendRight": "Advertiser counted more",
+    "legendLeft": "Publisher counted more",
+    "noReason": "Inside the 10% the contract allows. Normal loss between two ad servers.",
+    "agreesReason": "Both servers counted the same."
+  },
+  "labels": {
+    "duplicate": "Line reported twice"
+  },
+  "records": [
+    {
+      "key": "CMP-01",
+      "name": "Spring sale, homepage takeover",
+      "left": [
+        { "name": "Homepage top", "impr": 1428000 },
+        { "name": "Article inline", "impr": 1092000 },
+        { "name": "Mobile sticky", "impr": 840000 },
+        { "name": "Sidebar", "impr": 504000 },
+        { "name": "Video pre-roll", "impr": 336000 }
+      ],
+      "right": [
+        { "name": "Homepage top", "impr": 1400000 },
+        { "name": "Article inline", "impr": 1070000 },
+        { "name": "Mobile sticky", "impr": 80000 },
+        { "name": "Sidebar", "impr": 235200 },
+        { "name": "Video pre-roll", "impr": 264000 }
+      ],
+      "reason": "The advertiser’s tag loads late on mobile. A quarter of impressions are served and never counted by them."
+    },
+    {
+      "key": "CMP-02",
+      "name": "Loyalty app installs",
+      "left": { "impr": 1900000 },
+      "right": { "impr": 2245800 },
+      "reason": "The advertiser counts every ad request. The publisher counts only ads that rendered."
+    },
+    {
+      "key": "CMP-03",
+      "name": "Summer preview, video",
+      "left": [
+        { "name": "Homepage top", "impr": 884000 },
+        { "name": "Article inline", "impr": 676000 },
+        { "name": "Sidebar", "impr": 312000 },
+        { "name": "Video pre-roll", "impr": 728000 }
+      ],
+      "right": [
+        { "name": "Homepage top", "impr": 884000 },
+        { "name": "Article inline", "impr": 676000 },
+        { "name": "Sidebar", "impr": 312000 },
+        { "name": "Video pre-roll", "impr": 343200 }
+      ],
+      "reason": "Video players in one placement block the advertiser’s tracking pixel."
+    },
+    {
+      "key": "CMP-04",
+      "name": "Brand awareness, display",
+      "left": { "impr": 6100000 },
+      "right": { "impr": 5557100 }
+    },
+    {
+      "key": "CMP-05",
+      "name": "Retargeting, catalogue",
+      "left": { "impr": 3300000 },
+      "right": { "impr": 3095400 }
+    },
+    {
+      "key": "CMP-06",
+      "name": "Newsletter sponsorship",
+      "left": { "impr": 410000 },
+      "right": { "impr": 393600 }
+    },
+    {
+      "key": "CMP-07",
+      "name": "Store openings, regional",
+      "left": { "impr": 880000 },
+      "right": { "impr": 852720 }
+    },
+    {
+      "key": "CMP-08",
+      "name": "Clearance, mobile banners",
+      "left": { "impr": 2200000 },
+      "right": { "impr": 2147200 }
+    },
+    {
+      "key": "CMP-09",
+      "name": "Gift cards, search companion",
+      "left": { "impr": 1300000 },
+      "right": { "impr": 1322100 }
+    },
+    {
+      "key": "CMP-10",
+      "name": "Back to school, teaser",
+      "left": { "impr": 740000 },
+      "right": { "impr": 740000 }
+    },
+    {
+      "key": "CMP-11",
+      "name": "Partner co-op, sidebar",
+      "left": { "impr": 560000 },
+      "right": { "impr": 559720 }
+    },
+    {
+      "key": "CMP-12",
+      "name": "Weekend flash, interstitial",
+      "left": { "impr": 1100000 },
+      "right": { "impr": 1100000 },
+      "duplicate": "right",
+      "reason": "The publisher’s report lists this line once. The advertiser’s export lists it twice, under two campaign IDs."
+    },
+    {
+      "key": "CMP-13",
+      "name": "Podcast audio spots",
+      "left": { "impr": 390000 },
+      "reason": "Delivered by the publisher. The advertiser’s server has no line for it: the tracking tag was never added."
+    },
+    {
+      "key": "CMP-14",
+      "name": "Winter carry-over",
+      "right": { "impr": 270000 },
+      "reason": "The advertiser counted impressions for a campaign the publisher ended in February. A cached tag is still firing somewhere."
+    }
+  ]
+}

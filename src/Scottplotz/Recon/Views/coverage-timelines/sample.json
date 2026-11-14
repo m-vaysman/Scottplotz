@@ -1,0 +1,40 @@
+{
+  "left": { "name": "HR system, enrolments", "short": "HR" },
+  "right": { "name": "Insurer, eligibility list", "short": "Insurer" },
+  "unit": { "one": "employee", "many": "employees" },
+  "asOf": "2026-12-31",
+  "tolerance": 0,
+  "fields": [
+    { "key": "start", "label": "Cover starts", "type": "date" },
+    { "key": "end", "label": "Cover ends", "type": "date" },
+    { "key": "plan", "label": "Plan", "type": "text" }
+  ],
+  "text": {
+    "title": "Health cover as HR enrolled it against cover as the insurer holds it",
+    "lede": "Here the thing being reconciled is a period of time. Each employee has two bars on one calendar: the cover HR recorded on top, the cover the insurer holds underneath. Where both agree there is a single grey bar. A blue or orange end sticking out is a stretch of time only one side covers.",
+    "chartTitle": "Cover periods in 2026, by employee",
+    "chartSub": "Plan year January to December. Dates must agree to the day. Select an employee.",
+    "breakLegend": "Same dates, different plan",
+    "otherBreak": "Plan differs",
+    "noReason": "Dates and plan agree."
+  },
+  "labels": {
+    "duplicate": "Held twice"
+  },
+  "records": [
+    { "key": "EMP-01", "name": "Ana Rocha", "left": { "start": "2026-01-01", "end": "2026-12-31", "plan": "Family" }, "right": { "start": "2026-01-01", "end": "2026-12-31", "plan": "Family" } },
+    { "key": "EMP-02", "name": "Ben Adeyemi", "left": { "start": "2026-01-01", "end": "2026-12-31", "plan": "Single" }, "right": { "start": "2026-01-01", "end": "2026-12-31", "plan": "Single" } },
+    { "key": "EMP-03", "name": "Carla Voss", "left": { "start": "2026-03-01", "end": "2026-12-31", "plan": "Single" }, "right": { "start": "2026-04-01", "end": "2026-12-31", "plan": "Single" }, "reason": "Hired 1 March. The insurer started cover on 1 April, leaving her uninsured for March." },
+    { "key": "EMP-04", "name": "Deshawn Price", "left": { "start": "2026-01-01", "end": "2026-05-31", "plan": "Family" }, "right": { "start": "2026-01-01", "end": "2026-12-31", "plan": "Family" }, "reason": "Left on 31 May. The termination never reached the insurer, which is still charging premium." },
+    { "key": "EMP-05", "name": "Elif Kaya", "left": { "start": "2026-01-01", "end": "2026-12-31", "plan": "Family" }, "right": { "start": "2026-01-01", "end": "2026-12-31", "plan": "Single" }, "reason": "Changed to family cover after a birth in January. The insurer still holds the single plan, so dependants are not covered." },
+    { "key": "EMP-06", "name": "Farid Haddad", "left": { "start": "2026-01-01", "end": "2026-12-31", "plan": "Single" }, "right": { "start": "2026-01-01", "end": "2026-12-31", "plan": "Single" } },
+    { "key": "EMP-07", "name": "Grace Lund", "left": { "start": "2026-02-15", "end": "2026-12-31", "plan": "Single" }, "right": { "start": "2026-02-15", "end": "2026-12-31", "plan": "Single" } },
+    { "key": "EMP-08", "name": "Hugo Meyer", "left": { "start": "2026-01-01", "end": "2026-08-31", "plan": "Family" }, "right": { "start": "2026-01-01", "end": "2026-09-30", "plan": "Family" }, "reason": "Leaves on 31 August. The insurer ends cover at the end of the following month, by its own rule." },
+    { "key": "EMP-09", "name": "Imani Brooks", "left": { "start": "2026-03-17", "end": "2026-12-31", "plan": "Single" }, "reason": "Enrolled by HR on 17 March. The insurer has no record: the enrolment file for that week was rejected." },
+    { "key": "EMP-10", "name": "Jon Petrov", "left": { "start": "2026-01-01", "end": "2026-12-31", "plan": "Family" }, "right": { "start": "2026-01-01", "end": "2026-12-31", "plan": "Family" }, "duplicate": "right", "reason": "The insurer holds two member records for him, under two spellings of his surname. Premium is billed on both." },
+    { "key": "EMP-11", "name": "Keiko Mori", "left": { "start": "2026-01-01", "end": "2026-12-31", "plan": "Single" }, "right": { "start": "2026-01-01", "end": "2026-12-31", "plan": "Single" } },
+    { "key": "EMP-12", "name": "Liam Doyle", "left": { "start": "2026-06-01", "end": "2026-12-31", "plan": "Family" }, "right": { "start": "2026-06-01", "end": "2026-12-31", "plan": "Family" } },
+    { "key": "EMP-13", "name": "Dale Whitcomb", "right": { "start": "2026-01-01", "end": "2026-12-31", "plan": "Family" }, "reason": "Left in December 2025. The insurer renewed him for 2026 anyway." },
+    { "key": "EMP-14", "name": "Mina Shah", "left": { "start": "2026-01-01", "end": "2026-04-30", "plan": "Single" }, "right": { "start": "2026-01-01", "end": "2026-04-30", "plan": "Single" } }
+  ]
+}

@@ -1,0 +1,9 @@
+.cols{grid-template-columns:1fr 430px}
+.tile{cursor:pointer;stroke:var(--surface);stroke-width:2}
+.tile.on{stroke:var(--ink);stroke-width:2.5}
+.notax{fill:none;stroke:var(--grid);stroke-width:1}
+.scale{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink2);margin-bottom:10px;flex-wrap:wrap}
+.scale i{display:block;width:26px;height:10px;border-radius:2px}
+.subtxt{font-size:10px}
+#detail td{white-space:nowrap}
+@media (max-width:960px){.cols{grid-template-columns:1fr}}

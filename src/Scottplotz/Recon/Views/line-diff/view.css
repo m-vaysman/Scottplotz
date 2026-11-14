@@ -1,0 +1,19 @@
+.cols{grid-template-columns:330px 1fr}
+.claim{display:block;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--grid);padding:10px 8px;cursor:pointer;border-radius:4px}
+.claim:hover{background:var(--wash)}
+.claim[aria-current=true]{background:var(--wash);box-shadow:inset 3px 0 0 var(--ink)}
+.claim b{font-weight:600}
+.claim .who{color:var(--ink2);margin-left:8px}
+.claim .strip{margin-top:6px;display:flex;gap:3px;align-items:center}
+.claim .strip .sw{margin:0;width:14px;height:8px}
+.claim .strip span{color:var(--ink2);font-size:12px;margin-left:8px}
+.diff{display:grid;grid-template-columns:repeat(4,auto) 44px repeat(4,auto);font-size:13px;font-variant-numeric:tabular-nums}
+.diff>div{padding:7px 12px;border-bottom:1px solid var(--grid)}
+.diff .hd{font-weight:600;color:var(--ink2);border-bottom-color:var(--axis)}
+.diff .gut{text-align:center;font-weight:600;background:var(--wash);padding:7px 0}
+.diff .amt{text-align:right}
+.diff .gap{color:var(--muted);grid-column:span 4;font-style:italic}
+.diff .why{grid-column:1/-1;color:var(--ink2);font-size:12px;padding:5px 12px 9px;background:var(--wash)}
+.sidehd{display:grid;grid-template-columns:1fr 44px 1fr;font-weight:600;margin-bottom:4px}
+.sidehd div:last-child{padding-left:12px}
+@media (max-width:900px){.cols{grid-template-columns:1fr}}

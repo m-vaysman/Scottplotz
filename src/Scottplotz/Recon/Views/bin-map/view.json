@@ -1,0 +1,35 @@
+{
+  "name": "bin-map",
+  "title": "Cycle-count bin map",
+  "description": "Warehouse grid of cells by aisle and rack face. Grey cells counted as expected; tinted cells show the direction and magnitude of quantity differences.",
+  "needs": "A numeric measure. Records represent bins with group [aisle, face] and attrs.slot.",
+  "text": {
+    "title": "{left} against {right}",
+    "lede": "Grid of {unit} by aisle and face. A grey cell counted as expected. A tinted cell differs, in the colour of the side that is higher.",
+    "chartTitle": "{measure} difference by {unitOne}",
+    "chartSub": "Tolerance is {tolerance} per {unitOne}. Select a cell or an aisle.",
+    "leftHigher": "{leftShort} higher",
+    "rightHigher": "{rightShort} higher",
+    "duplicateLegend": "Duplicate scan",
+    "aisleSummary": "Aisle {aisle}: {differCount} of {totalCount} {unit} differ",
+    "allSummary": "{differCount} of {totalCount} {unit} differ",
+    "aisleTotal": "Total",
+    "bin": "{unitOne}",
+    "item": "Item",
+    "units": "{measure}",
+    "atCost": "Difference",
+    "expected": "{key} counted as expected.",
+    "inTolerance": "{key} is within tolerance.",
+    "recount": "{key} differs with no pattern around it."
+  },
+  "options": [
+    {
+      "name": "colourScale",
+      "type": "number",
+      "default": 30,
+      "min": 1,
+      "max": 1000,
+      "description": "Percentage difference at which cell colour reaches full intensity."
+    }
+  ]
+}

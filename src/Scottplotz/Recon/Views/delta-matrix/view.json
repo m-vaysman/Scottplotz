@@ -1,0 +1,34 @@
+{
+  "name": "delta-matrix",
+  "title": "Delta matrix",
+  "description": "Matrix of records against compared numeric fields with cells tinted by relative difference.",
+  "needs": "At least one compared numeric field.",
+  "text": {
+    "title": "{left} against {right}",
+    "lede": "One row per {unitOne}, one column per component. An empty cell agrees. A tinted cell shows the difference, in the colour of the side that is higher and stronger as the gap widens. Select a cell for both figures.",
+    "chartTitle": "{rightShort} minus {leftShort}, by component",
+    "chartSub": "Tolerance is {tolerance} per component.",
+    "leftHigher": "{leftShort} higher",
+    "rightHigher": "{rightShort} higher",
+    "netDifference": "Net difference",
+    "record": "{unitOne}",
+    "component": "Component",
+    "difference": "Difference",
+    "leftOnlyBand": "Present in {leftShort}, missing in {rightShort}",
+    "rightOnlyBand": "Present in {rightShort}, missing in {leftShort}",
+    "leftOnlyDetail": "Not present in {rightShort}",
+    "rightOnlyDetail": "Not present in {leftShort}",
+    "followsFrom": "This cell follows from {cause}.",
+    "allAgree": "Every component agrees within tolerance."
+  },
+  "options": [
+    {
+      "name": "colourScale",
+      "type": "number",
+      "default": 25,
+      "min": 1,
+      "max": 1000,
+      "description": "Percent difference between sides that yields maximum colour saturation."
+    }
+  ]
+}

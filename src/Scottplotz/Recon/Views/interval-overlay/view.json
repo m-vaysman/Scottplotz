@@ -1,0 +1,39 @@
+{
+  "name": "interval-overlay",
+  "title": "Interval overlay",
+  "description": "Overlay of two time series with a shaded gap and a residual difference strip.",
+  "needs": "A numeric measure, grouped records with dates.",
+  "text": {
+    "title": "{left} against {right}",
+    "lede": "Two lines, one per side, over time. Where they part, the gap is filled in the colour of the side that is higher. The strip underneath repeats the difference on its own scale, so a small steady error is as visible as a large spike.",
+    "groupsTitle": "Groups",
+    "groupsSub": "A mark for each interval that differs.",
+    "leftLegend": "{leftShort}",
+    "rightLegend": "{rightShort}",
+    "leftOnlyLegend": "{leftShort} only",
+    "rightOnlyLegend": "{rightShort} only",
+    "residualTitle": "{rightShort} minus {leftShort}, {measure}",
+    "measurePerInterval": "{measure} per interval",
+    "tableTime": "Time",
+    "tableResult": "Result",
+    "tableDiff": "Difference",
+    "diffCount": "{count} of {total} {unit} differ",
+    "allAgree": "all intervals agree",
+    "groupAgrees": "Every interval agrees.",
+    "differTitle": "{count} {unit} differ on {group}",
+    "firstShown": "first {shown} shown",
+    "nothingDiffers": "Nothing differs on {group}",
+    "pickGroup": "Pick a group with marks in its strip.",
+    "interval": "Interval"
+  },
+  "options": [
+    {
+      "name": "maxTableRows",
+      "type": "integer",
+      "default": 12,
+      "min": 1,
+      "max": 100,
+      "description": "Maximum number of differing intervals shown in the detail table."
+    }
+  ]
+}

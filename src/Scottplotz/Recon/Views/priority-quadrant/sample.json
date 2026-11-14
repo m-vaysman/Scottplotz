@@ -1,0 +1,331 @@
+{
+  "left": { "name": "Our nostro ledger", "short": "Our ledger" },
+  "right": { "name": "Correspondent bank statement", "short": "Their statement" },
+  "unit": { "one": "entry", "many": "entries" },
+  "asOf": "2026-03-31",
+  "fields": [
+    { "key": "amount", "label": "Amount", "decimals": 2 }
+  ],
+  "measure": "amount",
+  "text": {
+    "title": "Our nostro ledger against the correspondent bank's statement",
+    "lede": "Not every open item deserves the same attention. Each one is placed by how long it has been open and how much it is worth. The shaded corner, old and large, is where to start. New and small items along the bottom left usually clear by themselves.",
+    "chartTitle": "Open items by age and amount",
+    "chartSub": "USD account at 31 March 2026. Amounts on a compressed scale. The lines mark 30 days and 100,000.",
+    "priorityZone": "Old and large: start here",
+    "clearZone": "New and small: likely to clear",
+    "daysOpen": "Days open",
+    "openDays": "Open {age} days",
+    "escalate": "Escalate: over 30 days and over 100,000."
+  },
+  "labels": {
+    "leftOnly": "In our ledger only",
+    "rightOnly": "On their statement only",
+    "break": "Amount differs",
+    "duplicate": "Posted twice"
+  },
+  "options": {
+    "ageFrom": 30,
+    "amountFrom": 100000,
+    "ageCap": 120
+  },
+  "records": [
+    {
+      "key": "FT26030001",
+      "name": "Payment to Castell Re",
+      "date": "2025-12-25",
+      "attrs": { "age": 96 },
+      "left": { "amount": 2850000 },
+      "reason": "A payment to Castell Re booked on 26 December. The correspondent says it never received the instruction."
+    },
+    {
+      "key": "FT26030002",
+      "name": "Unclaimed statement credit",
+      "date": "2026-01-19",
+      "attrs": { "age": 71 },
+      "right": { "amount": 1240000 },
+      "reason": "A credit on their statement with no beneficiary reference. Nobody here has claimed it."
+    },
+    {
+      "key": "FT26030003",
+      "name": "Trade settlement charges deduction",
+      "date": "2026-02-15",
+      "attrs": { "age": 44 },
+      "left": { "amount": 615000 },
+      "right": { "amount": 605775 },
+      "reason": "Their statement shows 9,225 less. They deducted charges that our agreement says the sender pays."
+    },
+    {
+      "key": "FT26030004",
+      "name": "FX deal duplicate debit",
+      "date": "2026-02-01",
+      "attrs": { "age": 58 },
+      "right": { "amount": 388000 },
+      "duplicate": "right",
+      "reason": "A debit for a foreign exchange deal our dealers have no record of. Their statement shows the debit twice, two days apart."
+    },
+    {
+      "key": "FT26030005",
+      "name": "Recalled incoming advice",
+      "date": "2026-02-22",
+      "attrs": { "age": 37 },
+      "left": { "amount": 174000 },
+      "reason": "An incoming payment we booked on advice. The funds were recalled by the sender."
+    },
+    {
+      "key": "FT26030010",
+      "name": "Treasury transfer pending receipt",
+      "attrs": { "age": 82 },
+      "left": { "amount": 450000 },
+      "reason": "Booked in our ledger. Not yet on their statement."
+    },
+    {
+      "key": "FT26030011",
+      "name": "Unmatched clearing deposit",
+      "attrs": { "age": 65 },
+      "right": { "amount": 210000 },
+      "reason": "On their statement. Nothing booked here."
+    },
+    {
+      "key": "FT26030012",
+      "name": "Syndicated loan drawdown difference",
+      "attrs": { "age": 52 },
+      "left": { "amount": 890000 },
+      "right": { "amount": 850000 },
+      "reason": "Paired, but the amounts differ."
+    },
+    {
+      "key": "FT26030013",
+      "name": "Interbank money market settlement",
+      "attrs": { "age": 18 },
+      "right": { "amount": 1150000 },
+      "reason": "On their statement. Nothing booked here."
+    },
+    {
+      "key": "FT26030014",
+      "name": "Collateral pledge receipt",
+      "attrs": { "age": 12 },
+      "left": { "amount": 620000 },
+      "reason": "Booked in our ledger. Not yet on their statement."
+    },
+    {
+      "key": "FT26030015",
+      "name": "Securities repo cash leg variance",
+      "attrs": { "age": 25 },
+      "left": { "amount": 340000 },
+      "right": { "amount": 328000 },
+      "reason": "Paired, but the amounts differ."
+    },
+    {
+      "key": "FT26030016",
+      "name": "Commercial paper redemption credit",
+      "attrs": { "age": 5 },
+      "right": { "amount": 280000 },
+      "reason": "On their statement. Nothing booked here."
+    },
+    {
+      "key": "FT26030017",
+      "name": "Agency bond coupon disbursement",
+      "attrs": { "age": 8 },
+      "left": { "amount": 490000 },
+      "reason": "Booked in our ledger. Not yet on their statement."
+    },
+    {
+      "key": "FT26030020",
+      "name": "Legacy cable fee deduction",
+      "attrs": { "age": 115 },
+      "left": { "amount": 450 },
+      "reason": "Booked in our ledger. Not yet on their statement."
+    },
+    {
+      "key": "FT26030021",
+      "name": "Statement postage adjustment",
+      "attrs": { "age": 102 },
+      "right": { "amount": 1200 },
+      "reason": "On their statement. Nothing booked here."
+    },
+    {
+      "key": "FT26030022",
+      "name": "Old correspondent service levy",
+      "attrs": { "age": 88 },
+      "left": { "amount": 8500 },
+      "right": { "amount": 7800 },
+      "reason": "Paired, but the amounts differ."
+    },
+    {
+      "key": "FT26030023",
+      "name": "Unapplied inquiry surcharge",
+      "attrs": { "age": 76 },
+      "left": { "amount": 3400 },
+      "reason": "Booked in our ledger. Not yet on their statement."
+    },
+    {
+      "key": "FT26030024",
+      "name": "Custody tax audit reclamation",
+      "attrs": { "age": 62 },
+      "right": { "amount": 12000 },
+      "reason": "On their statement. Nothing booked here."
+    },
+    {
+      "key": "FT26030025",
+      "name": "Foreign tax relief withholding balance",
+      "attrs": { "age": 49 },
+      "left": { "amount": 24000 },
+      "reason": "Booked in our ledger. Not yet on their statement."
+    },
+    {
+      "key": "FT26030026",
+      "name": "Quarterly account maintenance charge",
+      "attrs": { "age": 41 },
+      "right": { "amount": 55000 },
+      "reason": "On their statement. Nothing booked here."
+    },
+    {
+      "key": "FT26030027",
+      "name": "SWIFT confirmation discrepancy",
+      "attrs": { "age": 35 },
+      "left": { "amount": 18500 },
+      "right": { "amount": 17200 },
+      "reason": "Paired, but the amounts differ."
+    },
+    {
+      "key": "FT26030030",
+      "name": "Daily wire handling fee",
+      "attrs": { "age": 2 },
+      "left": { "amount": 350 },
+      "reason": "Booked in our ledger. Not yet on their statement."
+    },
+    {
+      "key": "FT26030031",
+      "name": "Telegraphic advice fee",
+      "attrs": { "age": 3 },
+      "right": { "amount": 820 },
+      "reason": "On their statement. Nothing booked here."
+    },
+    {
+      "key": "FT26030032",
+      "name": "Overnight clearing adjustment",
+      "attrs": { "age": 4 },
+      "left": { "amount": 1500 },
+      "reason": "Booked in our ledger. Not yet on their statement."
+    },
+    {
+      "key": "FT26030033",
+      "name": "Minor transit credit",
+      "attrs": { "age": 6 },
+      "right": { "amount": 4200 },
+      "reason": "On their statement. Nothing booked here."
+    },
+    {
+      "key": "FT26030034",
+      "name": "Foreign draft presentation discrepancy",
+      "attrs": { "age": 7 },
+      "left": { "amount": 980 },
+      "right": { "amount": 910 },
+      "reason": "Paired, but the amounts differ."
+    },
+    {
+      "key": "FT26030035",
+      "name": "Customer remittance advice",
+      "attrs": { "age": 9 },
+      "left": { "amount": 15400 },
+      "reason": "Booked in our ledger. Not yet on their statement."
+    },
+    {
+      "key": "FT26030036",
+      "name": "Automated clearing debit",
+      "attrs": { "age": 11 },
+      "right": { "amount": 2100 },
+      "reason": "On their statement. Nothing booked here."
+    },
+    {
+      "key": "FT26030037",
+      "name": "Standing order execution fee",
+      "attrs": { "age": 14 },
+      "left": { "amount": 8700 },
+      "right": { "amount": 8200 },
+      "reason": "Paired, but the amounts differ."
+    },
+    {
+      "key": "FT26030038",
+      "name": "Cheque return charge",
+      "attrs": { "age": 15 },
+      "left": { "amount": 620 },
+      "reason": "Booked in our ledger. Not yet on their statement."
+    },
+    {
+      "key": "FT26030039",
+      "name": "ACH credit batch",
+      "attrs": { "age": 17 },
+      "right": { "amount": 32000 },
+      "reason": "On their statement. Nothing booked here."
+    },
+    {
+      "key": "FT26030040",
+      "name": "Branch transfer advice",
+      "attrs": { "age": 19 },
+      "left": { "amount": 5400 },
+      "reason": "Booked in our ledger. Not yet on their statement."
+    },
+    {
+      "key": "FT26030041",
+      "name": "Merchant terminal settlement",
+      "attrs": { "age": 21 },
+      "right": { "amount": 18000 },
+      "reason": "On their statement. Nothing booked here."
+    },
+    {
+      "key": "FT26030042",
+      "name": "Cash letter adjustment",
+      "attrs": { "age": 22 },
+      "left": { "amount": 1100 },
+      "reason": "Booked in our ledger. Not yet on their statement."
+    },
+    {
+      "key": "FT26030043",
+      "name": "Foreign exchange conversion spread difference",
+      "attrs": { "age": 24 },
+      "left": { "amount": 45000 },
+      "right": { "amount": 42500 },
+      "reason": "Paired, but the amounts differ."
+    },
+    {
+      "key": "FT26030044",
+      "name": "Corporate payroll settlement transit",
+      "attrs": { "age": 26 },
+      "left": { "amount": 9200 },
+      "reason": "Booked in our ledger. Not yet on their statement."
+    },
+    {
+      "key": "FT26030045",
+      "name": "Correspondent sweep debit",
+      "attrs": { "age": 27 },
+      "right": { "amount": 3800 },
+      "reason": "On their statement. Nothing booked here."
+    },
+    {
+      "key": "FT26030046",
+      "name": "Direct debit instruction transit",
+      "attrs": { "age": 28 },
+      "left": { "amount": 67000 },
+      "reason": "Booked in our ledger. Not yet on their statement."
+    },
+    {
+      "key": "FT26030047",
+      "name": "Inward customer payment",
+      "attrs": { "age": 29 },
+      "right": { "amount": 14000 },
+      "reason": "On their statement. Nothing booked here."
+    },
+    {
+      "key": "BULK-EXACT",
+      "status": "exact",
+      "count": 6412
+    },
+    {
+      "key": "BULK-TOLERANCE",
+      "status": "tolerance",
+      "count": 148
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+.blk{cursor:pointer;stroke:var(--surface);stroke-width:2}
+.blk.on{stroke:var(--ink);stroke-width:2.5}
+.scale{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink2);margin-bottom:10px}
+.scale i{display:block;width:26px;height:10px;border-radius:2px}
+tr.on td{font-weight:600;background:var(--wash)}

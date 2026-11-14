@@ -1,0 +1,13 @@
+.cols{grid-template-columns:300px 1fr}
+.meter{display:block;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--grid);padding:9px 8px;cursor:pointer;border-radius:4px}
+.meter:hover,.meter[aria-current=true]{background:var(--wash)}
+.meter[aria-current=true]{box-shadow:inset 3px 0 0 var(--ink)}
+.meter b{font-weight:600}.meter span{color:var(--ink2);font-size:12px;margin-left:8px}
+.meter svg{display:block;margin-top:6px}
+.ln{fill:none;stroke-width:2;stroke-linejoin:round}
+.band{fill:var(--wash)}
+.leg{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--ink2);margin-bottom:8px}
+.leg .key{display:inline-block;width:16px;height:2px;margin-right:6px;vertical-align:middle}
+.key.l{background:var(--left)}.key.r{background:var(--right)}
+#plot{cursor:crosshair}
+@media (max-width:900px){.cols{grid-template-columns:1fr}}

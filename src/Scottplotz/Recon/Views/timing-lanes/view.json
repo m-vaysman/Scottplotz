@@ -1,0 +1,44 @@
+{
+  "name": "timing-lanes",
+  "title": "Timing lanes",
+  "description": "Two horizontal lanes by date showing the lag between matching events.",
+  "needs": "Date values on each side, such as capture date and settlement date.",
+  "text": {
+    "title": "{left} against {right}",
+    "lede": "The top lane is the date of {leftShort}. The bottom lane is the date of {rightShort}. A line joins the two, so its slope is the wait. Steep lines settled on time; long, flat lines were late; a dot with no line never found its partner.",
+    "chartTitle": "Timing between {leftShort} and {rightShort}",
+    "chartSub": "Select a day to list its {unit}.",
+    "exactLegend": "On time",
+    "toleranceLegend": "Within tolerance",
+    "breakLegend": "Late",
+    "leftOnlyLegend": "{leftShort} only",
+    "rightOnlyLegend": "{rightShort} only",
+    "duplicateLegend": "{rightShort} duplicate",
+    "dayTitle": "{unit} on {day}",
+    "daySummary": "{count} {unit}",
+    "lateSummary": ", {count} settled late",
+    "emptyDay": "Nothing was recorded on this day.",
+    "selectAnother": "Select another day.",
+    "resultCol": "Result",
+    "recordCol": "{unitOne}",
+    "daysCol": "Days",
+    "amountCol": "Amount",
+    "noteCol": "Note",
+    "statusExact": "= on time",
+    "statusTolerance": "≈ within tolerance",
+    "statusBreak": "≠ late",
+    "statusLeftOnly": "left only",
+    "statusRightOnly": "right only",
+    "duplicateSuffix": ", ×2",
+    "defaultBreakReason": "",
+    "and": "and"
+  },
+  "options": [
+    {
+      "name": "dateField",
+      "type": "text",
+      "default": "",
+      "description": "Date field to plot on the lanes. Defaults to the first date field."
+    }
+  ]
+}

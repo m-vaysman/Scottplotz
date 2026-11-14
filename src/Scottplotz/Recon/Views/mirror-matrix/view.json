@@ -1,0 +1,31 @@
+{
+  "name": "mirror-matrix",
+  "title": "Intercompany mirror matrix",
+  "description": "Square matrix comparing reciprocal balances between entities, with billed entities across columns and billing entities down rows.",
+  "needs": "A numeric measure and two-level groups ([rowEntity, columnEntity]).",
+  "text": {
+    "title": "{left} against {right}",
+    "lede": "Rows are {leftShort}. Columns are {rightShort}. Each cell holds one relationship seen from both ends. Until a cell agrees, the pair cannot be eliminated on consolidation.",
+    "chartTitle": "{rightShort} minus {leftShort}",
+    "chartSub": "Tolerance is {tolerance} per {unitOne}.",
+    "scaleLeft": "{leftShort} records more",
+    "scaleRight": "{rightShort} records more",
+    "axisLabel": "{rightShort}",
+    "rowHeader": "{leftShort}",
+    "pairTitle": "{row} \u2192 {col}",
+    "pairSub": "{leftShort} {left}, {rightShort} {right}. {status}",
+    "pairAgrees": "Both sides agree.",
+    "pairDiff": "Out by {diff}.",
+    "document": "{unitOne}",
+    "total": "Total",
+    "difference": "Difference"
+  },
+  "options": [
+    {
+      "name": "divisor",
+      "type": "number",
+      "default": 1,
+      "description": "Divide matrix cell amounts by this number (e.g. 1000 for thousands)."
+    }
+  ]
+}

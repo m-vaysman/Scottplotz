@@ -1,0 +1,53 @@
+{
+  "name": "ageing-pyramid",
+  "title": "Ageing pyramid",
+  "description": "Back-to-back horizontal bars comparing unpaired items across age buckets.",
+  "needs": "A date field or age attribute on records, with records on one or both sides.",
+  "text": {
+    "title": "{left} against {right}",
+    "lede": "Only the items with no partner, split by how long they have been open. Bars to the left are {leftShort} only. Bars to the right are {rightShort} only.",
+    "chartTitleCount": "Unpaired {unit} by age, counted",
+    "chartTitleAmount": "Unpaired {unit} by age, by {measure}",
+    "chartSub": "Open items as of {asOf}. Select a bar to list its items.",
+    "chartAria": "Open items by age and side",
+    "modeCount": "Number of {unit}",
+    "modeAmount": "{measure} amount",
+    "leftHeader": "{leftShort} only",
+    "rightHeader": "{rightShort} only",
+    "bucketFirst": "0 to {max} days",
+    "bucketRange": "{min} to {max} days",
+    "bucketLast": "Over {min} days",
+    "detailTitle": "{count} {unit}, {bucket}, {side}",
+    "detailSub": "{total}. {note}",
+    "leftNote": "Open on {leftShort} only.",
+    "rightNote": "Open on {rightShort} only.",
+    "colReference": "Reference",
+    "colName": "Name",
+    "colAge": "Days open",
+    "colReason": "Reason",
+    "noReason": ""
+  },
+  "options": [
+    {
+      "name": "buckets",
+      "type": "numbers",
+      "default": [7, 30, 60, 90],
+      "description": "Upper bounds in days for age buckets."
+    },
+    {
+      "name": "mode",
+      "type": "choice",
+      "allowed": ["count", "amount"],
+      "default": "count",
+      "description": "Initial pyramid metric: count of items or measure amount."
+    },
+    {
+      "name": "maxDetailRows",
+      "type": "integer",
+      "default": 100,
+      "min": 1,
+      "max": 1000,
+      "description": "Maximum number of rows to display in the detail table."
+    }
+  ]
+}

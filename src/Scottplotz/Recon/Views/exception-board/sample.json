@@ -1,0 +1,155 @@
+{
+  "left": { "name": "Purchase register, the books", "short": "Books" },
+  "right": { "name": "Supplier filings", "short": "Supplier filing" },
+  "unit": { "one": "invoice", "many": "invoices" },
+  "asOf": "2026-03-31",
+  "tolerance": 0.02,
+  "fields": [
+    { "key": "inv", "label": "Invoice number", "type": "text", "compare": false },
+    { "key": "date", "label": "Invoice date", "type": "date", "compare": false },
+    { "key": "taxable", "label": "Taxable value", "type": "number", "decimals": 2, "compare": false },
+    { "key": "tax", "label": "Tax", "type": "number", "decimals": 2, "compare": true }
+  ],
+  "measure": "tax",
+  "text": {
+    "title": "Purchase invoices in the books against what suppliers filed",
+    "lede": "Each invoice is a card, sorted into a column by how the match came out. The column heading gives the count and the tax at stake, so the board reads as a to-do list: the tall columns and the old cards are where the work is.",
+    "boardTitle": "Invoices by match result",
+    "boardSub": "Input tax for March 2026, in USD. Select a card to compare both sides.",
+    "colExact": "Agrees",
+    "colExactNote": "",
+    "colTolerance": "Probable match",
+    "colToleranceNote": "Confirm and close",
+    "colBreak": "Amounts differ",
+    "colBreakNote": "Credit at risk",
+    "colLeftOnly": "Missing from filing",
+    "colLeftOnlyNote": "Credit on hold",
+    "colRightOnly": "Missing from books",
+    "colRightOnlyNote": "Credit unclaimed",
+    "colDuplicate": "Duplicate",
+    "colDuplicateNote": "Credit over-claimed",
+    "exactSummary": "Number, date and tax agree",
+    "nextStep": "Next step."
+  },
+  "records": [
+    {
+      "key": "AGREED",
+      "name": "Agreed invoices",
+      "status": "exact",
+      "count": 412,
+      "reason": "Number, date and tax agree"
+    },
+    {
+      "key": "INV-0042",
+      "name": "Tidewell Supply",
+      "status": "tolerance",
+      "left": { "inv": "INV-0042", "date": "2026-03-04", "taxable": 8200, "tax": 1640 },
+      "right": { "inv": "INV/42", "date": "2026-03-04", "taxable": 8200, "tax": 1640 },
+      "reason": "Same supplier, date and amounts. Only the invoice number is written differently.",
+      "attrs": { "age": 6, "action": "Accept the match and record the supplier’s numbering." }
+    },
+    {
+      "key": "MP-2291",
+      "name": "Marlow Print",
+      "status": "tolerance",
+      "left": { "inv": "MP-2291", "date": "2026-03-11", "taxable": 3150, "tax": 630 },
+      "right": { "inv": "MP2291", "date": "2026-03-11", "taxable": 3150, "tax": 630.01 },
+      "reason": "One cent of tax rounding and a missing hyphen.",
+      "attrs": { "age": 9, "action": "Accept the match." }
+    },
+    {
+      "key": "YC-88107",
+      "name": "Yarrow Courier",
+      "status": "tolerance",
+      "left": { "inv": "YC-88107", "date": "2026-03-17", "taxable": 940, "tax": 188 },
+      "right": { "inv": "YC-88107", "date": "2026-03-18", "taxable": 940, "tax": 188 },
+      "reason": "The supplier filed the invoice a day later than it is dated in the books.",
+      "attrs": { "age": 12, "action": "Accept the match." }
+    },
+    {
+      "key": "CP-5541",
+      "name": "Corvin Packaging",
+      "status": "break",
+      "left": { "inv": "CP-5541", "date": "2026-03-08", "taxable": 12400, "tax": 2480 },
+      "right": { "inv": "CP-5541", "date": "2026-03-08", "taxable": 12400, "tax": 1240 },
+      "reason": "The supplier filed tax at 10%. The invoice and the books show 20%.",
+      "attrs": { "age": 21, "action": "Ask the supplier to amend the filing. 1,240.00 of credit is at risk." }
+    },
+    {
+      "key": "HF-10392",
+      "name": "Halden Foods",
+      "status": "break",
+      "left": { "inv": "HF-10392", "date": "2026-03-13", "taxable": 5600, "tax": 1120 },
+      "right": { "inv": "HF-10392", "date": "2026-03-13", "taxable": 6500, "tax": 1300 },
+      "reason": "Taxable value is transposed: 5,600 in the books, 6,500 in the filing.",
+      "attrs": { "age": 16, "action": "Check the paper invoice, then correct whichever side is wrong." }
+    },
+    {
+      "key": "QF-7714",
+      "name": "Quillon Freight",
+      "status": "break",
+      "left": { "inv": "QF-7714", "date": "2026-03-20", "taxable": 2250, "tax": 450 },
+      "right": { "inv": "QF-7714", "date": "2026-03-20", "taxable": 2250, "tax": 0 },
+      "reason": "The supplier filed the invoice as exempt.",
+      "attrs": { "age": 9, "action": "Ask the supplier to amend. 450.00 of credit is at risk." }
+    },
+    {
+      "key": "OP-3318",
+      "name": "Osei & Park",
+      "status": "leftOnly",
+      "left": { "inv": "OP-3318", "date": "2026-03-02", "taxable": 18900, "tax": 3780 },
+      "reason": "In the books, absent from the supplier’s filing.",
+      "attrs": { "age": 29, "action": "Chase the supplier. The credit cannot be claimed until they file." }
+    },
+    {
+      "key": "FE-MAR-26",
+      "name": "Farrow Estates",
+      "status": "leftOnly",
+      "left": { "inv": "FE-MAR-26", "date": "2026-03-01", "taxable": 15000, "tax": 3000 },
+      "reason": "Rent invoice. The landlord has not filed for March.",
+      "attrs": { "age": 30, "action": "Hold the 3,000.00 credit and chase." }
+    },
+    {
+      "key": "NL-0456",
+      "name": "Nadir Labs",
+      "status": "leftOnly",
+      "left": { "inv": "NL-0456", "date": "2026-03-22", "taxable": 1310, "tax": 262 },
+      "reason": "In the books, absent from the supplier’s filing.",
+      "attrs": { "age": 9, "action": "Wait one more filing cycle before chasing." }
+    },
+    {
+      "key": "BD-22017",
+      "name": "Brightwater Dairy",
+      "status": "leftOnly",
+      "left": { "inv": "BD-22017", "date": "2026-03-25", "taxable": 4480, "tax": 896 },
+      "reason": "In the books, absent from the supplier’s filing.",
+      "attrs": { "age": 6, "action": "Wait one more filing cycle before chasing." }
+    },
+    {
+      "key": "INV/57",
+      "name": "Tidewell Supply",
+      "status": "rightOnly",
+      "right": { "inv": "INV/57", "date": "2026-03-27", "taxable": 2760, "tax": 552 },
+      "reason": "Filed by the supplier, not in the books. The invoice may still be in the approval queue.",
+      "attrs": { "age": 4, "action": "Find the invoice and book it to claim 552.00." }
+    },
+    {
+      "key": "SI-99201",
+      "name": "Sable Insurance",
+      "status": "rightOnly",
+      "right": { "inv": "SI-99201", "date": "2026-03-15", "taxable": 7200, "tax": 1440 },
+      "reason": "Filed by the supplier, not in the books.",
+      "attrs": { "age": 16, "action": "Confirm the service was received before booking." }
+    },
+    {
+      "key": "MP-2304",
+      "name": "Marlow Print",
+      "status": "exact",
+      "duplicate": "left",
+      "left": { "inv": "MP-2304", "date": "2026-03-19", "taxable": 2100, "tax": 420 },
+      "right": { "inv": "MP-2304", "date": "2026-03-19", "taxable": 2100, "tax": 420 },
+      "reason": "The books hold this invoice twice, entered by two clerks. The supplier filed it once.",
+      "attrs": { "age": 12, "action": "Reverse one entry. 420.00 of credit is over-claimed." }
+    }
+  ]
+}

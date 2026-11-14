@@ -1,0 +1,125 @@
+{
+  "left": { "name": "Payroll contribution file", "short": "Payroll" },
+  "right": { "name": "Pension administrator receipt", "short": "Administrator" },
+  "unit": { "one": "member", "many": "members" },
+  "asOf": "2026-03-31",
+  "tolerance": 1,
+  "fields": [
+    { "key": "members", "label": "Members", "decimals": 0, "compare": false, "tolerance": 0 },
+    { "key": "pay", "label": "Pensionable pay", "decimals": 2, "compare": false },
+    { "key": "ee", "label": "Employee contributions", "decimals": 2 },
+    { "key": "er", "label": "Employer contributions", "decimals": 2, "compare": false },
+    { "key": "vol", "label": "Voluntary contributions", "decimals": 2, "compare": false },
+    { "key": "hash", "label": "Checksum of member numbers", "decimals": 0, "compare": false, "tolerance": 0 }
+  ],
+  "measure": "ee",
+  "text": {
+    "title": "Payroll contribution file against the pension administrator's receipt",
+    "lede": "Before looking at a single member, compare the totals: how many, how much, and a checksum of the member numbers. A tick means the two sides foot. A row that does not tick tells you which kind of problem to go looking for, and the members below are the ones that explain it.",
+    "groupsTitle": "Payroll groups",
+    "sheetSub": "Contributions for March 2026, in USD. A total within 1.00 counts as within tolerance."
+  },
+  "groups": [
+    {
+      "key": "Head office",
+      "left": { "members": 412, "pay": 2318400, "ee": 115920, "er": 185472, "vol": 9200, "hash": 62916 },
+      "right": { "members": 412, "pay": 2318400, "ee": 115920, "er": 185472, "vol": 9200, "hash": 62916 }
+    },
+    {
+      "key": "Manufacturing",
+      "left": { "members": 1188, "pay": 4810050, "ee": 240502.5, "er": 384804, "vol": 3150, "hash": 74600 },
+      "right": { "members": 1188, "pay": 4810050, "ee": 240425, "er": 384804, "vol": 3150, "hash": 74600 }
+    },
+    {
+      "key": "Retail stores",
+      "left": { "members": 2241, "pay": 5378400, "ee": 268920, "er": 430272, "vol": 1800, "hash": 92452 },
+      "right": { "members": 2241, "pay": 5378150, "ee": 268907.5, "er": 430252, "vol": 1800, "hash": 90195 }
+    },
+    {
+      "key": "Logistics",
+      "left": { "members": 657, "pay": 2167787.5, "ee": 108389.38, "er": 173423, "vol": 650, "hash": 9720 },
+      "right": { "members": 658, "pay": 2171087.5, "ee": 108554.37, "er": 173687, "vol": 650, "hash": 71597 }
+    }
+  ],
+  "totals": {
+    "left": 733731.88,
+    "right": 733806.87
+  },
+  "records": [
+    {
+      "key": "HO-BULK",
+      "name": "Head office members",
+      "group": "Head office",
+      "status": "exact",
+      "count": 412
+    },
+    {
+      "key": "MFG-BULK",
+      "name": "Manufacturing members",
+      "group": "Manufacturing",
+      "status": "exact",
+      "count": 1186
+    },
+    {
+      "key": "40718",
+      "name": "R. Castellanos",
+      "group": "Manufacturing",
+      "left": { "pay": 4100, "ee": 205, "er": 328, "vol": 0 },
+      "right": { "pay": 4100, "ee": 164, "er": 328, "vol": 0 },
+      "reason": "Employee rate keyed as 4% at the administrator. The member elected 5% in February."
+    },
+    {
+      "key": "41102",
+      "name": "T. Nakamura",
+      "group": "Manufacturing",
+      "left": { "pay": 3650, "ee": 182.5, "er": 292, "vol": 0 },
+      "right": { "pay": 3650, "ee": 146, "er": 292, "vol": 0 },
+      "reason": "Employee rate keyed as 4% at the administrator. The member elected 5% in February."
+    },
+    {
+      "key": "RET-BULK",
+      "name": "Retail stores members",
+      "group": "Retail stores",
+      "status": "exact",
+      "count": 2240
+    },
+    {
+      "key": "52290",
+      "name": "A. Brennan",
+      "group": "Retail stores",
+      "left": { "pay": 2400, "ee": 120, "er": 192, "vol": 0 },
+      "reason": "A new joiner on the payroll file. The administrator rejected the row: no enrolment form on record."
+    },
+    {
+      "key": "50033",
+      "name": "S. Abara",
+      "group": "Retail stores",
+      "right": { "pay": 2150, "ee": 107.5, "er": 172, "vol": 0 },
+      "reason": "The administrator posted a contribution for a member payroll shows as transferred to Logistics."
+    },
+    {
+      "key": "LOG-BULK",
+      "name": "Logistics members",
+      "group": "Logistics",
+      "status": "exact",
+      "count": 655
+    },
+    {
+      "key": "61877",
+      "name": "D. Lindqvist",
+      "group": "Logistics",
+      "left": { "pay": 3300, "ee": 165, "er": 264, "vol": 0 },
+      "right": { "pay": 3300, "ee": 165, "er": 264, "vol": 0 },
+      "duplicate": "right",
+      "reason": "The administrator posted this member’s row twice."
+    },
+    {
+      "key": "60412",
+      "name": "M. Okafor",
+      "group": "Logistics",
+      "left": { "pay": 2987.5, "ee": 149.38, "er": 239, "vol": 50 },
+      "right": { "pay": 2987.5, "ee": 149.37, "er": 239, "vol": 50 },
+      "reason": "One cent of rounding on the employee contribution."
+    }
+  ]
+}
