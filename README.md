@@ -29,6 +29,18 @@ Scottplotz is based on [ScottPlot](https://scottplot.net). It is a thin REST API
 
 New here? Read [HOWTO.md](HOWTO.md). The same requests are in [Scottplotz.http](Scottplotz.http).
 
+## Reconciliation views
+
+Scottplotz also compares two sets of records and returns the picture as one self-contained HTML page. You post the records from both sides. It works out which agree, which differ and which are missing, and draws them in the view you name. There are 30 views, from a tie-out sheet to a treemap.
+
+```bash
+curl -sS -o recon.html http://localhost:5240/recon/dumbbell \
+  -H "Content-Type: application/json" \
+  -d '{"records":[{"key":"A-1","left":100,"right":100},{"key":"A-2","left":250,"right":262.5},{"key":"A-3","left":80}]}'
+```
+
+Try them at http://localhost:5240/recon.html. The request format is in [HOWTO.md](HOWTO.md#reconciliation-views), every view is listed in [docs/recon-views.md](docs/recon-views.md), and [docs/recon-porting.md](docs/recon-porting.md) says how to add one. These pages are drawn in the browser and do not use ScottPlot.
+
 ## Run it on your machine
 
 You need the .NET 8 SDK.

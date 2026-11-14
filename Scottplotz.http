@@ -77,3 +77,61 @@ Content-Type: application/json
   "data": [1, 2, 3],
   "hints": { "colour": "red" }
 }
+
+### Reconciliation: list the views
+GET {{host}}/recon/views
+
+### Reconciliation: sample request for a view
+GET {{host}}/recon/dumbbell/sample
+
+### Reconciliation: the smallest request
+POST {{host}}/recon/dumbbell
+Content-Type: application/json
+
+{
+  "records": [
+    { "key": "A-1", "left": 100, "right": 100 },
+    { "key": "A-2", "left": 250, "right": 262.5 },
+    { "key": "A-3", "left": 80 },
+    { "key": "A-4", "right": 45 }
+  ]
+}
+
+### Reconciliation: names, fields, tolerance, theme
+POST {{host}}/recon/dumbbell
+Content-Type: application/json
+
+{
+  "left": { "name": "Purchase order lines", "short": "Ordered" },
+  "right": { "name": "Supplier invoice lines", "short": "Invoiced" },
+  "unit": { "one": "line", "many": "lines" },
+  "tolerance": 2,
+  "fields": [
+    { "key": "qty", "label": "Quantity", "decimals": 0, "compare": false },
+    { "key": "ext", "label": "Extended amount", "decimals": 2 }
+  ],
+  "measure": "ext",
+  "records": [
+    { "key": "PO-5512-2", "name": "Corner boards", "group": "Tidewell Supply", "left": { "qty": 400, "ext": 1240 }, "right": { "qty": 400, "ext": 1380 }, "reason": "Invoiced at 3.45 each. The order says 3.10." },
+    { "key": "PO-5530-2", "name": "Label rolls", "group": "Tidewell Supply", "left": { "qty": 150, "ext": 1860 } }
+  ],
+  "theme": "dark"
+}
+
+### Reconciliation: explain
+POST {{host}}/recon/dumbbell/explain
+Content-Type: application/json
+
+{
+  "tolerance": { "percent": 5 },
+  "records": [ { "key": "A-2", "left": 250, "right": 262.5 } ]
+}
+
+### Reconciliation: unknown option
+POST {{host}}/recon/dumbbell
+Content-Type: application/json
+
+{
+  "records": [ { "key": "A-1", "left": 100 } ],
+  "options": { "sortBy": "size" }
+}
