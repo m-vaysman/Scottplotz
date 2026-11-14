@@ -108,7 +108,7 @@ public sealed class ExceptionBlotterTests
         var blotter = Tables(Mixed)[1];
 
         Assert.Equal(
-            [("Past settle date", Tone.Break), ("Settles today", Tone.Tolerance), ("Upcoming", Tone.Attributed), ("No settle date", Tone.None)],
+            [("Past settle date", Tone.Break), ("Settles today", Tone.Tolerance), ("Upcoming", Tone.Shade), ("No settle date", Tone.None)],
             blotter.Rows.Select(row => (CellText.Of(Cell(blotter, row, "Status")), Cell(blotter, row, "Status").Tone)));
     }
 
@@ -191,6 +191,18 @@ public sealed class ExceptionBlotterTests
         var row = Assert.Single(blotter.Rows);
         Assert.Equal("-", CellText.Of(Cell(blotter, row, "Impact")));
         Assert.Equal("Set up reference data (UnknownParty), then: Confirm execution price with counterparty", CellText.Of(Cell(blotter, row, "Suggested action")));
+    }
+
+    [Fact]
+    public void A_break_whose_net_cash_is_missing_on_one_side_has_a_blank_impact_and_not_a_zero()
+    {
+        var entry = Break("brk1", PriceBreak).Replace("\"NetCash\": 5010", "\"Quantity\": 1");
+
+        var blotter = Tables(entry)[1];
+
+        var row = Assert.Single(blotter.Rows);
+        Assert.Equal("", CellText.Of(Cell(blotter, row, "Impact")));
+        Assert.Equal(CellValue.Blank.Instance, Cell(blotter, row, "Impact").Value);
     }
 
     [Fact]

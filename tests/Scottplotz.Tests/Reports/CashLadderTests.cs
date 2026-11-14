@@ -106,17 +106,19 @@ public sealed class CashLadderTests
     }
 
     [Fact]
-    public void A_settle_date_before_the_as_of_date_is_muted_and_a_non_zero_difference_is_a_break()
+    public void A_settle_date_before_the_as_of_date_is_shaded_and_a_non_zero_difference_is_red_bold_without_fill_on_the_ladder_only()
     {
-        var table = Tables(Compose("BO6", Input(Body(Matched, Rows(
+        var tables = Tables(Compose("BO6", Input(Body(Matched, Rows(
             Row("left", "L-1", "LeftOnly", "SELL", "100", "2026-03-30"),
             Row("left", "L-2", "Matched", "SELL", "50", "2026-03-31", extra: """, "entryId": "e1" """),
             Row("right", "R-2", "Matched", "SELL", "50", "2026-03-31", extra: """, "entryId": "e1" """),
-            Row("right", "R-3", "RightOnly", "SELL", "0.004", "2026-04-01"))))))[0];
+            Row("right", "R-3", "RightOnly", "SELL", "0.004", "2026-04-01"))))));
+        var table = tables[0];
 
-        Assert.Equal([Tone.Muted, Tone.None, Tone.None], table.Rows.Select(row => row.Cells[0].Tone));
-        Assert.Equal([Tone.Break, Tone.None, Tone.None], table.Rows.Select(row => Cell(table, row, "Difference").Tone));
+        Assert.Equal([Tone.Shade, Tone.None, Tone.None], table.Rows.Select(row => row.Cells[0].Tone));
+        Assert.Equal([Tone.Alert, Tone.None, Tone.None], table.Rows.Select(row => Cell(table, row, "Difference").Tone));
         Assert.All(table.Rows, row => Assert.True(Cell(table, row, "Difference").Bold));
+        Assert.All(tables[1].Rows, row => Assert.Equal(Tone.None, Cell(tables[1], row, "Difference").Tone));
     }
 
     [Fact]

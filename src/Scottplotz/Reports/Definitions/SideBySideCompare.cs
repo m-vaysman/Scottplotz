@@ -108,16 +108,11 @@ public static class SideBySideCompare
             _ => Tone.Attributed
         };
 
-    private static TableBlock Key(ReportContext context) =>
+    private static LegendBlock Key(ReportContext context) =>
         new(
-            context.Label("Colour key for the Theirs cells"),
-            [new ReportColumn("Colour"), new ReportColumn("Meaning")],
-            [
-                KeyRow(context, "Root break", Tone.Break, "The field differs and no other field explains it."),
-                KeyRow(context, "Within tolerance", Tone.Tolerance, "The field differs, but inside the declared tolerance."),
-                KeyRow(context, "Consequence of another field", Tone.Attributed, "The field differs because another field differs.")
-            ]);
-
-    private static ReportRow KeyRow(ReportContext context, string label, Tone tone, string meaning) =>
-        ReportRow.Of(ReportCell.Of(context.Label(label)) with { Tone = tone }, meaning);
+        [
+            new LegendItem(context.Label("Root break"), Tone.Break),
+            new LegendItem(context.Label("Within tolerance"), Tone.Tolerance),
+            new LegendItem(context.Label("Consequence of another field"), Tone.Attributed)
+        ]);
 }

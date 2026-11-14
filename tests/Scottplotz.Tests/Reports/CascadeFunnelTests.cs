@@ -116,11 +116,22 @@ public sealed class CascadeFunnelTests
         var bars = (BarsBlock)document.Blocks[1];
         Assert.Equal("Items remaining after each stage", bars.Title);
         Assert.Equal("Items", bars.AxisTitle);
-        Assert.Equal(
-            ["Rows read · Ours", "Rows read · Theirs", "After lifecycle collapse · Ours", "After lifecycle collapse · Theirs", "Items after packages · Ours", "Items after packages · Theirs", "P1 · Ours", "P1 · Theirs", "P2 · Ours", "P2 · Theirs", "Residue · Ours", "Residue · Theirs"],
-            bars.Bars.Select(bar => bar.Label));
-        Assert.Equal([4m, 3m, 4m, 3m, 4m, 3m, 3m, 2m, 2m, 1m, 2m, 1m], bars.Bars.Select(bar => bar.Value));
+        Assert.Equal("Ours: remaining", bars.FirstSeries);
+        Assert.Equal("Theirs: remaining", bars.SecondSeries);
+        Assert.Equal(["Rows read", "After lifecycle collapse", "Items after packages", "P1", "P2", "Residue"], bars.Bars.Select(bar => bar.Label));
+        Assert.Equal([4m, 4m, 4m, 3m, 2m, 2m], bars.Bars.Select(bar => bar.Value));
+        Assert.Equal([3m, 3m, 3m, 2m, 1m, 1m], bars.Bars.Select(bar => bar.Second));
         Assert.Equal(["Result rows"], document.Blocks.OfType<DataBlock>().Select(data => data.Name));
+    }
+
+    [Fact]
+    public void A_run_without_rows_shows_zero_at_every_stage_and_the_check_passes()
+    {
+        var table = Funnel("", "", "[]");
+
+        Assert.Equal(["Rows read", "After lifecycle collapse", "Items after packages", "Residue", "Check: remaining after the last stage = residue"], table.Rows.Select(row => Texts(row)[0]));
+        Assert.Equal(["Rows read", "", "-", "", "-", "Every input row"], Stage(table, "Rows read"));
+        Assert.Equal(["✓", "✓"], [CellText.Of(table.Rows[^1].Cells[2]), CellText.Of(table.Rows[^1].Cells[4])]);
     }
 
     [Fact]

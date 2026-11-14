@@ -67,7 +67,7 @@ public static class AuditTrail
             _ => $"{entry.Entry.Alignment}: no match committed"
         };
 
-    // Green for a commit, amber for an undecided search, grey for nothing to go on, red for a veto; other steps are plain and bold.
+    // Green for a commit, amber for an undecided search, grey for nothing to go on, red for a veto; other steps are bold on a plain grey fill, and hints are italic with none.
     private static ReportCell Verdict(Step step) =>
         ReportCell.Of(step.Verdict) with
         {
@@ -77,9 +77,10 @@ public static class AuditTrail
             {
                 "Committed" or "Matched" => Tone.Ok,
                 "Contest" or "SearchIncomplete" or "Ambiguous" => Tone.Tolerance,
-                "NoKey" or "NoCandidate" or "LeftOnly" or "RightOnly" => Tone.Attributed,
+                "NoKey" or "NoCandidate" or "LeftOnly" or "RightOnly" => Tone.Shade,
                 "Vetoed" => Tone.Break,
-                _ => Tone.None
+                _ when step.Hint => Tone.None,
+                _ => Tone.Shade
             }
         };
 

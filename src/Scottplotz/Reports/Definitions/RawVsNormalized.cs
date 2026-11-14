@@ -63,6 +63,9 @@ public static class RawVsNormalized
     private static Tone ToneOf(DiffState? state) =>
         state switch { DiffState.Break => Tone.Break, DiffState.Tolerance => Tone.Tolerance, DiffState.Attributed => Tone.Attributed, _ => Tone.None };
 
+    private static NumberFormat DeltaFormat(DiffFact diff) =>
+        diff.Diff.DeltaKind == DeltaKind.Days || DataBlocks.FormatFor(diff.Role) == NumberFormat.Date ? NumberFormat.Integer : DataBlocks.FormatFor(diff.Role);
+
     private static string Why(EntryFact entry, IReadOnlyList<DiffFact> diffs, int steps) =>
         entry.Entry.Outcome switch
         {
@@ -127,14 +130,15 @@ public static class RawVsNormalized
             new[] { "Field", "Ours", "Theirs", "Delta", "Outcome", "Attributed to" }
                 .Select(title => new ReportColumn(context.Label(title), title is "Ours" or "Theirs" or "Delta" ? CellAlign.Right : CellAlign.Auto))
                 .ToList(),
-            diffs.Select(diff => ReportRow.Of(
-                diff.Field,
-                DataBlocks.Cell(diff.Ours, diff.Role),
-                DataBlocks.Cell(diff.Theirs, diff.Role),
-                ReportCell.Of(diff.Delta, diff.Diff.DeltaKind == DeltaKind.Days ? NumberFormat.Integer : DataBlocks.FormatFor(diff.Role)),
-                ReportCell.Of(diff.Diff.Outcome.ToString()) with { Tone = ToneOf(diff.State) },
-                string.Join(", ", diff.Diff.AttributedTo))).ToList(),
-            Empty: context.Label("None: exact after normalization"));
+            diffs.Count == 0
+                ? [ReportRow.Of(ReportCell.Of(context.Label("None: exact after normalization")) with { Tone = Tone.Ok, Span = 6 })]
+                : diffs.Select(diff => ReportRow.Of(
+                    diff.Field,
+                    DataBlocks.Cell(diff.Ours, diff.Role),
+                    DataBlocks.Cell(diff.Theirs, diff.Role),
+                    ReportCell.Of(diff.Delta, DeltaFormat(diff)),
+                    ReportCell.Of(diff.Diff.Outcome.ToString()) with { Tone = ToneOf(diff.State) },
+                    string.Join(", ", diff.Diff.AttributedTo))).ToList());
 
         return new SectionBlock(
             banner,

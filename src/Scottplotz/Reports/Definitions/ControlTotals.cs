@@ -114,7 +114,7 @@ public static class ControlTotals
 
     private static ReportCell Quantity(decimal value, Tone tone = Tone.None, bool bold = false) => ReportCell.Of(value, NumberFormat.Quantity) with { Tone = tone, Bold = bold };
 
-    private static ReportColumn Heading(ReportContext context, string title) => new(context.Label(title), CellAlign.Right, Wrap: true);
+    private static ReportColumn Heading(ReportContext context, string title) => new(context.Label(title), title is "Check" or "Tie-out" ? CellAlign.Center : CellAlign.Right, Wrap: true);
 
     private static TableBlock CountsTable(ReportContext context, bool others)
     {
@@ -245,7 +245,7 @@ public static class ControlTotals
                     ReportCell.Of(currency),
                     new ReportCell(new CellValue.Text(item.Line.Row), Bold: true),
                     ReportCell.Of(item.Line.Column),
-                    .. QuantityCells(item.Figures, item.Figures.Balanced && item.Figures.Delta == item.Line.Delta, item.Figures.TiesToFiles)
+                    .. QuantityCells(item.Figures, item.Figures.Balanced, item.Figures.TiesToFiles)
                 ])),
                 new ReportRow(
                 [
@@ -288,8 +288,8 @@ public static class ControlTotals
                     ReportCell.Of(entry.Keys(SourceSide.Right)),
                     ReportCell.Of(ours?.Values[ReportRole.Counterparty].Text),
                     ReportCell.Of(ours?.Values[ReportRole.Asset].Text),
-                    ReportCell.Of(string.Join(", ", entry.OursCurrencies)) with { Tone = Tone.Break },
-                    ReportCell.Of(string.Join(", ", entry.TheirsCurrencies)) with { Tone = Tone.Break },
+                    ReportCell.Of(string.Join(", ", entry.OursCurrencies)) with { Tone = Tone.Alert },
+                    ReportCell.Of(string.Join(", ", entry.TheirsCurrencies)) with { Tone = Tone.Alert },
                     ReportCell.Of(ours?.Values[ReportRole.Quantity].Number, NumberFormat.Quantity),
                     ReportCell.Of(theirs?.Values[ReportRole.Quantity].Number, NumberFormat.Quantity),
                     ReportCell.Of(entry.Entry.CommittedBy),
@@ -306,7 +306,7 @@ public static class ControlTotals
 
     private static IReadOnlyList<ReportColumn> Headers(ReportContext context) =>
         new[] { "Entry", "Ours rows", "Theirs rows", "Counterparty", "Asset", "Ours currency", "Theirs currency", "Quantity ours", "Quantity theirs", "Matched by", "Outcome", "Break fields" }
-            .Select(title => new ReportColumn(context.Label(title)))
+            .Select(title => new ReportColumn(context.Label(title), title.StartsWith("Quantity") ? CellAlign.Right : CellAlign.Auto))
             .ToList();
 
     private static IReadOnlyList<ReportBlock> Notes(bool others, bool packages) =>
@@ -328,7 +328,7 @@ public static class ControlTotals
             "Quantity by counterparty and asset, one block per currency. Left only is negated; Delta = Right − Left = Left only + Right only + Matched delta. Ambiguous, search incomplete, quarantined and suppressed rows are not counted.",
             new TableBlock(
                 null,
-                new[] { "Currency (filter)", "Row: counterparty", "Column: asset", "Left", "Right", "Delta", "LeftOnly", "RightOnly", "MatchedDelta" }.Select(title => new ReportColumn(title)).ToList(),
+                new[] { "Currency (filter)", $"Row: {context.Field(ReportRole.Counterparty)}", $"Column: {context.Field(ReportRole.Asset)}", "Left", "Right", "Delta", "LeftOnly", "RightOnly", "MatchedDelta" }.Select(title => new ReportColumn(title)).ToList(),
                 currencies
                     .SelectMany(currency => SideBySide.Lines(context.Facts, currency).Select(line => ReportRow.Of(
                         currency,

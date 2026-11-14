@@ -36,17 +36,42 @@ public sealed class ScorecardTests
 
     private static TableBlock Counterparties(ReportDocument document) => Tables(document).Single(table => table.Title is null);
 
+    private static IReadOnlyList<ReportTile> AllTiles(ReportDocument document) => document.Blocks.OfType<TilesBlock>().SelectMany(block => block.Tiles).ToList();
+
     private static IReadOnlyList<string> RowTexts(ReportDocument document, string counterparty) => ReportTesting.Texts(Row(Counterparties(document), counterparty));
 
     [Fact]
     public void The_tiles_count_rows_entries_and_rates_over_the_whole_run()
     {
-        var tiles = Assert.IsType<TilesBlock>(Report(Entries, Rows).Blocks[0]).Tiles;
+        var tiles = AllTiles(Report(Entries, Rows));
 
         Assert.Equal(
             [("Internal rows", "6"), ("Counterparty rows", "4"), ("Result entries", "5"), ("Matched entries", "3"), ("Auto-match rate", "50.0%"),
                 ("Clean-match rate", "66.7%"), ("Breaks", "1"), ("Unmatched ours", "1"), ("Unmatched theirs", "1"), ("Ambiguous", "1")],
             tiles.Select(tile => (tile.Label, CellText.Of(tile.Value))));
+    }
+
+    [Fact]
+    public void The_ten_tiles_sit_in_two_rows_of_five_as_in_the_original()
+    {
+        var rows = Report(Entries, Rows).Blocks.OfType<TilesBlock>().Select(block => block.Tiles.Select(tile => tile.Label).ToList()).ToList();
+
+        Assert.Equal(
+            [["Internal rows", "Counterparty rows", "Result entries", "Matched entries", "Auto-match rate"],
+                ["Clean-match rate", "Breaks", "Unmatched ours", "Unmatched theirs", "Ambiguous"]],
+            rows);
+    }
+
+    [Fact]
+    public void A_counterparty_with_no_matched_entries_has_a_zero_clean_match_rate_coloured_as_a_break()
+    {
+        var table = Counterparties(Report(Entries, Rows));
+
+        var cell = Cell(table, Row(table, "A"), "Clean-match rate");
+        Assert.Equal("50.0%", CellText.Of(cell));
+        var none = Cell(Counterparties(Report("", InputRow("left", "L-1", "LeftOnly", "Q"))), Row(Counterparties(Report("", InputRow("left", "L-1", "LeftOnly", "Q"))), "Q"), "Clean-match rate");
+        Assert.Equal("0.0%", CellText.Of(none));
+        Assert.Equal(Tone.Break, none.Tone);
     }
 
     [Fact]
@@ -130,7 +155,7 @@ public sealed class ScorecardTests
     {
         var document = Report("", "", "[]");
 
-        Assert.All(Assert.IsType<TilesBlock>(document.Blocks[0]).Tiles, tile => Assert.Equal(0m, Assert.IsType<CellValue.Number>(tile.Value.Value).Value));
+        Assert.All(AllTiles(document), tile => Assert.Equal(0m, Assert.IsType<CellValue.Number>(tile.Value.Value).Value));
         var passes = Tables(document).Single(table => table.Title == "Commits by pass");
         Assert.Empty(passes.Rows);
         Assert.Equal("No passes in this run.", passes.Empty);
@@ -150,7 +175,7 @@ public sealed class ScorecardTests
     {
         var input = Sample();
         var document = Compose("MO2", input);
-        var tiles = Assert.IsType<TilesBlock>(document.Blocks[0]).Tiles.ToDictionary(tile => tile.Label, tile => CellText.Of(tile.Value));
+        var tiles = AllTiles(document).ToDictionary(tile => tile.Label, tile => CellText.Of(tile.Value));
         var left = input.Rows.Where(row => row.Source == SourceSide.Left).ToList();
         var matchedEntries = input.Entries.Where(entry => entry.Alignment == Alignment.Matched).ToList();
         var clean = matchedEntries.Count(entry => entry.Outcome is Outcome.Exact or Outcome.WithinTolerance);

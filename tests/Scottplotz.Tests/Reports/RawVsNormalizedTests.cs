@@ -218,8 +218,35 @@ public sealed class RawVsNormalizedTests
     {
         var table = TableAt(Card(Compose("BO3", Input()), "c1b2c3d4e5f6"), 4);
 
-        Assert.Empty(table.Rows);
-        Assert.Equal("None: exact after normalization", table.Empty);
+        var row = Assert.Single(table.Rows);
+        Assert.Equal(["None: exact after normalization"], Texts(row));
+        Assert.Equal(Tone.Ok, row.Cells[0].Tone);
+        Assert.Equal(table.Columns.Count, row.Cells[0].Span);
+    }
+
+    [Fact]
+    public void A_date_difference_with_a_plain_number_delta_shows_the_delta_as_an_integer_not_a_date()
+    {
+        var diff = """{ "field": "SettleDate", "role": "SettleDate", "type": "date", "outcome": "Break", "ours": "2026-03-30", "theirs": "2026-04-02", "deltaKind": "Number", "delta": 3 }""";
+        var entries = Pair(BreakId, "Break", "\"L-1\"", "\"R-1\"", Plain, TheirsPlain, diff);
+        var rows = string.Join(", ", Row("left", "L-1", BreakId, Plain, """{ "Cpty": "A" }"""), Row("right", "R-1", BreakId, TheirsPlain, """{ "Cpty Name": "B" }"""));
+
+        var card = Card(Compose("BO3", ReportTesting.Input(Body(entries, rows, RawColumns))), "a1b2c3d4e5f6");
+
+        var table = TableAt(card, 4);
+        Assert.Equal("3", CellText.Of(Cell(table, table.Rows[0], "Delta")));
+    }
+
+    [Fact]
+    public void A_card_still_shows_when_neither_row_carries_raw_data_and_its_as_received_rows_are_blank()
+    {
+        var entries = Pair(BreakId, "Break", "\"L-1\"", "\"R-1\"", Plain, TheirsPlain, BreakDiffs);
+        var rows = string.Join(", ", Row("left", "L-1", BreakId, Plain), Row("right", "R-1", BreakId, TheirsPlain));
+
+        var card = Card(Compose("BO3", ReportTesting.Input(Body(entries, rows, RawColumns))), "a1b2c3d4e5f6");
+
+        Assert.Equal(["Ours, as received"], Header(TableAt(card, 0)));
+        Assert.Equal(["raw"], Texts(TableAt(card, 0).Rows[0]));
     }
 
     [Fact]

@@ -108,8 +108,8 @@ public sealed class AuditTrailTests
     [InlineData("Committed", Tone.Ok)]
     [InlineData("Contest", Tone.Tolerance)]
     [InlineData("SearchIncomplete", Tone.Tolerance)]
-    [InlineData("NoKey", Tone.Attributed)]
-    [InlineData("NoCandidate", Tone.Attributed)]
+    [InlineData("NoKey", Tone.Shade)]
+    [InlineData("NoCandidate", Tone.Shade)]
     [InlineData("Vetoed", Tone.Break)]
     public void A_verdict_is_coloured_by_what_it_says(string verdict, Tone expected)
     {
@@ -120,6 +120,7 @@ public sealed class AuditTrailTests
         var cell = Cell(Steps(Assert.Single(Cards(Compose("MO7", input)))), Steps(Assert.Single(Cards(Compose("MO7", input)))).Rows[0], "Verdict");
 
         Assert.Equal(expected, cell.Tone);
+        Assert.False(cell.Italic);
         Assert.True(cell.Bold);
     }
 
@@ -134,7 +135,7 @@ public sealed class AuditTrailTests
         Assert.Equal(["Result", "Matched", "OneToOne, Break: Price Break, Fees WithinTolerance", ""], Texts(matched));
         Assert.Equal(Tone.Ok, matched.Cells[1].Tone);
         Assert.Equal(["Result", "LeftOnly", "LeftOnly: no match committed", ""], Texts(open));
-        Assert.Equal(Tone.Attributed, open.Cells[1].Tone);
+        Assert.Equal(Tone.Shade, open.Cells[1].Tone);
         Assert.Equal(["Result", "Ambiguous", "Ambiguous: no match committed", ""], Texts(ambiguous));
         Assert.Equal(Tone.Tolerance, ambiguous.Cells[1].Tone);
     }
@@ -150,7 +151,7 @@ public sealed class AuditTrailTests
                 ["Result", "Matched", "ManyToOne, Package, exact", ""]
             ],
             package.Rows.Select(row => Texts(row).ToArray()));
-        Assert.Equal(Tone.None, package.Rows[0].Cells[1].Tone);
+        Assert.Equal(Tone.Shade, package.Rows[0].Cells[1].Tone);
     }
 
     [Fact]
@@ -180,6 +181,7 @@ public sealed class AuditTrailTests
         Assert.Equal(["Hint", "RaiseSearchLimit", "", ""], Texts(table.Rows[2]));
         Assert.True(table.Rows[1].Cells[2].Italic);
         Assert.True(table.Rows[1].Cells[1].Italic);
+        Assert.Equal(Tone.None, table.Rows[1].Cells[1].Tone);
         Assert.False(table.Rows[0].Cells[2].Italic);
     }
 
@@ -219,6 +221,17 @@ public sealed class AuditTrailTests
             """{ "maxCards": 2 }""");
 
         Assert.Equal(["o1", "o2"], Cards(Compose("MO7", input)).Select(card => Stage(card.Title)[0]));
+    }
+
+    [Fact]
+    public void A_lifecycle_entry_with_no_suppressed_rows_counts_zero_of_them_and_a_short_id_is_not_cut()
+    {
+        var input = Make(Matched("a1", "Exact", composition: "\"OneToOne\", \"LifecycleCollapsed\""), $"{Row("left", "L-1", "a1")}, {Row("right", "R-1", "a1")}");
+
+        var card = Assert.Single(Cards(Compose("MO7", input)));
+
+        Assert.StartsWith("a1  ·  ", card.Title);
+        Assert.Equal("0 row(s) superseded or cancelled: ", Texts(Steps(card).Rows[0])[2]);
     }
 
     [Fact]

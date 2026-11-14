@@ -37,7 +37,7 @@ public sealed class ToleranceUsageTests
 
     private static TableBlock Table(ReportDocument document) => Tables(document)[0];
 
-    private static IEnumerable<ReportRow> Data(TableBlock table) => table.Rows.Where(row => row.Kind == RowKind.Normal);
+    private static IEnumerable<ReportRow> Data(TableBlock table) => table.Rows.SkipLast(1);
 
     private static string Text(TableBlock table, string entry, string column) => CellText.Of(Cell(table, Row(table, entry), column));
 
@@ -85,6 +85,7 @@ public sealed class ToleranceUsageTests
     {
         var table = Table(Build());
 
+        Assert.Equal(HeatColour.Amber, Cell(table, Row(table, "e1"), "% of tolerance used").HeatColour);
         Assert.Equal(0.5, Cell(table, Row(table, "e1"), "% of tolerance used").Bar);
         Assert.Equal(1.0, Cell(table, Row(table, "e2"), "% of tolerance used").Bar);
         var over = Table(Build(Entry("o", Diff("Price", "99.5", "99.62", "0.12"))));
@@ -101,7 +102,7 @@ public sealed class ToleranceUsageTests
         Assert.Equal("", Text(table, "e1", "Flag"));
         Assert.Equal(Tone.None, Cell(table, Row(table, "e1"), "Flag").Tone);
         var check = table.Rows[^1];
-        Assert.Equal(RowKind.Total, check.Kind);
+        Assert.Equal(RowKind.Normal, check.Kind);
         Assert.Equal("Check: no tolerated difference exceeds its tolerance", CellText.Of(check.Cells[0]));
         Assert.Equal(8, check.Cells[0].Span);
         Assert.Equal(("✓", Tone.Ok), (CellText.Of(check.Cells[1]), check.Cells[1].Tone));
@@ -125,6 +126,17 @@ public sealed class ToleranceUsageTests
         var table = Table(Build(entries));
 
         Assert.Equal(["d", "BAML", "BUND", "SettleDate", "2026-04-01", "2026-04-02", "1", "2", "50.0%", ""], Texts(Row(table, "d")));
+    }
+
+    [Fact]
+    public void A_difference_without_a_delta_is_listed_with_a_blank_delta_and_no_share_used()
+    {
+        var entries = Entry("n", Diff("Price", "99.5", "99.55", "null", kind: "None"));
+
+        var table = Table(Build(entries));
+
+        Assert.Equal(["n", "BAML", "BUND", "Price", "99.5", "99.55", "", "0.1", "0.0%", ""], Texts(Row(table, "n")));
+        Assert.Equal("✓", CellText.Of(table.Rows[^1].Cells[1]));
     }
 
     [Fact]

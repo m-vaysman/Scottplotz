@@ -118,7 +118,7 @@ public static class ExceptionBlotter
             {
                 Calendar.PastSettleDate => Tone.Break,
                 Calendar.SettlesToday => Tone.Tolerance,
-                Calendar.Upcoming => Tone.Attributed,
+                Calendar.Upcoming => Tone.Shade,
                 _ => Tone.None
             }
         };

@@ -102,7 +102,7 @@ public static class ReportHtml
             cell.Tone == Tone.Ok && cell.Value is CellValue.Text { Value.Length: > 1 } ? "fill" : "",
             cell.Bold ? "b" : "",
             cell.Italic ? "i" : "",
-            cell.Strike ? "s" : "",
+            cell.Strike ? "strike" : "",
             cell.Wrap || CellText.Of(cell).Length > 34 ? "w" : "",
             cell.Bar is not null && cell.HeatColour is HeatColour.Amber or HeatColour.Orange ? "amber" : "",
             heat is not null ? "heat" : "",

@@ -74,12 +74,12 @@ public static class CashLadder
 
     private static ReportCell Amount(decimal value, bool bold = false) => ReportCell.Of(value, NumberFormat.Amount) with { Bold = bold };
 
-    private static IReadOnlyList<ReportCell> FigureCells(Figures figures, bool differenceBold = true) =>
+    private static IReadOnlyList<ReportCell> FigureCells(Figures figures, bool flagDifference) =>
     [
         ReportCell.Of(figures.Items, NumberFormat.Count),
         Amount(figures.Ours),
         Amount(figures.Theirs),
-        Amount(figures.Difference, differenceBold) with { Tone = figures.InBreak ? Tone.Break : Tone.None },
+        Amount(figures.Difference, bold: true) with { Tone = flagDifference && figures.InBreak ? Tone.Alert : Tone.None },
         Amount(figures.UnmatchedOurs),
         Amount(figures.UnmatchedTheirs),
         Amount(figures.Inside),
@@ -98,16 +98,16 @@ public static class CashLadder
 
         var ladder = lines.Select(line => new ReportRow(
         [
-            ReportCell.Of(line.Settle, NumberFormat.Date) with { Tone = line.Settle < asOf ? Tone.Muted : Tone.None },
+            ReportCell.Of(line.Settle, NumberFormat.Date) with { Tone = line.Settle < asOf ? Tone.Shade : Tone.None },
             ReportCell.Of(line.Currency),
-            .. FigureCells(line.Figures)
+            .. FigureCells(line.Figures, flagDifference: true)
         ])).ToList();
 
         var totals = currencies.Select(currency => new ReportRow(
         [
             ReportCell.Of(currency) with { Bold = true },
             ReportCell.Empty,
-            .. FigureCells(lines.Where(line => line.Currency == currency).Aggregate(Figures.Zero, (sum, line) => sum + line.Figures))
+            .. FigureCells(lines.Where(line => line.Currency == currency).Aggregate(Figures.Zero, (sum, line) => sum + line.Figures), flagDifference: false)
         ])).ToList();
 
         var splits = context.Facts.Entries

@@ -52,19 +52,19 @@ public static class Allocations
         var price = context.IsMapped(ReportRole.Price);
         var netCash = context.IsMapped(ReportRole.NetCash);
 
-        IEnumerable<ReportCell> Line(RowFact row) =>
-        [
-            ReportCell.Of(row.Row.RowKey),
-            ReportCell.Of(row.Values[ReportRole.Book].Text),
-            DataBlocks.Cell(row.Values[ReportRole.Quantity], ReportRole.Quantity),
-            price ? DataBlocks.Cell(row.Values[ReportRole.Price], ReportRole.Price) : ReportCell.Empty,
-            netCash ? DataBlocks.Cell(row.Values[ReportRole.NetCash], ReportRole.NetCash) : ReportCell.Empty
-        ];
-
+        IEnumerable<ReportCell> Line(RowFact row, bool bold) =>
+            new[]
+            {
+                ReportCell.Of(row.Row.RowKey),
+                ReportCell.Of(row.Values[ReportRole.Book].Text),
+                DataBlocks.Cell(row.Values[ReportRole.Quantity], ReportRole.Quantity),
+                price ? DataBlocks.Cell(row.Values[ReportRole.Price], ReportRole.Price) : ReportCell.Empty,
+                netCash ? DataBlocks.Cell(row.Values[ReportRole.NetCash], ReportRole.NetCash) : ReportCell.Empty
+            }.Select(cell => cell with { Bold = bold });
         var blockRow = new ReportRow(
             [
                 new ReportCell(CellValue.Of($"{context.Label("Block")} ({group.BlockSide})"), Bold: true),
-                .. Line(group.Block).Select(cell => cell with { Bold = true, Tone = Tone.Link }),
+                .. Line(group.Block, bold: true),
                 ReportCell.Empty,
                 ReportCell.Empty
             ],
@@ -72,7 +72,7 @@ public static class Allocations
         var allocationRows = group.Members.Select(member => new ReportRow(
             [
                 new ReportCell(CellValue.Of(context.Label("allocation")), Indent: 1),
-                .. Line(member).Select(cell => cell with { Tone = Tone.Link }),
+                .. Line(member, bold: false),
                 ReportCell.Empty,
                 ReportCell.Empty
             ]));
@@ -102,9 +102,9 @@ public static class Allocations
                         new ReportColumn(context.Label("Line")),
                         new ReportColumn(context.Label("Row")),
                         new ReportColumn(context.Label("Book")),
-                        new ReportColumn(context.Label("Quantity")),
-                        new ReportColumn(context.Label("Price")),
-                        new ReportColumn(context.Label("Net cash")),
+                        new ReportColumn(context.Label("Quantity"), CellAlign.Right),
+                        new ReportColumn(context.Label("Price"), CellAlign.Right),
+                        new ReportColumn(context.Label("Net cash"), CellAlign.Right),
                         new ReportColumn(context.Label("Quantity check")),
                         new ReportColumn(context.Label("Net cash check"))
                     ],

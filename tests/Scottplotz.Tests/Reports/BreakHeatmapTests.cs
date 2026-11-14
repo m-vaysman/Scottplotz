@@ -129,6 +129,23 @@ public sealed class BreakHeatmapTests
     }
 
     [Fact]
+    public void A_run_that_does_not_map_the_counterparty_role_is_unavailable()
+    {
+        var roles = ReportTesting.Roles.Replace("\"Counterparty\": \"Counterparty\", ", "");
+
+        Assert.Contains("Counterparty", Unavailable("MO4", Input(Body(Entries, "", roles: roles))));
+    }
+
+    [Fact]
+    public void Counterparty_and_category_names_with_markup_characters_pass_through_unchanged()
+    {
+        var table = Heatmap(Break("b1", "A&B <x>", "Net <cash> &amp;", "Book"));
+
+        Assert.Equal(["A&B <x>", "Total"], Column(table, "Counterparty"));
+        Assert.Contains("Net <cash> &amp;", Header(table));
+    }
+
+    [Fact]
     public void The_open_items_data_section_follows_the_table()
     {
         var document = Compose("MO4", Input(Body(Entries, "")));

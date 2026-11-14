@@ -62,17 +62,14 @@ public static class ToleranceUsage
                 DataBlocks.Cell(diff.Theirs, diff.Role),
                 ReportCell.Of(diff.Delta, DeltaFormat(diff)),
                 ReportCell.Of(diff.ToleranceAmount, NumberFormat.Price),
-                ReportCell.Of(Used(diff), NumberFormat.Percent) with { Bold = true, Bar = (double)Math.Min(Used(diff), 1m) },
+                ReportCell.Of(Used(diff), NumberFormat.Percent) with { Bold = true, Bar = (double)Math.Min(Used(diff), 1m), HeatColour = HeatColour.Amber },
                 ReportCell.Of(Used(diff) >= 1m ? "On the boundary" : "") with { Tone = Used(diff) >= 1m ? Tone.Tolerance : Tone.None }
             ]);
 
-        var check = new ReportRow(
-            [
-                ReportCell.Of(context.Label("Check: no tolerated difference exceeds its tolerance")) with { Bold = true, Span = 8 },
-                ReportCell.Check(within),
-                ReportCell.Empty
-            ],
-            RowKind.Total);
+        var check = ReportRow.Of(
+            ReportCell.Of(context.Label("Check: no tolerated difference exceeds its tolerance")) with { Bold = true, Span = 8 },
+            ReportCell.Check(within),
+            ReportCell.Empty);
 
         return
         [

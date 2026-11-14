@@ -34,6 +34,7 @@ public sealed class ReportSampleTests : IClassFixture<TestAppFactory>, IClassFix
             ["BO1", "BO2", "BO3", "BO4", "BO5", "BO6", "MO1", "MO2", "MO3", "MO4", "MO5", "MO6", "MO7"],
             ReportRegistry.All.Select(definition => definition.Id));
         Assert.Equal(ReportCatalogue.All.Select(info => info.Id), ReportRegistry.All.Select(definition => definition.Id));
+        Assert.DoesNotContain(ReportRegistry.All, definition => definition.IsPending);
         Assert.Equal("ageing", ReportRegistry.Find("MO5")!.Info.Slug);
         Assert.Same(ReportRegistry.Find("mo5"), ReportRegistry.Find("Ageing"));
     }

@@ -38,6 +38,18 @@ public sealed class AllocationsTests
     }
 
     [Fact]
+    public void The_block_line_is_bold_and_the_allocation_line_indented_and_no_figure_is_coloured()
+    {
+        var table = CardTable(ManyToOne("600,400", "1000", blockCash: "250", cash: "125"));
+
+        Assert.All(table.Rows.Take(5).SelectMany(row => row.Cells.Take(6)), cell => Assert.Equal(Tone.None, cell.Tone));
+        Assert.Equal(RowKind.Total, table.Rows[0].Kind);
+        Assert.All(table.Rows[0].Cells.Take(6), cell => Assert.True(cell.Bold));
+        Assert.All(table.Rows[1].Cells.Take(6), cell => Assert.False(cell.Bold));
+        Assert.Equal(1, table.Rows[1].Cells[0].Indent);
+    }
+
+    [Fact]
     public void A_short_allocation_shows_a_cross_and_the_signed_difference_total_minus_block()
     {
         var input = ManyToOne("600,350", "1000", blockCash: "250", cash: "100");

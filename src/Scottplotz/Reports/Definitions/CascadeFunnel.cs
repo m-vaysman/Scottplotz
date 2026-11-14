@@ -92,12 +92,7 @@ public static class CascadeFunnel
             .ToList();
 
         var bars = stages
-            .Select((stage, index) => (stage, index))
-            .SelectMany(pair => new[]
-            {
-                new BarItem($"{context.Label(pair.stage.Name)} · {context.Label("Ours")}", ours[pair.index].Remaining),
-                new BarItem($"{context.Label(pair.stage.Name)} · {context.Label("Theirs")}", theirs[pair.index].Remaining, Tone.Muted)
-            })
+            .Select((stage, index) => new BarItem(context.Label(stage.Name), ours[index].Remaining, Second: theirs[index].Remaining))
             .ToList();
 
         return
@@ -113,7 +108,7 @@ public static class CascadeFunnel
                     new ReportColumn(context.Label("Note"))
                 ],
                 rows),
-            new BarsBlock(context.Label("Items remaining after each stage"), bars, NumberFormat.Count, context.Label("Items")),
+            new BarsBlock(context.Label("Items remaining after each stage"), bars, NumberFormat.Count, context.Label("Items"), context.Label("Ours: remaining"), context.Label("Theirs: remaining")),
             DataBlocks.Rows(context)
         ];
     }

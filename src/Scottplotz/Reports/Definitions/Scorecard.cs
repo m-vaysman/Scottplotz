@@ -43,7 +43,7 @@ public static class Scorecard
             .ToList();
         return
         [
-            Tiles(context, left.Count, right.Count),
+            .. Tiles(context, left.Count, right.Count),
             CommitsByPass(context),
             CounterpartyTable(context, lines, left.Count, right.Count),
             DataBlocks.Entries(context),
@@ -72,14 +72,14 @@ public static class Scorecard
             Rows(SourceSide.Left, Disposition.Matched));
     }
 
-    private static TilesBlock Tiles(ReportContext context, int leftRows, int rightRows)
+    private static IReadOnlyList<ReportBlock> Tiles(ReportContext context, int leftRows, int rightRows)
     {
         var facts = context.Facts;
         var matched = facts.Entries.Count(entry => entry.IsMatched);
         var clean = facts.Entries.Count(entry => entry.Entry.Outcome is Outcome.Exact or Outcome.WithinTolerance);
         ReportTile Count(string label, int value) => new(context.Label(label), ReportCell.Of(value, NumberFormat.Count));
         ReportTile Percent(string label, decimal value) => new(context.Label(label), ReportCell.Of(value, NumberFormat.Percent));
-        return new TilesBlock(
+        ReportTile[] tiles =
         [
             Count("Internal rows", leftRows),
             Count("Counterparty rows", rightRows),
@@ -91,7 +91,8 @@ public static class Scorecard
             Count("Unmatched ours", facts.Rows.Count(row => row is { ItemLead: true, Row: { Source: SourceSide.Left, Disposition: Disposition.LeftOnly } })),
             Count("Unmatched theirs", facts.Rows.Count(row => row is { ItemLead: true, Row: { Source: SourceSide.Right, Disposition: Disposition.RightOnly } })),
             Count("Ambiguous", facts.Entries.Count(entry => entry.Entry.Alignment == Alignment.Ambiguous))
-        ]);
+        ];
+        return [.. tiles.Chunk(5).Select(row => new TilesBlock(row))];
     }
 
     // Follows the Excel original: every entry carrying the pass as committedBy is counted, open entries included.

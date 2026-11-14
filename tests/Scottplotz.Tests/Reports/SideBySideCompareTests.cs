@@ -43,9 +43,9 @@ public sealed class SideBySideCompareTests
     private static ReportDocument Build(string? entries = null, string? rows = null, string? roles = null, string options = "{}") =>
         Compose("BO2", Input(Body(entries ?? Entries, rows ?? Rows, options, roles: roles ?? ReportTesting.Roles)));
 
-    private static TableBlock MainTable(ReportDocument document) => Tables(document)[1];
+    private static TableBlock MainTable(ReportDocument document) => Tables(document)[0];
 
-    private static TableBlock Splits(ReportDocument document) => Tables(document)[2];
+    private static TableBlock Splits(ReportDocument document) => Tables(document)[1];
 
     private static string Text(TableBlock table, string entry, string column) => CellText.Of(Cell(table, Row(table, entry), column));
 
@@ -178,6 +178,24 @@ public sealed class SideBySideCompareTests
         Assert.Equal("Trade", Header(MainTable(document))[0]);
         Assert.Equal("Us", Header(MainTable(document))[7]);
         Assert.Equal("Currency pairs", Splits(document).Title);
+    }
+
+    [Fact]
+    public void A_colour_key_comes_first_and_names_the_three_tones_the_theirs_cells_use()
+    {
+        var key = Assert.IsType<LegendBlock>(Build(options: """{ "labels": { "Root break": "Real break" } }""").Blocks[0]);
+
+        Assert.Equal([("Real break", Tone.Break), ("Within tolerance", Tone.Tolerance), ("Consequence of another field", Tone.Attributed)], key.Items.Select(item => (item.Label, item.Tone)));
+    }
+
+    [Fact]
+    public void An_entry_id_shorter_than_twelve_characters_shows_whole_with_special_characters_intact()
+    {
+        var entries = Entry("a&b", "Break", Diff("Price", "\"Price\"", "Break", "1", "2", "1"), Side(""", "Price": 1""").Replace("BAML", "<B>"), Side(""", "Price": 2"""));
+
+        var table = MainTable(Build(entries, ""));
+
+        Assert.Equal(["a&b", "<B>"], Texts(Assert.Single(table.Rows)).Take(2));
     }
 
     [Fact]

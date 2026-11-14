@@ -29,7 +29,7 @@ table.tbl{border-collapse:collapse;width:100%;font-size:13px}
 .tbl th.w{white-space:normal}
 .tbl td{padding:5px 9px;border:1px solid var(--grid);vertical-align:top;white-space:nowrap}
 .tbl td.w{white-space:normal;min-width:240px}
-.s{text-decoration:line-through}
+.strike{text-decoration:line-through}
 .tbl .n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .tbl .c{text-align:center}.tbl .l{text-align:left}.tbl .r{text-align:right}
 .tbl tr.band td{background:var(--band);font-weight:600}
@@ -42,6 +42,10 @@ table.tbl{border-collapse:collapse;width:100%;font-size:13px}
 .t-ok{color:var(--ok-ink);font-weight:600}
 .tbl td.t-ok.fill,.tile .t-ok.fill{background:var(--ok-bg)}
 .t-fail{background:var(--brk-bg);color:var(--brk-ink);font-weight:600}
+.tbl tr td.t-break,.tbl tr td.t-fail{background:var(--brk-bg)}
+.tbl tr td.t-tolerance{background:var(--tol-bg)}
+.tbl tr td.t-attributed,.tbl tr td.t-shade{background:var(--att-bg)}
+.tbl tr td.t-ok.fill{background:var(--ok-bg)}
 .t-muted{color:var(--muted)}
 .t-shade{background:var(--att-bg)}
 .t-alert{color:var(--brk-ink);font-weight:600}

@@ -94,14 +94,17 @@ public static class LifecycleChains
                     Text(DispositionText(row), bold: true)
                 ])
                 : new ReportRow(
-                [
-                    Text(new string('↳', index + 1), tone: Tone.Muted),
-                    Text(row.Row.RowKey, tone: Tone.Muted),
-                    Text(Action(row), tone: Tone.Muted),
-                    Text(Target(row), tone: Tone.Muted),
-                    .. Values(row, (_, cell) => cell with { Tone = Tone.Muted }),
-                    Text(DispositionText(row), tone: Tone.Muted)
-                ]);
+                    new[]
+                    {
+                        Text(new string('↳', index + 1), tone: Tone.Muted),
+                        Text(row.Row.RowKey, tone: Tone.Muted),
+                        Text(Action(row), tone: Tone.Muted),
+                        Text(Target(row), tone: Tone.Muted)
+                    }
+                    .Concat(Values(row, (_, cell) => cell with { Tone = Tone.Muted }))
+                    .Append(Text(DispositionText(row), tone: Tone.Muted))
+                    .Select(cell => cell with { Strike = true })
+                    .ToList());
 
         ReportRow MatchedRow(RowFact row) =>
             new(

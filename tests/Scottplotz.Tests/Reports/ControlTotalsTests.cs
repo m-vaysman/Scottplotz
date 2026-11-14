@@ -161,6 +161,34 @@ public sealed class ControlTotalsTests
     }
 
     [Fact]
+    public void Package_legs_on_their_side_are_added_back_in_the_theirs_column_and_the_tie_out_holds()
+    {
+        var entries = Entry("e1", "Matched", "\"L-1\"", "\"R-1\", \"R-2\"");
+        var rows = string.Join(", ",
+            InputRow("left", "L-1", "Matched", 140, entry: "e1"),
+            InputRow("right", "R-1", "Matched", 100, entry: "e1"),
+            InputRow("right", "R-2", "Matched", 40, entry: "e1", lead: false));
+
+        var table = Quantities(Report(entries, rows));
+        var line = Line(table, "USD");
+
+        Assert.Equal("-", Text(table, line, "Package legs merged into one item ours (not in totals)"));
+        Assert.Equal("40", Text(table, line, "Package legs merged into one item theirs (not in totals)"));
+        Assert.Equal(["100", "140", "✓"], [Text(table, line, "Theirs"), Text(table, line, "File total theirs"), Text(table, line, "Tie-out")]);
+    }
+
+    [Fact]
+    public void A_non_zero_difference_and_currency_split_keep_their_tones_on_the_subtotal_row()
+    {
+        var table = Quantities(Report(string.Join(", ", Plain), PlainRows));
+
+        var subtotal = table.Rows[^1];
+
+        Assert.Equal(Tone.Break, Cell(table, subtotal, "Δ (theirs − ours)").Tone);
+        Assert.Equal(Tone.None, Cell(table, subtotal, "Inside matched: currency split").Tone);
+    }
+
+    [Fact]
     public void A_pair_booked_in_two_currencies_puts_its_halves_in_two_blocks_and_is_listed_in_part_three()
     {
         var entries = Entry("e1aaaaaaaaaaaaaaaa", "Matched", "\"L-1\"", "\"R-1\"", "Break", """{ "field": "Currency", "role": "Currency", "type": "text", "outcome": "Break", "ours": "USD", "theirs": "EUR", "deltaKind": "None" }""");
@@ -181,7 +209,8 @@ public sealed class ControlTotalsTests
             Header(part3));
         var row = Assert.Single(part3.Rows);
         Assert.Equal(["e1aaaaaaaaaa", "L-1", "R-1", "BAML", "Bond", "USD", "EUR", "1,000", "900", "P1", "Break", "Currency"], Texts(row));
-        Assert.Equal(Tone.Break, row.Cells[5].Tone);
+        Assert.Equal([Tone.Alert, Tone.Alert], [row.Cells[5].Tone, row.Cells[6].Tone]);
+        Assert.All(row.Cells.Skip(5).Take(2), cell => Assert.False(cell.Bold && cell.Tone == Tone.Break));
     }
 
     [Fact]

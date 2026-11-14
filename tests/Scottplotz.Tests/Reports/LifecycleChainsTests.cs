@@ -66,6 +66,35 @@ public sealed class LifecycleChainsTests
     }
 
     [Fact]
+    public void Rows_that_are_not_the_survivor_are_struck_through_and_the_survivor_and_matched_rows_are_not()
+    {
+        var table = CardTable(Chain(
+            Superseded("L-1", price: "10"),
+            Row("left", "L-2", "Matched", "CORR", "L-1", "100", "11", netCash: "100"),
+            Row("right", "R-1", "Matched", "", "", "100", "11")));
+
+        Assert.All(table.Rows[0].Cells, cell => Assert.True(cell.Strike));
+        Assert.All(table.Rows[1].Cells, cell => Assert.False(cell.Strike));
+        Assert.All(table.Rows[2].Cells, cell => Assert.False(cell.Strike));
+    }
+
+    [Fact]
+    public void A_chain_whose_side_has_no_member_row_to_survive_is_skipped_instead_of_failing()
+    {
+        var input = Input(Body(
+            Entry("", "\"R-1\"") + ", " + Entry("\"L-5\"", "\"R-5\"", id: "e3"),
+            string.Join(", ",
+                Superseded("L-1"),
+                Row("right", "R-1", "Matched", "", "", "1", "1"),
+                Row("left", "L-4", "Suppressed", "NEW", "", "1", "1", suppression: "\"Superseded\"", id: "e3"),
+                Row("left", "L-5", "Matched", "CORR", "L-4", "1", "2", id: "e3"),
+                Row("right", "R-5", "Matched", "", "", "1", "2", id: "e3"))));
+
+        var card = Assert.Single(Compose("BO4", input).Blocks.OfType<SectionBlock>());
+        Assert.StartsWith("e3", card.Title);
+    }
+
+    [Fact]
     public void Rows_follow_their_targets_so_new_comes_before_cancel_and_ties_sort_by_row_key()
     {
         var input = Input(Body(Entry("\"L-2\"", "\"R-1\""), string.Join(", ",
