@@ -9,14 +9,17 @@ public enum Tone
     Ok,
     Fail,
     Muted,
-    Link
+    Link,
+    Shade,
+    Alert
 }
 
 public enum HeatColour
 {
     Violet,
     Orange,
-    Blue
+    Blue,
+    Amber
 }
 
 public enum CellAlign
@@ -79,7 +82,9 @@ public sealed record ReportCell(
     double? Heat = null,
     double? Bar = null,
     int Indent = 0,
-    HeatColour HeatColour = HeatColour.Violet)
+    HeatColour HeatColour = HeatColour.Violet,
+    bool Strike = false,
+    bool Wrap = false)
 {
     public static ReportCell Empty { get; } = new(CellValue.Blank.Instance);
 
@@ -111,7 +116,9 @@ public sealed record ColumnGroup(string Title, int Span);
 
 public sealed record ReportTile(string Label, ReportCell Value, string? Sub = null);
 
-public sealed record BarItem(string Label, decimal Value, Tone Tone = Tone.None, string? Note = null);
+public sealed record BarItem(string Label, decimal Value, Tone Tone = Tone.None, string? Note = null, decimal? Second = null);
+
+public sealed record LegendItem(string Label, Tone Tone, string? Meaning = null);
 
 public abstract record ReportBlock;
 
@@ -125,7 +132,15 @@ public sealed record TableBlock(
 
 public sealed record TilesBlock(IReadOnlyList<ReportTile> Tiles) : ReportBlock;
 
-public sealed record BarsBlock(string Title, IReadOnlyList<BarItem> Bars, NumberFormat Format = NumberFormat.Count, string? AxisTitle = null) : ReportBlock;
+public sealed record BarsBlock(
+    string Title,
+    IReadOnlyList<BarItem> Bars,
+    NumberFormat Format = NumberFormat.Count,
+    string? AxisTitle = null,
+    string? FirstSeries = null,
+    string? SecondSeries = null) : ReportBlock;
+
+public sealed record LegendBlock(IReadOnlyList<LegendItem> Items) : ReportBlock;
 
 public sealed record NoteBlock(string Text) : ReportBlock;
 

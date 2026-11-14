@@ -49,6 +49,7 @@ public static class ReportHtml
             TilesBlock tiles => $"<div class=\"tiles\">{string.Concat(tiles.Tiles.Select(Tile))}</div>\n",
             BarsBlock bars => Panel(nested, Heading(nested, bars.Title) + Bars(bars)),
             NoteBlock note => $"<p class=\"note\">{E(note.Text)}</p>\n",
+            LegendBlock legend => $"<p class=\"legend\">{string.Concat(legend.Items.Select(Legend))}</p>\n",
             SectionBlock section => Panel(
                 nested,
                 Heading(nested, section.Title)
@@ -101,6 +102,9 @@ public static class ReportHtml
             cell.Tone == Tone.Ok && cell.Value is CellValue.Text { Value.Length: > 1 } ? "fill" : "",
             cell.Bold ? "b" : "",
             cell.Italic ? "i" : "",
+            cell.Strike ? "s" : "",
+            cell.Wrap || CellText.Of(cell).Length > 34 ? "w" : "",
+            cell.Bar is not null && cell.HeatColour is HeatColour.Amber or HeatColour.Orange ? "amber" : "",
             heat is not null ? "heat" : "",
             heat is not null && cell.HeatColour == HeatColour.Orange ? "orange" : "",
             heat is not null && cell.HeatColour == HeatColour.Blue ? "blue" : "",
@@ -124,19 +128,26 @@ public static class ReportHtml
 
     private static string Bars(BarsBlock bars)
     {
-        var largest = bars.Bars.Select(bar => Math.Abs(bar.Value)).DefaultIfEmpty(0).Max();
+        var largest = bars.Bars.SelectMany(bar => new[] { Math.Abs(bar.Value), Math.Abs(bar.Second ?? 0m) }).DefaultIfEmpty(0).Max();
+        string Width(decimal value) => (largest == 0 ? 0 : Math.Round(Math.Abs(value) / largest * 100, 1)).ToString(CultureInfo.InvariantCulture);
+        var key = bars.FirstSeries is { Length: > 0 } first && bars.SecondSeries is { Length: > 0 } second
+            ? $"<p class=\"legend\"><span><i class=\"sw\"></i>{E(first)}</span><span><i class=\"sw two\"></i>{E(second)}</span></p>\n"
+            : "";
         return string.Concat(
+            key,
             "<div class=\"bars\">\n",
             string.Concat(bars.Bars.Select(bar =>
-            {
-                var width = largest == 0 ? 0 : Math.Round(Math.Abs(bar.Value) / largest * 100, 1);
-                return $"<div>{E(bar.Label)}</div><div class=\"trk\"><i{Class(ToneClass(bar.Tone))} style=\"left:0;width:{width.ToString(CultureInfo.InvariantCulture)}%\"></i></div><div class=\"v\">{E(CellText.Number(bar.Value, bars.Format))}</div>"
-                    + (bar.Note is { Length: > 0 } note ? $"<div class=\"nt\">{E(note)}</div>" : "")
-                    + "\n";
-            })),
+                (bar.Second is { } other
+                    ? $"<div>{E(bar.Label)}</div><div class=\"trk two\"><i style=\"left:0;width:{Width(bar.Value)}%\"></i><i class=\"two\" style=\"left:0;width:{Width(other)}%\"></i></div><div class=\"v\">{E(CellText.Number(bar.Value, bars.Format))}<br>{E(CellText.Number(other, bars.Format))}</div>"
+                    : $"<div>{E(bar.Label)}</div><div class=\"trk\"><i{Class(ToneClass(bar.Tone))} style=\"left:0;width:{Width(bar.Value)}%\"></i></div><div class=\"v\">{E(CellText.Number(bar.Value, bars.Format))}</div>")
+                + (bar.Note is { Length: > 0 } note ? $"<div class=\"nt\">{E(note)}</div>" : "")
+                + "\n")),
             "</div>\n",
             bars.AxisTitle is { Length: > 0 } axis ? $"<p class=\"axis\">{E(axis)}</p>\n" : "");
     }
+
+    private static string Legend(LegendItem item) =>
+        $"<span><b{Class(ToneClass(item.Tone), "fill")}>{E(item.Label)}</b>{(item.Meaning is { Length: > 0 } meaning ? " " + E(meaning) : "")}</span>";
 
     private static string Alignment(CellAlign align) =>
         align switch { CellAlign.Left => "l", CellAlign.Center => "c", CellAlign.Right => "r", _ => "" };
@@ -151,6 +162,8 @@ public static class ReportHtml
             Tone.Fail => "t-fail",
             Tone.Muted => "t-muted",
             Tone.Link => "t-link",
+            Tone.Shade => "t-shade",
+            Tone.Alert => "t-alert",
             _ => ""
         };
 
