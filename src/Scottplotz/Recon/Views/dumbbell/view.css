@@ -1,0 +1,8 @@
+.cols{grid-template-columns:1fr 340px}
+.row-hit{fill:transparent;cursor:pointer}.row-hit:hover,.row-sel{fill:var(--wash)}
+.dot{stroke:var(--surface);stroke-width:2}
+.conn{stroke-width:4;stroke-linecap:round}
+.leg{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--ink2);margin-bottom:8px}
+.big{font-size:26px;font-weight:600;margin:2px 0 10px}
+.why{color:var(--ink2);margin-top:12px}
+@media (max-width:900px){.cols{grid-template-columns:1fr}}

@@ -1,0 +1,23 @@
+{
+  "name": "dumbbell",
+  "title": "Dumbbell plot",
+  "description": "One row per record with a dot for each side on a shared scale. The bar between the dots is the gap, in the colour of the side that is higher.",
+  "needs": "A numeric measure. Reads best with up to a few hundred records; group them with `group`.",
+  "text": {
+    "title": "{left} against {right}",
+    "lede": "Each {unitOne} has two dots on one scale: {leftShort} and {rightShort}. When they agree there is one grey dot. When they differ, the bar between them is the gap, in the colour of the side that is higher.",
+    "chartTitle": "{measure} per {unitOne}, {leftShort} and {rightShort}",
+    "chartSub": "Tolerance is {tolerance} per {unitOne}.",
+    "leftLegend": "{leftShort} ({left})",
+    "rightLegend": "{rightShort} ({right})",
+    "bothAgree": "Both agree",
+    "difference": "Difference",
+    "field": "Field",
+    "noReason": "",
+    "truncated": "Showing the first {shown} of {total} {unit}."
+  },
+  "options": [
+    { "name": "sortBy", "type": "choice", "allowed": ["input", "difference"], "default": "input", "description": "Row order within each group: as sent, or largest difference first." },
+    { "name": "maxRows", "type": "integer", "default": 400, "min": 1, "max": 2000, "description": "Draw at most this many records." }
+  ]
+}
