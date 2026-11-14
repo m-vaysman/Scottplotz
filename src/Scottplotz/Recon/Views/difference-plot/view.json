@@ -1,0 +1,43 @@
+{
+  "name": "difference-plot",
+  "title": "Difference plot",
+  "description": "Position size against percentage difference on a compressed vertical scale, with a tolerance corridor and rails for one-sided records.",
+  "needs": "A numeric measure.",
+  "text": {
+    "title": "{left} against {right}",
+    "lede": "Every {unitOne} is one dot: how big it is, left to right, and how far {rightShort} sits from {leftShort}, up or down. Dots inside the corridor agree within tolerance.",
+    "chartTitle": "{rightShort} compared with {leftShort}, by {measure}",
+    "chartSub": "Tolerance is {tolerance}. The vertical scale is compressed away from zero.",
+    "agrees": "Agrees",
+    "rightHigher": "{rightShort} higher",
+    "leftHigher": "{leftShort} higher",
+    "duplicate": "Duplicate",
+    "railsNote": "Rails below: {unit} on one side only",
+    "leftOnlyRail": "{leftShort} only",
+    "rightOnlyRail": "{rightShort} only",
+    "field": "Field",
+    "noPartner": "No partner",
+    "noCompare": "Nothing to compare on the other side",
+    "netDiff": "{rightShort} minus {leftShort}",
+    "defaultReasonAgrees": "Both sides agree within tolerance.",
+    "defaultReasonBreak": "Value differs beyond tolerance."
+  },
+  "options": [
+    {
+      "name": "yCap",
+      "type": "number",
+      "default": 10,
+      "min": 1,
+      "max": 100,
+      "description": "Maximum percentage difference shown before compression capping."
+    },
+    {
+      "name": "labelTop",
+      "type": "integer",
+      "default": 3,
+      "min": 0,
+      "max": 20,
+      "description": "Number of largest breaks to label directly on the chart."
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "name": "priority-quadrant",
+  "title": "Priority quadrant",
+  "description": "Scatter of open records by age and amount on a log scale to prioritize old and large breaks.",
+  "needs": "A numeric measure.",
+  "text": {
+    "title": "{left} against {right}",
+    "lede": "Open items placed by how long they have been open and their value. The shaded priority zone highlights older and larger items that require immediate attention.",
+    "chartTitle": "Open items by age and amount",
+    "chartSub": "Amounts on a compressed scale.",
+    "priorityZone": "Old and large: start here",
+    "clearZone": "New and small: likely to clear",
+    "daysOpen": "Days open",
+    "openDays": "Open {age} days",
+    "field": "Field",
+    "difference": "Difference",
+    "nothingToCompare": "Nothing to compare",
+    "escalate": "Escalate: priority threshold exceeded.",
+    "noReason": ""
+  },
+  "options": [
+    {
+      "name": "ageFrom",
+      "type": "number",
+      "default": 30,
+      "min": 0,
+      "description": "Age threshold in days for the priority quadrant."
+    },
+    {
+      "name": "amountFrom",
+      "type": "number",
+      "default": 100000,
+      "min": 0,
+      "description": "Amount threshold for the priority quadrant."
+    },
+    {
+      "name": "ageCap",
+      "type": "number",
+      "default": 120,
+      "min": 1,
+      "description": "Maximum age in days displayed on the horizontal scale."
+    }
+  ]
+}

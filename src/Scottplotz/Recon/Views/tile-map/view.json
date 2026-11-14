@@ -1,0 +1,46 @@
+{
+  "name": "tile-map",
+  "title": "Tile-grid map",
+  "description": "Each group is a tile on a configurable grid. Tile colours show the net difference on the measure.",
+  "needs": "A numeric measure. Each record's first group element is its tile code.",
+  "text": {
+    "title": "{left} against {right}",
+    "lede": "Every group is a tile of equal size on a grid. Neutral tiles agree within tolerance; tinted tiles show differences in the colour of the side that is higher.",
+    "chartTitle": "{rightShort} minus {leftShort}, by tile",
+    "chartSub": "Tolerance is {tolerance} per {unitOne}. Outlined tiles have no records. Select a tile.",
+    "scaleLeft": "{leftShort} higher",
+    "scaleRight": "{rightShort} higher",
+    "detailTitle": "{code}: {rightShort} {diff} against {leftShort}",
+    "detailAgrees": "{code}: {leftShort} and {rightShort} agree",
+    "agreesNote": "Every {unitOne} agrees.",
+    "item": "{unitOne}",
+    "total": "Total",
+    "noTiles": "No record has a first group that matches a tile on the grid.",
+    "difference": "Difference"
+  },
+  "options": [
+    {
+      "name": "grid",
+      "type": "json",
+      "default": {
+        "AK": [0, 0], "ME": [11, 0],
+        "VT": [10, 1], "NH": [11, 1],
+        "WA": [1, 2], "ID": [2, 2], "MT": [3, 2], "ND": [4, 2], "MN": [5, 2], "IL": [6, 2], "WI": [7, 2], "MI": [8, 2], "NY": [9, 2], "RI": [10, 2], "MA": [11, 2],
+        "OR": [1, 3], "NV": [2, 3], "WY": [3, 3], "SD": [4, 3], "IA": [5, 3], "IN": [6, 3], "OH": [7, 3], "PA": [8, 3], "NJ": [9, 3], "CT": [10, 3],
+        "CA": [1, 4], "UT": [2, 4], "CO": [3, 4], "NE": [4, 4], "MO": [5, 4], "KY": [6, 4], "WV": [7, 4], "VA": [8, 4], "MD": [9, 4], "DE": [10, 4],
+        "AZ": [2, 5], "NM": [3, 5], "KS": [4, 5], "AR": [5, 5], "TN": [6, 5], "NC": [7, 5], "SC": [8, 5], "DC": [9, 5],
+        "OK": [4, 6], "LA": [5, 6], "MS": [6, 6], "AL": [7, 6], "GA": [8, 6],
+        "HI": [0, 7], "TX": [4, 7], "FL": [9, 7]
+      },
+      "description": "Grid layout mapping tile codes to [column, row] coordinates."
+    },
+    {
+      "name": "colourScale",
+      "type": "number",
+      "default": 15,
+      "min": 0.1,
+      "max": 1000,
+      "description": "Percent difference of a tile (summed difference over summed left) that gives full colour."
+    }
+  ]
+}

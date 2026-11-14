@@ -1,0 +1,24 @@
+{
+  "name": "marimekko",
+  "title": "Marimekko plot",
+  "description": "Columns by group with widths proportional to record count, divided vertically by status share.",
+  "needs": "Records with groups; a numeric measure is optional for amounts.",
+  "text": {
+    "title": "{left} against {right}",
+    "lede": "The width of each column shows volume for that group. The vertical split shows match results. A wide column with few breaks is healthy; a narrow column that is mostly breaks highlights disproportionate effort.",
+    "chartTitle": "Match results by group",
+    "chartSub": "Column width is {unit} count; the vertical axis is share of that group's {unit}. Select a column.",
+    "detailTitle": "{group}: {count} {unit}, {pct}% need work",
+    "acceptedTwice": "{count} {unit} were duplicate.",
+    "result": "Result",
+    "share": "Share",
+    "usualCause": "Usual cause",
+    "total": "Total",
+    "amount": "Amount",
+    "noReason": ""
+  },
+  "options": [
+    { "name": "sortBy", "type": "choice", "allowed": ["input", "count", "issues"], "default": "input", "description": "Column order: as sent, largest volume first, or most issues first." },
+    { "name": "initialGroup", "type": "text", "default": "", "description": "Key of the group to select initially; defaults to the group with the most issues." }
+  ]
+}

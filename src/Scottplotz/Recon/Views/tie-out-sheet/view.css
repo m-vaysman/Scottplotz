@@ -1,0 +1,12 @@
+.cols{grid-template-columns:300px 1fr}
+.grp{display:block;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--grid);padding:10px 8px;cursor:pointer;border-radius:4px}
+.grp:hover,.grp[aria-current=true]{background:var(--wash)}
+.grp[aria-current=true]{box-shadow:inset 3px 0 0 var(--ink)}
+.grp b{font-weight:600;display:block}
+.grp .ticks{display:flex;gap:4px;margin-top:6px}
+.tk{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:11px;font-weight:600;font-size:13px;background:var(--exact);color:var(--on-exact)}
+.tk.tol{background:var(--tol);color:var(--on-brk)}
+.tk.brk{background:var(--brk);color:var(--on-brk)}
+.sheet td,.sheet th{padding-top:9px;padding-bottom:9px;font-size:14px}
+.sheet td.tc{width:40px}
+@media (max-width:900px){.cols{grid-template-columns:1fr}}

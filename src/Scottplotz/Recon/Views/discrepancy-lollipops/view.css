@@ -1,0 +1,10 @@
+.cols{grid-template-columns:1fr 400px}
+.rowhit{fill:transparent;cursor:pointer}.rowhit:hover,.rowhit.on{fill:var(--wash)}
+.band{fill:var(--wash)}
+.dot{stroke:var(--surface);stroke-width:2}
+.stem{stroke-width:3;stroke-linecap:round}
+.leg{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--ink2);margin-bottom:8px}
+.big{font-size:26px;font-weight:600;margin:2px 0 10px}
+.why{color:var(--ink2);margin-top:12px}
+.lines-tbl{margin-top:14px}
+@media (max-width:960px){.cols{grid-template-columns:1fr}}

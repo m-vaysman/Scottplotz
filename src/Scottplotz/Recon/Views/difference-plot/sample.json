@@ -1,0 +1,431 @@
+{
+  "left": { "name": "Investment book of record", "short": "Ours" },
+  "right": { "name": "Custodian statement", "short": "Custodian" },
+  "unit": { "one": "position", "many": "positions" },
+  "asOf": "2026-03-31",
+  "tolerance": { "percent": 0.5 },
+  "fields": [
+    { "key": "marketValue", "label": "Market value", "decimals": 0 },
+    { "key": "qty", "label": "Quantity", "decimals": 0, "compare": false },
+    { "key": "price", "label": "Price", "decimals": 2, "compare": false }
+  ],
+  "measure": "marketValue",
+  "text": {
+    "title": "Our positions against the custodian's statement",
+    "lede": "Every position is one dot: how big it is, left to right, and how far the custodian's value sits from ours, up or down. Dots inside the grey corridor agree within tolerance. The further a dot leaves the corridor, the larger the break.",
+    "chartTitle": "Custodian value compared with ours, by position size",
+    "chartSub": "Market value in USD at close, 31 March 2026. Tolerance is 0.5%. The vertical scale is compressed away from zero.",
+    "rightHigher": "Custodian higher",
+    "leftHigher": "Ours higher",
+    "railsNote": "Rails below: positions on one side only"
+  },
+  "records": [
+    {
+      "key": "POS-BRK-01",
+      "name": "Norvik Energy 4.25% 2031",
+      "left": { "marketValue": 8400000, "qty": 84000, "price": 100 },
+      "right": { "marketValue": 8568000, "qty": 84000, "price": 102 },
+      "reason": "The custodian includes accrued interest in market value. Our books carry it separately."
+    },
+    {
+      "key": "POS-BRK-02",
+      "name": "Halcyon Biotech",
+      "left": { "marketValue": 1200000, "qty": 30000, "price": 40 },
+      "right": { "marketValue": 1102800, "qty": 30000, "price": 36.76 },
+      "reason": "Stale price. The custodian used the prior close after a trading halt."
+    },
+    {
+      "key": "POS-BRK-03",
+      "name": "Tessel Semiconductors",
+      "left": { "marketValue": 22600000, "qty": 265882, "price": 85 },
+      "right": { "marketValue": 23675760, "qty": 278538, "price": 85 },
+      "reason": "A buy of 12,000 shares settled at the custodian. Our books post it tomorrow."
+    },
+    {
+      "key": "POS-BRK-04",
+      "name": "Arbor Real Estate Trust",
+      "left": { "marketValue": 640000, "qty": 20000, "price": 32 },
+      "right": { "marketValue": 619520, "qty": 19360, "price": 32 },
+      "reason": "A return of capital reduced the custodian’s holding. The corporate action is not booked here."
+    },
+    {
+      "key": "POS-BRK-05",
+      "name": "Kestrel Air ADR",
+      "left": { "marketValue": 310000, "qty": 5000, "price": 62 },
+      "right": { "marketValue": 339140, "qty": 5470, "price": 62 },
+      "reason": "The custodian applied the depositary ratio twice."
+    },
+    {
+      "key": "POS-BRK-06",
+      "name": "Lumen Grid",
+      "left": { "marketValue": 4100000, "qty": 82000, "price": 50 },
+      "right": { "marketValue": 4054900, "qty": 81098, "price": 50 },
+      "reason": "A sale of 3,500 shares is booked here and not yet shown by the custodian."
+    },
+    {
+      "key": "POS-BRK-07",
+      "name": "Orchid Pharma",
+      "left": { "marketValue": 95000, "qty": 3800, "price": 25 },
+      "right": { "marketValue": 100985, "qty": 4039, "price": 25 },
+      "reason": "Different price sources: vendor evaluated price here, exchange close at the custodian."
+    },
+    {
+      "key": "POS-BRK-08",
+      "name": "Brask Holdings",
+      "left": { "marketValue": 2900000, "qty": 50000, "price": 58 },
+      "right": { "marketValue": 2740500, "qty": 47250, "price": 58 },
+      "reason": "A partial fill was booked in full on our side."
+    },
+    {
+      "key": "POS-DUP-01",
+      "name": "Pemberton Capital",
+      "duplicate": "right",
+      "left": { "marketValue": 850000, "qty": 17000, "price": 50 },
+      "right": { "marketValue": 850000, "qty": 17000, "price": 50 },
+      "reason": "The custodian statement lists this position twice, under two sub-accounts."
+    },
+    {
+      "key": "POS-LO-01",
+      "name": "Wexford Mining",
+      "left": { "marketValue": 770000, "qty": 19250, "price": 40 },
+      "reason": "On our books, absent from the custodian statement. Check for a transfer in transit."
+    },
+    {
+      "key": "POS-LO-02",
+      "name": "Sable Insurance",
+      "left": { "marketValue": 2200000, "qty": 55000, "price": 40 },
+      "reason": "On our books, absent from the custodian statement. Check for a transfer in transit."
+    },
+    {
+      "key": "POS-LO-03",
+      "name": "Pallas Robotics",
+      "left": { "marketValue": 140000, "qty": 3500, "price": 40 },
+      "reason": "On our books, absent from the custodian statement. Check for a transfer in transit."
+    },
+    {
+      "key": "POS-LO-04",
+      "name": "Corrie Water",
+      "left": { "marketValue": 52000, "qty": 1300, "price": 40 },
+      "reason": "On our books, absent from the custodian statement. Check for a transfer in transit."
+    },
+    {
+      "key": "POS-RO-01",
+      "name": "Ilex Software",
+      "right": { "marketValue": 390000, "qty": 9750, "price": 40 },
+      "reason": "On the custodian statement, absent from our books. Likely a stock dividend or an unbooked receipt."
+    },
+    {
+      "key": "POS-RO-02",
+      "name": "Tamar Shipping",
+      "right": { "marketValue": 1100000, "qty": 27500, "price": 40 },
+      "reason": "On the custodian statement, absent from our books. Likely a stock dividend or an unbooked receipt."
+    },
+    {
+      "key": "POS-RO-03",
+      "name": "Vesper Foods",
+      "right": { "marketValue": 61000, "qty": 1525, "price": 40 },
+      "reason": "On the custodian statement, absent from our books. Likely a stock dividend or an unbooked receipt."
+    },
+    {
+      "key": "POS-EX-01",
+      "name": "Aldane Corp",
+      "left": { "marketValue": 150000, "qty": 3000, "price": 50 },
+      "right": { "marketValue": 150000, "qty": 3000, "price": 50 }
+    },
+    {
+      "key": "POS-EX-02",
+      "name": "Borealis Holdings",
+      "left": { "marketValue": 420000, "qty": 7000, "price": 60 },
+      "right": { "marketValue": 420000, "qty": 7000, "price": 60 }
+    },
+    {
+      "key": "POS-EX-03",
+      "name": "Cindermoor Group",
+      "left": { "marketValue": 890000, "qty": 8900, "price": 100 },
+      "right": { "marketValue": 890000, "qty": 8900, "price": 100 }
+    },
+    {
+      "key": "POS-EX-04",
+      "name": "Dovecote Industries",
+      "left": { "marketValue": 2400000, "qty": 40000, "price": 60 },
+      "right": { "marketValue": 2400000, "qty": 40000, "price": 60 }
+    },
+    {
+      "key": "POS-EX-05",
+      "name": "Eastlake Partners",
+      "left": { "marketValue": 5100000, "qty": 102000, "price": 50 },
+      "right": { "marketValue": 5100000, "qty": 102000, "price": 50 }
+    },
+    {
+      "key": "POS-EX-06",
+      "name": "Ferrous Capital",
+      "left": { "marketValue": 12500000, "qty": 250000, "price": 50 },
+      "right": { "marketValue": 12500000, "qty": 250000, "price": 50 }
+    },
+    {
+      "key": "POS-EX-07",
+      "name": "Galloway Systems",
+      "left": { "marketValue": 31000000, "qty": 620000, "price": 50 },
+      "right": { "marketValue": 31000000, "qty": 620000, "price": 50 }
+    },
+    {
+      "key": "POS-EX-08",
+      "name": "Hartwell Logistics",
+      "left": { "marketValue": 38000, "qty": 950, "price": 40 },
+      "right": { "marketValue": 38000, "qty": 950, "price": 40 }
+    },
+    {
+      "key": "POS-EX-09",
+      "name": "Islington Corp",
+      "left": { "marketValue": 72000, "qty": 1800, "price": 40 },
+      "right": { "marketValue": 72000, "qty": 1800, "price": 40 }
+    },
+    {
+      "key": "POS-EX-10",
+      "name": "Juniper Holdings",
+      "left": { "marketValue": 180000, "qty": 4500, "price": 40 },
+      "right": { "marketValue": 180000, "qty": 4500, "price": 40 }
+    },
+    {
+      "key": "POS-EX-11",
+      "name": "Kingsley Group",
+      "left": { "marketValue": 290000, "qty": 5800, "price": 50 },
+      "right": { "marketValue": 290000, "qty": 5800, "price": 50 }
+    },
+    {
+      "key": "POS-EX-12",
+      "name": "Lowther Industries",
+      "left": { "marketValue": 560000, "qty": 14000, "price": 40 },
+      "right": { "marketValue": 560000, "qty": 14000, "price": 40 }
+    },
+    {
+      "key": "POS-EX-13",
+      "name": "Meridian Partners",
+      "left": { "marketValue": 1100000, "qty": 22000, "price": 50 },
+      "right": { "marketValue": 1100000, "qty": 22000, "price": 50 }
+    },
+    {
+      "key": "POS-EX-14",
+      "name": "Northgate Capital",
+      "left": { "marketValue": 1850000, "qty": 37000, "price": 50 },
+      "right": { "marketValue": 1850000, "qty": 37000, "price": 50 }
+    },
+    {
+      "key": "POS-EX-15",
+      "name": "Oakhurst Systems",
+      "left": { "marketValue": 3200000, "qty": 64000, "price": 50 },
+      "right": { "marketValue": 3200000, "qty": 64000, "price": 50 }
+    },
+    {
+      "key": "POS-EX-16",
+      "name": "Quarry Logistics",
+      "left": { "marketValue": 6700000, "qty": 134000, "price": 50 },
+      "right": { "marketValue": 6700000, "qty": 134000, "price": 50 }
+    },
+    {
+      "key": "POS-EX-17",
+      "name": "Ravenna Corp",
+      "left": { "marketValue": 9800000, "qty": 196000, "price": 50 },
+      "right": { "marketValue": 9800000, "qty": 196000, "price": 50 }
+    },
+    {
+      "key": "POS-EX-18",
+      "name": "Stanmore Holdings",
+      "left": { "marketValue": 15000000, "qty": 300000, "price": 50 },
+      "right": { "marketValue": 15000000, "qty": 300000, "price": 50 }
+    },
+    {
+      "key": "POS-EX-19",
+      "name": "Thornbury Group",
+      "left": { "marketValue": 28000000, "qty": 560000, "price": 50 },
+      "right": { "marketValue": 28000000, "qty": 560000, "price": 50 }
+    },
+    {
+      "key": "POS-EX-20",
+      "name": "Aldane Holdings",
+      "left": { "marketValue": 350000, "qty": 7000, "price": 50 },
+      "right": { "marketValue": 350000, "qty": 7000, "price": 50 }
+    },
+    {
+      "key": "POS-EX-21",
+      "name": "Borealis Industries",
+      "left": { "marketValue": 750000, "qty": 15000, "price": 50 },
+      "right": { "marketValue": 750000, "qty": 15000, "price": 50 }
+    },
+    {
+      "key": "POS-EX-22",
+      "name": "Cindermoor Partners",
+      "left": { "marketValue": 1450000, "qty": 29000, "price": 50 },
+      "right": { "marketValue": 1450000, "qty": 29000, "price": 50 }
+    },
+    {
+      "key": "POS-EX-23",
+      "name": "Dovecote Capital",
+      "left": { "marketValue": 2100000, "qty": 42000, "price": 50 },
+      "right": { "marketValue": 2100000, "qty": 42000, "price": 50 }
+    },
+    {
+      "key": "POS-EX-24",
+      "name": "Eastlake Systems",
+      "left": { "marketValue": 4600000, "qty": 92000, "price": 50 },
+      "right": { "marketValue": 4600000, "qty": 92000, "price": 50 }
+    },
+    {
+      "key": "POS-EX-25",
+      "name": "Ferrous Logistics",
+      "left": { "marketValue": 8200000, "qty": 164000, "price": 50 },
+      "right": { "marketValue": 8200000, "qty": 164000, "price": 50 }
+    },
+    {
+      "key": "POS-EX-26",
+      "name": "Galloway Corp",
+      "left": { "marketValue": 16500000, "qty": 330000, "price": 50 },
+      "right": { "marketValue": 16500000, "qty": 330000, "price": 50 }
+    },
+    {
+      "key": "POS-EX-27",
+      "name": "Hartwell Holdings",
+      "left": { "marketValue": 21500000, "qty": 430000, "price": 50 },
+      "right": { "marketValue": 21500000, "qty": 430000, "price": 50 }
+    },
+    {
+      "key": "POS-EX-28",
+      "name": "Islington Group",
+      "left": { "marketValue": 45000, "qty": 900, "price": 50 },
+      "right": { "marketValue": 45000, "qty": 900, "price": 50 }
+    },
+    {
+      "key": "POS-EX-29",
+      "name": "Juniper Industries",
+      "left": { "marketValue": 92000, "qty": 1840, "price": 50 },
+      "right": { "marketValue": 92000, "qty": 1840, "price": 50 }
+    },
+    {
+      "key": "POS-EX-30",
+      "name": "Kingsley Partners",
+      "left": { "marketValue": 240000, "qty": 4800, "price": 50 },
+      "right": { "marketValue": 240000, "qty": 4800, "price": 50 }
+    },
+    {
+      "key": "POS-EX-31",
+      "name": "Lowther Capital",
+      "left": { "marketValue": 480000, "qty": 9600, "price": 50 },
+      "right": { "marketValue": 480000, "qty": 9600, "price": 50 }
+    },
+    {
+      "key": "POS-EX-32",
+      "name": "Meridian Systems",
+      "left": { "marketValue": 1350000, "qty": 27000, "price": 50 },
+      "right": { "marketValue": 1350000, "qty": 27000, "price": 50 }
+    },
+    {
+      "key": "POS-EX-33",
+      "name": "Northgate Logistics",
+      "left": { "marketValue": 2700000, "qty": 54000, "price": 50 },
+      "right": { "marketValue": 2700000, "qty": 54000, "price": 50 }
+    },
+    {
+      "key": "POS-EX-34",
+      "name": "Oakhurst Corp",
+      "left": { "marketValue": 5800000, "qty": 116000, "price": 50 },
+      "right": { "marketValue": 5800000, "qty": 116000, "price": 50 }
+    },
+    {
+      "key": "POS-EX-35",
+      "name": "Quarry Holdings",
+      "left": { "marketValue": 11200000, "qty": 224000, "price": 50 },
+      "right": { "marketValue": 11200000, "qty": 224000, "price": 50 }
+    },
+    {
+      "key": "POS-EX-36",
+      "name": "Ravenna Group",
+      "left": { "marketValue": 19000000, "qty": 380000, "price": 50 },
+      "right": { "marketValue": 19000000, "qty": 380000, "price": 50 }
+    },
+    {
+      "key": "POS-EX-37",
+      "name": "Stanmore Industries",
+      "left": { "marketValue": 34000000, "qty": 680000, "price": 50 },
+      "right": { "marketValue": 34000000, "qty": 680000, "price": 50 }
+    },
+    {
+      "key": "POS-EX-38",
+      "name": "Thornbury Partners",
+      "left": { "marketValue": 41000000, "qty": 820000, "price": 50 },
+      "right": { "marketValue": 41000000, "qty": 820000, "price": 50 }
+    },
+    {
+      "key": "POS-TOL-01",
+      "name": "Aldane Logistics",
+      "left": { "marketValue": 520000, "qty": 10400, "price": 50 },
+      "right": { "marketValue": 521500, "qty": 10400, "price": 50.14 }
+    },
+    {
+      "key": "POS-TOL-02",
+      "name": "Borealis Corp",
+      "left": { "marketValue": 1750000, "qty": 35000, "price": 50 },
+      "right": { "marketValue": 1744500, "qty": 35000, "price": 49.84 }
+    },
+    {
+      "key": "POS-TOL-03",
+      "name": "Cindermoor Industries",
+      "left": { "marketValue": 3900000, "qty": 78000, "price": 50 },
+      "right": { "marketValue": 3908000, "qty": 78000, "price": 50.1 }
+    },
+    {
+      "key": "POS-TOL-04",
+      "name": "Dovecote Systems",
+      "left": { "marketValue": 840000, "qty": 16800, "price": 50 },
+      "right": { "marketValue": 838000, "qty": 16800, "price": 49.88 }
+    },
+    {
+      "key": "POS-TOL-05",
+      "name": "Eastlake Group",
+      "left": { "marketValue": 7200000, "qty": 144000, "price": 50 },
+      "right": { "marketValue": 7220000, "qty": 144000, "price": 50.14 }
+    },
+    {
+      "key": "POS-TOL-06",
+      "name": "Ferrous Partners",
+      "left": { "marketValue": 14000000, "qty": 280000, "price": 50 },
+      "right": { "marketValue": 13955000, "qty": 280000, "price": 49.84 }
+    },
+    {
+      "key": "POS-TOL-07",
+      "name": "Galloway Logistics",
+      "left": { "marketValue": 110000, "qty": 2200, "price": 50 },
+      "right": { "marketValue": 110400, "qty": 2200, "price": 50.18 }
+    },
+    {
+      "key": "POS-TOL-08",
+      "name": "Hartwell Corp",
+      "left": { "marketValue": 630000, "qty": 12600, "price": 50 },
+      "right": { "marketValue": 628800, "qty": 12600, "price": 49.9 }
+    },
+    {
+      "key": "POS-TOL-09",
+      "name": "Islington Partners",
+      "left": { "marketValue": 2250000, "qty": 45000, "price": 50 },
+      "right": { "marketValue": 2256000, "qty": 45000, "price": 50.13 }
+    },
+    {
+      "key": "POS-TOL-10",
+      "name": "Juniper Systems",
+      "left": { "marketValue": 4800000, "qty": 96000, "price": 50 },
+      "right": { "marketValue": 4788000, "qty": 96000, "price": 49.88 }
+    },
+    {
+      "key": "POS-TOL-11",
+      "name": "Kingsley Logistics",
+      "left": { "marketValue": 9600000, "qty": 192000, "price": 50 },
+      "right": { "marketValue": 9630000, "qty": 192000, "price": 50.16 }
+    },
+    {
+      "key": "POS-TOL-12",
+      "name": "Lowther Group",
+      "left": { "marketValue": 17800000, "qty": 356000, "price": 50 },
+      "right": { "marketValue": 17740000, "qty": 356000, "price": 49.83 }
+    },
+    { "key": "POS-BULK", "name": "Positions that agree exactly", "status": "exact", "count": 101 }
+  ]
+}

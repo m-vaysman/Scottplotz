@@ -1,0 +1,60 @@
+{
+  "left": { "name": "Fund administrator ledger", "short": "Ledger" },
+  "right": { "name": "Investment manager records", "short": "Manager" },
+  "unit": { "one": "record", "many": "records" },
+  "asOf": "2026-03-31",
+  "text": {
+    "title": "Administrator's ledger against the manager's records",
+    "lede": "Matching runs in passes, strictest first. Each row is one pass: the bars are the records still unmatched on each side when the pass began, and the grey part is what that pass paired off. The two sides close toward the middle like a zip, and what is left at the bottom is the real work.",
+    "chartTitle": "What each pass matched, and what it left",
+    "chartSub": "Transactions for March 2026. Select a pass to see its rule and examples.",
+    "legLeft": "Ledger records still unmatched",
+    "legRight": "Manager records still unmatched",
+    "legPaired": "Paired off by this pass",
+    "unmatchedName": "Left unmatched after every pass",
+    "unmatchedRule": "No pass could pair these. Each one needs a person: a missing booking on the other side, a wrong security, or a trade cancelled on one side only."
+  },
+  "groups": [
+    {
+      "key": "Pass 1: same trade reference",
+      "note": "Both sides carry the same trade reference. Nothing else is needed to pair them; amounts are compared afterwards."
+    },
+    {
+      "key": "Pass 2: same security, date and quantity",
+      "note": "No shared reference, so pair on security identifier, trade date and quantity together. Used where the manager’s system issues its own references."
+    },
+    {
+      "key": "Pass 3: within tolerance",
+      "note": "Same security and quantity, with the date allowed to differ by one day and the amount by 0.01. Catches late bookings and rounding."
+    },
+    {
+      "key": "Pass 4: several to one",
+      "note": "Several ledger records that add up to one manager record: a block trade the administrator booked per fund and the manager booked once."
+    }
+  ],
+  "records": [
+    { "key": "TR-884102", "name": "TR-884102", "status": "exact", "reason": "Reference equal", "attrs": { "pass": "Pass 1: same trade reference" } },
+    { "key": "TR-884117", "name": "TR-884117", "status": "exact", "reason": "Reference equal", "attrs": { "pass": "Pass 1: same trade reference" } },
+    { "key": "TR-884131", "name": "TR-884131", "status": "exact", "reason": "Reference equal", "attrs": { "pass": "Pass 1: same trade reference" } },
+    { "key": "P1-bulk", "status": "exact", "count": 3117, "attrs": { "pass": "Pass 1: same trade reference" } },
+    { "key": "TR-884260", "name": "M-20771", "status": "exact", "reason": "Aldane Corp, 12 March, 4,000 shares", "attrs": { "pass": "Pass 2: same security, date and quantity" } },
+    { "key": "TR-884263", "name": "M-20774", "status": "exact", "reason": "Borealis Holdings, 12 March, 1,250 shares", "attrs": { "pass": "Pass 2: same security, date and quantity" } },
+    { "key": "TR-884301", "name": "M-20810", "status": "exact", "reason": "Juniper Systems, 13 March, 9,600 shares", "attrs": { "pass": "Pass 2: same security, date and quantity" } },
+    { "key": "P2-bulk", "status": "exact", "count": 637, "attrs": { "pass": "Pass 2: same security, date and quantity" } },
+    { "key": "TR-884412", "name": "M-20933", "status": "tolerance", "reason": "Dates one day apart: 17 and 18 March", "attrs": { "pass": "Pass 3: within tolerance" } },
+    { "key": "TR-884419", "name": "M-20941", "status": "tolerance", "reason": "Amounts 0.01 apart", "attrs": { "pass": "Pass 3: within tolerance" } },
+    { "key": "TR-884450", "name": "M-20958", "status": "tolerance", "reason": "Dates one day apart: 19 and 20 March", "attrs": { "pass": "Pass 3: within tolerance" } },
+    { "key": "P3-bulk", "status": "tolerance", "count": 207, "attrs": { "pass": "Pass 3: within tolerance" } },
+    { "key": "TR-884501, 502, 503", "name": "M-21007", "status": "break", "reason": "Three allocations add up to 15,000 shares", "attrs": { "pass": "Pass 4: several to one", "leftCount": 3, "rightCount": 1 } },
+    { "key": "TR-884520, 521", "name": "M-21015", "status": "break", "reason": "Two allocations add up to 6,400 shares", "attrs": { "pass": "Pass 4: several to one", "leftCount": 2, "rightCount": 1 } },
+    { "key": "TR-884533 to 537", "name": "M-21022", "status": "break", "reason": "Five allocations add up to 42,500 shares", "attrs": { "pass": "Pass 4: several to one", "leftCount": 5, "rightCount": 1 } },
+    { "key": "P4-bulk-ex", "status": "exact", "count": 22, "attrs": { "pass": "Pass 4: several to one", "leftCount": 70, "rightCount": 22 } },
+    { "key": "P4-bulk-brk", "status": "break", "count": 70, "attrs": { "pass": "Pass 4: several to one", "leftCount": 230, "rightCount": 70 } },
+    { "key": "TR-884902", "status": "leftOnly", "reason": "Cancelled by the manager, still live in the ledger" },
+    { "key": "M-21340", "status": "rightOnly", "reason": "Booked by the manager on 31 March, not yet in the ledger" },
+    { "key": "TR-884915", "status": "leftOnly", "reason": "Security identifier does not exist on the manager’s side" },
+    { "key": "UNM-bulk-left", "status": "leftOnly", "count": 50 },
+    { "key": "UNM-dup-left", "status": "leftOnly", "count": 6, "duplicate": "left" },
+    { "key": "UNM-bulk-right", "status": "rightOnly", "count": 43 }
+  ]
+}

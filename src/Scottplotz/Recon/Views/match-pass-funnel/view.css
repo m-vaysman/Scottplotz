@@ -1,0 +1,4 @@
+.rowhit{fill:transparent;cursor:pointer}
+.rowhit:hover,.rowhit.on{fill:var(--wash)}
+.leg{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--ink2);margin-bottom:8px}
+.rule{font-size:14px;margin:0 0 12px}

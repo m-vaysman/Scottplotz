@@ -1,0 +1,5 @@
+.seg2{cursor:pointer;stroke:var(--surface);stroke-width:2}
+.colsel{fill:none;stroke:var(--ink);stroke-width:2}
+.leg{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--ink2);margin-bottom:8px}
+.txt-on-exact{fill:var(--on-exact)}
+.txt-on-color{fill:var(--on-brk)}

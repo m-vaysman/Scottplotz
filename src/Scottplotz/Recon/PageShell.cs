@@ -11,7 +11,7 @@ public static class PageShell
     public static ReconPage Compose(ReconModel model, ReconView view, ReconKit kit)
     {
         var json = ReconJson.Write(model);
-        var script = $"\n{kit.Script}\n{{\n{view.Assets.Script}\n}}\n";
+        var script = $"\n{kit.Script}\n(() => {{\n{view.Assets.Script}\n}})();\n";
         var policy = Policy(script);
         var html = string.Concat(
             "<!doctype html>\n",
