@@ -1,0 +1,32 @@
+{
+  "left": { "name": "Purchase order lines", "short": "Ordered" },
+  "right": { "name": "Supplier invoice lines", "short": "Invoiced" },
+  "unit": { "one": "line", "many": "lines" },
+  "asOf": "2026-03-31",
+  "tolerance": 2,
+  "fields": [
+    { "key": "qty", "label": "Quantity", "decimals": 0, "compare": false },
+    { "key": "price", "label": "Unit price", "decimals": 4, "compare": false },
+    { "key": "ext", "label": "Extended amount", "decimals": 2 }
+  ],
+  "measure": "ext",
+  "text": { "title": "Purchase order lines against supplier invoices" },
+  "records": [
+    {"key":"PO-5512-1","name":"Pallet wrap 18 in","group":"Tidewell Supply","left":{"qty":120,"price":24.5,"ext":2940},"right":{"qty":120,"price":24.5,"ext":2940}},
+    {"key":"PO-5512-2","name":"Corner boards","group":"Tidewell Supply","left":{"qty":400,"price":3.1,"ext":1240},"right":{"qty":400,"price":3.45,"ext":1380},"reason":"Invoiced at 3.45 each. The order and the contract both say 3.10."},
+    {"key":"PO-5512-3","name":"Strapping kits","group":"Tidewell Supply","left":{"qty":60,"price":41,"ext":2460},"right":{"qty":66,"price":41,"ext":2706},"reason":"Invoiced for 66. The goods receipt shows 60 delivered."},
+    {"key":"PO-5512-4","name":"Stretch film","group":"Tidewell Supply","left":{"qty":200,"price":17.25,"ext":3450},"right":{"qty":200,"price":17.25,"ext":3450}},
+    {"key":"PO-5530-1","name":"Tape 48 mm","group":"Tidewell Supply","left":{"qty":900,"price":2.15,"ext":1935},"right":{"qty":900,"price":2.15,"ext":1935},"reason":"Invoice TS-20418 arrived twice, by post and by email. Pay it once.","duplicate":"right"},
+    {"key":"PO-5530-2","name":"Label rolls","group":"Tidewell Supply","left":{"qty":150,"price":12.4,"ext":1860},"reason":"Delivered on 19 March. No invoice yet, so the cost needs an accrual."},
+    {"key":"PO-5541-1","name":"Cartons 40 x 30","group":"Corvin Packaging","left":{"qty":2000,"price":1.42,"ext":2840},"right":{"qty":2000,"price":1.42,"ext":2840}},
+    {"key":"PO-5541-2","name":"Cartons 60 x 40","group":"Corvin Packaging","left":{"qty":1500,"price":2.05,"ext":3075},"right":{"qty":1500,"price":2.049,"ext":3073.5},"reason":"Unit price rounded differently. 1.50 under, inside tolerance."},
+    {"key":"PO-5541-3","name":"Dividers","group":"Corvin Packaging","left":{"qty":800,"price":0.95,"ext":760},"right":{"qty":800,"price":1.15,"ext":920},"reason":"The supplier used the old price list."},
+    {"key":"PO-5541-4","name":"Foam inserts","group":"Corvin Packaging","left":{"qty":1000,"price":3.6,"ext":3600},"right":{"qty":900,"price":3.6,"ext":3240},"reason":"Short shipment. The other 100 are on back order."},
+    {"key":"CP-FRT-01","name":"Freight surcharge","group":"Corvin Packaging","right":{"qty":1,"price":385,"ext":385},"reason":"No order line covers this charge. Ask the supplier what it is for."},
+    {"key":"PO-5560-1","name":"Brochures","group":"Marlow Print","left":{"qty":5000,"price":0.62,"ext":3100},"right":{"qty":5000,"price":0.62,"ext":3100}},
+    {"key":"PO-5560-2","name":"Shelf talkers","group":"Marlow Print","left":{"qty":2500,"price":0.88,"ext":2200},"right":{"qty":2500,"price":0.88,"ext":2200}},
+    {"key":"PO-5560-3","name":"Banner stands","group":"Marlow Print","left":{"qty":12,"price":145,"ext":1740},"right":{"qty":12,"price":159,"ext":1908},"reason":"A rush fee was folded into the unit price instead of billed separately."},
+    {"key":"PO-5560-4","name":"Catalogues","group":"Marlow Print","left":{"qty":3000,"price":1.35,"ext":4050},"right":{"qty":3000,"price":1.3503,"ext":4050.9},"reason":"Rounding on the invoice. 0.90 over, inside tolerance."},
+    {"key":"MP-PRF-01","name":"Proof charges","group":"Marlow Print","right":{"qty":1,"price":220,"ext":220},"reason":"No order line covers this charge."}
+  ]
+}

@@ -3,6 +3,7 @@ using Scottplotz.Charting;
 using Scottplotz.Http;
 using Scottplotz.Logging;
 using Scottplotz.Meaning;
+using Scottplotz.Recon;
 using Scottplotz.Rendering;
 
 namespace Scottplotz.Hosting;
@@ -24,6 +25,7 @@ public static class ScottplotzHost
         builder.Services.AddSingleton<IColumnMeaningAdvisor, DisabledColumnMeaningAdvisor>();
         builder.Services.AddSingleton<IApiKeySource, EnvironmentApiKeySource>();
         builder.Services.AddSingleton<IChartImageRenderer, ScottPlotChartRenderer>();
+        builder.Services.AddSingleton(services => ReconLimits.Bind(services.GetRequiredService<IConfiguration>()));
         builder.Services.AddMcpServer()
             .WithHttpTransport()
             .WithToolsFromAssembly();
@@ -64,6 +66,7 @@ public static class ScottplotzHost
         }));
 
         app.UseMiddleware<ApiKeyMiddleware>();
+        app.UseMiddleware<ReconApiKeyMiddleware>();
         app.UseDefaultFiles();
         app.UseStaticFiles();
         app.UseSwagger();
@@ -79,6 +82,7 @@ public static class ScottplotzHost
             .Produces<HealthReport>(StatusCodes.Status200OK);
 
         ChartEndpoints.Map(app);
+        ReconEndpoints.Map(app);
         app.MapMcp("/mcp");
         return app;
     }
