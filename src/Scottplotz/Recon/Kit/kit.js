@@ -43,7 +43,7 @@ const RD = (() => {
   const val = (rec, side, key = model.measure) => rec[side] && key ? rec[side][key] ?? null : null;
   const cls = { leftOnly: 'l', exact: 'ex', tolerance: 'tol', break: 'brk', rightOnly: 'r' };
   const statusWord = rec => label(rec.status) + (rec.duplicate ? ', ' + label('duplicate').toLowerCase() : '');
-  const clip = (t, n) => t.length > n ? t.slice(0, n - 1) + '…' : t;
+  const clip = (t, n) => { const v = String(t ?? ''); return v.length > n ? v.slice(0, n - 1) + '…' : v; };
   // Group names at one level of the group path, in the order of model.groups first and then first seen.
   const groupNames = (records = model.records, level = 0) => {
     const declared = model.groups.filter(g => g.path.length === level + 1).map(g => g.path[level]);
