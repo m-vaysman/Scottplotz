@@ -63,7 +63,7 @@ Only `records` is required.
 - **A record** has a `key` and at least one of `left`, `right` or `status`.
   - A side is a bare number (the measure), an object of field values, or an array of lines `{ key, name, ...fields }` whose numbers are summed.
   - `status` is `leftOnly`, `exact`, `tolerance`, `break` or `rightOnly`. Leave it out and it is derived from the sides. Send it when the rule is not an amount rule; it then wins.
-  - `count` makes one row stand for that many records. Use it with a bare `status` for bulk rows such as "1,182 exact" instead of sending them all.
+  - `count` makes one row stand for that many records. Use it with a bare `status` for bulk rows such as "1,182 exact" instead of sending them all. A row with a `count` and sides carries the totals for those records. A view that counts records adds `rec.count`, never 1.
   - `group` is a name or a path such as `["Equities", "Tech"]`. `date` is an ISO date or date-time.
   - `duplicate` is `true`, `"left"` or `"right"`. `reason` is free text. `attrs` holds any other single values.
 - **`groups`** is optional: `{ key, name, note, left, right, attrs }`. It sets group order, gives a group a note, and can carry control totals in `left` and `right`.
