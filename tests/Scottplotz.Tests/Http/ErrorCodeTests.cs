@@ -4,8 +4,8 @@ using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.DependencyInjection;
 using Scottplotz.Charting;
+using Scottplotz.Meaning;
 using Scottplotz.Rendering;
-using Scottplotz.Rules;
 
 namespace Scottplotz.Tests.Http;
 
@@ -130,7 +130,11 @@ public sealed class BrokenRendererFactory : TestAppFactory
 
     private sealed class BrokenRenderer : IChartImageRenderer
     {
-        public byte[] Render(ChartPlan plan, ResolvedChartHints hints) =>
+        public Task<Result<ChartImage>> Render(
+            ChartRequest request,
+            ChartingLimits limits,
+            IColumnMeaningAdvisor advisor,
+            CancellationToken cancellationToken) =>
             throw new InvalidOperationException("forced");
     }
 }

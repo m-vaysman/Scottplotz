@@ -64,7 +64,9 @@ public sealed class HintOverrideTests
         var values = Enumerable.Range(0, 40).Select(index => (index % 8) + (index * 0.05)).ToArray();
         var selected = RuleTables.Selected(RuleTables.Column("reading", values));
 
-        Assert.Equal("plain-numbers-line", selected.EffectiveRule);
+        Assert.Equal("histogram", selected.EffectiveRule);
+        Assert.Equal(ChartKind.Histogram, selected.Kind);
+        Assert.Equal(TypeSources.Model, selected.TypeSource);
         Assert.True(selected.NeedsAdvisor);
 
         var forced = RuleTables.Selected(RuleTables.Column("reading", values), ChartKind.Line);

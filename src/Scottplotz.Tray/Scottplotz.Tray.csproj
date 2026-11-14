@@ -19,4 +19,11 @@
     <Move SourceFiles="$(PublishDir)Scottplotz.Tray.exe" DestinationFiles="$(PublishDir)Scottplotz.exe" Condition="Exists('$(PublishDir)Scottplotz.Tray.exe')" />
   </Target>
 
+  <Target Name="CopyTestPage" AfterTargets="Publish">
+    <ItemGroup>
+      <TestPageFiles Include="$(MSBuildThisFileDirectory)..\Scottplotz\wwwroot\**\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(TestPageFiles)" DestinationFiles="@(TestPageFiles->'$(PublishDir)wwwroot\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+  </Target>
+
 </Project>

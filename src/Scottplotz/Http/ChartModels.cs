@@ -14,6 +14,7 @@ public sealed record ChartExplanation(
     string? MatchedRule,
     string EffectiveRule,
     ChartSettings Settings,
-    bool AdvisorConsulted);
+    bool AdvisorConsulted,
+    string TypeSource);
 
 public sealed record ChartOutcome(ChartExplanation Explanation, ChartPlan Plan, ResolvedChartHints Hints);

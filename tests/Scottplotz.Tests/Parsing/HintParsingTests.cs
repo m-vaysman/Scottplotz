@@ -55,9 +55,9 @@ public sealed class HintParsingTests
     }
 
     [Theory]
-    [InlineData("area", "line, bar, scatter, histogram, timeseries, pie")]
-    [InlineData("Line", "line, bar, scatter, histogram, timeseries, pie")]
-    [InlineData("pie chart", "line, bar, scatter, histogram, timeseries, pie")]
+    [InlineData("area", "line, bar, scatter, histogram, timeseries, multi-line, pie")]
+    [InlineData("Line", "line, bar, scatter, histogram, timeseries, multi-line, pie")]
+    [InlineData("pie chart", "line, bar, scatter, histogram, timeseries, multi-line, pie")]
     public void Rejects_an_unknown_chart_type(string type, string allowed)
     {
         var problem = Fail($$"""{ "data": [1], "hints": { "type": "{{type}}" } }""");

@@ -34,7 +34,10 @@ public sealed class ApiKeyMiddleware(RequestDelegate next)
     public async Task InvokeAsync(HttpContext context, IApiKeySource keys)
     {
         var expected = keys.Current;
-        if (string.IsNullOrEmpty(expected) || !context.Request.Path.StartsWithSegments("/chart"))
+        var path = context.Request.Path;
+        var guarded = path.StartsWithSegments("/mcp")
+            || (path.StartsWithSegments("/chart") && !path.StartsWithSegments("/chart-types"));
+        if (string.IsNullOrEmpty(expected) || !guarded)
         {
             await next(context);
             return;

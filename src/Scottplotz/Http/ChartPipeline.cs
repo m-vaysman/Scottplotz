@@ -35,7 +35,8 @@ public static class ChartPipeline
                 labeled.Width,
                 labeled.Height,
                 labeled.Theme == ChartTheme.Dark ? "dark" : "light"),
-            decision.NeedsAdvisor);
+            decision.NeedsAdvisor,
+            decision.TypeSource);
 
         return Result<ChartOutcome>.Success(new ChartOutcome(explanation, decision.Plan, labeled));
     }

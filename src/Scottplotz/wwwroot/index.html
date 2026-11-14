@@ -38,6 +38,16 @@
       font-weight: 600;
     }
 
+    .credit {
+      margin: 14px 0 8px;
+      max-width: 46em;
+      padding: 12px 14px;
+      background: var(--field);
+      border-left: 4px solid var(--teal);
+    }
+
+    .credit a { color: var(--teal); }
+
     .lede {
       margin: 0 0 22px;
       max-width: 42em;
@@ -165,6 +175,7 @@
 <body>
   <main>
     <h1>Scottplotz</h1>
+    <p class="credit">Scottplotz is based on <a href="https://scottplot.net">ScottPlot</a>. This service is a thin REST API on top of the ScottPlot DLL, and the charts it returns are only a small sample of what ScottPlot can produce. Authorship belongs to ScottPlot (MIT license, copyright 2018 Scott Harden / Harden Technologies, LLC).</p>
     <p class="lede">Paste numbers, columns, rows, or CSV. Render draws the PNG. Explain shows which rule fired.</p>
     <div class="layout">
       <section>
@@ -179,12 +190,6 @@
           <label>Chart type
             <select id="type">
               <option value="">Auto</option>
-              <option value="line">Line</option>
-              <option value="bar">Bar</option>
-              <option value="scatter">Scatter</option>
-              <option value="histogram">Histogram</option>
-              <option value="timeseries">Time series</option>
-              <option value="pie">Pie</option>
             </select>
           </label>
           <label>Theme
@@ -232,6 +237,18 @@
 
     const dataBox = document.getElementById("data");
     dataBox.value = samples.numbers;
+
+    fetch("/chart-types")
+      .then(response => response.json())
+      .then(types => {
+        const select = document.getElementById("type");
+        types.forEach(type => {
+          const option = document.createElement("option");
+          option.value = type.id;
+          option.textContent = type.displayName;
+          select.appendChild(option);
+        });
+      });
 
     document.getElementById("sample-numbers").addEventListener("click", () => { dataBox.value = samples.numbers; });
     document.getElementById("sample-columns").addEventListener("click", () => { dataBox.value = samples.columns; });

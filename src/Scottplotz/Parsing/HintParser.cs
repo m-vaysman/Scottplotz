@@ -1,22 +1,12 @@
 using System.Globalization;
 using System.Text.Json;
 using Scottplotz.Charting;
+using Scottplotz.ChartTypes;
 
 namespace Scottplotz.Parsing;
 
 public static class HintParser
 {
-    private static readonly IReadOnlyDictionary<string, ChartKind> Kinds =
-        new Dictionary<string, ChartKind>(StringComparer.Ordinal)
-        {
-            ["line"] = ChartKind.Line,
-            ["bar"] = ChartKind.Bar,
-            ["scatter"] = ChartKind.Scatter,
-            ["histogram"] = ChartKind.Histogram,
-            ["timeseries"] = ChartKind.TimeSeries,
-            ["pie"] = ChartKind.Pie
-        };
-
     private static readonly IReadOnlyDictionary<string, ChartTheme> Themes =
         new Dictionary<string, ChartTheme>(StringComparer.Ordinal)
         {
@@ -79,12 +69,12 @@ public static class HintParser
     private static Result<ChartKind> ReadKind(HintValue value) =>
         value switch
         {
-            HintValue.Text text when Kinds.TryGetValue(text.Value.Trim(), out var kind) => Result<ChartKind>.Success(kind),
+            HintValue.Text text when ChartTypeRegistry.Find(text.Value.Trim()) is { } chartType => Result<ChartKind>.Success(chartType.Kind),
             HintValue.Text text => Result<ChartKind>.Error(ChartProblem.InvalidHint(
                 HintNames.Type,
                 text.Value,
-                "Allowed values: line, bar, scatter, histogram, timeseries, pie.")),
-            _ => Result<ChartKind>.Error(ChartProblem.HintType(HintNames.Type, "one of: line, bar, scatter, histogram, timeseries, pie"))
+                $"Allowed values: {ChartTypeRegistry.IdList}.")),
+            _ => Result<ChartKind>.Error(ChartProblem.HintType(HintNames.Type, $"one of: {ChartTypeRegistry.IdList}"))
         };
 
     private static Result<ChartTheme> ReadTheme(HintValue value) =>
