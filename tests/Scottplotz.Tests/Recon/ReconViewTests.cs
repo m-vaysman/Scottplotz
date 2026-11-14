@@ -29,6 +29,7 @@ public sealed class ReconViewTests
     {
         var names = ReconViews.All.Select(view => view.Name).ToList();
 
+        Assert.Equal(30, names.Count);
         Assert.Contains("dumbbell", names);
         Assert.Equal(names.OrderBy(name => name, StringComparer.Ordinal), names);
         Assert.Equal(names.Count, names.Distinct().Count());

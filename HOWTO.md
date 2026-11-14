@@ -277,3 +277,181 @@ try {
 5. Click **Explain**. The page shows the JSON: the shape, the rule, and the settings.
 6. A bad request replaces the picture with the status, the `code`, and the detail. Empty data (`{ "data": [] }`) is an easy one to try.
 7. Fill **API key** only when the server has `SCOTTPLOTZ_API_KEY` set. It is sent as `X-Api-Key`.
+
+## Reconciliation views
+
+Scottplotz also draws a two-sided reconciliation: records from a left source compared with records from a right source. You post the records and get back one HTML page. The page is self-contained, works offline, and can be saved or opened in any browser. It does not use ScottPlot.
+
+### Endpoints
+
+| Request | Result |
+| --- | --- |
+| `GET /recon/views` | `200` and JSON for every view: name, title, description, what the data needs, options, and text keys |
+| `GET /recon/{view}/sample` | `200` and a request body that works with that view |
+| `POST /recon/{view}` | `200` and an HTML page |
+| `POST /recon/{view}/explain` | `200` and JSON: the request after validation, with statuses, totals, labels, text and options resolved. No page |
+| `GET /recon.html` | The gallery page for trying views |
+
+An unknown view is `400` and lists the views. When `SCOTTPLOTZ_API_KEY` is set, the two `POST` routes need `X-Api-Key`; the `GET` routes stay open.
+
+Every view is listed, with its options, in [docs/recon-views.md](docs/recon-views.md).
+
+### The smallest request
+
+Only `records` is required. Each record needs a `key` and at least one side.
+
+```json
+{
+  "records": [
+    { "key": "A-1", "left": 100, "right": 100 },
+    { "key": "A-2", "left": 250, "right": 262.5 },
+    { "key": "A-3", "left": 80 },
+    { "key": "A-4", "right": 45 }
+  ]
+}
+```
+
+Scottplotz works out each record's status from the two sides:
+
+| Status | Meaning |
+| --- | --- |
+| `exact` | Both sides are present and equal |
+| `tolerance` | They differ, within the tolerance |
+| `break` | They differ by more than the tolerance |
+| `leftOnly` | Only the left side is present |
+| `rightOnly` | Only the right side is present |
+
+### A fuller request
+
+```json
+{
+  "left":  { "name": "Purchase order lines", "short": "Ordered" },
+  "right": { "name": "Supplier invoice lines", "short": "Invoiced" },
+  "unit": { "one": "line", "many": "lines" },
+  "asOf": "2026-03-31",
+  "tolerance": 2,
+  "fields": [
+    { "key": "qty", "label": "Quantity", "decimals": 0, "compare": false },
+    { "key": "ext", "label": "Extended amount", "decimals": 2 }
+  ],
+  "measure": "ext",
+  "records": [
+    {
+      "key": "PO-5512-2", "name": "Corner boards", "group": "Tidewell Supply",
+      "left": { "qty": 400, "ext": 1240 }, "right": { "qty": 400, "ext": 1380 },
+      "reason": "Invoiced at 3.45 each. The order says 3.10."
+    },
+    { "key": "PO-5530-2", "name": "Label rolls", "group": "Tidewell Supply", "left": { "qty": 150, "ext": 1860 } }
+  ],
+  "text": { "title": "Purchase orders against supplier invoices" },
+  "labels": { "break": "Dispute" },
+  "options": { "sortBy": "difference" },
+  "theme": "dark",
+  "palette": { "left": "#2563eb", "right": "#d97706" }
+}
+```
+
+| Property | What it is | Default |
+| --- | --- | --- |
+| `left`, `right` | A name, or `{ "name", "short" }`. `short` is the word used in phrases such as "Ordered only" | `Left`, `Right` |
+| `unit` | The noun for a record: a word, or `{ "one", "many" }` | `record`, `records` |
+| `asOf` | An ISO date shown on the page and used for ages | none |
+| `tolerance` | A number (absolute), or `{ "absolute", "percent" }`. A record is within tolerance when either holds | `0` |
+| `fields` | The values a side carries: a key, or `{ "key", "label", "type", "decimals", "compare", "tolerance" }`. `type` is `number`, `text` or `date`. A date field's tolerance is in days. `compare: false` shows the field without comparing it | worked out from the records |
+| `measure` | The number field used for totals and differences | the first number field |
+| `records` | See below | required |
+| `groups` | `{ "key", "name", "note", "left", "right", "attrs" }` per group: sets the order, adds a note, and can carry control totals | none |
+| `totals` | `{ "left", "right" }`, when the control totals are not the sum of the records sent | summed |
+| `text` | Replaces a view's wording. Keys differ by view; `GET /recon/views` lists them | the view's defaults |
+| `labels` | Replaces a status or phrase label: `leftOnly`, `exact`, `tolerance`, `break`, `rightOnly`, `duplicate`, `agrees`, `leftHigher`, `rightHigher`, `net`, `none` | built from the side names |
+| `options` | Settings for the view | the view's defaults |
+| `theme` | `auto` (follows the reader's system), `light` or `dark` | `auto` |
+| `palette` | Hex colours for `left`, `right`, `exact`, `tolerance`, `break`, `plane`, `surface`, `ink` | the built-in colours |
+
+A record:
+
+| Property | What it is |
+| --- | --- |
+| `key` | Required. A string or number |
+| `name` | A display name. Defaults to the key |
+| `left`, `right` | A bare number (the measure), an object of field values, or an array of lines `{ "key", "name", ...fields }` whose numbers are added up |
+| `status` | Send it to override the worked-out status, for example when the rule is not about amounts |
+| `count` | One row that stands for this many records. With only a `status`, it is a bulk row such as "1,182 exact" |
+| `group` | A name, or a path such as `["Equities", "Tech"]` |
+| `date` | An ISO date or date and time |
+| `reason` | Why the record differs |
+| `duplicate` | `true`, `"left"` or `"right"` |
+| `attrs` | Any other single values, such as `{ "owner": "Ops", "age": 12 }` |
+
+Text and labels may use `{left}`, `{right}`, `{leftShort}`, `{rightShort}`, `{unit}`, `{unitOne}`, `{measure}`, `{asOf}` and `{tolerance}`.
+
+### Reconciliation limits
+
+| Limit | Default | Setting |
+| --- | --- | --- |
+| Request body | 5 MB | `Charting:MaxRequestBodyBytes` |
+| Records | 20,000 | `Recon:MaxRecords` |
+| Fields | 40 | `Recon:MaxFields` |
+
+### When a reconciliation request fails
+
+The body is the same problem document. Unknown names are rejected, and the detail lists what is allowed.
+
+| `code` | What to do |
+| --- | --- |
+| `unknown-view` | Use a name from `GET /recon/views` |
+| `malformed-json`, `invalid-recon` | Send one JSON object with a `records` array |
+| `missing-records`, `empty-records` | Send at least one record |
+| `unknown-property` | Remove the property, or check its spelling against the tables above |
+| `invalid-value` | The detail names the path, such as `records[3].left.qty`, and what it must be |
+| `missing-sides` | Give the record a `left`, a `right`, or a `status` |
+| `status-mismatch` | The `status` contradicts the sides, such as `leftOnly` on a record with a right side |
+| `unknown-field`, `duplicate-field`, `unknown-measure` | Declare the field once in `fields`, and use a number field as the measure |
+| `unknown-label`, `unknown-text`, `unknown-option` | Use a name the detail lists |
+| `invalid-option`, `invalid-theme`, `invalid-palette` | Use an allowed value. Palette colours are hex, such as `#2563eb` |
+| `too-many-records`, `too-many-fields` | Send fewer, or raise the limit |
+
+### Reconciliation with curl
+
+```bash
+curl -sS http://localhost:5240/recon/views
+
+curl -sS -o sample.json http://localhost:5240/recon/dumbbell/sample
+
+curl -sS -o dumbbell.html http://localhost:5240/recon/dumbbell \
+  -H "Content-Type: application/json" \
+  --data-binary @sample.json
+
+curl -sS -o small.html http://localhost:5240/recon/dumbbell \
+  -H "Content-Type: application/json" \
+  -d '{"records":[{"key":"A-1","left":100,"right":100},{"key":"A-2","left":250,"right":262.5},{"key":"A-3","left":80},{"key":"A-4","right":45}]}'
+
+curl -sS http://localhost:5240/recon/dumbbell/explain \
+  -H "Content-Type: application/json" \
+  -d '{"tolerance":{"percent":5},"records":[{"key":"A-2","left":250,"right":262.5}]}'
+
+curl -sS http://localhost:5240/recon/dumbbell \
+  -H "Content-Type: application/json" \
+  -d '{"records":[{"key":"A-1","left":100}],"options":{"sortBy":"size"}}'
+```
+
+The last call fails on purpose: `sortBy` must be `input` or `difference`.
+
+### Reconciliation with PowerShell
+
+```powershell
+Invoke-WebRequest http://localhost:5240/recon/dumbbell/sample -OutFile sample.json
+
+Invoke-WebRequest http://localhost:5240/recon/dumbbell -Method POST -ContentType "application/json" -InFile sample.json -OutFile dumbbell.html
+
+Start-Process dumbbell.html
+```
+
+### Gallery page
+
+1. Open http://localhost:5240/recon.html.
+2. Pick a view. Its description, what it needs, and its options appear, and its sample loads into the box.
+3. Edit the request if you like. Set **Theme** to force light or dark.
+4. Click **Render**. The page appears on the right. **Open in a new tab** shows it full size, and you can save it from there.
+5. Click **Explain** to see the resolved model as JSON.
+6. A bad request shows the status, the title, the detail, and the `code`.
